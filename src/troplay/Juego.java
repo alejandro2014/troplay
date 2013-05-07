@@ -1,0 +1,591 @@
+package troplay;
+
+import java.awt.Rectangle;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Random;
+
+/**
+ * La clase Juego es la encargada de manejar la lógica del programa
+ * @author alejandro
+ */
+public class Juego extends ClaseControladora {
+    private int idiomaJuego = Const.ESPAÑOL;
+    private int numJugadores = 1;
+    
+    private int casillaActual = 0;
+    private ConexionJDBC consultasJDBC;
+    
+    private int jugadorActual = -1;
+    private Pregunta preguntaActual = null;
+    private int respuestaMarcada = 0;
+    
+    private Dado dado = null;
+    private Jugador[] jugadores = new Jugador[Const.MAX_JUGADORES];
+    
+    private Casilla[] tablero = new Casilla[Const.NUM_CASILLAS];
+    private int[] numPreguntas = new int[Const.NUM_DIFICULTADES];
+    
+    private boolean[] asigFacil, asigMedio, asigDificil;
+    private int ganador = -1;
+    
+    private ControlFlujo controladora = null;
+    public Ventana ventana = null;
+    
+    //Control de los gráficos
+    private int[][] coords = null;
+    private Rectangle[] rectangulos = null;
+    
+    //Elementos dinámicos del juego (botones y checkboxes)
+    private Dibujable[] botones = new Dibujable[2];
+    private CheckBox[] checkboxes = new CheckBox[3];
+    
+    private Raton raton = null;
+    private int longBotones = 0;
+    private ArrayList conjCbxActual = new ArrayList();
+    
+    //Control de colisiones
+    private boolean ratonPulsado = false;
+    private int xRaton = 0, yRaton = 0;
+    private String tipoColision = "";
+    private int indiceColision = 0;
+    private int botonPulsado = -1;
+    
+    private boolean acabar = false;
+    
+    //Elementos del autómata de estados del juego en sí
+    private final int ESTADO_INICIAL = 0;
+    private final int ESTADO_PREGUNTANDO = 1;
+    private final int ESTADO_LANZANDO = 2;
+    private final int ESTADO_AVANZANDO = 3;
+    private final int ESTADO_FINAL = 4;
+    private final int ESTADO_ESCALERA = 5;
+    private final int ESTADO_CURIOSIDAD = 6;
+    
+    private final int EVENTO_NULO = 0;
+    private final int EVENTO_ACIERTO = 1;
+    private final int EVENTO_FALLO = 2;
+    private final int EVENTO_SALIR = 3;
+    private final int EVENTO_PARAR = 4;
+    private final int EVENTO_ESCALERA = 5;
+    
+    private int estadoActual = ESTADO_INICIAL;
+    private int eventoActual = EVENTO_NULO;
+    
+    private String textoCuriosidad = null;
+
+    private Pregunta pregCuriosidad = null; //Pregunta utilizada para la curiosidad del final
+    private Panel panel = null;
+    private boolean cambiadoBoton = false;
+    private boolean cambiadoCheckbox = false;
+    
+    private int contadorInicial, contadorFinal, contadorMas1;
+    private boolean dibujadaCuriosidad = false;
+    
+    /**
+     * Constructor. Se encarga de inicializar el estado del juego
+     * @param panel Panel de dibujo
+     * @param raton Controladora del ratón
+     * @param control Clase que controla el flujo del juego
+     * @throws java.sql.SQLException
+     */
+    public Juego(Panel panel, Raton raton, ControlFlujo control) throws SQLException {
+        int i;
+        
+        this.panel = panel;
+        panel.setRefJuego(this);
+        panel.setNuevoDibujado(3,true);
+        
+        controladora = control;
+        this.raton = raton;
+
+        coords = Const.ARR_COORDS_JUEGO;
+        rectangulos = Const.ARR_RECTS;
+        
+        numJugadores = control.getNumJugadores();
+        jugadorActual = (numJugadores == 1 ? 0 : -1);
+        
+        idiomaJuego = control.getIdioma();
+        consultasJDBC = new ConexionJDBC(idiomaJuego);
+        
+        for(i=0; i<Const.MAX_JUGADORES; i++) jugadores[i] = null;
+        for(i=0; i<Const.NUM_CASILLAS; i++) tablero[i] = new Casilla(i);
+        
+        dado = new Dado();
+        dado.setXY(coords[4][0], coords[4][1]);
+        dado.setMostrar(true);
+        
+        //Inicializa el número de jugadores y el tipo de juego
+        for(i=0; i<numJugadores; i++) {
+            jugadores[i] = new Jugador(this,i);
+            jugadores[i].setMostrar(true);
+        }
+        
+        //Inicializacion de los botones
+        longBotones = botones.length;
+        for(i = 0; i < longBotones; i++) {
+            //botones[i] = new Boton(idiomaJuego);
+            botones[i] = new Dibujable();
+            botones[i].setXY(coords[i+5][0], coords[i+5][1]);
+            botones[i].setMostrar(true);
+            botones[i].setRectangulo(rectangulos[i+4]);
+        }
+        
+        //Inicializacion de los checkBox
+        for(i = 0; i < 3; i++) {
+            //Determina el conjunto de checkboxes al que pertenece
+            checkboxes[i] = new CheckBox(conjCbxActual);
+            checkboxes[i].setXY(coords[i+7][0], coords[i+7][1]);
+            checkboxes[i].setMostrar(false);
+            checkboxes[i].setRectangulo(rectangulos[i+7]);
+        }
+        checkboxes[0].setActivado(true);
+        
+        //Inicializa las preguntas
+        for(i=0; i<Const.NUM_DIFICULTADES; i++)numPreguntas[i] = getNumPreguntas(i,idiomaJuego);
+        asigFacil = new boolean[numPreguntas[Const.BAJA]];
+        asigMedio = new boolean[numPreguntas[Const.MEDIA]];
+        asigDificil = new boolean[numPreguntas[Const.ALTA]];
+        
+        /* Inicializa los arrays que indican si una pregunta ya está asignada
+        a una casilla */
+        for(i=0; i<numPreguntas[Const.BAJA]; i++) asigFacil[i] = false;
+        for(i=0; i<numPreguntas[Const.MEDIA]; i++) asigMedio[i] = false;
+        for(i=0; i<numPreguntas[Const.ALTA]; i++) asigDificil[i] = false;
+        
+        asignarPreguntas();
+        
+        //Obtención de la curiosidad
+        textoCuriosidad = consultasJDBC.getTextoCuriosidad();
+        textoCuriosidad = textoCuriosidad.substring(textoCuriosidad.indexOf("?")+1);
+        pregCuriosidad = new Pregunta(Const.ANCHOCURIOSIDAD);
+        pregCuriosidad.setTextoPregunta(textoCuriosidad);
+        panel.setCuriosidad(pregCuriosidad);
+        
+        consultasJDBC.cerrarConexion();
+        
+        panel.setModo(3);
+        bucleJuego();
+    }
+    
+    /**
+     * Control del bucle de juego de la partida
+     */
+    public void bucleJuego() {
+        while(!acabar) {            
+            estadoActual = cambiarEstado(estadoActual, eventoActual);
+            
+            //Controla la entrada del usuario sólo si se está preguntando
+            if(estadoActual == ESTADO_PREGUNTANDO) {
+                //Lectura de la entrada
+                controlEntrada();
+            
+                //Procesado de la entrada
+                if (ratonPulsado)
+                    procesarEntrada();
+                else
+                    cambiadoCheckbox = false;
+            
+                //Se actúa cuando se deja de pulsar el botón, no antes
+                if (botonPulsado != -1 && !ratonPulsado) {
+                    //botones[botonPulsado].setPulsado(false);
+                    desencadenarAccion(botonPulsado);
+                    botonPulsado = -1;
+                }
+            }
+
+            ganador = hayGanador();
+            acabar = finalBucle();
+            try {
+                Thread.sleep(70);
+            } catch (InterruptedException ex) {}
+        }
+        
+        panel.setCadenaEstado("");
+        panel.setDibujadaCuriosidad(false);
+        
+        controladora.setEvento(Const.EVENTO_SALIR);
+        }
+    
+    /**
+     * Método utilizado para cambiar de estado en función del estado y del evento
+     * @param estado Estado del que se parte
+     * @param evento Evento de entrada
+     * @return Estado al que se llega
+     */
+    public int cambiarEstado(int estado, int evento) {
+        int nuevoEstado = estado;
+        
+        switch(estado) {
+            //Estado normal en el juego
+            case ESTADO_INICIAL:
+                switch(evento) {
+                    case EVENTO_NULO:
+                        if(numJugadores != 1) {                            
+                            if((jugadorActual++) == numJugadores-1) jugadorActual = 0;
+                                
+                                //Cuando está en un pozo pasa el turno pero ya puede tirar la siguiente
+                                while(!jugadores[jugadorActual].getPuedoTirar()) {
+                                    jugadores[jugadorActual].setPuedoTirar(true);
+                                    if((jugadorActual++) == numJugadores-1) jugadorActual = 0;
+                                }
+                        }
+                        
+                        //Obtención de la pregunta correspondiente por casilla y jugador
+                        casillaActual = jugadores[jugadorActual].getCasilla();
+                        preguntaActual = tablero[casillaActual].getPregActual();
+            
+                        //Obtención de la pregunta
+                        panel.setPregunta(preguntaActual);
+                        panel.setRefrescarTablero();
+                        panel.setDibujarPregunta(true);
+                        
+                        nuevoEstado = ESTADO_PREGUNTANDO;
+                        break;
+                }
+                
+                break;
+                
+            //Estado del juego en el que se hace la pregunta
+            case ESTADO_PREGUNTANDO:
+                switch(evento) {
+                    //Acierta la pregunta
+                    case EVENTO_ACIERTO:
+                        switch(idiomaJuego) {
+                            case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " acierta"); break;
+                            case Const.INGLES: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " is right"); break;
+                        }
+                        
+                        panel.setPregunta(null);
+                        tablero[casillaActual].preguntaResuelta();
+                        nuevoEstado = ESTADO_LANZANDO;
+                        contadorInicial = panel.getContadorTimer();
+                        contadorMas1 = contadorInicial+1;
+                        contadorFinal = contadorInicial + 30;
+                        break;
+                        
+                    //Falla la pregunta
+                    case EVENTO_FALLO:
+                        switch(idiomaJuego) {
+                            case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " falla"); break;
+                            case Const.INGLES: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " fails"); break;
+                        }
+                        
+                        panel.setPregunta(null);
+                        eventoActual = EVENTO_NULO;
+                        nuevoEstado = ESTADO_INICIAL;
+                        break;
+                        
+                    case EVENTO_SALIR:
+                        nuevoEstado = ESTADO_FINAL;
+                        break;
+                }
+                break;
+            
+            //Estado en el que se lanza el dado y se muestra la animación
+            case ESTADO_LANZANDO:
+                switch(evento) {
+                    case EVENTO_NULO: //Una vez que ya se ha puesto un tiempo de incertidumbre se muestra el resultado
+                        int incCasilla = dado.getNuevoValor();
+                        
+                        jugadores[jugadorActual].avanzarCasilla(incCasilla);
+                        
+                        Casilla casillaNueva = tablero[jugadores[jugadorActual].getCasilla()];
+                        if (casillaNueva.getEspecial() && casillaNueva.getComplementaria() == -1 && numJugadores > 1) {
+                            jugadores[jugadorActual].setPuedoTirar(false);
+                            
+                            switch(idiomaJuego) {
+                                case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " frena"); break;
+                                case Const.INGLES: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " brakes"); break;
+                            }
+                        }
+                        
+                        eventoActual = EVENTO_PARAR;
+                        panel.insActualizacion(11, dado.getValor() - 1, Const.ARR_COORDS_JUEGO[4][0], Const.ARR_COORDS_JUEGO[4][1]);
+                        
+                        nuevoEstado = ESTADO_AVANZANDO;
+                        break;
+                    default: //Se mueve el dado...
+                        int contador = panel.getContadorTimer();
+                        
+                        if(contador == contadorMas1) {
+                            panel.insActualizacion(11, contador % 6, Const.ARR_COORDS_JUEGO[4][0],Const.ARR_COORDS_JUEGO[4][1]);
+                            contadorMas1++;
+                        }
+                        
+                        if(contador == contadorFinal) {
+                            contadorInicial = -1;
+                            eventoActual = EVENTO_NULO;
+                        }
+                        break;
+                }
+                break;
+                
+            //Estado de muestra de la animación del avance del jugador
+            case ESTADO_AVANZANDO:
+                switch(evento) {
+                    case EVENTO_PARAR:
+                        int contador = panel.getContadorTimer();
+                        
+                        if (contadorInicial == -1) {
+                            contadorInicial = contador;
+                            contadorMas1 = contador+1;
+                        }
+                        
+                        if(contador == contadorMas1) {
+                            eventoActual = jugadores[jugadorActual].setCoordsAnim();
+                            panel.setRefrescarTablero();
+                            panel.insActualizacion(jugadorActual+7, 0, jugadores[jugadorActual].getCx(),
+                                                   jugadores[jugadorActual].getCy());
+                            contadorMas1++;
+                        }
+                        break;
+                        
+                    case EVENTO_NULO:
+                        if (ganador == -1) {
+                            nuevoEstado = ESTADO_INICIAL;
+                            contadorInicial = -1;
+                        } else {
+                            nuevoEstado = ESTADO_CURIOSIDAD;
+                            contadorInicial = panel.getContadorTimer();
+                            contadorFinal = contadorInicial + 200;
+                        }
+                        
+                        break;
+                        
+                    case EVENTO_ESCALERA:
+                        nuevoEstado = ESTADO_ESCALERA;
+                        contadorInicial = -1;
+                        break;
+                }
+                break;
+                
+            //Controla el movimiento por la escalera
+            case ESTADO_ESCALERA:
+                switch(evento) {
+                    case EVENTO_ESCALERA:
+                        int contador = panel.getContadorTimer();
+                        
+                        if (contadorInicial == -1) {
+                            contadorInicial = contador;
+                            contadorFinal = contador+1;
+                        }
+                        
+                        if(contador == contadorFinal) {
+                            eventoActual = jugadores[jugadorActual].avanzarEscalera();
+                            panel.setRefrescarTablero();
+                            panel.insActualizacion(jugadorActual+7, 0, jugadores[jugadorActual].getCx(),
+                                                   jugadores[jugadorActual].getCy());
+                            contadorFinal++;
+                        }
+                        break;
+                        
+                    case EVENTO_NULO:
+                        nuevoEstado = ESTADO_INICIAL;
+                        break;
+                }
+                
+                break;
+            
+            //Muestra la curiosidad
+            case ESTADO_CURIOSIDAD:
+                int contador = panel.getContadorTimer();
+                
+                while(!dibujadaCuriosidad)
+                    dibujadaCuriosidad = panel.dibujarCuriosidad();
+                
+                if(contador == contadorFinal) nuevoEstado = ESTADO_FINAL;
+               
+                break;
+                
+            case ESTADO_FINAL:
+                break;
+        }
+        
+        return nuevoEstado;
+    }
+    
+    /**
+     * El juego finaliza cuando el usuario quiere salir o se ha acabado la partida
+     * @return Verdadero si hay que terminar el bucle
+     */
+    public boolean finalBucle() {return (eventoActual == EVENTO_SALIR || estadoActual == ESTADO_FINAL);}
+
+    /**
+     * Obtención de la entrada del usuario
+     */
+    public void controlEntrada() {
+        ratonPulsado = raton.getEstado();
+        
+        if (ratonPulsado) {
+            xRaton = raton.getX();
+            yRaton = raton.getY();
+            controlColision();
+        } else
+            ratonPulsado = false;
+    }
+
+    /**
+     * Detección de colisiones
+     */
+    public void controlColision() {
+        int longitud = botones.length, i;
+        
+        for(i=0; i< longitud; i++) {
+            if(botones[i].colision(xRaton, yRaton)) {
+                tipoColision = "boton";
+                indiceColision = i;
+                return;
+            }
+        }
+        
+        longitud = checkboxes.length;
+        for(i=0; i<longitud; i++) {
+            if (checkboxes[i].colision(xRaton, yRaton)) {
+                tipoColision = "checkBox";
+                indiceColision = i;
+                return;
+            }
+        }
+        
+        ratonPulsado = false;
+    }
+    
+    public void procesarEntrada() {
+        if (tipoColision.equals("checkBox")) {
+            if(!cambiadoCheckbox) {
+                checkboxes[indiceColision].setActivado(true);
+                respuestaMarcada = indiceColision;
+                for(int i = 0; i < 3; i++)
+                    panel.insActualizacion(6,(respuestaMarcada == i ? 1 : 0),
+                                checkboxes[i].getCx(), checkboxes[i].getCy());
+                
+                cambiadoCheckbox = true;
+            }
+            
+        } else if (tipoColision.equals("boton")) {
+            if(!cambiadoBoton) {
+                //botones[indiceColision].setPulsado(true);
+                panel.insActualizacion(indiceColision+4,2*idiomaJuego+1,
+                                     Const.ARR_COORDS_JUEGO[indiceColision+5][0],
+                                     Const.ARR_COORDS_JUEGO[indiceColision+5][1]);
+                cambiadoBoton = true;
+            }
+            botonPulsado = indiceColision;
+        }
+    }
+    
+    /**
+     * Desencadenar determinadas acciones en función del botón al que se pulse
+     * @param numBoton Número de botón pulsado
+     */
+    public void desencadenarAccion(int numBoton) {
+        panel.insActualizacion(numBoton+4,2*idiomaJuego,
+                               Const.ARR_COORDS_JUEGO[numBoton+5][0],Const.ARR_COORDS_JUEGO[numBoton+5][1]);
+        cambiadoBoton = false;
+        
+        switch(numBoton) {
+            case 0: //Botón responder
+                eventoActual = preguntaActual.compruebaCorrecta(respuestaMarcada) ? EVENTO_ACIERTO : EVENTO_FALLO;
+                break;
+            case 1: //Botón volver al menú
+                panel.setPregunta(null);
+                eventoActual = EVENTO_SALIR;
+                break;
+        }
+    }
+    
+    /**
+     * Se asignan a las casillas del tablero las preguntas correspondientes.
+     * En cada una de las casillas se guardan varias preguntas para que cuando
+     * un jugador pase por un casilla que otro jugador ha resuelto no le salga
+     * la misma pregunta.
+     * @throws SQLException
+     */
+    public void asignarPreguntas() throws SQLException {
+        Random rnd = new Random();
+        boolean[] asig = asigFacil;
+        int dificultad = Const.BAJA;
+        Pregunta[] pregun = new Pregunta[Const.PREGS_POR_CASILLA];
+        int[] idPreg = new int[Const.PREGS_POR_CASILLA];
+        int limite1 = Const.NUMCASIFACIL;
+        int limite2 = Const.NUMCASIFACIL + Const.NUMCASIMEDIO;
+        
+        //Se rellenan todas las casillas con preguntas
+        for(int i=0; i<Const.NUM_CASILLAS-1; i++) {
+            //Ajusta la dificultad de la pregunta en función de la casilla
+            if(i>-1 && i<limite1) {dificultad = Const.BAJA; asig = asigFacil;}
+            else if(i>limite1 - 1 && i<limite2) {dificultad = Const.MEDIA; asig = asigMedio;}
+            else if(i> limite2-1) {dificultad = Const.ALTA; asig = asigDificil;}
+            
+            //Dentro de cada casilla se rellenan cuatro preguntas
+            for(int j=0; j<Const.PREGS_POR_CASILLA; j++) {
+                do {
+                    idPreg[j] = rnd.nextInt() % numPreguntas[dificultad];
+                    if(idPreg[j] < 0) idPreg[j] *= -1;
+                } while(asig[idPreg[j]]);
+                asig[idPreg[j]] = true;
+                
+                try {
+                    pregun[j] = consultasJDBC.obtenerPregunta(idPreg[j], dificultad+1);
+                } catch (SQLException ex) {}
+            }
+
+            tablero[i].setPreguntas(pregun);
+        }
+    }
+    
+    /**
+     * Comprueba la condición de final de juego
+     * @return Verdadero si el juego ha acabado, falso en caso contrario
+     */
+    public int hayGanador() {
+        int jugadorGanador = -1;
+        
+        for(int i=0; i<numJugadores && jugadorGanador == -1; i++) {
+            if(jugadores[i].getCasilla() == (Const.NUM_CASILLAS-1)) {
+                switch(idiomaJuego) {
+                    case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (i+1) + " gana"); break;
+                    case Const.INGLES: panel.setCadenaEstado("Player " + (i+1) + " wins"); break;
+                }
+                jugadorGanador = i;
+                break;
+            }  
+        }
+        return jugadorGanador;
+    }
+    
+    public Casilla getCasilla(int numero) {return tablero[numero];}
+    public Casilla getCasillaActual() {return tablero[casillaActual];}
+    public int getCheckX(int i) {return checkboxes[i].getCx();}
+    public int getCheckY(int i) {return checkboxes[i].getCy();}
+    public Jugador getJugador(int i) {return jugadores[i];}
+    public int getJugadorActual() {return jugadorActual;}
+    public int getJugadorX(int i) {return jugadores[i].getCx();}
+    public int getJugadorY(int i) {return jugadores[i].getCy();}
+
+    /**
+     * Obtención del número de preguntas que hay disponibles, ya sea en la
+     * máquina local o en el servidor
+     * @param dificultad La dificultad de la pregunta
+     * @param idioma El idioma en el que se está jugando
+     * @return Número de preguntas disponibles de cada tipo. -1 si error.
+     */
+    public int getNumPreguntas(int dificultad, int idioma) throws SQLException {
+        return consultasJDBC.obtenerNumPreguntas(dificultad+1);
+    }
+    
+    public int getNumJugadores() {return numJugadores;}
+    
+    /**
+     * Para establecer la posición de los checkboxes de respuesta
+     * @param numCheck Número de checkbox al que se quiere mover
+     * @param despVr Desplazamiento vertical del checkbox
+     */
+    public void setCheckBoxVert(int numCheck, int despVr) {
+        checkboxes[numCheck].setCy(despVr);
+        checkboxes[numCheck].setRectangulo(new Rectangle(703,despVr,19,19));
+    }
+    
+    void setRespuestaSeleccionada(int i) {respuestaMarcada = i;}
+}
