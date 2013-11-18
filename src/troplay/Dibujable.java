@@ -1,5 +1,6 @@
 package troplay;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 
 /**
@@ -8,24 +9,39 @@ import java.awt.Rectangle;
  */
 public class Dibujable {
     protected boolean mostrar = true;
-    protected int cx = 0, cy = 0;
+	protected Point coords = new Point();
     protected Rectangle rectangulo = null;
     
-    //Métodos get
-    public int getCx() {return cx;}
-    public int getCy() {return cy;}
+    public int getCx() {return coords.x;}
+    public int getCy() {return coords.y;}
     public boolean getMostrar() {return mostrar;}
     
-    //Métodos set
-    public void setXY(int nuevaX, int nuevaY) {cx=nuevaX; cy=nuevaY;}
-    public void setCx(int nuevaX) {cx=nuevaX;}
-    public void setCy(int nuevaY) {cy=nuevaY;}
-    public void setMostrar(boolean nuevoMostrar) {mostrar = nuevoMostrar;}
-    public void setRectangulo(Rectangle nuevoRectangulo) {rectangulo = nuevoRectangulo;}
+    public void setXY(int nuevaX, int nuevaY) {
+		coords.x = nuevaX;
+		coords.y = nuevaY;
+	}
+	
+    public void setCx(int nuevaX) {
+		coords.x = nuevaX;
+	}
+	
+    public void setCy(int nuevaY) {
+		coords.y = nuevaY;
+	}
+	
+    public void setMostrar(boolean nuevoMostrar) {
+		mostrar = nuevoMostrar;
+	}
+	
+    public void setRectangulo(Rectangle nuevoRectangulo) {
+		rectangulo = nuevoRectangulo;
+	}
     
     /**
      * Determinacion de la colision con el raton
      * @return true si hay colision con el raton, false si no
      */
-    public boolean colision(int ratonX, int ratonY) {return rectangulo.contains(ratonX,ratonY);}
+    public boolean colision(int ratonX, int ratonY) {
+		return rectangulo.contains(ratonX,ratonY);
+	}
 }
