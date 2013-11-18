@@ -1,5 +1,7 @@
 package troplay;
 
+import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Rectangle;
 
 /**
@@ -75,31 +77,65 @@ public abstract class Const {
     public static final int[][] ARR_COORDS_MENU = {
                  {389,234},{389,303},{389,372},{574,220}, //Botones [0-3]
                  {346,226},{513,225},{317,384},{476,384},{317,484},{480,485}}; //Checkboxes [4-9]
-    
+	
     public static final int[][] ARR_COORDS_OPCIONES = {{320,161},{318,299},{314,437},{310,66}};
     public static final int[][] ARR_COORDS_JUEGO = {{arrX[0],arrY[0]},{arrX[0],arrY[0]},
                                                     {arrX[0],arrY[0]},{arrX[0],arrY[0]},
                                                     {698,67},{746,470},{746,512},{703,20},{703,50},{703,80}};
-    
+	
+	public static final Point[] ARR_COORDS_MENU2 = {
+		new Point(389,234),
+		new Point(389,303),
+		new Point(389,372),
+		new Point(574,220),
+		new Point(346,226),
+		new Point(513,225),
+		new Point(317,384),
+		new Point(476,384),
+		new Point(317,484),
+		new Point(480,485)
+	};
+	
+    public static final Point[] ARR_COORDS_OPCIONES2 = {
+		new Point(320,161),
+		new Point(318,299),
+		new Point(314,437),
+		new Point(310,66)
+	};
+	
+	public static final Point[] ARR_COORDS_JUEGO2 = {
+		new Point(343,543),
+		new Point(343,543),
+        new Point(343,543),
+		new Point(343,543),
+        new Point(698,67),
+		new Point(746,470),
+		new Point(746,512),
+		new Point(703,20),
+		new Point(703,50),
+		new Point(703,80)
+	};
+	
     //Rectángulos correspondientes a los elementos pulsables
     public static final Rectangle ARR_RECTS[] = {
-        new Rectangle(ARR_COORDS_MENU[0][0],ARR_COORDS_MENU[0][1],165,46), //Botones del menú principal
-        new Rectangle(ARR_COORDS_MENU[1][0],ARR_COORDS_MENU[1][1],165,46),
-        new Rectangle(ARR_COORDS_MENU[2][0],ARR_COORDS_MENU[2][1],165,46),
-        new Rectangle(ARR_COORDS_MENU[3][0],ARR_COORDS_MENU[3][1],165,46),
-        new Rectangle(ARR_COORDS_JUEGO[5][0],ARR_COORDS_JUEGO[5][1],133,37), //Botones del juego
-        new Rectangle(ARR_COORDS_JUEGO[6][0],ARR_COORDS_JUEGO[6][1],133,37),
+        new Rectangle(ARR_COORDS_MENU2[0], new Dimension(165,46)), //Botones del menú principal
+        new Rectangle(ARR_COORDS_MENU2[1], new Dimension(165,46)),
+        new Rectangle(ARR_COORDS_MENU2[2], new Dimension(165,46)),
+        new Rectangle(ARR_COORDS_MENU2[3], new Dimension(165,46)),
+        new Rectangle(ARR_COORDS_JUEGO2[5], new Dimension(133,37)), //Botones del juego
+        new Rectangle(ARR_COORDS_JUEGO2[6], new Dimension(133,37)),
         
-        new Rectangle(ARR_COORDS_MENU[4][0],ARR_COORDS_MENU[4][1],19,19), //Checkboxes del menú
-        new Rectangle(ARR_COORDS_MENU[5][0],ARR_COORDS_MENU[5][1],19,19),
-        new Rectangle(ARR_COORDS_MENU[6][0],ARR_COORDS_MENU[6][1],19,19),
-        new Rectangle(ARR_COORDS_MENU[7][0],ARR_COORDS_MENU[7][1],19,19),
-        new Rectangle(ARR_COORDS_MENU[8][0],ARR_COORDS_MENU[8][1],19,19),
-        new Rectangle(ARR_COORDS_MENU[9][0],ARR_COORDS_MENU[9][1],19,19),
+        new Rectangle(ARR_COORDS_MENU2[4], new Dimension(19,19)), //Checkboxes del menú
+        new Rectangle(ARR_COORDS_MENU2[5], new Dimension(19,19)),
+        new Rectangle(ARR_COORDS_MENU2[6], new Dimension(19,19)),
+        new Rectangle(ARR_COORDS_MENU2[7], new Dimension(19,19)),
+        new Rectangle(ARR_COORDS_MENU2[8], new Dimension(19,19)),
+        new Rectangle(ARR_COORDS_MENU2[9], new Dimension(19,19)),
     
-        new Rectangle(ARR_COORDS_JUEGO[7][0],ARR_COORDS_JUEGO[7][1],19,19), //Checkboxes del juego
-        new Rectangle(ARR_COORDS_JUEGO[8][0],ARR_COORDS_JUEGO[8][1],19,19),
-        new Rectangle(ARR_COORDS_JUEGO[9][0],ARR_COORDS_JUEGO[9][1],19,19)};
+        new Rectangle(ARR_COORDS_JUEGO2[7], new Dimension(19,19)), //Checkboxes del juego
+        new Rectangle(ARR_COORDS_JUEGO2[8], new Dimension(19,19)),
+        new Rectangle(ARR_COORDS_JUEGO2[9], new Dimension(19,19))
+	};
     
     //Estados del juego
     public static final int ESTADO_MENU = 0;

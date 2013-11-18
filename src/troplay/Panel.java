@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 import java.awt.Polygon;
 import java.awt.Toolkit;
@@ -615,8 +616,17 @@ public class Panel extends JPanel implements ActionListener {
      * @param y Coordenada y
      */
     public void insActualizacion(int indice, int subind, int x, int y) {
-        colaActualizar.add(indice); colaActualizar.add(subind);
-        colaActualizar.add(x); colaActualizar.add(y);
+        colaActualizar.add(indice);
+		colaActualizar.add(subind);
+        colaActualizar.add(x);
+		colaActualizar.add(y);
+    }
+	
+	public void insActualizacion2(int indice, int subind, Point coords) {
+        colaActualizar.add(indice);
+		colaActualizar.add(subind);
+        colaActualizar.add(coords.x);
+		colaActualizar.add(coords.y);
     }
     
     public int getContadorTimer() {return contadorTimer;}

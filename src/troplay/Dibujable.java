@@ -3,22 +3,30 @@ package troplay;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-/**
- * Clase de la que heredarán todas las que se puedan dibujar
- * @author alejandro
- */
 public class Dibujable {
     protected boolean mostrar = true;
 	protected Point coords = new Point();
     protected Rectangle rectangulo = null;
     
-    public int getCx() {return coords.x;}
-    public int getCy() {return coords.y;}
-    public boolean getMostrar() {return mostrar;}
+    public int getCx() {
+		return coords.x;
+	}
+	
+    public int getCy() {
+		return coords.y;
+	}
+	
+    public boolean getMostrar() {
+		return mostrar;
+	}
     
     public void setXY(int nuevaX, int nuevaY) {
 		coords.x = nuevaX;
 		coords.y = nuevaY;
+	}
+	
+	public void setCoords(Point coords) {
+		this.coords = coords;
 	}
 	
     public void setCx(int nuevaX) {
@@ -37,10 +45,6 @@ public class Dibujable {
 		rectangulo = nuevoRectangulo;
 	}
     
-    /**
-     * Determinacion de la colision con el raton
-     * @return true si hay colision con el raton, false si no
-     */
     public boolean colision(int ratonX, int ratonY) {
 		return rectangulo.contains(ratonX,ratonY);
 	}

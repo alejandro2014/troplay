@@ -1,5 +1,6 @@
 package troplay;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -28,7 +29,7 @@ public class Menu extends ClaseControladora {
     private ArrayList conjCbxJugadores = new ArrayList();
     
     //Control de los gráficos
-    private int[][] coords = null;
+    private Point[] coords = null;
     
     //Control de colisiones
     private boolean ratonPulsado = false;
@@ -61,7 +62,8 @@ public class Menu extends ClaseControladora {
         ventana = vent;
         panel = ventana.getPanel();
         this.raton = raton;
-        coords = Const.ARR_COORDS_MENU;
+        //coords = Const.ARR_COORDS_MENU;
+		coords = Const.ARR_COORDS_MENU2;
         
         this.tipoMenu = tipoMenu;
         
@@ -69,7 +71,8 @@ public class Menu extends ClaseControladora {
         longBotones = botones.length;
         for(i = 0; i < longBotones; i++) {
             botones[i] = new Dibujable();
-            botones[i].setXY(coords[i][0],coords[i][1]);
+            //botones[i].setXY(coords[i][0],coords[i][1]);
+			botones[i].setCoords(coords[i]);
             botones[i].setRectangulo(Const.ARR_RECTS[i]);
         }
         
@@ -79,7 +82,7 @@ public class Menu extends ClaseControladora {
             conjCbxActual = (i < longCbxIdioma ? conjCbxIdioma : conjCbxJugadores);
             
             checkboxes[i] = new CheckBox(conjCbxActual);
-            checkboxes[i].setXY(coords[i + longBotones][0], coords[i + longBotones][1]);
+			checkboxes[i].setCoords(coords[i + longBotones]);
             checkboxes[i].setRectangulo(Const.ARR_RECTS[i + 6]);
         }
         
@@ -200,8 +203,7 @@ public class Menu extends ClaseControladora {
                     numJugadores = indiceColision - 1;
                 
                     for(int i = 0; i < 4; i++)
-                        panel.insActualizacion(6, (indiceColision-2 == i ? 1 : 0),
-                              Const.ARR_COORDS_MENU[i+6][0], Const.ARR_COORDS_MENU[i+6][1]);
+                        panel.insActualizacion2(6, (indiceColision-2 == i ? 1 : 0), Const.ARR_COORDS_MENU2[i+6]);
                    
                     cambiadoCheckbox = true;
                 }
@@ -210,9 +212,7 @@ public class Menu extends ClaseControladora {
         //Pulsado de un botón
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
-                panel.insActualizacion(indiceColision,2*idioma+1,
-                            Const.ARR_COORDS_MENU[indiceColision][0],
-                            Const.ARR_COORDS_MENU[indiceColision][1]);
+                panel.insActualizacion2(indiceColision,2*idioma+1, Const.ARR_COORDS_MENU2[indiceColision]);
                 botonPulsado = indiceColision;
                 cambiadoBoton = true;
             }
@@ -224,9 +224,7 @@ public class Menu extends ClaseControladora {
      * @param numBoton Número de botón pulsado
      */
     public void desencadenarAccion(int numBoton) {
-        panel.insActualizacion(indiceColision,
-                2*idioma,Const.ARR_COORDS_MENU[indiceColision][0],
-                Const.ARR_COORDS_MENU[indiceColision][1]);
+        panel.insActualizacion2(indiceColision, 2*idioma,Const.ARR_COORDS_MENU2[indiceColision]);
         cambiadoBoton = false;
         
         switch(numBoton) {
