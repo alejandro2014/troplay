@@ -33,7 +33,8 @@ public class Menu extends ClaseControladora {
     
     //Control de colisiones
     private boolean ratonPulsado = false;
-    private int xRaton = 0, yRaton = 0;
+    //private int xRaton = 0, yRaton = 0;
+	private Point coordsRaton = new Point();
     private String tipoColision = "";
     private int indiceColision = 0;
     private int botonPulsado = -1;
@@ -151,8 +152,7 @@ public class Menu extends ClaseControladora {
         ratonPulsado = raton.getEstado();
         
         if (ratonPulsado) {
-            xRaton = raton.getX();
-            yRaton = raton.getY();
+			coordsRaton = raton.getCoords();
             controlColision();
         } else
             ratonPulsado = false;
@@ -165,7 +165,7 @@ public class Menu extends ClaseControladora {
         int longitud = botones.length, i;
         
         for(i=0; i< longitud; i++) {
-            if(botones[i].getMostrar() && botones[i].colision(xRaton, yRaton)) {
+            if(botones[i].getMostrar() && botones[i].colision(coordsRaton)) {
                 tipoColision = "boton";
                 indiceColision = i;
                 return;
@@ -174,7 +174,7 @@ public class Menu extends ClaseControladora {
         
         longitud = checkboxes.length;
         for(i=0; i<longitud; i++) {
-            if (checkboxes[i].getMostrar() && checkboxes[i].colision(xRaton, yRaton)) {
+            if (checkboxes[i].getMostrar() && checkboxes[i].colision(coordsRaton)) {
                 tipoColision = "checkBox";
                 indiceColision = i;
                 return;

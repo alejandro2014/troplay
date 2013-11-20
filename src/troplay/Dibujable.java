@@ -52,4 +52,8 @@ public class Dibujable {
     public boolean colision(int ratonX, int ratonY) {
 		return rectangulo.contains(ratonX,ratonY);
 	}
+	
+	public boolean colision(Point ratonCoords) {
+		return rectangulo.contains(ratonCoords);
+	}
 }

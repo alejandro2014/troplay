@@ -1,5 +1,6 @@
 package troplay;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -8,9 +9,8 @@ import java.awt.event.MouseListener;
  * @author alejandro
  */
 public class Raton implements MouseListener {
-    //private Ventana ventana;
     private Panel panel = null;
-    private int coordx, coordy;
+	private Point coords = new Point();
     private boolean ratonPulsado;
     
     /**
@@ -29,15 +29,15 @@ public class Raton implements MouseListener {
     public void mousePressed(MouseEvent e) {
         //Sólo vale cuando se pulsa el botón izquierdo
         if(e.getButton() == MouseEvent.BUTTON1) {
-            coordx = e.getX();
-            coordy = e.getY();
+			coords.x = e.getX();
+			coords.y = e.getY();
             ratonPulsado = true;
         }
     }
     
     public void mouseReleased(MouseEvent e) {
-        coordx = e.getX();
-        coordy = e.getY();
+		coords.x = e.getX();
+		coords.y = e.getY();
         ratonPulsado = false;
     }
     
@@ -45,7 +45,11 @@ public class Raton implements MouseListener {
     public void mouseClicked(MouseEvent event) {}    
     public void mouseEntered(MouseEvent event) {}
     
-    public int getX() {return coordx;}
-    public int getY() {return coordy;}
-    public boolean getEstado() {return ratonPulsado;}
+	public Point getCoords() {
+		return coords;
+	}
+	
+    public boolean getEstado() {
+		return ratonPulsado;
+	}
 }
