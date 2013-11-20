@@ -1,5 +1,6 @@
 package troplay;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class Juego extends ClaseControladora {
     public Ventana ventana = null;
     
     //Control de los gráficos
-    private int[][] coords = null;
+    private Point[] coords = null;
     private Rectangle[] rectangulos = null;
     
     //Elementos dinámicos del juego (botones y checkboxes)
@@ -112,7 +113,7 @@ public class Juego extends ClaseControladora {
         for(i=0; i<Const.NUM_CASILLAS; i++) tablero[i] = new Casilla(i);
         
         dado = new Dado();
-        dado.setXY(coords[4][0], coords[4][1]);
+        dado.setCoords(coords[4]);
         dado.setMostrar(true);
         
         //Inicializa el número de jugadores y el tipo de juego
@@ -126,7 +127,7 @@ public class Juego extends ClaseControladora {
         for(i = 0; i < longBotones; i++) {
             //botones[i] = new Boton(idiomaJuego);
             botones[i] = new Dibujable();
-            botones[i].setXY(coords[i+5][0], coords[i+5][1]);
+            botones[i].setCoords(coords[i+5]);
             botones[i].setMostrar(true);
             botones[i].setRectangulo(rectangulos[i+4]);
         }
@@ -135,7 +136,7 @@ public class Juego extends ClaseControladora {
         for(i = 0; i < 3; i++) {
             //Determina el conjunto de checkboxes al que pertenece
             checkboxes[i] = new CheckBox(conjCbxActual);
-            checkboxes[i].setXY(coords[i+7][0], coords[i+7][1]);
+            checkboxes[i].setCoords(coords[i+7]);
             checkboxes[i].setMostrar(false);
             checkboxes[i].setRectangulo(rectangulos[i+7]);
         }
@@ -301,7 +302,7 @@ public class Juego extends ClaseControladora {
                         }
                         
                         eventoActual = EVENTO_PARAR;
-                        panel.insActualizacion(11, dado.getValor() - 1, Const.ARR_COORDS_JUEGO[4][0], Const.ARR_COORDS_JUEGO[4][1]);
+                        panel.insActualizacion(11, dado.getValor() - 1, Const.ARR_COORDS_JUEGO[4]);
                         
                         nuevoEstado = ESTADO_AVANZANDO;
                         break;
@@ -309,7 +310,7 @@ public class Juego extends ClaseControladora {
                         int contador = panel.getContadorTimer();
                         
                         if(contador == contadorMas1) {
-                            panel.insActualizacion(11, contador % 6, Const.ARR_COORDS_JUEGO[4][0],Const.ARR_COORDS_JUEGO[4][1]);
+                            panel.insActualizacion(11, contador % 6, Const.ARR_COORDS_JUEGO[4]);
                             contadorMas1++;
                         }
                         
@@ -335,8 +336,7 @@ public class Juego extends ClaseControladora {
                         if(contador == contadorMas1) {
                             eventoActual = jugadores[jugadorActual].setCoordsAnim();
                             panel.setRefrescarTablero();
-                            panel.insActualizacion(jugadorActual+7, 0, jugadores[jugadorActual].getCx(),
-                                                   jugadores[jugadorActual].getCy());
+                            panel.insActualizacion(jugadorActual+7, 0, jugadores[jugadorActual].getCoords());
                             contadorMas1++;
                         }
                         break;
@@ -374,8 +374,7 @@ public class Juego extends ClaseControladora {
                         if(contador == contadorFinal) {
                             eventoActual = jugadores[jugadorActual].avanzarEscalera();
                             panel.setRefrescarTablero();
-                            panel.insActualizacion(jugadorActual+7, 0, jugadores[jugadorActual].getCx(),
-                                                   jugadores[jugadorActual].getCy());
+                            panel.insActualizacion(jugadorActual+7, 0, jugadores[jugadorActual].getCoords());
                             contadorFinal++;
                         }
                         break;
@@ -457,8 +456,7 @@ public class Juego extends ClaseControladora {
                 checkboxes[indiceColision].setActivado(true);
                 respuestaMarcada = indiceColision;
                 for(int i = 0; i < 3; i++)
-                    panel.insActualizacion(6,(respuestaMarcada == i ? 1 : 0),
-                                checkboxes[i].getCx(), checkboxes[i].getCy());
+                    panel.insActualizacion(6,(respuestaMarcada == i ? 1 : 0), checkboxes[i].getCoords());
                 
                 cambiadoCheckbox = true;
             }
@@ -466,9 +464,7 @@ public class Juego extends ClaseControladora {
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
                 //botones[indiceColision].setPulsado(true);
-                panel.insActualizacion(indiceColision+4,2*idiomaJuego+1,
-                                     Const.ARR_COORDS_JUEGO[indiceColision+5][0],
-                                     Const.ARR_COORDS_JUEGO[indiceColision+5][1]);
+                panel.insActualizacion(indiceColision+4,2*idiomaJuego+1, Const.ARR_COORDS_JUEGO[indiceColision+5]);
                 cambiadoBoton = true;
             }
             botonPulsado = indiceColision;
@@ -480,8 +476,7 @@ public class Juego extends ClaseControladora {
      * @param numBoton Número de botón pulsado
      */
     public void desencadenarAccion(int numBoton) {
-        panel.insActualizacion(numBoton+4,2*idiomaJuego,
-                               Const.ARR_COORDS_JUEGO[numBoton+5][0],Const.ARR_COORDS_JUEGO[numBoton+5][1]);
+        panel.insActualizacion(numBoton+4,2*idiomaJuego, Const.ARR_COORDS_JUEGO[numBoton+5]);
         cambiadoBoton = false;
         
         switch(numBoton) {
@@ -557,8 +552,9 @@ public class Juego extends ClaseControladora {
     
     public Casilla getCasilla(int numero) {return tablero[numero];}
     public Casilla getCasillaActual() {return tablero[casillaActual];}
-    public int getCheckX(int i) {return checkboxes[i].getCx();}
-    public int getCheckY(int i) {return checkboxes[i].getCy();}
+	public Point getCheckBoxCoords(int numCheckbox) {
+		return checkboxes[numCheckbox].getCoords();
+	}
     public Jugador getJugador(int i) {return jugadores[i];}
     public int getJugadorActual() {return jugadorActual;}
     public int getJugadorX(int i) {return jugadores[i].getCx();}

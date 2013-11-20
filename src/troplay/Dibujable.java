@@ -16,6 +16,10 @@ public class Dibujable {
 		return coords.y;
 	}
 	
+	public Point getCoords() {
+		return coords;
+	}
+	
     public boolean getMostrar() {
 		return mostrar;
 	}

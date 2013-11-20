@@ -147,7 +147,7 @@ public class Panel extends JPanel implements ActionListener {
         //Dibujado de los checkboxes con las respuestas
         refJuego.setRespuestaSeleccionada(0);
         for(i = 0; i < 3; i++)
-            insActualizacion(6,(i == 0 ? 1 : 0),refJuego.getCheckX(i),refJuego.getCheckY(i));
+            insActualizacion(6,(i == 0 ? 1 : 0),refJuego.getCheckBoxCoords(i));
             
         dibujarPregunta = false;
     }
@@ -163,8 +163,9 @@ public class Panel extends JPanel implements ActionListener {
         g.drawImage(bufferTablero, 6, 6, null);
         g.drawImage(bufferRespuestas, 684, 118, null);
         
-        for(int i = 0; i < numJugadores; i++)
-                g.drawImage(arrayGraficos[i+7][0], refJuego.getJugadorX(i), refJuego.getJugadorY(i), null);
+        for(int i = 0; i < numJugadores; i++) {
+			g.drawImage(arrayGraficos[i+7][0], refJuego.getJugadorX(i), refJuego.getJugadorY(i), null);
+		}
         
         refrescarTablero = false;
     }
@@ -207,8 +208,8 @@ public class Panel extends JPanel implements ActionListener {
         int tipoFuente = -1;
           
         if(!dibujadaCuriosidad) {
-            insActualizacion(20,0,100,100);
-            insActualizacion(21,idiomaJuego,110,105);
+            insActualizacion(20,0, new Point(100,100));
+            insActualizacion(21,idiomaJuego, new Point(110,105));
             dibujadaCuriosidad = true;
         }
           
@@ -495,9 +496,9 @@ public class Panel extends JPanel implements ActionListener {
                 if(nuevoDibujo[tipoDibujo]) {
                     nuevoDibujo[tipoDibujo] = false;
                     
-                    insActualizacion(0,2*idiomaJuego,Const.ARR_COORDS_MENU[0][0],Const.ARR_COORDS_MENU[0][1]); //Botones
-                    insActualizacion(1,2*idiomaJuego,Const.ARR_COORDS_MENU[1][0],Const.ARR_COORDS_MENU[1][1]);
-                    insActualizacion(2,2*idiomaJuego,Const.ARR_COORDS_MENU[2][0],Const.ARR_COORDS_MENU[2][1]);
+                    insActualizacion(0,2*idiomaJuego,Const.ARR_COORDS_MENU[0]); //Botones
+                    insActualizacion(1,2*idiomaJuego,Const.ARR_COORDS_MENU[1]);
+                    insActualizacion(2,2*idiomaJuego,Const.ARR_COORDS_MENU[2]);
                 }
                 break;
                 
@@ -505,16 +506,16 @@ public class Panel extends JPanel implements ActionListener {
                 bufferActual = bufferOpciones;
                 if(nuevoDibujo[tipoDibujo]) {
                     nuevoDibujo[tipoDibujo] = false;
-                    insActualizacion(3,0,Const.ARR_COORDS_MENU[3][0],Const.ARR_COORDS_MENU[3][1]); //Boton volver
-                    insActualizacion(6,1,Const.ARR_COORDS_MENU[4][0],Const.ARR_COORDS_MENU[4][1]); //Checkboxes idioma
-                    insActualizacion(6,0,Const.ARR_COORDS_MENU[5][0],Const.ARR_COORDS_MENU[5][1]);
-                    insActualizacion(6,1,Const.ARR_COORDS_MENU[6][0],Const.ARR_COORDS_MENU[6][1]); //Checkboxes jugadores
-                    insActualizacion(6,0,Const.ARR_COORDS_MENU[7][0],Const.ARR_COORDS_MENU[7][1]);
-                    insActualizacion(6,0,Const.ARR_COORDS_MENU[8][0],Const.ARR_COORDS_MENU[8][1]);
-                    insActualizacion(6,0,Const.ARR_COORDS_MENU[9][0],Const.ARR_COORDS_MENU[9][1]);
-                    insActualizacion(12,0,Const.ARR_COORDS_OPCIONES[0][0],Const.ARR_COORDS_OPCIONES[0][1]); //Letreros
-                    insActualizacion(13,0,Const.ARR_COORDS_OPCIONES[1][0],Const.ARR_COORDS_OPCIONES[1][1]);
-                    insActualizacion(15,0,Const.ARR_COORDS_OPCIONES[3][0],Const.ARR_COORDS_OPCIONES[3][1]);
+                    insActualizacion(3,0,Const.ARR_COORDS_MENU[3]); //Boton volver
+                    insActualizacion(6,1,Const.ARR_COORDS_MENU[4]); //Checkboxes idioma
+                    insActualizacion(6,0,Const.ARR_COORDS_MENU[5]);
+                    insActualizacion(6,1,Const.ARR_COORDS_MENU[6]); //Checkboxes jugadores
+                    insActualizacion(6,0,Const.ARR_COORDS_MENU[7]);
+                    insActualizacion(6,0,Const.ARR_COORDS_MENU[8]);
+                    insActualizacion(6,0,Const.ARR_COORDS_MENU[9]);
+                    insActualizacion(12,0,Const.ARR_COORDS_OPCIONES[0]); //Letreros
+                    insActualizacion(13,0,Const.ARR_COORDS_OPCIONES[1]);
+                    insActualizacion(15,0,Const.ARR_COORDS_OPCIONES[3]);
                 }
                 break;
                 
@@ -524,11 +525,11 @@ public class Panel extends JPanel implements ActionListener {
                 
                 if(nuevoDibujo[tipoDibujo]) {
                     nuevoDibujo[tipoDibujo] = false;
-                    insActualizacion(24,0,0,0); //Marco del tablero
-                    insActualizacion(25,(refJuego.getNumJugadores() == 1 ? 0 : 1),6,6); //Tablero
-                    insActualizacion(11,0,Const.ARR_COORDS_JUEGO[4][0],Const.ARR_COORDS_JUEGO[4][1]);
-                    insActualizacion(4,2*idiomaJuego,Const.ARR_COORDS_JUEGO[5][0],Const.ARR_COORDS_JUEGO[5][1]);
-                    insActualizacion(5,2*idiomaJuego,Const.ARR_COORDS_JUEGO[6][0],Const.ARR_COORDS_JUEGO[6][1]);
+                    insActualizacion(24,0,new Point()); //Marco del tablero
+                    insActualizacion(25,(refJuego.getNumJugadores() == 1 ? 0 : 1), new Point(6,6)); //Tablero
+                    insActualizacion(11,0,Const.ARR_COORDS_JUEGO[4]);
+                    insActualizacion(4,2*idiomaJuego,Const.ARR_COORDS_JUEGO[5]);
+                    insActualizacion(5,2*idiomaJuego,Const.ARR_COORDS_JUEGO[6]);
                 }
                 break;
         }
@@ -612,17 +613,8 @@ public class Panel extends JPanel implements ActionListener {
      * Inserción de nuevos elementos en la cola de actualizaciones
      * @param indice Array dentro del array de gráficos
      * @param subind Posición dentro del array anterior
-     * @param x Coordenada x
-     * @param y Coordenada y
      */
-    public void insActualizacion(int indice, int subind, int x, int y) {
-        colaActualizar.add(indice);
-		colaActualizar.add(subind);
-        colaActualizar.add(x);
-		colaActualizar.add(y);
-    }
-	
-	public void insActualizacion2(int indice, int subind, Point coords) {
+	public void insActualizacion(int indice, int subind, Point coords) {
         colaActualizar.add(indice);
 		colaActualizar.add(subind);
         colaActualizar.add(coords.x);
@@ -667,12 +659,12 @@ public class Panel extends JPanel implements ActionListener {
         
         nuevoDibujo[Const.MODOMENU] = true;
         
-        insActualizacion(12,idiomaJuego,Const.ARR_COORDS_OPCIONES[0][0],Const.ARR_COORDS_OPCIONES[0][1]);
-        insActualizacion(13,idiomaJuego,Const.ARR_COORDS_OPCIONES[1][0],Const.ARR_COORDS_OPCIONES[1][1]);
-        insActualizacion(15,idiomaJuego,Const.ARR_COORDS_OPCIONES[3][0],Const.ARR_COORDS_OPCIONES[3][1]);
-        insActualizacion(6,(idiomaJuego == 0 ? 1 : 0),Const.ARR_COORDS_MENU[4][0],Const.ARR_COORDS_MENU[4][1]);
-        insActualizacion(6,(idiomaJuego == 0 ? 0 : 1),Const.ARR_COORDS_MENU[5][0],Const.ARR_COORDS_MENU[5][1]);
-        insActualizacion(3,2*idiomaJuego,Const.ARR_COORDS_MENU[3][0],Const.ARR_COORDS_MENU[3][1]);
+        insActualizacion(12,idiomaJuego,Const.ARR_COORDS_OPCIONES[0]);
+        insActualizacion(13,idiomaJuego,Const.ARR_COORDS_OPCIONES[1]);
+        insActualizacion(15,idiomaJuego,Const.ARR_COORDS_OPCIONES[3]);
+        insActualizacion(6,(idiomaJuego == 0 ? 1 : 0),Const.ARR_COORDS_MENU[4]);
+        insActualizacion(6,(idiomaJuego == 0 ? 0 : 1),Const.ARR_COORDS_MENU[5]);
+        insActualizacion(3,2*idiomaJuego,Const.ARR_COORDS_MENU[3]);
     }
     
     public void setNuevoDibujado(int i, boolean b) {nuevoDibujo[i] = b;}
