@@ -1,5 +1,7 @@
 package troplay;
 
+import java.awt.Point;
+
 /**
  * Clase Casilla, encargada de representar una de las celdas del juego
  * @author alejandro
@@ -11,7 +13,7 @@ public class Casilla {
     private boolean casillaEspecial = false;
     private int complementaria = -1;
     private int numPregunta = 0;
-    private int xref, yref;
+	private Point coordsRef = new Point();
     private int posicionBocad = 1;
     
     /**
@@ -21,8 +23,7 @@ public class Casilla {
     public Casilla(int cas){
         numCasilla = cas;
         posicionBocad = Const.arrBocad[cas];
-        xref = Const.arrX[numCasilla];
-        yref = Const.arrY[numCasilla];
+		coordsRef = Const.arrayCasillas[numCasilla];
         
         //Determinación de las casillas especiales, pozos y escaleras
         switch(cas) {
@@ -44,8 +45,15 @@ public class Casilla {
     public int getComplementaria() {return complementaria;}
     public boolean getEspecial() {return casillaEspecial;}
     public Pregunta getPregActual() {return pregActual;}
-    public int getX() {return xref;}
-    public int getY() {return yref;}
+	
+    public int getX() {
+		return coordsRef.x;
+	}
+	
+    public int getY() {
+		return coordsRef.y;
+	}
+	
     public int getPosicionBocad() {return posicionBocad;}
     
     public Pregunta getPregunta(int num){

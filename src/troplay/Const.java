@@ -112,7 +112,7 @@ public abstract class Const {
 		new Point(343,543),
         new Point(343,543),
 		new Point(343,543),
-        new Point(698,67),
+        new Point(698,67), /**/
 		new Point(746,470),
 		new Point(746,512),
 		new Point(703,20),

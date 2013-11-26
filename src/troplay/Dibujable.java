@@ -48,10 +48,6 @@ public class Dibujable {
     public void setRectangulo(Rectangle nuevoRectangulo) {
 		rectangulo = nuevoRectangulo;
 	}
-    
-    public boolean colision(int ratonX, int ratonY) {
-		return rectangulo.contains(ratonX,ratonY);
-	}
 	
 	public boolean colision(Point ratonCoords) {
 		return rectangulo.contains(ratonCoords);

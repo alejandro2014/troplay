@@ -34,7 +34,6 @@ public class Juego extends ClaseControladora {
     public Ventana ventana = null;
     
     //Control de los gráficos
-    private Point[] coords = null;
     private Rectangle[] rectangulos = null;
     
     //Elementos dinámicos del juego (botones y checkboxes)
@@ -47,7 +46,6 @@ public class Juego extends ClaseControladora {
     
     //Control de colisiones
     private boolean ratonPulsado = false;
-    //private int xRaton = 0, yRaton = 0;
 	private Point coordsRaton = new Point();
     private String tipoColision = "";
     private int indiceColision = 0;
@@ -73,8 +71,6 @@ public class Juego extends ClaseControladora {
     
     private int estadoActual = ESTADO_INICIAL;
     private int eventoActual = EVENTO_NULO;
-    
-    private String textoCuriosidad = null;
 
     private Pregunta pregCuriosidad = null; //Pregunta utilizada para la curiosidad del final
     private Panel panel = null;
@@ -101,49 +97,69 @@ public class Juego extends ClaseControladora {
         controladora = control;
         this.raton = raton;
 
-        coords = Const.ARR_COORDS_JUEGO;
         rectangulos = Const.ARR_RECTS;
-        
-        numJugadores = control.getNumJugadores();
-        jugadorActual = (numJugadores == 1 ? 0 : -1);
         
         idiomaJuego = control.getIdioma();
         consultasJDBC = new ConexionJDBC(idiomaJuego);
         
-        for(i=0; i<Const.MAX_JUGADORES; i++) jugadores[i] = null;
         for(i=0; i<Const.NUM_CASILLAS; i++) tablero[i] = new Casilla(i);
         
-        dado = new Dado();
-        dado.setCoords(coords[4]);
-        dado.setMostrar(true);
+		dado = createDice();
+        	
+        initPlayers();
+		initButtons();
+		initCheckboxes();
+		initQuestions();
+        asignarPreguntas();
+        getCuriosity();
+        panel.setCuriosidad(pregCuriosidad);
         
+        consultasJDBC.cerrarConexion();
+        
+        panel.setModo(3);
+        bucleJuego();
+    }
+	
+	private void initPlayers() {
+		int i;
+		
+		numJugadores = controladora.getNumJugadores();
+        jugadorActual = (numJugadores == 1 ? 0 : -1);
+		
+		for(i=0; i<Const.MAX_JUGADORES; i++) jugadores[i] = null;
+		
         //Inicializa el número de jugadores y el tipo de juego
         for(i=0; i<numJugadores; i++) {
             jugadores[i] = new Jugador(this,i);
             jugadores[i].setMostrar(true);
         }
-        
-        //Inicializacion de los botones
-        longBotones = botones.length;
-        for(i = 0; i < longBotones; i++) {
+	}
+	
+	private void initButtons() {
+		longBotones = botones.length;
+        for(int i = 0; i < longBotones; i++) {
             //botones[i] = new Boton(idiomaJuego);
             botones[i] = new Dibujable();
-            botones[i].setCoords(coords[i+5]);
+            botones[i].setCoords(Const.ARR_COORDS_JUEGO[i+5]);
             botones[i].setMostrar(true);
             botones[i].setRectangulo(rectangulos[i+4]);
         }
-        
-        //Inicializacion de los checkBox
-        for(i = 0; i < 3; i++) {
+	}
+	
+	private void initCheckboxes() {
+		for(int i = 0; i < 3; i++) {
             //Determina el conjunto de checkboxes al que pertenece
             checkboxes[i] = new CheckBox(conjCbxActual);
-            checkboxes[i].setCoords(coords[i+7]);
+            checkboxes[i].setCoords(Const.ARR_COORDS_JUEGO[i+7]);
             checkboxes[i].setMostrar(false);
             checkboxes[i].setRectangulo(rectangulos[i+7]);
         }
         checkboxes[0].setActivado(true);
-        
-        //Inicializa las preguntas
+	}
+	
+	private void initQuestions() throws SQLException {
+		int i;
+		
         for(i=0; i<Const.NUM_DIFICULTADES; i++)numPreguntas[i] = getNumPreguntas(i,idiomaJuego);
         asigFacil = new boolean[numPreguntas[Const.BAJA]];
         asigMedio = new boolean[numPreguntas[Const.MEDIA]];
@@ -154,22 +170,25 @@ public class Juego extends ClaseControladora {
         for(i=0; i<numPreguntas[Const.BAJA]; i++) asigFacil[i] = false;
         for(i=0; i<numPreguntas[Const.MEDIA]; i++) asigMedio[i] = false;
         for(i=0; i<numPreguntas[Const.ALTA]; i++) asigDificil[i] = false;
-        
-        asignarPreguntas();
-        
-        //Obtención de la curiosidad
-        textoCuriosidad = consultasJDBC.getTextoCuriosidad();
-        textoCuriosidad = textoCuriosidad.substring(textoCuriosidad.indexOf("?")+1);
-        pregCuriosidad = new Pregunta(Const.ANCHOCURIOSIDAD);
-        pregCuriosidad.setTextoPregunta(textoCuriosidad);
-        panel.setCuriosidad(pregCuriosidad);
-        
-        consultasJDBC.cerrarConexion();
-        
-        panel.setModo(3);
-        bucleJuego();
-    }
+	}
+	
+	private Pregunta getCuriosity() throws SQLException {
+		String textCuriosity = consultasJDBC.getTextoCuriosidad();
+		textCuriosity = textCuriosity.substring(textCuriosity.indexOf("?")+1);
+		Pregunta question = new Pregunta(Const.ANCHOCURIOSIDAD);
+		question.setTextoPregunta(textCuriosity);
+		
+		return question;
+	}
     
+	private Dado createDice() {
+		Dado dice = new Dado();
+		dice.setCoords(new Point(698,67));
+		dice.setMostrar(true);
+		
+		return dice;
+	}
+	
     /**
      * Control del bucle de juego de la partida
      */

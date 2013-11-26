@@ -72,7 +72,6 @@ public class Menu extends ClaseControladora {
         longBotones = botones.length;
         for(i = 0; i < longBotones; i++) {
             botones[i] = new Dibujable();
-            //botones[i].setXY(coords[i][0],coords[i][1]);
 			botones[i].setCoords(coords[i]);
             botones[i].setRectangulo(Const.ARR_RECTS[i]);
         }
