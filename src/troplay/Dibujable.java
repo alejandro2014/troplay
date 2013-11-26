@@ -1,5 +1,6 @@
 package troplay;
 
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -51,5 +52,13 @@ public class Dibujable {
 	
 	public boolean colision(Point ratonCoords) {
 		return rectangulo.contains(ratonCoords);
+	}
+
+	public Image getImage() {
+		return null;
+	}
+
+	public int getCz() {
+		return 0;
 	}
 }
