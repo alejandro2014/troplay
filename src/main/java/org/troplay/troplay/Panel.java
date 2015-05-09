@@ -566,20 +566,26 @@ public class Panel extends JPanel implements ActionListener {
         String[][] arrGrafs = Const.ARR_GRAFS;
         int longitud = arrGrafs.length;
         int longitudSub = 0;
-        int i, j;
+        int i = 0, j = 0;
+        
+        String direct = "NONE";
           
         arrayGraficos = new BufferedImage[longitud][0];
           
+        System.out.println("Working Directory = " +
+              System.getProperty("user.dir"));
         try {
             for(i = 0; i < longitud; i++) {
                 longitudSub = arrGrafs[i].length;
                 arrayGraficos[i] = new BufferedImage[longitudSub];
             
-                for(j = 0; j < longitudSub; j++)
+                for(j = 0; j < longitudSub; j++) {
                     arrayGraficos[i][j] = ImageIO.read(new File(Const.DIRECTORIO_GRAFICOS + arrGrafs[i][j]));
+                    direct = Const.DIRECTORIO_GRAFICOS + arrGrafs[i][j];
+				}
             }
         } catch(Exception e) {
-            System.err.println("Error en la carga de gráficos: " + e.toString());
+            System.err.println("Error en la carga de gráficos: " + e.toString() + " -- " + direct + "[" + i + "][" + j + "]");
         }
         
         //Inicialización de los diferentes gráficos (presentacion, menu de opciones, juego)

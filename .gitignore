@@ -1,4 +1,1 @@
-lib/
-nbproject/
-build/
-*.class
+target/
