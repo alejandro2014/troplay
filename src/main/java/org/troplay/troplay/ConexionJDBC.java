@@ -26,6 +26,7 @@ public class ConexionJDBC {
      * @param idio Idioma utilizado
      */
     public ConexionJDBC(int idio) {
+		System.out.println("Conectandooooo");
         cadConexion = "jdbc:sqlite:/home/alejandro/programs/troplay/src/main/resources/db/tenia.sqlite";
         driver = "org.sqlite.JDBC";
         idioma = idio+1;
@@ -36,12 +37,26 @@ public class ConexionJDBC {
      * Conexión con una base de datos
      */
     public void conectar() {
+		System.out.println("conectar()");
+		
         try {
+			System.out.println("Class.forName - " + driver.toString());
             Class.forName(driver);
+            
+            System.out.println("DriverManager.getConnection - " + cadConexion);
             conexion = DriverManager.getConnection(cadConexion);
+            
+            System.out.println("conexion - " + conexion);
             comando = conexion.createStatement();
+            
+			if(comando == null) {
+				System.out.println("Comando = null");
+			} else {
+				System.out.println(">>>>>>>>>>>");
+			}
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
     
