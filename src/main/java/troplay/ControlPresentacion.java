@@ -4,7 +4,7 @@ package troplay;
  * Control de la pantalla de presentación
  * @author alejandro
  */
-class ControlPresentacion extends ClaseControladora {
+class ControlPresentacion extends troplay.ClaseControladora {
     private boolean acabar = false;
     private int contador = 0;
     private Panel panel = null;

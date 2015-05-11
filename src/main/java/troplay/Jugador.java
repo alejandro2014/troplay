@@ -5,7 +5,7 @@ package troplay;
  * que existan en el juego
  * @author alejandro
  */
-public class Jugador extends Dibujable {
+public class Jugador extends troplay.Dibujable {
     private Juego juego;
     private int casilla = 0;
     private int casillaVieja, casillaNueva;

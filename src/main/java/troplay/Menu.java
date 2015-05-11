@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Clase utilizada para controlar los menús, ya sea el principal o el de opciones
  * @author alejandro
  */
-public class Menu extends ClaseControladora {
+public class Menu extends troplay.ClaseControladora {
     //Variables que se le pasarán al controlador del juego
     private int idioma;
     private int numJugadores;
