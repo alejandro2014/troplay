@@ -20,35 +20,37 @@ public class ConexionJDBC {
     private Statement comando;
     private int idioma;
     private String cadConexion, driver;
-    
+
+    //private String troplayDirectory = "/home/alejandro/programs/troplay";
+    private String troplayDirectory = "/Users/alejandro/programs/troplay";
+
     /**
      * Conexión local con la base de datos
      * @param idio Idioma utilizado
      */
     public ConexionJDBC(int idio) {
-		System.out.println("Conectandooooo");
-        cadConexion = "jdbc:sqlite:/home/alejandro/programs/troplay/src/main/resources/db/tenia.sqlite";
+        cadConexion = "jdbc:sqlite:" + troplayDirectory + "/src/main/resources/db/tenia.sqlite";
         driver = "org.sqlite.JDBC";
         idioma = idio+1;
         conectar();
     }
-    
+
     /**
      * Conexión con una base de datos
      */
     public void conectar() {
 		System.out.println("conectar()");
-		
+
         try {
 			System.out.println("Class.forName - " + driver.toString());
             Class.forName(driver);
-            
+
             System.out.println("DriverManager.getConnection - " + cadConexion);
             conexion = DriverManager.getConnection(cadConexion);
-            
+
             System.out.println("conexion - " + conexion);
             comando = conexion.createStatement();
-            
+
 			if(comando == null) {
 				System.out.println("Comando = null");
 			} else {
@@ -59,7 +61,7 @@ public class ConexionJDBC {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Obtención del número de preguntas de la base de datos en función
      * de la dificultad y del idioma
@@ -71,12 +73,12 @@ public class ConexionJDBC {
         resultado = ejecutarConsulta("select count(*) from respuesta where" +
                 " dificultad = " + dificultad + " and id_idioma = " + idioma);
         if(!resultado.next()) return -1;
-        
+
         String cadena = resultado.getString(1);
-        
+
         return Integer.parseInt(cadena) / 3;
     }
-    
+
     /**
      * Obtención de una pregunta con un identificador y una dificultad determinados
      * @param num Número de la pregunta dentro de la base de datos
@@ -88,7 +90,7 @@ public class ConexionJDBC {
         Pregunta  pregunta = new Pregunta(Const.ANCHOPREGUNTA);
         int idPregunta=0;
         int contador = 0;
-        
+
         //Obtención del identificador de la pregunta
         resultado = ejecutarConsulta("select distinct id_pregunta from respuesta where " +
                                      "id_idioma = " + idioma + " and dificultad = " +
@@ -98,27 +100,27 @@ public class ConexionJDBC {
             pregunta.setIdPregunta(idPregunta);
         }
         resultado.close();
-        
+
         //Obtención del texto de las respuestas
         resultado2 = ejecutarConsulta("select respuesta, correcta from respuesta where id_pregunta = " + idPregunta);
         while(resultado2.next()) {
             pregunta.setTextoRespuesta(contador,resultado2.getString("respuesta"));
             if(resultado2.getString("correcta").equals("true")) pregunta.setRespCorrecta(contador);
-            
+
             contador++;
         }
         resultado2.close();
-        
+
         if (pregunta != null) {
             resultado3 = ejecutarConsulta("select enunciado from preguntas " +
                                           "where id_pregunta = " + idPregunta);
             if(resultado3.next()) pregunta.setTextoPregunta(resultado3.getString("enunciado"));
             resultado3.close();
         }
-        
+
         return pregunta;
     }
-    
+
     /**
      * Obtención del número de curiosidades del final del juego
      * @return Número de curiosidades
@@ -126,11 +128,11 @@ public class ConexionJDBC {
     public int getNumeroCuriosidades() throws SQLException {
         resultado = ejecutarConsulta("select count(*) from curiosidadtropical where id_idioma = " + idioma);
         resultado.next();
-        
+
         String cadena = resultado.getString(1);
         return Integer.parseInt(cadena);
     }
-    
+
     /**
      * Obtención del texto de la curiosidad que aparece al final
      * @return El texto de la curiosidad
@@ -142,16 +144,16 @@ public class ConexionJDBC {
         Random rnd = new Random();
         Date fecha = new Date();
         rnd.setSeed(fecha.getTime());
-        
+
         if((valor = rnd.nextInt() % cantidad) < 0) valor *= -1;
-        
+
         resultado = ejecutarConsulta("SELECT curiosidad from curiosidadtropical where id_idioma = " +
                                      idioma + " limit 1 offset " + valor);
 
         resultado.next();
         return resultado.getString("curiosidad");
     }
-    
+
     /**
      * Ejecución de una consulta SQL determinada
      * @param consulta Cadena con la consulta que se queire realizar
@@ -159,7 +161,7 @@ public class ConexionJDBC {
      */
     public ResultSet ejecutarConsulta(String consulta) {
         ResultSet result = null;
-        
+
         try {
 			System.out.println(">>" + consulta + " - " + comando);
             result = comando.executeQuery(consulta);
@@ -167,10 +169,10 @@ public class ConexionJDBC {
             //Logger.getLogger(ConexionJDBC.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex);
         }
-        
+
         return result;
     }
-    
+
     /**
      * Realiza una inserción determinada
      * @param accion SQL a ejecutar
@@ -183,7 +185,7 @@ public class ConexionJDBC {
             Logger.getLogger(ConexionJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Finalización de la clase cerrando la conexión
      */
