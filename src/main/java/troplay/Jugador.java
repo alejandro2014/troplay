@@ -7,7 +7,7 @@ package troplay;
  */
 public class Jugador extends troplay.Dibujable {
     private Juego juego;
-    private int casilla = 0;
+    private int casilla = 14;
     private int casillaVieja, casillaNueva;
     private int casillaInicial;
     private int fotogrTotales = 0;
@@ -62,8 +62,8 @@ public class Jugador extends troplay.Dibujable {
         int casillasCompletas = fotogrActual / 7;
         int despl = fotogrActual % 7;
         int casillaActual = casillaInicial + casillasCompletas;
-        int xVieja = Const.arrX[casillaActual] + desplaz[idJugador][0];
-        int yVieja = Const.arrY[casillaActual] + desplaz[idJugador][1];
+        int xVieja = (int)Const.arrayCasillas[casillaActual].getX() + desplaz[idJugador][0];
+        int yVieja = (int)Const.arrayCasillas[casillaActual].getY() + desplaz[idJugador][1];
         int xActual, yActual;
 
         if (despl == 0 && casillasCompletas > 0) {
@@ -71,8 +71,8 @@ public class Jugador extends troplay.Dibujable {
             casillaNueva = casillaVieja + 1;
 
             if(casillaNueva < Const.NUM_CASILLAS) {
-                desplX = Const.arrX[casillaNueva] - Const.arrX[casillaVieja];
-                desplY = Const.arrY[casillaNueva] - Const.arrY[casillaVieja];
+                desplX = (int)Const.arrayCasillas[casillaNueva].getX() - (int)Const.arrayCasillas[casillaVieja].getX();
+                desplY = (int)Const.arrayCasillas[casillaNueva].getY() - (int)Const.arrayCasillas[casillaVieja].getY();
             }
         }
 
@@ -116,20 +116,21 @@ public class Jugador extends troplay.Dibujable {
                 case 60: casillaNueva = 30; break;
             }
 
-            desplX = Const.arrX[casillaNueva] - Const.arrX[casillaVieja];
-            desplY = Const.arrY[casillaNueva] - Const.arrY[casillaVieja];
+            desplX = (int)Const.arrayCasillas[casillaNueva].getX() - (int)Const.arrayCasillas[casillaVieja].getX();
+            desplY = (int)Const.arrayCasillas[casillaNueva].getY() - (int)Const.arrayCasillas[casillaVieja].getY();
         }
 
         /* Avance por la escalera en cada fotograma avanza un poco más
         hasta llegar al final */
         if(fotogrActual != 15) {
             fotogrActual++;
-            this.setXY(Const.arrX[casillaVieja] + fotogrActual * desplX/15,
-                       Const.arrY[casillaVieja] + fotogrActual * desplY/15);
+
+            this.setXY((int)Const.arrayCasillas[casillaVieja].getX() + fotogrActual * desplX / 15,
+                       (int)Const.arrayCasillas[casillaVieja].getY() + fotogrActual * desplY / 15);
         } else {
             mover(casillaNueva + 1);
-            this.setXY(Const.arrX[casillaNueva + 1] + desplaz[idJugador][0],
-                       Const.arrY[casillaNueva + 1] + desplaz[idJugador][1]);
+            this.setXY((int)Const.arrayCasillas[casillaNueva + 1].getX() + desplaz[idJugador][0],
+                       (int)Const.arrayCasillas[casillaNueva + 1].getY() + desplaz[idJugador][1]);
             desplX = desplY = 0;
             fotogrActual = 0;
             eventoRetorno = EVENTO_PARAR_ANIMACION;

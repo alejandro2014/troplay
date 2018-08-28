@@ -30,15 +30,6 @@ public abstract class Const {
     public static final String DIRECTORIO_GRAFICOS = "/Users/alejandro/programs/troplay/src/main/resources/graficos/";
 
     //Coordenadas de los centros de cada casilla
-    public static final int arrX[] = {343,401,449,499,544,585,595,595,595,595,595,595,595,595,597,582,541,494,445,
-                                      395,346,296,249,199,151,107,67,55,55,55,55,55,55,53,69,112,158,207,256,305,
-                                      352,402,446,487,496,497,497,497,499,486,443,394,347,295,249,205,166,154,154,
-                                      150,169,210,256,305,348,388,401,385,346,285};
-
-    public static final int arrY[] = {543,545,545,545,547,531,488,439,389,340,293,243,194,146,103,58,54,54,54,54,
-                                      54,54,54,54,54,51,71,112,160,211,259,309,358,400,438,446,447,447,447,447,447,
-                                      447,447,431,391,341,291,243,201,161,152,152,152,152,152,149,167,212,261,302,
-                                      339,349,349,348,351,332,296,262,251,248};
 	public static final Point arrayCasillas[] = {
 		new Point(343, 543), new Point(401, 545), new Point(449, 545), new Point(499, 545), new Point(544, 547), new Point(585, 531),
 		new Point(595, 488), new Point(595, 439), new Point(595, 389), new Point(595, 340), new Point(595, 293), new Point(595, 243),
