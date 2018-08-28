@@ -14,11 +14,13 @@ public class Dado extends Dibujable {
     }
 
     public int getValor() {
-        return valor + 1;
+        //return valor + 1;
+        return 1;
     }
 
     public int getNuevoValor() {
-        if((valor = rnd.nextInt() % 6) < 0) valor *= -1;
-        return valor + 1;
+        //if((valor = rnd.nextInt() % 6) < 0) valor *= -1;
+        //return valor + 1;
+        return 1;
     }
 }

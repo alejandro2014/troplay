@@ -82,12 +82,12 @@ public class Jugador extends troplay.Dibujable {
             yActual = yVieja + (despl * desplY) / 7;
             this.setXY(xActual,yActual);
         } else {
-            this.setCx(Const.arrX[casillaNueva-1] + desplaz[idJugador][0]);
+            this.setCx((int)Const.arrayCasillas[casillaNueva - 1].getX() + desplaz[idJugador][0]);
             fotogrActual = 0;
 
             if(juego.getNumJugadores() > 1 && juego.getCasilla(casillaNueva-1).getComplementaria() != -1) {
                 eventoRetorno = EVENTO_ESCALERA;
-                this.setXY(Const.arrX[casillaNueva-1], Const.arrY[casillaNueva-1]);
+                this.setXY((int)Const.arrayCasillas[casillaNueva - 1].getX(), (int)Const.arrayCasillas[casillaNueva - 1].getY());
             } else {
                 eventoRetorno = EVENTO_PARAR_ANIMACION;
             }

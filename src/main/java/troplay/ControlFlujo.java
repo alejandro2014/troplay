@@ -9,15 +9,15 @@ import java.sql.SQLException;
 public class ControlFlujo {
     public Ventana ventana = null;
     private Raton raton = null;
-    
+
     private int estadoActual = Const.ESTADO_PRESENTACION;
     private int eventoEntrada = Const.EVENTO_NULO;
-    
+
     private int idiomaJuego = Const.ESPAÑOL;
     private int numJugadores = 1;
     private int nuevoEstado;
     private Panel panel = null;
-    
+
     /**
      * Clase que dirige el flujo de los acontecimientos del juego
      */
@@ -26,14 +26,15 @@ public class ControlFlujo {
         ventana = new Ventana();
         panel = ventana.getPanel();
         raton = new Raton(panel);
-        
-        while (estadoActual != Const.ESTADO_FINAL)
+
+        while (estadoActual != Const.ESTADO_FINAL) {
             estadoActual = cambiarEstado(estadoActual, eventoEntrada);
-        
+        }
+
         panel.descargarGraficos();
         System.exit(0);
     }
-    
+
     /**
      * Implementación de una máquina de estados para poder cambiar
      * el estado del juego. Éste es el método que coordina todo el programa
@@ -55,7 +56,7 @@ public class ControlFlujo {
                         break;
                 }
                 break;
-                
+
             //Antes de empezar el juego
             case Const.ESTADO_MENU_PRINCIPAL:
                 switch(evento) {
@@ -63,7 +64,7 @@ public class ControlFlujo {
                     case Const.EVENTO_NULO:
                         new Menu(ventana,raton,this,0);
                         break;
-                    
+
                     //Empezar el juego
                     case Const.EVENTO_EMPEZAR:
                         panel.setNumJugadores(numJugadores);
@@ -71,33 +72,33 @@ public class ControlFlujo {
                         try {
                             new Juego(panel, raton, this);
                         } catch (SQLException ex) {}
-                        
+
                         nuevoEstado = Const.ESTADO_JUEGO;
                         break;
-                    
+
                     //Ir al menú de opciones
                     case Const.EVENTO_OPCIONES:
                         nuevoEstado = Const.ESTADO_OPCIONES;
                         eventoEntrada = Const.EVENTO_NULO;
                         break;
-                        
+
                     //Salir del juego
                     case Const.EVENTO_SALIR:
                         nuevoEstado = Const.ESTADO_FINAL;
                         break;
                 }
                 break;
-            
+
             //Menú de opciones
             case Const.ESTADO_OPCIONES:
                 switch(evento) {
                     //Apertura del menú de opciones
                     case Const.EVENTO_NULO:
                         panel.setModo(Const.MODOOPCION);
-                        
+
                         new Menu(ventana,raton,this,1);
                         break;
-                        
+
                     //Volver al menú principal
                     case Const.EVENTO_VOLVER:
                         panel.setModo(Const.MODOMENU);
@@ -106,7 +107,7 @@ public class ControlFlujo {
                         break;
                 }
                 break;
-            
+
             //En el juego
             case Const.ESTADO_JUEGO:
                 switch(evento) {
@@ -119,16 +120,16 @@ public class ControlFlujo {
                 }
                 break;
         }
-        
+
         return nuevoEstado;
     }
-    
+
     //Para que la clase Juego pueda obtener los parámetros necesarios
     public int getIdioma() {return idiomaJuego;}
     public int getNumJugadores() {return numJugadores;}
-    
+
     public void setEvento(int eventoNuevo) {eventoEntrada = eventoNuevo;}
-    
+
     /**
      * Variables pasadas desde la clase Menu utilizadas para configurar el juego
      * @param idioma Español o inglés
@@ -138,9 +139,8 @@ public class ControlFlujo {
         idiomaJuego = idioma;
         numJugadores = jugadores;
     }
-    
+
     public static void main(String[] args) throws SQLException {
         new ControlFlujo();
     }
 }
-
