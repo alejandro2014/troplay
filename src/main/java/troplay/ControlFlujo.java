@@ -43,29 +43,25 @@ public class ControlFlujo {
      * @return Estado nuevo del juego
      */
     public int cambiarEstado(int estado, int evento) {
-
         switch(estado) {
-            //Pantalla de presentación
             case Const.ESTADO_PRESENTACION:
                 switch(evento) {
                     case Const.EVENTO_NULO:
                         panel.setModo(Const.MODOPRESEN);
-                        new ControlPresentacion(ventana,this);
+                        ClaseControladora claseControladora = new ControlPresentacion(ventana, this);
+                        claseControladora.bucleJuego();
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
                         panel.setModo(Const.MODOMENU);
                         break;
                 }
                 break;
 
-            //Antes de empezar el juego
             case Const.ESTADO_MENU_PRINCIPAL:
                 switch(evento) {
-                    //Nada más arrancar el programa
                     case Const.EVENTO_NULO:
                         new Menu(ventana,raton,this,0);
                         break;
 
-                    //Empezar el juego
                     case Const.EVENTO_EMPEZAR:
                         panel.setNumJugadores(numJugadores);
                         panel.setDibujadaCuriosidad(false);
@@ -76,30 +72,25 @@ public class ControlFlujo {
                         nuevoEstado = Const.ESTADO_JUEGO;
                         break;
 
-                    //Ir al menú de opciones
                     case Const.EVENTO_OPCIONES:
                         nuevoEstado = Const.ESTADO_OPCIONES;
                         eventoEntrada = Const.EVENTO_NULO;
                         break;
 
-                    //Salir del juego
                     case Const.EVENTO_SALIR:
                         nuevoEstado = Const.ESTADO_FINAL;
                         break;
                 }
                 break;
 
-            //Menú de opciones
             case Const.ESTADO_OPCIONES:
                 switch(evento) {
-                    //Apertura del menú de opciones
                     case Const.EVENTO_NULO:
                         panel.setModo(Const.MODOOPCION);
 
                         new Menu(ventana,raton,this,1);
                         break;
 
-                    //Volver al menú principal
                     case Const.EVENTO_VOLVER:
                         panel.setModo(Const.MODOMENU);
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
@@ -108,10 +99,8 @@ public class ControlFlujo {
                 }
                 break;
 
-            //En el juego
             case Const.ESTADO_JUEGO:
                 switch(evento) {
-                    //Salida del juego
                     case Const.EVENTO_SALIR:
                         panel.setModo(Const.MODOMENU);
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;

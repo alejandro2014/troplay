@@ -9,7 +9,7 @@ class ControlPresentacion extends troplay.ClaseControladora {
     private int contador = 0;
     private Panel panel = null;
     private int contadorInicial, contadorFinal;
-    
+
     /**
      * Clase que controla la pantalla de presentación
      * @param vent Referencia a la ventana
@@ -17,9 +17,8 @@ class ControlPresentacion extends troplay.ClaseControladora {
      */
     public ControlPresentacion (Ventana vent, ControlFlujo control) {
         panel = vent.getPanel();
-        this.bucleJuego();
     }
-    
+
     /**
      * El bucle de la presentación lo único que hace es esperar unos segundos
      * antes de empezar
@@ -34,7 +33,7 @@ class ControlPresentacion extends troplay.ClaseControladora {
             } catch (InterruptedException ex) {}
         }
     }
-    
+
     /**
      * Se consigue la espera en la pantalla de presentación
      * @return Verdadero si ha acabado el tiempo, falso si no
