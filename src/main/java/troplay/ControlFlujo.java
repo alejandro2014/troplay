@@ -1,5 +1,6 @@
 package troplay;
 
+import troplay.GameVariables;
 import java.sql.SQLException;
 
 /**
@@ -18,10 +19,13 @@ public class ControlFlujo {
     private int nuevoEstado;
     private Panel panel = null;
 
+    private GameVariables gameVariables = null;
+
     /**
      * Clase que dirige el flujo de los acontecimientos del juego
      */
     public ControlFlujo() {
+        gameVariables = new GameVariables();
         setVariables(idiomaJuego,numJugadores);
         ventana = new Ventana();
         panel = ventana.getPanel();
