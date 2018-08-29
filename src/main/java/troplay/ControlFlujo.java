@@ -43,12 +43,14 @@ public class ControlFlujo {
      * @return Estado nuevo del juego
      */
     public int cambiarEstado(int estado, int evento) {
+        ClaseControladora claseControladora = null;
+
         switch(estado) {
             case Const.ESTADO_PRESENTACION:
                 switch(evento) {
                     case Const.EVENTO_NULO:
                         panel.setModo(Const.MODOPRESEN);
-                        ClaseControladora claseControladora = new ControlPresentacion(ventana, this);
+                        claseControladora = new ControlPresentacion(ventana, this);
                         claseControladora.bucleJuego();
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
                         panel.setModo(Const.MODOMENU);
@@ -59,14 +61,16 @@ public class ControlFlujo {
             case Const.ESTADO_MENU_PRINCIPAL:
                 switch(evento) {
                     case Const.EVENTO_NULO:
-                        new Menu(ventana,raton,this,0);
+                        claseControladora = new Menu(ventana, raton, this, 0);
+                        claseControladora.bucleJuego();
                         break;
 
                     case Const.EVENTO_EMPEZAR:
                         panel.setNumJugadores(numJugadores);
                         panel.setDibujadaCuriosidad(false);
                         try {
-                            new Juego(panel, raton, this);
+                            claseControladora = new Juego(panel, raton, this);
+                            claseControladora.bucleJuego();
                         } catch (SQLException ex) {}
 
                         nuevoEstado = Const.ESTADO_JUEGO;
@@ -88,7 +92,9 @@ public class ControlFlujo {
                     case Const.EVENTO_NULO:
                         panel.setModo(Const.MODOOPCION);
 
-                        new Menu(ventana,raton,this,1);
+                        claseControladora = new Menu(ventana, raton, this, 1);
+                        claseControladora.bucleJuego();
+
                         break;
 
                     case Const.EVENTO_VOLVER:
