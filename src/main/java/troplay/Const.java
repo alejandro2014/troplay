@@ -47,31 +47,31 @@ public abstract class Const {
 
     //Array con los nombres de los gráficos del juego
     public static final String[][] ARR_GRAFS = {
-        {"espBotonEmpezar1.png","espBotonEmpezar2.png","ingBotonEmpezar1.png","ingBotonEmpezar2.png"}, //Botones del menú [0-3]
-        {"espBotonOpciones1.png","espBotonOpciones2.png","ingBotonOpciones1.png","ingBotonOpciones2.png"},
-        {"espBotonSalir1.png","espBotonSalir2.png","ingBotonSalir1.png","ingBotonSalir2.png"},
-        {"espVolverMenu1.png","espVolverMenu2.png","ingVolverMenu1.png","ingVolverMenu2.png"},
+        {"espBotonEmpezar1","espBotonEmpezar2","ingBotonEmpezar1","ingBotonEmpezar2"}, //Botones del menú [0-3]
+        {"espBotonOpciones1","espBotonOpciones2","ingBotonOpciones1","ingBotonOpciones2"},
+        {"espBotonSalir1","espBotonSalir2","ingBotonSalir1","ingBotonSalir2"},
+        {"espVolverMenu1","espVolverMenu2","ingVolverMenu1","ingVolverMenu2"},
 
-        {"espBotonRespon1.png","espBotonRespon2.png","ingBotonRespon1.png","ingBotonRespon2.png"}, //Botones del juego [4-5]
-        {"espBotonVolver1.png","espBotonVolver2.png","ingBotonVolver1.png","ingBotonVolver2.png"},
-        {"checkBoxNo.png","checkBoxSi.png"}, //CheckBoxes [6]
+        {"espBotonRespon1","espBotonRespon2","ingBotonRespon1","ingBotonRespon2"}, //Botones del juego [4-5]
+        {"espBotonVolver1","espBotonVolver2","ingBotonVolver1","ingBotonVolver2"},
+        {"checkBoxNo","checkBoxSi"}, //CheckBoxes [6]
 
-        {"jugador1.png"},{"jugador2.png"},{"jugador3.png"},{"jugador4.png"}, //Elementos propios de la partida en sí [7-11]
-        {"dado1.png","dado2.png","dado3.png","dado4.png","dado5.png","dado6.png"},
+        {"jugador1"},{"jugador2"},{"jugador3"},{"jugador4"}, //Elementos propios de la partida en sí [7-11]
+        {"dado1","dado2","dado3","dado4","dado5","dado6"},
 
         //Letreros fijos del menú de opciones [12-15]
-        {"espTituloIdioma.png","ingTituloIdioma.png"}, {"espTituloJugadores.png","ingTituloJugadores.png"},
-        {"espTituloConexion.png","ingTituloConexion.png"}, {"espTituloOpciones.png","ingTituloOpciones.png"},
+        {"espTituloIdioma","ingTituloIdioma"}, {"espTituloJugadores","ingTituloJugadores"},
+        {"espTituloConexion","ingTituloConexion"}, {"espTituloOpciones","ingTituloOpciones"},
 
-        {"jug11.png","jug12.png","jug13.png","jug14.png","jug15.png"}, //Indicadores del jugador actual [16-19]
-        {"jug21.png","jug22.png","jug23.png","jug24.png","jug25.png"},
-        {"jug31.png","jug32.png","jug33.png","jug34.png","jug35.png"},
-        {"jug41.png","jug42.png","jug43.png","jug44.png","jug45.png"},
+        {"jug11","jug12","jug13","jug14","jug15"}, //Indicadores del jugador actual [16-19]
+        {"jug21","jug22","jug23","jug24","jug25"},
+        {"jug31","jug32","jug33","jug34","jug35"},
+        {"jug41","jug42","jug43","jug44","jug45"},
 
-        {"fondoSabias.png"},{"sabiasEsp.png","sabiasIng.png"}, //Otros elementos del juego [20-21]
+        {"fondoSabias"},{"sabiasEsp","sabiasIng"}, //Otros elementos del juego [20-21]
 
-        {"presentacion.png"},{"inicio3.png"},{"tableroc.png"}, //Fondos [22-25]
-        {"tablero1.png","tableroN.png"}
+        {"presentacion"},{"inicio3"},{"tableroc"}, //Fondos [22-25]
+        {"tablero1","tableroN"}
     };
 
     //Diferentes fondos del juego

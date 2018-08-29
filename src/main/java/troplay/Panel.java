@@ -550,6 +550,7 @@ public class Panel extends JPanel implements ActionListener {
                 elementos[1] = (Integer)colaActualizar.poll();
                 elementos[2] = (Integer)colaActualizar.poll();
                 elementos[3] = (Integer)colaActualizar.poll();
+
                 g.drawImage(arrayGraficos[elementos[0]][elementos[1]],elementos[2],elementos[3],null);
                 ultimaActualizacion = elementos[0];
             }
@@ -568,24 +569,22 @@ public class Panel extends JPanel implements ActionListener {
         int longitudSub = 0;
         int i = 0, j = 0;
 
-        String direct = "NONE";
+        String filePath = "NONE";
 
         arrayGraficos = new BufferedImage[longitud][0];
 
-        System.out.println("Working Directory = " +
-              System.getProperty("user.dir"));
         try {
             for(i = 0; i < longitud; i++) {
                 longitudSub = arrGrafs[i].length;
                 arrayGraficos[i] = new BufferedImage[longitudSub];
 
                 for(j = 0; j < longitudSub; j++) {
-                    arrayGraficos[i][j] = ImageIO.read(new File(Const.DIRECTORIO_GRAFICOS + arrGrafs[i][j]));
-                    direct = Const.DIRECTORIO_GRAFICOS + arrGrafs[i][j];
+                    filePath = Const.DIRECTORIO_GRAFICOS + arrGrafs[i][j] + ".png";
+                    arrayGraficos[i][j] = ImageIO.read(new File(filePath));
 				}
             }
         } catch(Exception e) {
-            System.err.println("Error en la carga de gráficos: " + e.toString() + " -- " + direct + "[" + i + "][" + j + "]");
+            System.err.println("Error en la carga de gráficos: " + e.toString() + " -- " + filePath + "[" + i + "][" + j + "]");
         }
 
         //Inicialización de los diferentes gráficos (presentacion, menu de opciones, juego)
