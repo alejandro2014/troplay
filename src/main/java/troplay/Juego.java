@@ -80,17 +80,10 @@ public class Juego extends ClaseControladora {
     private int contadorInicial, contadorFinal, contadorMas1;
     private boolean dibujadaCuriosidad = false;
 
-    /**
-     * Constructor. Se encarga de inicializar el estado del juego
-     * @param panel Panel de dibujo
-     * @param raton Controladora del ratón
-     * @param control Clase que controla el flujo del juego
-     * @throws java.sql.SQLException
-     */
-    public Juego(Panel panel, Raton raton, ControlFlujo control) {
+    public Juego(Ventana ventana, Raton raton, ControlFlujo control) {
         int i;
 
-        this.panel = panel;
+        this.panel = ventana.getPanel();
         panel.setRefJuego(this);
         panel.setNuevoDibujado(3,true);
 

@@ -133,7 +133,7 @@ public class ControlFlujo {
                 break;
 
             case 2:
-                claseControladora = new Juego(panel, raton, this);
+                claseControladora = new Juego(ventana, raton, this);
                 break;
         }
 
