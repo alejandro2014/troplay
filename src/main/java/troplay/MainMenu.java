@@ -3,8 +3,12 @@ package troplay;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static troplay.GameVariables.Language.ENGLISH;
+import static troplay.GameVariables.Language.SPANISH;
+
 public class MainMenu extends ClaseControladora {
-    private int idioma;
+    private final GameStatus gameStatus;
+    private GameVariables.Language idioma;
 
     private ControlFlujo controladora = null;
     private Ventana ventana = null;
@@ -33,6 +37,7 @@ public class MainMenu extends ClaseControladora {
     private boolean cambiadoBoton = false;
 
     public MainMenu(GameStatus gameStatus, ControlFlujo control) {
+        this.gameStatus = gameStatus;
         ArrayList conjCbxActual = null;
         int longBotones = botones.length;
         int longCbxIdioma = 2;
@@ -40,7 +45,7 @@ public class MainMenu extends ClaseControladora {
         int i;
 
         controladora = control;
-        idioma = controladora.getIdioma();
+        idioma = gameStatus.getVariables().getLanguage();
 
         ventana = gameStatus.getWindow();
         panel = ventana.getPanel();
@@ -140,8 +145,13 @@ public class MainMenu extends ClaseControladora {
 
             if (indiceColision < 2) { //Selección del idioma
                 if(!cambiadoCheckbox) {
-                    idioma = indiceColision;
-                    panel.setIdioma(idioma);
+                    if (indiceColision == 0) {
+                        idioma = SPANISH;
+                    } else {
+                        idioma = ENGLISH;
+                    }
+
+                    gameStatus.getVariables().setLanguage(idioma);
                     cambiadoCheckbox = true;
                 }
             } else if(indiceColision < 6) { //Selección del número de jugadores
@@ -155,7 +165,8 @@ public class MainMenu extends ClaseControladora {
             }
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
-                panel.insActualizacion(indiceColision,2*idioma+1, Const.ARR_COORDS_MENU[indiceColision]);
+                int subind = (idioma == SPANISH) ? 1 : 3;
+                panel.insActualizacion(indiceColision, subind, Const.ARR_COORDS_MENU[indiceColision]);
                 botonPulsado = indiceColision;
                 cambiadoBoton = true;
             }
@@ -163,7 +174,8 @@ public class MainMenu extends ClaseControladora {
     }
 
     public void desencadenarAccion(int numBoton) {
-        panel.insActualizacion(indiceColision, 2*idioma,Const.ARR_COORDS_MENU[indiceColision]);
+        int subind = (idioma == SPANISH) ? 0 : 2;
+        panel.insActualizacion(indiceColision, subind, Const.ARR_COORDS_MENU[indiceColision]);
         cambiadoBoton = false;
 
         switch(numBoton) {

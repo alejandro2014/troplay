@@ -6,12 +6,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static troplay.GameVariables.Language.ENGLISH;
+import static troplay.GameVariables.Language.SPANISH;
+
 /**
  * La clase Juego es la encargada de manejar la lógica del programa
  * @author alejandro
  */
 public class Juego extends ClaseControladora {
-    private int idiomaJuego = Const.ESPAÑOL;
+    private final GameStatus gameStatus;
+    private GameVariables.Language idiomaJuego;
     private int numJugadores = 1;
 
     private int casillaActual = 0;
@@ -83,6 +87,7 @@ public class Juego extends ClaseControladora {
     public Juego(GameStatus gameStatus, ControlFlujo control) {
         int i;
 
+        this.gameStatus = gameStatus;
         Ventana ventana = gameStatus.getWindow();
         this.panel = ventana.getPanel();
         panel.setRefJuego(this);
@@ -93,7 +98,7 @@ public class Juego extends ClaseControladora {
 
         rectangulos = Const.ARR_RECTS;
 
-        idiomaJuego = control.getIdioma();
+        idiomaJuego = gameStatus.getVariables().getLanguage();
         consultasJDBC = new ConexionJDBC(idiomaJuego);
 
         for(i=0; i<Const.NUM_CASILLAS; i++) tablero[i] = new Casilla(i);
@@ -122,7 +127,7 @@ public class Juego extends ClaseControladora {
 	private void initPlayers() {
 		int i;
 
-		numJugadores = controladora.getNumJugadores();
+		numJugadores = gameStatus.getVariables().getPlayersNo();
         jugadorActual = (numJugadores == 1 ? 0 : -1);
 
 		for(i=0; i<Const.MAX_JUGADORES; i++) jugadores[i] = null;
@@ -147,7 +152,6 @@ public class Juego extends ClaseControladora {
 
 	private void initCheckboxes() {
 		for(int i = 0; i < 3; i++) {
-            //Determina el conjunto de checkboxes al que pertenece
             checkboxes[i] = new CheckBox(conjCbxActual);
             checkboxes[i].setCoords(Const.ARR_COORDS_JUEGO[i+7]);
             checkboxes[i].setMostrar(false);
@@ -159,13 +163,11 @@ public class Juego extends ClaseControladora {
 	private void initQuestions() throws SQLException {
 		int i;
 
-        for(i=0; i<Const.NUM_DIFICULTADES; i++)numPreguntas[i] = getNumPreguntas(i,idiomaJuego);
+        for(i=0; i<Const.NUM_DIFICULTADES; i++)numPreguntas[i] = getNumPreguntas(i, idiomaJuego);
         asigFacil = new boolean[numPreguntas[Const.BAJA]];
         asigMedio = new boolean[numPreguntas[Const.MEDIA]];
         asigDificil = new boolean[numPreguntas[Const.ALTA]];
 
-        /* Inicializa los arrays que indican si una pregunta ya está asignada
-        a una casilla */
         for(i=0; i<numPreguntas[Const.BAJA]; i++) asigFacil[i] = false;
         for(i=0; i<numPreguntas[Const.MEDIA]; i++) asigMedio[i] = false;
         for(i=0; i<numPreguntas[Const.ALTA]; i++) asigDificil[i] = false;
@@ -266,14 +268,12 @@ public class Juego extends ClaseControladora {
 
                 break;
 
-            //Estado del juego en el que se hace la pregunta
             case ESTADO_PREGUNTANDO:
                 switch(evento) {
-                    //Acierta la pregunta
                     case EVENTO_ACIERTO:
                         switch(idiomaJuego) {
-                            case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " acierta"); break;
-                            case Const.INGLES: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " is right"); break;
+                            case SPANISH: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " acierta"); break;
+                            case ENGLISH: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " is right"); break;
                         }
 
                         panel.setPregunta(null);
@@ -287,8 +287,8 @@ public class Juego extends ClaseControladora {
                     //Falla la pregunta
                     case EVENTO_FALLO:
                         switch(idiomaJuego) {
-                            case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " falla"); break;
-                            case Const.INGLES: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " fails"); break;
+                            case SPANISH: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " falla"); break;
+                            case ENGLISH: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " fails"); break;
                         }
 
                         panel.setPregunta(null);
@@ -315,8 +315,8 @@ public class Juego extends ClaseControladora {
                             jugadores[jugadorActual].setPuedoTirar(false);
 
                             switch(idiomaJuego) {
-                                case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " frena"); break;
-                                case Const.INGLES: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " brakes"); break;
+                                case SPANISH: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " frena"); break;
+                                case ENGLISH: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " brakes"); break;
                             }
                         }
 
@@ -481,20 +481,17 @@ public class Juego extends ClaseControladora {
 
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
-                //botones[indiceColision].setPulsado(true);
-                panel.insActualizacion(indiceColision+4,2*idiomaJuego+1, Const.ARR_COORDS_JUEGO[indiceColision+5]);
+                int subind = (idiomaJuego == SPANISH) ? 1 : 3;
+                panel.insActualizacion(indiceColision + 4, subind, Const.ARR_COORDS_JUEGO[indiceColision + 5]);
                 cambiadoBoton = true;
             }
             botonPulsado = indiceColision;
         }
     }
 
-    /**
-     * Desencadenar determinadas acciones en función del botón al que se pulse
-     * @param numBoton Número de botón pulsado
-     */
     public void desencadenarAccion(int numBoton) {
-        panel.insActualizacion(numBoton+4,2*idiomaJuego, Const.ARR_COORDS_JUEGO[numBoton+5]);
+        int subind = (idiomaJuego == SPANISH) ? 0 : 2;
+        panel.insActualizacion(numBoton+4,subind, Const.ARR_COORDS_JUEGO[numBoton+5]);
         cambiadoBoton = false;
 
         switch(numBoton) {
@@ -558,8 +555,8 @@ public class Juego extends ClaseControladora {
         for(int i=0; i<numJugadores && jugadorGanador == -1; i++) {
             if(jugadores[i].getCasilla() == (Const.NUM_CASILLAS-1)) {
                 switch(idiomaJuego) {
-                    case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (i+1) + " gana"); break;
-                    case Const.INGLES: panel.setCadenaEstado("Player " + (i+1) + " wins"); break;
+                    case SPANISH: panel.setCadenaEstado("Jugador " + (i+1) + " gana"); break;
+                    case ENGLISH: panel.setCadenaEstado("Player " + (i+1) + " wins"); break;
                 }
                 jugadorGanador = i;
                 break;
@@ -578,24 +575,12 @@ public class Juego extends ClaseControladora {
     public int getJugadorX(int i) {return jugadores[i].getCx();}
     public int getJugadorY(int i) {return jugadores[i].getCy();}
 
-    /**
-     * Obtención del número de preguntas que hay disponibles, ya sea en la
-     * máquina local o en el servidor
-     * @param dificultad La dificultad de la pregunta
-     * @param idioma El idioma en el que se está jugando
-     * @return Número de preguntas disponibles de cada tipo. -1 si error.
-     */
-    public int getNumPreguntas(int dificultad, int idioma) throws SQLException {
+    public int getNumPreguntas(int dificultad, GameVariables.Language idioma) throws SQLException {
         return consultasJDBC.obtenerNumPreguntas(dificultad+1);
     }
 
     public int getNumJugadores() {return numJugadores;}
 
-    /**
-     * Para establecer la posición de los checkboxes de respuesta
-     * @param numCheck Número de checkbox al que se quiere mover
-     * @param despVr Desplazamiento vertical del checkbox
-     */
     public void setCheckBoxVert(int numCheck, int despVr) {
         checkboxes[numCheck].setCy(despVr);
         checkboxes[numCheck].setRectangulo(new Rectangle(703,despVr,19,19));

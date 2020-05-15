@@ -1,10 +1,15 @@
 package troplay;
 
+import troplay.GameVariables.Language;
+
 import java.awt.*;
 import java.util.ArrayList;
 
+import static troplay.GameVariables.Language.ENGLISH;
+import static troplay.GameVariables.Language.SPANISH;
+
 public class OptionsMenu extends ClaseControladora {
-    private int idioma;
+    private final GameStatus gameStatus;
     private int numJugadores;
 
     private ControlFlujo controladora = null;
@@ -33,7 +38,10 @@ public class OptionsMenu extends ClaseControladora {
     private boolean cambiadoCheckbox = false;
     private boolean cambiadoBoton = false;
 
+    private Language language;
+
     public OptionsMenu(GameStatus gameStatus, ControlFlujo control) {
+        this.gameStatus = gameStatus;
         ArrayList conjCbxActual = null;
         int longBotones = botones.length;
         int longCbxIdioma = 2;
@@ -41,8 +49,8 @@ public class OptionsMenu extends ClaseControladora {
         int i;
 
         controladora = control;
-        idioma = controladora.getIdioma();
-        numJugadores = controladora.getNumJugadores();
+
+        numJugadores = gameStatus.getVariables().getPlayersNo();
 
         ventana = gameStatus.getWindow();
         panel = ventana.getPanel();
@@ -74,7 +82,12 @@ public class OptionsMenu extends ClaseControladora {
             checkboxes[i].setMostrar(!valorVerdad);
         }
 
-        checkboxes[idioma].setActivado(true);
+        if(gameStatus.getVariables().getLanguage() == SPANISH) {
+            checkboxes[0].setActivado(true);
+        } else {
+            checkboxes[1].setActivado(true);
+        }
+
         checkboxes[numJugadores + 1].setActivado(true);
     }
 
@@ -98,7 +111,9 @@ public class OptionsMenu extends ClaseControladora {
             } catch (InterruptedException ex) {}
         }
 
-        controladora.setVariables(idioma, numJugadores);
+        gameStatus.getVariables().setLanguage(gameStatus.getVariables().getLanguage());
+        gameStatus.getVariables().setPlayersNo(numJugadores);
+
         controladora.setEvento(eventoRealizado);
     }
 
@@ -117,7 +132,7 @@ public class OptionsMenu extends ClaseControladora {
             ratonPulsado = false;
     }
 
-    public void controlColision() {
+    private void controlColision() {
         int longitud = botones.length, i;
 
         for(i=0; i< longitud; i++) {
@@ -146,8 +161,14 @@ public class OptionsMenu extends ClaseControladora {
 
             if (indiceColision < 2) { //Selección del idioma
                 if(!cambiadoCheckbox) {
-                    idioma = indiceColision;
-                    panel.setIdioma(idioma);
+                    if(indiceColision == 0) {
+                        gameStatus.getVariables().setLanguage(SPANISH);
+                    } else {
+                        gameStatus.getVariables().setLanguage(ENGLISH);
+                    }
+
+                    gameStatus.getPanel().setIdioma(gameStatus.getVariables().getLanguage());
+
                     cambiadoCheckbox = true;
                 }
             } else if(indiceColision < 6) { //Selección del número de jugadores
@@ -163,7 +184,8 @@ public class OptionsMenu extends ClaseControladora {
 
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
-                panel.insActualizacion(indiceColision,2*idioma+1, Const.ARR_COORDS_MENU[indiceColision]);
+                int subind = (gameStatus.getVariables().getLanguage() == SPANISH) ? 1 : 3;
+                panel.insActualizacion(indiceColision,subind, Const.ARR_COORDS_MENU[indiceColision]);
                 botonPulsado = indiceColision;
                 cambiadoBoton = true;
             }
@@ -171,7 +193,8 @@ public class OptionsMenu extends ClaseControladora {
     }
 
     public void desencadenarAccion(int numBoton) {
-        panel.insActualizacion(indiceColision, 2*idioma,Const.ARR_COORDS_MENU[indiceColision]);
+        int subind = (gameStatus.getVariables().getLanguage() == SPANISH) ? 0 : 2;
+        panel.insActualizacion(indiceColision, subind, Const.ARR_COORDS_MENU[indiceColision]);
         cambiadoBoton = false;
 
         switch(numBoton) {

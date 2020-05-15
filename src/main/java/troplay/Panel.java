@@ -1,5 +1,7 @@
 package troplay;
 
+import troplay.GameVariables.Language;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -478,10 +480,6 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
-    /**
-     * Cambio en el modo de dibujo del juego
-     * @param modo Modo de dibujo
-     */
     public void setModo(int modo) {
         tipoDibujo = modo;
 
@@ -535,9 +533,6 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
-    /**
-     * Actualiza el buffer de dibujo para dibujar lo menos posible
-     */
     private void actualizar() {
         if(bufferActual != null) {
             Graphics2D g = (Graphics2D) bufferActual.getGraphics();
@@ -560,9 +555,6 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
-    /**
-     * Carga de los diferentes gráficos del juego
-     */
     private void cargaGraficos() {
         String[][] arrGrafs = Const.ARR_GRAFS;
         int longitud = arrGrafs.length;
@@ -655,13 +647,8 @@ public class Panel extends JPanel implements ActionListener {
     public void setDibujadaCuriosidad(boolean valor) {dibujadaCuriosidad = valor;}
     public void setDibujarPregunta(boolean valor) {dibujarPregunta = valor;}
 
-    /**
-     * Cambio del idioma del juego. Como sólo se hace desde el menú controla también
-     * el cambio de las opciones del juego.
-     * @param nuevoIdioma Idioma al que se cambia (español o inglés)
-     */
-    public void setIdioma(int nuevoIdioma) {
-        idiomaJuego = nuevoIdioma;
+    public void setIdioma(Language nuevoIdioma) {
+        idiomaJuego = nuevoIdioma == Language.SPANISH ? 0 : 1;
 
         nuevoDibujo[Const.MODOMENU] = true;
 

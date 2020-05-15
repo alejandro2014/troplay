@@ -28,10 +28,16 @@ public class ConexionJDBC {
      * Conexión local con la base de datos
      * @param idio Idioma utilizado
      */
-    public ConexionJDBC(int idio) {
+    public ConexionJDBC(GameVariables.Language idio) {
         cadConexion = "jdbc:sqlite:" + troplayDirectory + "/src/main/resources/db/tenia.sqlite";
         driver = "org.sqlite.JDBC";
-        idioma = idio+1;
+
+        if (idio == GameVariables.Language.SPANISH) {
+            idioma = 1;
+        } else {
+            idioma = 2;
+        }
+
         conectar();
     }
 
