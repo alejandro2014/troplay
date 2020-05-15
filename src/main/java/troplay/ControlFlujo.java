@@ -23,12 +23,8 @@ public class ControlFlujo {
             case Const.ESTADO_PRESENTACION:
                 switch(evento) {
                     case Const.EVENTO_NULO:
-                        gameStatus.getPanel().setModo(Const.MODOPRESEN);
-
                         runControlClass(ControlPresentacion.class);
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
-
-                        gameStatus.getPanel().setModo(Const.MODOMENU);
                         break;
                 }
                 break;
@@ -41,8 +37,6 @@ public class ControlFlujo {
                         break;
 
                     case Const.EVENTO_EMPEZAR:
-                        //gameStatus.getPanel().setNumJugadores(gameStatus.getPlayersNo());
-                        //gameStatus.setPlayersNo();
                         gameStatus.getPanel().setDibujadaCuriosidad(false);
 
                         runControlClass(Juego.class);
@@ -65,18 +59,12 @@ public class ControlFlujo {
             case Const.ESTADO_OPCIONES:
                 switch(evento) {
                     case Const.EVENTO_NULO:
-                        gameStatus.getPanel().setModo(Const.MODOOPCION);
-
                         runControlClass(OptionsMenu.class);
                         nuevoEstado = Const.ESTADO_OPCIONES;
-
                         break;
 
                     case Const.EVENTO_VOLVER:
-                        gameStatus.getPanel().setModo(Const.MODOMENU);
-
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
-
                         eventoEntrada = Const.EVENTO_NULO;
                         break;
                 }
@@ -85,10 +73,7 @@ public class ControlFlujo {
             case Const.ESTADO_JUEGO:
                 switch(evento) {
                     case Const.EVENTO_SALIR:
-                        gameStatus.getPanel().setModo(Const.MODOMENU);
-
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
-
                         eventoEntrada = Const.EVENTO_NULO;
                         break;
                 }

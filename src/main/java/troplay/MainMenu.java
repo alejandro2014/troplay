@@ -49,6 +49,8 @@ public class MainMenu extends ClaseControladora {
 
         ventana = gameStatus.getWindow();
         panel = ventana.getPanel();
+        panel.setModo(Const.MODOMENU);
+
         this.raton = gameStatus.getMouse();
 		coords = Const.ARR_COORDS_MENU;
 

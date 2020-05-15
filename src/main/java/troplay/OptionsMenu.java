@@ -52,6 +52,8 @@ public class OptionsMenu extends ClaseControladora {
 
         ventana = gameStatus.getWindow();
         panel = ventana.getPanel();
+        panel.setModo(Const.MODOOPCION);
+
         this.raton = gameStatus.getMouse();
 
 		coords = Const.ARR_COORDS_MENU;

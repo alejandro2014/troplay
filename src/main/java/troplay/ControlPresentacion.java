@@ -9,6 +9,7 @@ class ControlPresentacion extends ClaseControladora {
     public ControlPresentacion (GameStatus gameStatus, ControlFlujo control) {
         Ventana vent = gameStatus.getWindow();
         panel = vent.getPanel();
+        panel.setModo(Const.MODOPRESEN);
     }
 
     public void bucleJuego() {
