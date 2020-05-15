@@ -3,16 +3,12 @@ package troplay;
 import java.sql.SQLException;
 
 public class ControlFlujo {
-    //public Ventana ventana = null;
-    private Raton raton = null;
-
     private int estadoActual = Const.ESTADO_PRESENTACION;
     private int eventoEntrada = Const.EVENTO_NULO;
 
     private int idiomaJuego = Const.ESPAÑOL;
     private int numJugadores = 1;
     private int nuevoEstado;
-    private Panel panel = null;
 
     private GameVariables gameVariables = null;
 
@@ -23,15 +19,12 @@ public class ControlFlujo {
 
         gameVariables = new GameVariables();
         setVariables(idiomaJuego, numJugadores);
-        //ventana = new Ventana();
-        panel = gameStatus.getWindow().getPanel();
-        raton = new Raton(panel);
 
         while (estadoActual != Const.ESTADO_FINAL) {
             estadoActual = cambiarEstado(estadoActual, eventoEntrada);
         }
 
-        panel.descargarGraficos();
+        gameStatus.getPanel().descargarGraficos();
         System.exit(0);
     }
 
@@ -40,12 +33,12 @@ public class ControlFlujo {
             case Const.ESTADO_PRESENTACION:
                 switch(evento) {
                     case Const.EVENTO_NULO:
-                        panel.setModo(Const.MODOPRESEN);
+                        gameStatus.getPanel().setModo(Const.MODOPRESEN);
 
                         runControlClass(ControlPresentacion.class);
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
 
-                        panel.setModo(Const.MODOMENU);
+                        gameStatus.getPanel().setModo(Const.MODOMENU);
                         break;
                 }
                 break;
@@ -58,8 +51,8 @@ public class ControlFlujo {
                         break;
 
                     case Const.EVENTO_EMPEZAR:
-                        panel.setNumJugadores(numJugadores);
-                        panel.setDibujadaCuriosidad(false);
+                        gameStatus.getPanel().setNumJugadores(numJugadores);
+                        gameStatus.getPanel().setDibujadaCuriosidad(false);
 
                         runControlClass(Juego.class);
                         nuevoEstado = Const.ESTADO_JUEGO;
@@ -81,7 +74,7 @@ public class ControlFlujo {
             case Const.ESTADO_OPCIONES:
                 switch(evento) {
                     case Const.EVENTO_NULO:
-                        panel.setModo(Const.MODOOPCION);
+                        gameStatus.getPanel().setModo(Const.MODOOPCION);
 
                         runControlClass(OptionsMenu.class);
                         nuevoEstado = Const.ESTADO_OPCIONES;
@@ -89,7 +82,7 @@ public class ControlFlujo {
                         break;
 
                     case Const.EVENTO_VOLVER:
-                        panel.setModo(Const.MODOMENU);
+                        gameStatus.getPanel().setModo(Const.MODOMENU);
 
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
 
@@ -101,7 +94,7 @@ public class ControlFlujo {
             case Const.ESTADO_JUEGO:
                 switch(evento) {
                     case Const.EVENTO_SALIR:
-                        panel.setModo(Const.MODOMENU);
+                        gameStatus.getPanel().setModo(Const.MODOMENU);
 
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
 
@@ -119,8 +112,8 @@ public class ControlFlujo {
 
         try {
             controllerClass = (ClaseControladora) clazz
-                    .getConstructor(GameStatus.class, Raton.class, ControlFlujo.class)
-                    .newInstance(gameStatus, raton, this);
+                    .getConstructor(GameStatus.class, ControlFlujo.class)
+                    .newInstance(gameStatus, this);
         } catch (Exception ex) {
             System.err.println("Can't load the class " + clazz);
             System.exit(1);

@@ -33,7 +33,7 @@ public class OptionsMenu extends ClaseControladora {
     private boolean cambiadoCheckbox = false;
     private boolean cambiadoBoton = false;
 
-    public OptionsMenu(GameStatus gameStatus, Raton raton, ControlFlujo control) {
+    public OptionsMenu(GameStatus gameStatus, ControlFlujo control) {
         ArrayList conjCbxActual = null;
         int longBotones = botones.length;
         int longCbxIdioma = 2;
@@ -46,7 +46,7 @@ public class OptionsMenu extends ClaseControladora {
 
         ventana = gameStatus.getWindow();
         panel = ventana.getPanel();
-        this.raton = raton;
+        this.raton = gameStatus.getMouse();
 
 		coords = Const.ARR_COORDS_MENU;
 

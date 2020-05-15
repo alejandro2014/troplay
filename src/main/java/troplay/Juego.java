@@ -80,7 +80,7 @@ public class Juego extends ClaseControladora {
     private int contadorInicial, contadorFinal, contadorMas1;
     private boolean dibujadaCuriosidad = false;
 
-    public Juego(GameStatus gameStatus, Raton raton, ControlFlujo control) {
+    public Juego(GameStatus gameStatus, ControlFlujo control) {
         int i;
 
         Ventana ventana = gameStatus.getWindow();
@@ -89,7 +89,7 @@ public class Juego extends ClaseControladora {
         panel.setNuevoDibujado(3,true);
 
         controladora = control;
-        this.raton = raton;
+        this.raton = gameStatus.getMouse();
 
         rectangulos = Const.ARR_RECTS;
 

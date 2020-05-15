@@ -4,5 +4,13 @@ import lombok.Data;
 
 @Data
 public class GameStatus {
-    private Ventana window = new Ventana();
+    private Ventana window;
+    private Panel panel;
+    private Raton mouse;
+
+    public GameStatus() {
+        window = new Ventana();
+        panel = window.getPanel();
+        mouse = new Raton(panel);
+    }
 }

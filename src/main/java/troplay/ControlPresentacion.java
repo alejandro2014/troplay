@@ -6,7 +6,7 @@ class ControlPresentacion extends ClaseControladora {
     private Panel panel = null;
     private int contadorInicial, contadorFinal;
 
-    public ControlPresentacion (GameStatus gameStatus, Raton raton, ControlFlujo control) {
+    public ControlPresentacion (GameStatus gameStatus, ControlFlujo control) {
         Ventana vent = gameStatus.getWindow();
         panel = vent.getPanel();
     }
