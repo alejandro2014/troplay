@@ -580,6 +580,7 @@ public class Panel extends JPanel implements ActionListener {
 
                 for(j = 0; j < longitudSub; j++) {
                     filePath = Const.DIRECTORIO_GRAFICOS + arrGrafs[i][j] + ".png";
+                    System.out.println("Loading " + filePath);
                     arrayGraficos[i][j] = ImageIO.read(new File(filePath));
 				}
             }

@@ -26,8 +26,8 @@ public abstract class Const {
     public static final int NUMCASIMEDIO = 23;
     public static final int NUMCASIDIFICIL = 23;
 
-    //public static final String DIRECTORIO_GRAFICOS = "/home/alejandro/programs/troplay/src/main/resources/graficos/";
-    public static final String DIRECTORIO_GRAFICOS = "/Users/alejandro/programs/troplay/src/main/resources/graficos/";
+    public static final String DIRECTORIO_GRAFICOS = "/home/alejandro/programs/troplay/src/main/resources/graficos/";
+    //public static final String DIRECTORIO_GRAFICOS = "/Users/alejandro/programs/troplay/src/main/resources/graficos/";
 
     //Coordenadas de los centros de cada casilla
 	public static final Point arrayCasillas[] = {

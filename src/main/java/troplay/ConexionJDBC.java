@@ -21,8 +21,8 @@ public class ConexionJDBC {
     private int idioma;
     private String cadConexion, driver;
 
-    //private String troplayDirectory = "/home/alejandro/programs/troplay";
-    private String troplayDirectory = "/Users/alejandro/programs/troplay";
+    private String troplayDirectory = "/home/alejandro/programs/troplay";
+    //private String troplayDirectory = "/Users/alejandro/programs/troplay";
 
     /**
      * Conexión local con la base de datos

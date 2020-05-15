@@ -87,7 +87,7 @@ public class Juego extends ClaseControladora {
      * @param control Clase que controla el flujo del juego
      * @throws java.sql.SQLException
      */
-    public Juego(Panel panel, Raton raton, ControlFlujo control) throws SQLException {
+    public Juego(Panel panel, Raton raton, ControlFlujo control) {
         int i;
 
         this.panel = panel;
@@ -109,9 +109,15 @@ public class Juego extends ClaseControladora {
         initPlayers();
 		initButtons();
 		initCheckboxes();
-		initQuestions();
-        asignarPreguntas();
-        getCuriosity();
+
+		try {
+            initQuestions();
+            asignarPreguntas();
+            getCuriosity();
+        } catch (SQLException ex) {
+		    ex.printStackTrace();
+        }
+
         panel.setCuriosidad(pregCuriosidad);
 
         consultasJDBC.cerrarConexion();

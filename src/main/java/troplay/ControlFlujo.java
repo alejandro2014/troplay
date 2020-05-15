@@ -1,6 +1,5 @@
 package troplay;
 
-import troplay.GameVariables;
 import java.sql.SQLException;
 
 /**
@@ -54,8 +53,10 @@ public class ControlFlujo {
                 switch(evento) {
                     case Const.EVENTO_NULO:
                         panel.setModo(Const.MODOPRESEN);
+
                         claseControladora = new ControlPresentacion(ventana, this);
                         claseControladora.bucleJuego();
+
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
                         panel.setModo(Const.MODOMENU);
                         break;
@@ -65,17 +66,15 @@ public class ControlFlujo {
             case Const.ESTADO_MENU_PRINCIPAL:
                 switch(evento) {
                     case Const.EVENTO_NULO:
-                        claseControladora = new Menu(ventana, raton, this, 0);
-                        claseControladora.bucleJuego();
+                        runControlClass(0);
                         break;
 
                     case Const.EVENTO_EMPEZAR:
                         panel.setNumJugadores(numJugadores);
                         panel.setDibujadaCuriosidad(false);
-                        try {
-                            claseControladora = new Juego(panel, raton, this);
-                            claseControladora.bucleJuego();
-                        } catch (SQLException ex) {}
+
+                        claseControladora = new Juego(panel, raton, this);
+                        claseControladora.bucleJuego();
 
                         nuevoEstado = Const.ESTADO_JUEGO;
                         break;
@@ -96,8 +95,7 @@ public class ControlFlujo {
                     case Const.EVENTO_NULO:
                         panel.setModo(Const.MODOOPCION);
 
-                        claseControladora = new Menu(ventana, raton, this, 1);
-                        claseControladora.bucleJuego();
+                        runControlClass(1);
 
                         break;
 
@@ -121,6 +119,11 @@ public class ControlFlujo {
         }
 
         return nuevoEstado;
+    }
+
+    private void runControlClass(int menuType) {
+        ClaseControladora claseControladora = new Menu(ventana, raton, this, menuType);
+        claseControladora.bucleJuego();
     }
 
     //Para que la clase Juego pueda obtener los parámetros necesarios
