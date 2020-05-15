@@ -80,9 +80,10 @@ public class Juego extends ClaseControladora {
     private int contadorInicial, contadorFinal, contadorMas1;
     private boolean dibujadaCuriosidad = false;
 
-    public Juego(Ventana ventana, Raton raton, ControlFlujo control) {
+    public Juego(GameStatus gameStatus, Raton raton, ControlFlujo control) {
         int i;
 
+        Ventana ventana = gameStatus.getWindow();
         this.panel = ventana.getPanel();
         panel.setRefJuego(this);
         panel.setNuevoDibujado(3,true);

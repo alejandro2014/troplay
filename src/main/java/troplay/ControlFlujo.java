@@ -3,7 +3,7 @@ package troplay;
 import java.sql.SQLException;
 
 public class ControlFlujo {
-    public Ventana ventana = null;
+    //public Ventana ventana = null;
     private Raton raton = null;
 
     private int estadoActual = Const.ESTADO_PRESENTACION;
@@ -16,11 +16,15 @@ public class ControlFlujo {
 
     private GameVariables gameVariables = null;
 
+    private GameStatus gameStatus;
+
     public ControlFlujo() {
+        gameStatus = new GameStatus();
+
         gameVariables = new GameVariables();
         setVariables(idiomaJuego, numJugadores);
-        ventana = new Ventana();
-        panel = ventana.getPanel();
+        //ventana = new Ventana();
+        panel = gameStatus.getWindow().getPanel();
         raton = new Raton(panel);
 
         while (estadoActual != Const.ESTADO_FINAL) {
@@ -115,8 +119,8 @@ public class ControlFlujo {
 
         try {
             controllerClass = (ClaseControladora) clazz
-                    .getConstructor(Ventana.class, Raton.class, ControlFlujo.class)
-                    .newInstance(ventana, raton, this);
+                    .getConstructor(GameStatus.class, Raton.class, ControlFlujo.class)
+                    .newInstance(gameStatus, raton, this);
         } catch (Exception ex) {
             System.err.println("Can't load the class " + clazz);
             System.exit(1);
@@ -125,7 +129,6 @@ public class ControlFlujo {
         controllerClass.bucleJuego();
     }
 
-    //Para que la clase Juego pueda obtener los parámetros necesarios
     public int getIdioma() {return idiomaJuego;}
     public int getNumJugadores() {return numJugadores;}
 

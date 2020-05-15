@@ -3,12 +3,7 @@ package troplay;
 import java.awt.*;
 import java.util.ArrayList;
 
-/**
- * Clase utilizada para controlar los menús, ya sea el principal o el de opciones
- * @author alejandro
- */
 public class OptionsMenu extends ClaseControladora {
-    //Variables que se le pasarán al controlador del juego
     private int idioma;
     private int numJugadores;
 
@@ -22,18 +17,15 @@ public class OptionsMenu extends ClaseControladora {
     private final int NUM_BOTONES = 4;
     private final int NUM_CHECKBOXES = 6;
 
-    //Elementos dinámicos del menú (botones y checkboxes)
     private Dibujable[] botones = new Dibujable[NUM_BOTONES];
     private CheckBox[] checkboxes = new CheckBox[NUM_CHECKBOXES];
     private ArrayList conjCbxIdioma = new ArrayList();
     private ArrayList conjCbxJugadores = new ArrayList();
 
-    //Control de los gráficos
     private Point[] coords = null;
 
-    //Control de colisiones
     private boolean ratonPulsado = false;
-    //private int xRaton = 0, yRaton = 0;
+
 	private Point coordsRaton = new Point();
     private String tipoColision = "";
     private int indiceColision = 0;
@@ -41,13 +33,7 @@ public class OptionsMenu extends ClaseControladora {
     private boolean cambiadoCheckbox = false;
     private boolean cambiadoBoton = false;
 
-    /**
-     * Constructor de la clase
-     * @param vent Referencia a la ventana
-     * @param raton Control del ratón
-     * @param control
-     */
-    public OptionsMenu(Ventana vent, Raton raton, ControlFlujo control) {
+    public OptionsMenu(GameStatus gameStatus, Raton raton, ControlFlujo control) {
         ArrayList conjCbxActual = null;
         int longBotones = botones.length;
         int longCbxIdioma = 2;
@@ -58,23 +44,19 @@ public class OptionsMenu extends ClaseControladora {
         idioma = controladora.getIdioma();
         numJugadores = controladora.getNumJugadores();
 
-        ventana = vent;
+        ventana = gameStatus.getWindow();
         panel = ventana.getPanel();
         this.raton = raton;
-        //coords = Const.ARR_COORDS_MENU;
+
 		coords = Const.ARR_COORDS_MENU;
 
-        //Inicializacion de los botones
-        longBotones = botones.length;
         for(i = 0; i < longBotones; i++) {
             botones[i] = new Dibujable();
 			botones[i].setCoords(coords[i]);
             botones[i].setRectangulo(Const.ARR_RECTS[i]);
         }
 
-        //Inicializacion de los checkBox
         for(i = 0; i < longCheckBox; i++) {
-            //Determina el conjunto de checkboxes al que pertenece
             conjCbxActual = (i < longCbxIdioma ? conjCbxIdioma : conjCbxJugadores);
 
             checkboxes[i] = new CheckBox(conjCbxActual);
@@ -82,7 +64,6 @@ public class OptionsMenu extends ClaseControladora {
             checkboxes[i].setRectangulo(Const.ARR_RECTS[i + 6]);
         }
 
-        //Activado o desactivado de los elementos en función del tipo de menú
         boolean valorVerdad = false;
 
         botones[0].setMostrar(valorVerdad);
@@ -97,19 +78,14 @@ public class OptionsMenu extends ClaseControladora {
         checkboxes[numJugadores + 1].setActivado(true);
     }
 
-    /**
-     * Bucle con el comportamiento del menú
-     */
     public void bucleJuego() {
         while(!acabar) {
-            //Lectura y procesado de la entrada
             controlEntrada();
             if (ratonPulsado)
                 procesarEntrada();
             else
                 cambiadoCheckbox = false;
 
-            //Se actúa cuando se deja de pulsar el botón, no antes
             if (botonPulsado != -1 && !ratonPulsado) {
                 desencadenarAccion(botonPulsado);
                 botonPulsado = -1;
@@ -122,24 +98,15 @@ public class OptionsMenu extends ClaseControladora {
             } catch (InterruptedException ex) {}
         }
 
-        //Asigna las variables si no lo están ya
         controladora.setVariables(idioma, numJugadores);
-
         controladora.setEvento(eventoRealizado);
     }
 
-    /**
-     * Sale del menú si se alcanza alguno de sus puntos de salida
-     * @return Verdadeto si se produce algún evento de salida, falso si no
-     */
     public boolean finalBucle() {
         return (eventoRealizado == Const.EVENTO_SALIR || eventoRealizado == Const.EVENTO_EMPEZAR ||
                 eventoRealizado == Const.EVENTO_VOLVER || eventoRealizado == Const.EVENTO_OPCIONES);
     }
 
-    /**
-     * Obtención de la entrada del usuario
-     */
     public void controlEntrada() {
         ratonPulsado = raton.getEstado();
 
@@ -150,9 +117,6 @@ public class OptionsMenu extends ClaseControladora {
             ratonPulsado = false;
     }
 
-    /**
-     * Detección de colisiones
-     */
     public void controlColision() {
         int longitud = botones.length, i;
 
@@ -176,11 +140,7 @@ public class OptionsMenu extends ClaseControladora {
         ratonPulsado = false;
     }
 
-    /**
-     * Cuando pulsa con el ratón tiene que procesar si se ha hecho algo útil
-     */
     public void procesarEntrada() {
-        //Pulsado en un checkbox con una opción
         if (tipoColision.equals("checkBox")) {
             checkboxes[indiceColision].setActivado(true);
 
@@ -201,7 +161,6 @@ public class OptionsMenu extends ClaseControladora {
                 }
             }
 
-        //Pulsado de un botón
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
                 panel.insActualizacion(indiceColision,2*idioma+1, Const.ARR_COORDS_MENU[indiceColision]);
@@ -211,10 +170,6 @@ public class OptionsMenu extends ClaseControladora {
         }
     }
 
-    /**
-     * Desencadenar determinadas acciones en función del botón al que se pulse
-     * @param numBoton Número de botón pulsado
-     */
     public void desencadenarAccion(int numBoton) {
         panel.insActualizacion(indiceColision, 2*idioma,Const.ARR_COORDS_MENU[indiceColision]);
         cambiadoBoton = false;
