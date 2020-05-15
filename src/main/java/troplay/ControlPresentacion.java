@@ -15,7 +15,7 @@ class ControlPresentacion extends ClaseControladora {
      * @param vent Referencia a la ventana
      * @param control Clase controladora de los estados del juego
      */
-    public ControlPresentacion (Ventana vent, ControlFlujo control) {
+    public ControlPresentacion (Ventana vent, Raton raton, ControlFlujo control) {
         panel = vent.getPanel();
     }
 
