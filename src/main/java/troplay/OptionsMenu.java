@@ -1,13 +1,13 @@
 package troplay;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
  * Clase utilizada para controlar los menús, ya sea el principal o el de opciones
  * @author alejandro
  */
-public class Menu extends troplay.ClaseControladora {
+public class OptionsMenu extends ClaseControladora {
     //Variables que se le pasarán al controlador del juego
     private int idioma;
     private int numJugadores;
@@ -38,7 +38,6 @@ public class Menu extends troplay.ClaseControladora {
     private String tipoColision = "";
     private int indiceColision = 0;
     private int botonPulsado = -1;
-    private int tipoMenu;
     private boolean cambiadoCheckbox = false;
     private boolean cambiadoBoton = false;
 
@@ -47,9 +46,8 @@ public class Menu extends troplay.ClaseControladora {
      * @param vent Referencia a la ventana
      * @param raton Control del ratón
      * @param control
-     * @param tipoMenu
      */
-    public Menu(Ventana vent, Raton raton, ControlFlujo control, int tipoMenu) {
+    public OptionsMenu(Ventana vent, Raton raton, ControlFlujo control) {
         ArrayList conjCbxActual = null;
         int longBotones = botones.length;
         int longCbxIdioma = 2;
@@ -65,8 +63,6 @@ public class Menu extends troplay.ClaseControladora {
         this.raton = raton;
         //coords = Const.ARR_COORDS_MENU;
 		coords = Const.ARR_COORDS_MENU;
-
-        this.tipoMenu = tipoMenu;
 
         //Inicializacion de los botones
         longBotones = botones.length;
@@ -87,18 +83,18 @@ public class Menu extends troplay.ClaseControladora {
         }
 
         //Activado o desactivado de los elementos en función del tipo de menú
-        boolean valorVerdad = (tipoMenu == 0 ? true : false);
+        boolean valorVerdad = false;
 
         botones[0].setMostrar(valorVerdad);
         botones[1].setMostrar(valorVerdad);
         botones[2].setMostrar(valorVerdad);
         botones[3].setMostrar(!valorVerdad);
-        for(i = 0; i < longCheckBox; i++) checkboxes[i].setMostrar(!valorVerdad);
-
-        if(tipoMenu == 1) {
-            checkboxes[idioma].setActivado(true);
-            checkboxes[numJugadores + 1].setActivado(true);
+        for(i = 0; i < longCheckBox; i++) {
+            checkboxes[i].setMostrar(!valorVerdad);
         }
+
+        checkboxes[idioma].setActivado(true);
+        checkboxes[numJugadores + 1].setActivado(true);
     }
 
     /**
@@ -127,8 +123,7 @@ public class Menu extends troplay.ClaseControladora {
         }
 
         //Asigna las variables si no lo están ya
-        if (tipoMenu == 1)
-            controladora.setVariables(idioma, numJugadores);
+        controladora.setVariables(idioma, numJugadores);
 
         controladora.setEvento(eventoRealizado);
     }

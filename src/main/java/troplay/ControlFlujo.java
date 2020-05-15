@@ -73,8 +73,7 @@ public class ControlFlujo {
                         panel.setNumJugadores(numJugadores);
                         panel.setDibujadaCuriosidad(false);
 
-                        claseControladora = new Juego(panel, raton, this);
-                        claseControladora.bucleJuego();
+                        runControlClass(2);
 
                         nuevoEstado = Const.ESTADO_JUEGO;
                         break;
@@ -122,7 +121,22 @@ public class ControlFlujo {
     }
 
     private void runControlClass(int menuType) {
-        ClaseControladora claseControladora = new Menu(ventana, raton, this, menuType);
+        ClaseControladora claseControladora = null;
+
+        switch(menuType) {
+            case 0:
+                claseControladora = new MainMenu(ventana, raton, this);
+                break;
+
+            case 1:
+                claseControladora = new OptionsMenu(ventana, raton, this);
+                break;
+
+            case 2:
+                claseControladora = new Juego(panel, raton, this);
+                break;
+        }
+
         claseControladora.bucleJuego();
     }
 
