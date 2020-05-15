@@ -41,7 +41,8 @@ public class ControlFlujo {
                         break;
 
                     case Const.EVENTO_EMPEZAR:
-                        gameStatus.getPanel().setNumJugadores(gameStatus.getVariables().getPlayersNo());
+                        //gameStatus.getPanel().setNumJugadores(gameStatus.getPlayersNo());
+                        //gameStatus.setPlayersNo();
                         gameStatus.getPanel().setDibujadaCuriosidad(false);
 
                         runControlClass(Juego.class);

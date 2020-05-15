@@ -6,16 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static troplay.GameVariables.Language.ENGLISH;
-import static troplay.GameVariables.Language.SPANISH;
+import static troplay.Language.SPANISH;
 
-/**
- * La clase Juego es la encargada de manejar la lógica del programa
- * @author alejandro
- */
 public class Juego extends ClaseControladora {
     private final GameStatus gameStatus;
-    private GameVariables.Language idiomaJuego;
+    private Language idiomaJuego;
     private int numJugadores = 1;
 
     private int casillaActual = 0;
@@ -98,7 +93,7 @@ public class Juego extends ClaseControladora {
 
         rectangulos = Const.ARR_RECTS;
 
-        idiomaJuego = gameStatus.getVariables().getLanguage();
+        idiomaJuego = gameStatus.getLanguage();
         consultasJDBC = new ConexionJDBC(idiomaJuego);
 
         for(i=0; i<Const.NUM_CASILLAS; i++) tablero[i] = new Casilla(i);
@@ -127,7 +122,7 @@ public class Juego extends ClaseControladora {
 	private void initPlayers() {
 		int i;
 
-		numJugadores = gameStatus.getVariables().getPlayersNo();
+		numJugadores = gameStatus.getPlayersNo();
         jugadorActual = (numJugadores == 1 ? 0 : -1);
 
 		for(i=0; i<Const.MAX_JUGADORES; i++) jugadores[i] = null;
@@ -575,7 +570,7 @@ public class Juego extends ClaseControladora {
     public int getJugadorX(int i) {return jugadores[i].getCx();}
     public int getJugadorY(int i) {return jugadores[i].getCy();}
 
-    public int getNumPreguntas(int dificultad, GameVariables.Language idioma) throws SQLException {
+    public int getNumPreguntas(int dificultad, Language idioma) throws SQLException {
         return consultasJDBC.obtenerNumPreguntas(dificultad+1);
     }
 

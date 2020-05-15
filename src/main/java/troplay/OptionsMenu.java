@@ -1,12 +1,10 @@
 package troplay;
 
-import troplay.GameVariables.Language;
-
 import java.awt.*;
 import java.util.ArrayList;
 
-import static troplay.GameVariables.Language.ENGLISH;
-import static troplay.GameVariables.Language.SPANISH;
+import static troplay.Language.ENGLISH;
+import static troplay.Language.SPANISH;
 
 public class OptionsMenu extends ClaseControladora {
     private final GameStatus gameStatus;
@@ -50,7 +48,7 @@ public class OptionsMenu extends ClaseControladora {
 
         controladora = control;
 
-        numJugadores = gameStatus.getVariables().getPlayersNo();
+        numJugadores = gameStatus.getPlayersNo();
 
         ventana = gameStatus.getWindow();
         panel = ventana.getPanel();
@@ -82,7 +80,7 @@ public class OptionsMenu extends ClaseControladora {
             checkboxes[i].setMostrar(!valorVerdad);
         }
 
-        if(gameStatus.getVariables().getLanguage() == SPANISH) {
+        if(gameStatus.getLanguage() == SPANISH) {
             checkboxes[0].setActivado(true);
         } else {
             checkboxes[1].setActivado(true);
@@ -111,8 +109,7 @@ public class OptionsMenu extends ClaseControladora {
             } catch (InterruptedException ex) {}
         }
 
-        gameStatus.getVariables().setLanguage(gameStatus.getVariables().getLanguage());
-        gameStatus.getVariables().setPlayersNo(numJugadores);
+        gameStatus.setPlayersNo(numJugadores);
 
         controladora.setEvento(eventoRealizado);
     }
@@ -162,12 +159,10 @@ public class OptionsMenu extends ClaseControladora {
             if (indiceColision < 2) { //Selección del idioma
                 if(!cambiadoCheckbox) {
                     if(indiceColision == 0) {
-                        gameStatus.getVariables().setLanguage(SPANISH);
+                        gameStatus.setLanguage(SPANISH);
                     } else {
-                        gameStatus.getVariables().setLanguage(ENGLISH);
+                        gameStatus.setLanguage(ENGLISH);
                     }
-
-                    gameStatus.getPanel().setIdioma(gameStatus.getVariables().getLanguage());
 
                     cambiadoCheckbox = true;
                 }
@@ -184,7 +179,7 @@ public class OptionsMenu extends ClaseControladora {
 
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
-                int subind = (gameStatus.getVariables().getLanguage() == SPANISH) ? 1 : 3;
+                int subind = (gameStatus.getLanguage() == SPANISH) ? 1 : 3;
                 panel.insActualizacion(indiceColision,subind, Const.ARR_COORDS_MENU[indiceColision]);
                 botonPulsado = indiceColision;
                 cambiadoBoton = true;
@@ -193,7 +188,7 @@ public class OptionsMenu extends ClaseControladora {
     }
 
     public void desencadenarAccion(int numBoton) {
-        int subind = (gameStatus.getVariables().getLanguage() == SPANISH) ? 0 : 2;
+        int subind = (gameStatus.getLanguage() == SPANISH) ? 0 : 2;
         panel.insActualizacion(indiceColision, subind, Const.ARR_COORDS_MENU[indiceColision]);
         cambiadoBoton = false;
 

@@ -1,7 +1,5 @@
 package troplay;
 
-import troplay.GameVariables.Language;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;

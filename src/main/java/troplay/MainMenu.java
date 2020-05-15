@@ -3,12 +3,12 @@ package troplay;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static troplay.GameVariables.Language.ENGLISH;
-import static troplay.GameVariables.Language.SPANISH;
+import static troplay.Language.ENGLISH;
+import static troplay.Language.SPANISH;
 
 public class MainMenu extends ClaseControladora {
     private final GameStatus gameStatus;
-    private GameVariables.Language idioma;
+    private Language idioma;
 
     private ControlFlujo controladora = null;
     private Ventana ventana = null;
@@ -45,7 +45,7 @@ public class MainMenu extends ClaseControladora {
         int i;
 
         controladora = control;
-        idioma = gameStatus.getVariables().getLanguage();
+        idioma = gameStatus.getLanguage();
 
         ventana = gameStatus.getWindow();
         panel = ventana.getPanel();
@@ -151,7 +151,7 @@ public class MainMenu extends ClaseControladora {
                         idioma = ENGLISH;
                     }
 
-                    gameStatus.getVariables().setLanguage(idioma);
+                    gameStatus.setLanguage(idioma);
                     cambiadoCheckbox = true;
                 }
             } else if(indiceColision < 6) { //Selección del número de jugadores
