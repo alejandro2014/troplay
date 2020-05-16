@@ -9,6 +9,7 @@ public class GameStatus {
     private Raton mouse;
     private Language language = Language.SPANISH;
     private Integer playersNo = 1;
+    private int currentStatus = Const.ESTADO_PRESENTACION;
 
     public GameStatus() {
         window = new Ventana();

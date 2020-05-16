@@ -223,14 +223,8 @@ public class Juego extends ClaseControladora {
         panel.setDibujadaCuriosidad(false);
 
         controladora.setEvento(Const.EVENTO_SALIR);
-        }
+    }
 
-    /**
-     * Método utilizado para cambiar de estado en función del estado y del evento
-     * @param estado Estado del que se parte
-     * @param evento Evento de entrada
-     * @return Estado al que se llega
-     */
     public int cambiarEstado(int estado, int evento) {
         int nuevoEstado = estado;
 
