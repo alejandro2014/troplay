@@ -39,16 +39,16 @@ public class ControlFlujo {
                     case Const.EVENTO_EMPEZAR:
                         runControlClass(Juego.class);
                         nuevoEstado = Const.ESTADO_JUEGO;
-
                         break;
 
                     case Const.EVENTO_OPCIONES:
+                        runControlClass(null);
                         nuevoEstado = Const.ESTADO_OPCIONES;
-
                         eventoEntrada = Const.EVENTO_NULO;
                         break;
 
                     case Const.EVENTO_SALIR:
+                        runControlClass(null);
                         nuevoEstado = Const.ESTADO_FINAL;
                         break;
                 }
@@ -62,6 +62,7 @@ public class ControlFlujo {
                         break;
 
                     case Const.EVENTO_VOLVER:
+                        runControlClass(null);
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
                         eventoEntrada = Const.EVENTO_NULO;
                         break;
@@ -71,6 +72,7 @@ public class ControlFlujo {
             case Const.ESTADO_JUEGO:
                 switch(evento) {
                     case Const.EVENTO_SALIR:
+                        runControlClass(null);
                         nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
                         eventoEntrada = Const.EVENTO_NULO;
                         break;
@@ -82,6 +84,10 @@ public class ControlFlujo {
     }
 
     private void runControlClass(Class clazz) {
+        if(clazz == null) {
+            return;
+        }
+
         ClaseControladora controllerClass = null;
 
         try {
