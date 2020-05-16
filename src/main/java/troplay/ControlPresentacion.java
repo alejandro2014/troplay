@@ -1,12 +1,15 @@
 package troplay;
 
 class ControlPresentacion extends ClaseControladora {
+    private final GameStatus gameStatus;
     private boolean acabar = false;
     private int contador = 0;
     private Panel panel = null;
     private int contadorInicial, contadorFinal;
 
-    public ControlPresentacion (GameStatus gameStatus, ControlFlujo control) {
+    public ControlPresentacion (GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+
         Ventana vent = gameStatus.getWindow();
         panel = vent.getPanel();
         panel.setModo(Const.MODOPRESEN);
@@ -19,7 +22,9 @@ class ControlPresentacion extends ClaseControladora {
             acabar = finalBucle();
             try {
                 Thread.sleep(70);
-            } catch (InterruptedException ex) {}
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -28,5 +33,7 @@ class ControlPresentacion extends ClaseControladora {
         return (contador >= contadorFinal);
     }
 
-    public void controlEntrada() {}
+    public void controlEntrada() {
+
+    }
 }

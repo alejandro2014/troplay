@@ -10,7 +10,6 @@ public class OptionsMenu extends ClaseControladora {
     private final GameStatus gameStatus;
     private int numJugadores;
 
-    private ControlFlujo controladora = null;
     private Ventana ventana = null;
     private Panel panel = null;
     private Raton raton = null;
@@ -36,17 +35,13 @@ public class OptionsMenu extends ClaseControladora {
     private boolean cambiadoCheckbox = false;
     private boolean cambiadoBoton = false;
 
-    private Language language;
-
-    public OptionsMenu(GameStatus gameStatus, ControlFlujo control) {
+    public OptionsMenu(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
         ArrayList conjCbxActual = null;
         int longBotones = botones.length;
         int longCbxIdioma = 2;
         int longCheckBox = checkboxes.length;
         int i;
-
-        controladora = control;
 
         numJugadores = gameStatus.getPlayersNo();
 
@@ -113,7 +108,7 @@ public class OptionsMenu extends ClaseControladora {
 
         gameStatus.setPlayersNo(numJugadores);
 
-        controladora.setEvento(eventoRealizado);
+        gameStatus.setCurrentEvent(eventoRealizado);
     }
 
     public boolean finalBucle() {

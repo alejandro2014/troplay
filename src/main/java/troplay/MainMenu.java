@@ -10,7 +10,6 @@ public class MainMenu extends ClaseControladora {
     private final GameStatus gameStatus;
     private Language idioma;
 
-    private ControlFlujo controladora = null;
     private Ventana ventana = null;
     private Panel panel = null;
     private Raton raton = null;
@@ -36,7 +35,7 @@ public class MainMenu extends ClaseControladora {
     private boolean cambiadoCheckbox = false;
     private boolean cambiadoBoton = false;
 
-    public MainMenu(GameStatus gameStatus, ControlFlujo control) {
+    public MainMenu(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
         ArrayList conjCbxActual = null;
         int longBotones = botones.length;
@@ -44,7 +43,6 @@ public class MainMenu extends ClaseControladora {
         int longCheckBox = checkboxes.length;
         int i;
 
-        controladora = control;
         idioma = gameStatus.getLanguage();
 
         ventana = gameStatus.getWindow();
@@ -100,7 +98,7 @@ public class MainMenu extends ClaseControladora {
             } catch (InterruptedException ex) {}
         }
 
-        controladora.setEvento(eventoRealizado);
+        gameStatus.setCurrentEvent(eventoRealizado);
     }
 
     public boolean finalBucle() {

@@ -29,7 +29,6 @@ public class Juego extends ClaseControladora {
     private boolean[] asigFacil, asigMedio, asigDificil;
     private int ganador = -1;
 
-    private ControlFlujo controladora = null;
     public Ventana ventana = null;
 
     //Control de los gráficos
@@ -79,7 +78,7 @@ public class Juego extends ClaseControladora {
     private int contadorInicial, contadorFinal, contadorMas1;
     private boolean dibujadaCuriosidad = false;
 
-    public Juego(GameStatus gameStatus, ControlFlujo control) {
+    public Juego(GameStatus gameStatus) {
         int i;
 
         this.gameStatus = gameStatus;
@@ -89,7 +88,6 @@ public class Juego extends ClaseControladora {
         panel.setNuevoDibujado(3,true);
         panel.setDibujadaCuriosidad(false);
 
-        controladora = control;
         this.raton = gameStatus.getMouse();
 
         rectangulos = Const.ARR_RECTS;
@@ -186,9 +184,6 @@ public class Juego extends ClaseControladora {
 		return dice;
 	}
 
-    /**
-     * Control del bucle de juego de la partida
-     */
     public void bucleJuego() {
         while(!acabar) {
             estadoActual = cambiarEstado(estadoActual, eventoActual);
@@ -222,7 +217,7 @@ public class Juego extends ClaseControladora {
         panel.setCadenaEstado("");
         panel.setDibujadaCuriosidad(false);
 
-        controladora.setEvento(Const.EVENTO_SALIR);
+        gameStatus.setCurrentEvent(Const.EVENTO_SALIR);
     }
 
     public int cambiarEstado(int estado, int evento) {
