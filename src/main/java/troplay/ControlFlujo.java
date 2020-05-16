@@ -37,8 +37,6 @@ public class ControlFlujo {
                         break;
 
                     case Const.EVENTO_EMPEZAR:
-                        gameStatus.getPanel().setDibujadaCuriosidad(false);
-
                         runControlClass(Juego.class);
                         nuevoEstado = Const.ESTADO_JUEGO;
 

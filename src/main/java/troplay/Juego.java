@@ -87,6 +87,7 @@ public class Juego extends ClaseControladora {
         this.panel = ventana.getPanel();
         panel.setRefJuego(this);
         panel.setNuevoDibujado(3,true);
+        panel.setDibujadaCuriosidad(false);
 
         controladora = control;
         this.raton = gameStatus.getMouse();
@@ -107,7 +108,7 @@ public class Juego extends ClaseControladora {
 		try {
             initQuestions();
             asignarPreguntas();
-            getCuriosity();
+            pregCuriosidad = getCuriosity();
         } catch (SQLException ex) {
 		    ex.printStackTrace();
         }
@@ -418,15 +419,8 @@ public class Juego extends ClaseControladora {
         return nuevoEstado;
     }
 
-    /**
-     * El juego finaliza cuando el usuario quiere salir o se ha acabado la partida
-     * @return Verdadero si hay que terminar el bucle
-     */
     public boolean finalBucle() {return (eventoActual == EVENTO_SALIR || estadoActual == ESTADO_FINAL);}
 
-    /**
-     * Obtención de la entrada del usuario
-     */
     public void controlEntrada() {
         ratonPulsado = raton.getEstado();
 
@@ -437,9 +431,6 @@ public class Juego extends ClaseControladora {
             ratonPulsado = false;
     }
 
-    /**
-     * Detección de colisiones
-     */
     public void controlColision() {
         int longitud = botones.length, i;
 
@@ -500,13 +491,6 @@ public class Juego extends ClaseControladora {
         }
     }
 
-    /**
-     * Se asignan a las casillas del tablero las preguntas correspondientes.
-     * En cada una de las casillas se guardan varias preguntas para que cuando
-     * un jugador pase por un casilla que otro jugador ha resuelto no le salga
-     * la misma pregunta.
-     * @throws SQLException
-     */
     public void asignarPreguntas() throws SQLException {
         Random rnd = new Random();
         boolean[] asig = asigFacil;

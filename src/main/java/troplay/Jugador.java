@@ -7,7 +7,7 @@ package troplay;
  */
 public class Jugador extends troplay.Dibujable {
     private Juego juego;
-    private int casilla = 14;
+    private int casilla = 68;
     private int casillaVieja, casillaNueva;
     private int casillaInicial;
     private int fotogrTotales = 0;

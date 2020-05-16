@@ -22,12 +22,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-/**
- * Clase Panel utilizada para mostrar los gráficos del juego
- * @author alejandro
- */
 public class Panel extends JPanel implements ActionListener {
-    //Fuentes utilizadas en el juego
     private Font fuentePreguntas = new Font("LuciSans",Font.PLAIN,14);
     private Font fuenteCursiva = new Font("LuciSans",Font.ITALIC,14);
     private Font fuentePequeña = new Font("LuciSans",Font.PLAIN,10);
