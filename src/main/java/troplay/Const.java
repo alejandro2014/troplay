@@ -4,10 +4,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-/**
- * Clase abstracta que contiene las constantes del juego
- * @author alejandro
- */
 public abstract class Const {
     public static final int NUM_IDIOMAS = 2;
     public static final int ESPAÑOL = 0;
@@ -132,13 +128,6 @@ public abstract class Const {
         new Rectangle(ARR_COORDS_JUEGO[8], new Dimension(19,19)),
         new Rectangle(ARR_COORDS_JUEGO[9], new Dimension(19,19))
 	};
-
-    //Eventos de la máquina de estados
-    public static final int EVENTO_EMPEZAR = 0;
-    public static final int EVENTO_SALIR = 1;
-    public static final int EVENTO_NULO = 2;
-    public static final int EVENTO_OPCIONES = 3;
-    public static final int EVENTO_VOLVER = 5;
 
     //Anchos de los textos en caracteres
     public static final int ANCHOPREGUNTA = 40;

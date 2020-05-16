@@ -1,5 +1,7 @@
 package troplay;
 
+import troplay.enums.MainEvents;
+
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.sql.SQLException;
@@ -217,7 +219,7 @@ public class Juego extends ClaseControladora {
         panel.setCadenaEstado("");
         panel.setDibujadaCuriosidad(false);
 
-        gameStatus.setCurrentEvent(Const.EVENTO_SALIR);
+        gameStatus.setCurrentEvent(MainEvents.EXIT);
     }
 
     public int cambiarEstado(int estado, int evento) {

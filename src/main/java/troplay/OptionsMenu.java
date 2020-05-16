@@ -1,5 +1,7 @@
 package troplay;
 
+import troplay.enums.MainEvents;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -14,7 +16,7 @@ public class OptionsMenu extends ClaseControladora {
     private Panel panel = null;
     private Raton raton = null;
     private boolean acabar = false;
-    private int eventoRealizado = Const.EVENTO_NULO;
+    private MainEvents eventoRealizado = MainEvents.NULL;
 
     private final int NUM_BOTONES = 4;
     private final int NUM_CHECKBOXES = 6;
@@ -112,8 +114,8 @@ public class OptionsMenu extends ClaseControladora {
     }
 
     public boolean finalBucle() {
-        return (eventoRealizado == Const.EVENTO_SALIR || eventoRealizado == Const.EVENTO_EMPEZAR ||
-                eventoRealizado == Const.EVENTO_VOLVER || eventoRealizado == Const.EVENTO_OPCIONES);
+        return (eventoRealizado == MainEvents.EXIT || eventoRealizado == MainEvents.START ||
+                eventoRealizado == MainEvents.BACK || eventoRealizado == MainEvents.OPTIONS);
     }
 
     public void controlEntrada() {
@@ -190,10 +192,10 @@ public class OptionsMenu extends ClaseControladora {
         cambiadoBoton = false;
 
         switch(numBoton) {
-            case 0: eventoRealizado = Const.EVENTO_EMPEZAR;  break;
-            case 1: eventoRealizado = Const.EVENTO_OPCIONES; break;
-            case 2: eventoRealizado = Const.EVENTO_SALIR;    break;
-            case 3: eventoRealizado = Const.EVENTO_VOLVER;   break;
+            case 0: eventoRealizado = MainEvents.START;  break;
+            case 1: eventoRealizado = MainEvents.OPTIONS; break;
+            case 2: eventoRealizado = MainEvents.EXIT;    break;
+            case 3: eventoRealizado = MainEvents.BACK;   break;
         }
     }
 }

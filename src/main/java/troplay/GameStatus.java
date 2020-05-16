@@ -1,6 +1,7 @@
 package troplay;
 
 import lombok.Data;
+import troplay.enums.MainEvents;
 
 @Data
 public class GameStatus {
@@ -9,7 +10,7 @@ public class GameStatus {
     private Raton mouse;
     private Language language = Language.SPANISH;
     private Integer playersNo = 1;
-    private int currentEvent = Const.EVENTO_NULO;
+    private MainEvents currentEvent = MainEvents.NULL;
 
     public GameStatus() {
         window = new Ventana();
