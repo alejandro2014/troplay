@@ -2,12 +2,13 @@ package troplay;
 
 import lombok.Builder;
 import lombok.Data;
+import troplay.enums.MainStatuses;
 
 @Data
 @Builder
 public class TransitionInfo {
-    private int currentStatus;
+    private MainStatuses currentStatus;
     private int event;
-    private int nextStatus;
+    private MainStatuses nextStatus;
     private Class classToExecute;
 }

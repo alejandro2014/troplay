@@ -133,14 +133,6 @@ public abstract class Const {
         new Rectangle(ARR_COORDS_JUEGO[9], new Dimension(19,19))
 	};
 
-    //Estados del juego
-    public static final int ESTADO_MENU = 0;
-    public static final int ESTADO_PRESENTACION = 1;
-    public static final int ESTADO_OPCIONES = 2;
-    public static final int ESTADO_MENU_PRINCIPAL = 4;
-    public static final int ESTADO_JUEGO = 5;
-    public static final int ESTADO_FINAL = 6;
-
     //Eventos de la máquina de estados
     public static final int EVENTO_EMPEZAR = 0;
     public static final int EVENTO_SALIR = 1;

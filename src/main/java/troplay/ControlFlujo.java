@@ -1,27 +1,28 @@
 package troplay;
 
 import lombok.Getter;
+import troplay.enums.MainStatuses;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ControlFlujo {
     @Getter
-    private GameStatus gameStatus = new GameStatus();;
+    private GameStatus gameStatus = new GameStatus();
     private List<TransitionInfo> transitionsList = new ArrayList<>();
 
     private void addTransitions() {
-        addTransition(Const.ESTADO_PRESENTACION, Const.EVENTO_NULO, Const.ESTADO_MENU_PRINCIPAL, ControlPresentacion.class);
-        addTransition(Const.ESTADO_MENU_PRINCIPAL, Const.EVENTO_NULO, Const.ESTADO_MENU_PRINCIPAL, MainMenu.class);
-        addTransition(Const.ESTADO_MENU_PRINCIPAL, Const.EVENTO_EMPEZAR, Const.ESTADO_JUEGO, Juego.class);
-        addTransition(Const.ESTADO_MENU_PRINCIPAL, Const.EVENTO_OPCIONES, Const.ESTADO_OPCIONES, null);
-        addTransition(Const.ESTADO_MENU_PRINCIPAL, Const.EVENTO_SALIR, Const.ESTADO_FINAL, null);
-        addTransition(Const.ESTADO_OPCIONES, Const.EVENTO_NULO, Const.ESTADO_OPCIONES, OptionsMenu.class);
-        addTransition(Const.ESTADO_OPCIONES, Const.EVENTO_VOLVER, Const.ESTADO_MENU_PRINCIPAL, null);
-        addTransition(Const.ESTADO_JUEGO, Const.EVENTO_SALIR, Const.ESTADO_MENU_PRINCIPAL, null);
+        addTransition(MainStatuses.PRESENTATION, Const.EVENTO_NULO, MainStatuses.MAIN_MENU, ControlPresentacion.class);
+        addTransition(MainStatuses.MAIN_MENU, Const.EVENTO_NULO, MainStatuses.MAIN_MENU, MainMenu.class);
+        addTransition(MainStatuses.MAIN_MENU, Const.EVENTO_EMPEZAR, MainStatuses.GAME, Juego.class);
+        addTransition(MainStatuses.MAIN_MENU, Const.EVENTO_OPCIONES, MainStatuses.OPTIONS_MENU, null);
+        addTransition(MainStatuses.MAIN_MENU, Const.EVENTO_SALIR, MainStatuses.FINAL, null);
+        addTransition(MainStatuses.OPTIONS_MENU, Const.EVENTO_NULO, MainStatuses.OPTIONS_MENU, OptionsMenu.class);
+        addTransition(MainStatuses.OPTIONS_MENU, Const.EVENTO_VOLVER, MainStatuses.MAIN_MENU, null);
+        addTransition(MainStatuses.GAME, Const.EVENTO_SALIR, MainStatuses.MAIN_MENU, null);
     }
 
-    private void addTransition(int currentStatus, int event, int nextStatus, Class classToExecute) {
+    private void addTransition(MainStatuses currentStatus, int event, MainStatuses nextStatus, Class classToExecute) {
         TransitionInfo transitionInfo = TransitionInfo.builder()
                 .currentStatus(currentStatus)
                 .event(event)
@@ -33,11 +34,11 @@ public class ControlFlujo {
     }
 
     public void statusCycle() {
-        int estadoActual = Const.ESTADO_PRESENTACION;
+        MainStatuses estadoActual = MainStatuses.PRESENTATION;
         int eventoEntrada = Const.EVENTO_NULO;
 
-        while (estadoActual != Const.ESTADO_FINAL) {
-            int finalEstadoActual = estadoActual;
+        while (estadoActual != MainStatuses.FINAL) {
+            MainStatuses finalEstadoActual = estadoActual;
             int finalEventoEntrada = eventoEntrada;
 
             TransitionInfo transitionInfo = transitionsList.stream()
