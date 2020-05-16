@@ -61,7 +61,7 @@ public class Panel extends JPanel implements ActionListener {
     private BufferedImage bufferTablero1 = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
     private BufferedImage bufferTableroN = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
 
-    private Juego refJuego = null;
+    private Game refGame = null;
     private Pregunta pregCuriosidad = null;
     private String cadenaEstado = "";
     private Timer timer = null;
@@ -133,16 +133,16 @@ public class Panel extends JPanel implements ActionListener {
 
         //Dibujado de los jugadores
         for(i = 0; i < numJugadores; i++) {
-            jugadorActual = refJuego.getJugador(i);
+            jugadorActual = refGame.getJugador(i);
             g3d.drawImage(arrayGraficos[i+7][0],jugadorActual.getCx(),jugadorActual.getCy(),null);
         }
 
         dibujarPregunta(g3d); //Bocadillo con la pregunta
 
         //Dibujado de los checkboxes con las respuestas
-        refJuego.setRespuestaSeleccionada(0);
+        refGame.setRespuestaSeleccionada(0);
         for(i = 0; i < 3; i++)
-            insActualizacion(6,(i == 0 ? 1 : 0),refJuego.getCheckBoxCoords(i));
+            insActualizacion(6,(i == 0 ? 1 : 0), refGame.getCheckBoxCoords(i));
 
         dibujarPregunta = false;
     }
@@ -159,7 +159,7 @@ public class Panel extends JPanel implements ActionListener {
         g.drawImage(bufferRespuestas, 684, 118, null);
 
         for(int i = 0; i < numJugadores; i++) {
-			g.drawImage(arrayGraficos[i+7][0], refJuego.getJugadorX(i), refJuego.getJugadorY(i), null);
+			g.drawImage(arrayGraficos[i+7][0], refGame.getJugadorX(i), refGame.getJugadorY(i), null);
 		}
 
         refrescarTablero = false;
@@ -170,7 +170,7 @@ public class Panel extends JPanel implements ActionListener {
      * @param g Superficie en la que se dibujará
      */
     public void dibujarEstado(Graphics2D g) {
-          int jugadorActual = refJuego.getJugadorActual();
+          int jugadorActual = refGame.getJugadorActual();
           int desplaz;
 
           animEstado += despAnim;
@@ -247,7 +247,7 @@ public class Panel extends JPanel implements ActionListener {
      * Método que se encarga de dibujar una pregunta en pantalla
      */
     public void dibujarPregunta(Graphics2D g) {
-        Casilla casillaActual = refJuego.getCasillaActual();
+        Casilla casillaActual = refGame.getCasillaActual();
         int casx = casillaActual.getX() + 4;
         int casy = casillaActual.getY() + 24;
         int xBocad = 0,yBocad = 0;
@@ -435,9 +435,9 @@ public class Panel extends JPanel implements ActionListener {
 
         int despVr = 417 - (numLineas-1 + desp2) * 25;
 
-        refJuego.setCheckBoxVert(0, despVr-13);
-        refJuego.setCheckBoxVert(1, preguntaActual.getLineasResp(0) * 25 + (despVr-13));
-        refJuego.setCheckBoxVert(2, (preguntaActual.getLineasResp(0) + preguntaActual.getLineasResp(1)) * 25 + (despVr-13));
+        refGame.setCheckBoxVert(0, despVr-13);
+        refGame.setCheckBoxVert(1, preguntaActual.getLineasResp(0) * 25 + (despVr-13));
+        refGame.setCheckBoxVert(2, (preguntaActual.getLineasResp(0) + preguntaActual.getLineasResp(1)) * 25 + (despVr-13));
 
         //Escritura de las tres respuestas
         for(int respActual = 0; respActual < 3; respActual++) {
@@ -512,12 +512,12 @@ public class Panel extends JPanel implements ActionListener {
 
             case Const.MODOJUEGO: //Juego en sí
                 bufferActual = bufferJuego;
-                bufferTablero = (refJuego.getNumJugadores() == 1 ? bufferTablero1 : bufferTableroN);
+                bufferTablero = (refGame.getNumJugadores() == 1 ? bufferTablero1 : bufferTableroN);
 
                 if(nuevoDibujo[tipoDibujo]) {
                     nuevoDibujo[tipoDibujo] = false;
                     insActualizacion(24,0,new Point()); //Marco del tablero
-                    insActualizacion(25,(refJuego.getNumJugadores() == 1 ? 0 : 1), new Point(6,6)); //Tablero
+                    insActualizacion(25,(refGame.getNumJugadores() == 1 ? 0 : 1), new Point(6,6)); //Tablero
                     insActualizacion(11,0,Const.ARR_COORDS_JUEGO[4]);
                     insActualizacion(4,2*idiomaJuego,Const.ARR_COORDS_JUEGO[5]);
                     insActualizacion(5,2*idiomaJuego,Const.ARR_COORDS_JUEGO[6]);
@@ -585,7 +585,7 @@ public class Panel extends JPanel implements ActionListener {
     /**
      * Realiza una descarga de los gráficos del juego
      */
-    public void descargarGraficos() {
+    public void unloadGraphics() {
         int longitudArray = arrayGraficos.length;
         int longitudElem = 0;
 
@@ -656,6 +656,6 @@ public class Panel extends JPanel implements ActionListener {
     public void setNuevoDibujado(int i, boolean b) {nuevoDibujo[i] = b;}
     public void setNumJugadores(int numJugadores) {this.numJugadores = numJugadores;}
     public void setPregunta(Pregunta preguntaActual) {this.preguntaActual = preguntaActual;}
-    public void setRefJuego(Juego refJuego) {this.refJuego = refJuego;}
+    public void setRefGame(Game refGame) {this.refGame = refGame;}
     public void setRefrescarTablero() {refrescarTablero = true;}
 }

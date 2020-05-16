@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import static troplay.Language.ENGLISH;
 import static troplay.Language.SPANISH;
 
-public class MainMenu extends ClaseControladora {
+public class MainMenu extends ControllerClass {
     private final GameStatus gameStatus;
     private Language idioma;
 
@@ -80,7 +80,7 @@ public class MainMenu extends ClaseControladora {
         }
     }
 
-    public void bucleJuego() {
+    public void loop() {
         while(!acabar) {
             controlEntrada();
             if (ratonPulsado)

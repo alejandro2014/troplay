@@ -7,20 +7,24 @@ import troplay.enums.MainStatuses;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControlFlujo {
+public class FlowControl {
     @Getter
     private GameStatus gameStatus = new GameStatus();
     private List<TransitionInfo> transitionsList = new ArrayList<>();
 
     private void addTransitions() {
-        addTransition(MainStatuses.PRESENTATION, MainEvents.NULL, MainStatuses.MAIN_MENU, ControlPresentacion.class);
+        addTransition(MainStatuses.PRESENTATION, MainEvents.NULL, MainStatuses.MAIN_MENU, Presentation.class);
         addTransition(MainStatuses.MAIN_MENU, MainEvents.NULL, MainStatuses.MAIN_MENU, MainMenu.class);
-        addTransition(MainStatuses.MAIN_MENU, MainEvents.START, MainStatuses.GAME, Juego.class);
-        addTransition(MainStatuses.MAIN_MENU, MainEvents.OPTIONS, MainStatuses.OPTIONS_MENU, null);
-        addTransition(MainStatuses.MAIN_MENU, MainEvents.EXIT, MainStatuses.FINAL, null);
+        addTransition(MainStatuses.MAIN_MENU, MainEvents.START, MainStatuses.GAME, Game.class);
+        addTransition(MainStatuses.MAIN_MENU, MainEvents.OPTIONS, MainStatuses.OPTIONS_MENU);
+        addTransition(MainStatuses.MAIN_MENU, MainEvents.EXIT, MainStatuses.FINAL);
         addTransition(MainStatuses.OPTIONS_MENU, MainEvents.NULL, MainStatuses.OPTIONS_MENU, OptionsMenu.class);
-        addTransition(MainStatuses.OPTIONS_MENU, MainEvents.BACK, MainStatuses.MAIN_MENU, null);
-        addTransition(MainStatuses.GAME, MainEvents.EXIT, MainStatuses.MAIN_MENU, null);
+        addTransition(MainStatuses.OPTIONS_MENU, MainEvents.BACK, MainStatuses.MAIN_MENU);
+        addTransition(MainStatuses.GAME, MainEvents.EXIT, MainStatuses.MAIN_MENU);
+    }
+
+    private void addTransition(MainStatuses currentStatus, MainEvents event, MainStatuses nextStatus) {
+        addTransition(currentStatus, event, nextStatus, null);
     }
 
     private void addTransition(MainStatuses currentStatus, MainEvents event, MainStatuses nextStatus, Class classToExecute) {
@@ -35,21 +39,21 @@ public class ControlFlujo {
     }
 
     public void statusCycle() {
-        MainStatuses estadoActual = MainStatuses.PRESENTATION;
-        MainEvents eventoEntrada = MainEvents.NULL;
+        MainStatuses currentStatus = MainStatuses.PRESENTATION;
+        MainEvents event = MainEvents.NULL;
 
-        while (estadoActual != MainStatuses.FINAL) {
-            MainStatuses finalEstadoActual = estadoActual;
-            MainEvents finalEventoEntrada = eventoEntrada;
+        while (currentStatus != MainStatuses.FINAL) {
+            MainStatuses finalCurrentStatus = currentStatus;
+            MainEvents finalEvent = event;
 
             TransitionInfo transitionInfo = transitionsList.stream()
-                    .filter(t -> t.getCurrentStatus() == finalEstadoActual && t.getEvent() == finalEventoEntrada)
+                    .filter(t -> t.getCurrentStatus() == finalCurrentStatus && t.getEvent() == finalEvent)
                     .findFirst()
                     .get();
 
             runControlClass(transitionInfo.getClassToExecute());
-            estadoActual = transitionInfo.getNextStatus();
-            eventoEntrada = gameStatus.getCurrentEvent();
+            currentStatus = transitionInfo.getNextStatus();
+            event = gameStatus.getCurrentEvent();
         }
     }
 
@@ -59,24 +63,24 @@ public class ControlFlujo {
             return;
         }
 
-        ClaseControladora controllerClass = null;
+        ControllerClass controllerClass = null;
 
         try {
-            controllerClass = (ClaseControladora) clazz.getConstructor(GameStatus.class).newInstance(gameStatus);
+            controllerClass = (ControllerClass) clazz.getConstructor(GameStatus.class).newInstance(gameStatus);
         } catch (Exception ex) {
-            System.err.println("Can't load the class " + clazz);
+            System.err.println("Can't load controller class " + clazz);
             System.exit(1);
         }
 
-        controllerClass.bucleJuego();
+        controllerClass.loop();
     }
 
     public static void main(String[] args) {
-        ControlFlujo flowControl = new ControlFlujo();
+        FlowControl flowControl = new FlowControl();
         flowControl.addTransitions();
         flowControl.statusCycle();
 
-        flowControl.getGameStatus().getPanel().descargarGraficos();
+        flowControl.getGameStatus().getPanel().unloadGraphics();
         System.exit(0);
     }
 }

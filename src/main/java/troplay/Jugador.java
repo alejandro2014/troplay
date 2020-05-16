@@ -6,7 +6,7 @@ package troplay;
  * @author alejandro
  */
 public class Jugador extends troplay.Dibujable {
-    private Juego juego;
+    private Game game;
     private int casilla = 68;
     private int casillaVieja, casillaNueva;
     private int casillaInicial;
@@ -26,10 +26,10 @@ public class Jugador extends troplay.Dibujable {
 
     /**
      * Constructor del jugador
-     * @param referJuego Referencia del juego
+     * @param referGame Referencia del juego
      */
-    public Jugador(Juego referJuego, int idJug) {
-        juego = referJuego;
+    public Jugador(Game referGame, int idJug) {
+        game = referGame;
         this.idJugador = idJug;
         this.setXY((int)Const.arrayCasillas[casilla].getX() + desplaz[idJugador][0],
                    (int)Const.arrayCasillas[casilla].getY() + desplaz[idJugador][1]);
@@ -85,7 +85,7 @@ public class Jugador extends troplay.Dibujable {
             this.setCx((int)Const.arrayCasillas[casillaNueva - 1].getX() + desplaz[idJugador][0]);
             fotogrActual = 0;
 
-            if(juego.getNumJugadores() > 1 && juego.getCasilla(casillaNueva-1).getComplementaria() != -1) {
+            if(game.getNumJugadores() > 1 && game.getCasilla(casillaNueva-1).getComplementaria() != -1) {
                 eventoRetorno = EVENTO_ESCALERA;
                 this.setXY((int)Const.arrayCasillas[casillaNueva - 1].getX(), (int)Const.arrayCasillas[casillaNueva - 1].getY());
             } else {

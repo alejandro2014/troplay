@@ -1,7 +1,7 @@
 package troplay;
 
-abstract public class ClaseControladora {
-    abstract public void bucleJuego();
+abstract public class ControllerClass {
+    abstract public void loop();
 
     abstract public boolean finalBucle();
 

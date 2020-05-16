@@ -1,13 +1,13 @@
 package troplay;
 
-class ControlPresentacion extends ClaseControladora {
+class Presentation extends ControllerClass {
     private final GameStatus gameStatus;
     private boolean acabar = false;
     private int contador = 0;
     private Panel panel = null;
     private int contadorInicial, contadorFinal;
 
-    public ControlPresentacion (GameStatus gameStatus) {
+    public Presentation(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
 
         Ventana vent = gameStatus.getWindow();
@@ -15,7 +15,7 @@ class ControlPresentacion extends ClaseControladora {
         panel.setModo(Const.MODOPRESEN);
     }
 
-    public void bucleJuego() {
+    public void loop() {
         contadorInicial = panel.getContadorTimer();
         contadorFinal = contadorInicial + 60;
         while (!acabar) {

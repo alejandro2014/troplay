@@ -10,7 +10,7 @@ import java.util.Random;
 
 import static troplay.Language.SPANISH;
 
-public class Juego extends ClaseControladora {
+public class Game extends ControllerClass {
     private final GameStatus gameStatus;
     private Language idiomaJuego;
     private int numJugadores = 1;
@@ -80,13 +80,13 @@ public class Juego extends ClaseControladora {
     private int contadorInicial, contadorFinal, contadorMas1;
     private boolean dibujadaCuriosidad = false;
 
-    public Juego(GameStatus gameStatus) {
+    public Game(GameStatus gameStatus) {
         int i;
 
         this.gameStatus = gameStatus;
         Ventana ventana = gameStatus.getWindow();
         this.panel = ventana.getPanel();
-        panel.setRefJuego(this);
+        panel.setRefGame(this);
         panel.setNuevoDibujado(3,true);
         panel.setDibujadaCuriosidad(false);
 
@@ -186,7 +186,7 @@ public class Juego extends ClaseControladora {
 		return dice;
 	}
 
-    public void bucleJuego() {
+    public void loop() {
         while(!acabar) {
             estadoActual = cambiarEstado(estadoActual, eventoActual);
 

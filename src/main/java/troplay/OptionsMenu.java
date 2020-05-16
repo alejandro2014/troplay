@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import static troplay.Language.ENGLISH;
 import static troplay.Language.SPANISH;
 
-public class OptionsMenu extends ClaseControladora {
+public class OptionsMenu extends ControllerClass {
     private final GameStatus gameStatus;
     private int numJugadores;
 
@@ -88,7 +88,7 @@ public class OptionsMenu extends ClaseControladora {
         checkboxes[numJugadores + 1].setActivado(true);
     }
 
-    public void bucleJuego() {
+    public void loop() {
         while(!acabar) {
             controlEntrada();
             if (ratonPulsado)
