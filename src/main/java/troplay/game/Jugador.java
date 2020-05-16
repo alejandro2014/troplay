@@ -1,19 +1,23 @@
-package troplay;
+package troplay.game;
 
-/**
- * Clase jugador, encaargada de manejar cada uno de los jugadores
- * que existan en el juego
- * @author alejandro
- */
+import lombok.Getter;
+import lombok.Setter;
+import troplay.Const;
+import troplay.Game;
+
 public class Jugador extends troplay.Dibujable {
     private Game game;
-    private int casilla = 68;
+
+    @Getter
+    private int casilla = 0;
     private int casillaVieja, casillaNueva;
     private int casillaInicial;
     private int fotogrTotales = 0;
     private int fotogrActual = 0;
     private int desplX, desplY;
-    private boolean puedoTirar = true;
+
+    @Getter @Setter
+    private Boolean puedoTirar = true;
 
     //Desplazamientos de los jugadores con respecto a las casillas
     private int[][] desplaz = {{6,0},{12,6},{6,12},{0,6}};
@@ -24,24 +28,15 @@ public class Jugador extends troplay.Dibujable {
     private final int EVENTO_PARAR_ANIMACION = 0;
     private final int EVENTO_ESCALERA = 5;
 
-    /**
-     * Constructor del jugador
-     * @param referGame Referencia del juego
-     */
     public Jugador(Game referGame, int idJug) {
         game = referGame;
         this.idJugador = idJug;
-        this.setXY((int)Const.arrayCasillas[casilla].getX() + desplaz[idJugador][0],
+        this.setXY((int) Const.arrayCasillas[casilla].getX() + desplaz[idJugador][0],
                    (int)Const.arrayCasillas[casilla].getY() + desplaz[idJugador][1]);
     }
 
     public void mover(int pos) {casilla = pos;}
 
-    /**
-     * Avanza un determinado número de casillas. Comprueba que no
-     * se pase del final.
-     * @param numCasillas Las casillas que ha de avanzar
-     */
     public void avanzarCasilla(int numCasillas) {
         casillaInicial = casilla;
         if(casilla + numCasillas >= Const.NUM_CASILLAS) //Para que no se salga del tablero
@@ -53,10 +48,6 @@ public class Jugador extends troplay.Dibujable {
         fotogrActual = 0;
     }
 
-    /**
-     * Avanza las coordenadas con animación cuando acierta la pregunta
-     * @return Devuelve el siguiente evento de la clase Juego
-     */
     public int setCoordsAnim() {
         int eventoRetorno = EVENTO_SEGUIR_ANIMACION;
         int casillasCompletas = fotogrActual / 7;
@@ -97,11 +88,6 @@ public class Jugador extends troplay.Dibujable {
         return eventoRetorno;
     }
 
-    /**
-     * Controla la animación de la escalera
-     * @return Evento a realizar para controlar la máquina de estados
-     * de la partida
-     */
     public int avanzarEscalera() {
         int eventoRetorno = EVENTO_ESCALERA;
 
@@ -138,8 +124,4 @@ public class Jugador extends troplay.Dibujable {
 
         return eventoRetorno;
     }
-
-    public int getCasilla() {return casilla;}
-    public boolean getPuedoTirar() {return puedoTirar;}
-    public void setPuedoTirar(boolean valor) {puedoTirar = valor;}
 }

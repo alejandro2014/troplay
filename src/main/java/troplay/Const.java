@@ -5,9 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 public abstract class Const {
-    public static final int NUM_IDIOMAS = 2;
     public static final int ESPAÑOL = 0;
-    public static final int INGLES = 1;
 
     public static final int MAX_JUGADORES = 4;
     public static final int NUM_CASILLAS = 70;

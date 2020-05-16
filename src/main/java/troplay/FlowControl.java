@@ -12,6 +12,7 @@ public class FlowControl {
     private GameStatus gameStatus = new GameStatus();
     private List<TransitionInfo> transitionsList = new ArrayList<>();
 
+    //TODO Maybe there are redundant statuses
     private void addTransitions() {
         addTransition(MainStatuses.PRESENTATION, MainEvents.NULL, MainStatuses.MAIN_MENU, Presentation.class);
         addTransition(MainStatuses.MAIN_MENU, MainEvents.NULL, MainStatuses.MAIN_MENU, MainMenu.class);

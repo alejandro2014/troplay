@@ -1,4 +1,6 @@
-package troplay;
+package troplay.game;
+
+import troplay.Dibujable;
 
 import java.util.Date;
 import java.util.Random;
@@ -14,13 +16,11 @@ public class Dado extends Dibujable {
     }
 
     public int getValor() {
-        //return valor + 1;
-        return 1;
+        return valor + 1;
     }
 
     public int getNuevoValor() {
-        //if((valor = rnd.nextInt() % 6) < 0) valor *= -1;
-        //return valor + 1;
-        return 1;
+        if((valor = rnd.nextInt() % 6) < 0) valor *= -1;
+        return valor + 1;
     }
 }

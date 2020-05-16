@@ -1,5 +1,8 @@
 package troplay;
 
+import troplay.enums.Language;
+import troplay.game.Pregunta;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

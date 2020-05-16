@@ -1,25 +1,29 @@
-package troplay;
+package troplay.game;
+
+import lombok.Getter;
+import troplay.Const;
 
 import java.awt.Point;
 
-/**
- * Clase Casilla, encargada de representar una de las celdas del juego
- * @author alejandro
- */
 public class Casilla {
     private Pregunta[] arrayPreguntas;
+
+    @Getter
     private Pregunta pregActual;
-    private int numCasilla = -1;
-    private boolean casillaEspecial = false;
+
+    @Getter
+    private Boolean casillaEspecial = false;
+
+    @Getter
     private int complementaria = -1;
+
+    private int numCasilla = -1;
     private int numPregunta = 0;
 	private Point coordsRef = new Point();
+
+	@Getter
     private int posicionBocad = 1;
-    
-    /**
-     * Creación de la nueva casilla
-     * @param cas Número de casilla
-     */
+
     public Casilla(int cas){
         numCasilla = cas;
         posicionBocad = Const.arrBocad[cas];
@@ -42,23 +46,12 @@ public class Casilla {
     }
    
     //Métodos get
-    public int getComplementaria() {return complementaria;}
-    public boolean getEspecial() {return casillaEspecial;}
-    public Pregunta getPregActual() {return pregActual;}
-	
     public int getX() {
 		return coordsRef.x;
 	}
-	
     public int getY() {
 		return coordsRef.y;
 	}
-	
-    public int getPosicionBocad() {return posicionBocad;}
-    
-    public Pregunta getPregunta(int num){
-        return arrayPreguntas[num < Const.PREGS_POR_CASILLA ? num : 0];
-    }
     
     /**
      * Asigna las preguntas a la casilla

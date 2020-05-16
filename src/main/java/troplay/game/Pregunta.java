@@ -1,4 +1,7 @@
-package troplay;
+package troplay.game;
+
+import troplay.Const;
+import troplay.Dibujable;
 
 import java.util.ArrayList;
 

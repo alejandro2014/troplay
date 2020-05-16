@@ -1,12 +1,13 @@
 package troplay;
 
+import troplay.enums.Language;
 import troplay.enums.MainEvents;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static troplay.Language.ENGLISH;
-import static troplay.Language.SPANISH;
+import static troplay.enums.Language.ENGLISH;
+import static troplay.enums.Language.SPANISH;
 
 public class MainMenu extends ControllerClass {
     private final GameStatus gameStatus;

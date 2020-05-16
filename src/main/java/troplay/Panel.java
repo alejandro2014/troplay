@@ -1,5 +1,10 @@
 package troplay;
 
+import troplay.enums.Language;
+import troplay.game.Casilla;
+import troplay.game.Jugador;
+import troplay.game.Pregunta;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;

@@ -1,6 +1,11 @@
 package troplay;
 
+import troplay.enums.Language;
 import troplay.enums.MainEvents;
+import troplay.game.Casilla;
+import troplay.game.Dado;
+import troplay.game.Jugador;
+import troplay.game.Pregunta;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -8,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static troplay.Language.SPANISH;
+import static troplay.enums.Language.SPANISH;
 
 public class Game extends ControllerClass {
     private final GameStatus gameStatus;
@@ -298,7 +303,7 @@ public class Game extends ControllerClass {
                         jugadores[jugadorActual].avanzarCasilla(incCasilla);
 
                         Casilla casillaNueva = tablero[jugadores[jugadorActual].getCasilla()];
-                        if (casillaNueva.getEspecial() && casillaNueva.getComplementaria() == -1 && numJugadores > 1) {
+                        if (casillaNueva.getCasillaEspecial() && casillaNueva.getComplementaria() == -1 && numJugadores > 1) {
                             jugadores[jugadorActual].setPuedoTirar(false);
 
                             switch(idiomaJuego) {
