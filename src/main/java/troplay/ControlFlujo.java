@@ -2,84 +2,57 @@ package troplay;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ControlFlujo {
-    private int estadoActual = Const.ESTADO_PRESENTACION;
-    private int eventoEntrada = Const.EVENTO_NULO;
-
     @Getter
-    private GameStatus gameStatus;
+    private GameStatus gameStatus = new GameStatus();;
+    private List<TransitionInfo> transitionsList = new ArrayList<>();
 
-    public ControlFlujo() {
-        gameStatus = new GameStatus();
+    private void addTransitions() {
+        addTransition(Const.ESTADO_PRESENTACION, Const.EVENTO_NULO, Const.ESTADO_MENU_PRINCIPAL, ControlPresentacion.class);
+        addTransition(Const.ESTADO_MENU_PRINCIPAL, Const.EVENTO_NULO, Const.ESTADO_MENU_PRINCIPAL, MainMenu.class);
+        addTransition(Const.ESTADO_MENU_PRINCIPAL, Const.EVENTO_EMPEZAR, Const.ESTADO_JUEGO, Juego.class);
+        addTransition(Const.ESTADO_MENU_PRINCIPAL, Const.EVENTO_OPCIONES, Const.ESTADO_OPCIONES, null);
+        addTransition(Const.ESTADO_MENU_PRINCIPAL, Const.EVENTO_SALIR, Const.ESTADO_FINAL, null);
+        addTransition(Const.ESTADO_OPCIONES, Const.EVENTO_NULO, Const.ESTADO_OPCIONES, OptionsMenu.class);
+        addTransition(Const.ESTADO_OPCIONES, Const.EVENTO_VOLVER, Const.ESTADO_MENU_PRINCIPAL, null);
+        addTransition(Const.ESTADO_JUEGO, Const.EVENTO_SALIR, Const.ESTADO_MENU_PRINCIPAL, null);
+    }
+
+    private void addTransition(int currentStatus, int event, int nextStatus, Class classToExecute) {
+        TransitionInfo transitionInfo = TransitionInfo.builder()
+                .currentStatus(currentStatus)
+                .event(event)
+                .nextStatus(nextStatus)
+                .classToExecute(classToExecute)
+                .build();
+
+        transitionsList.add(transitionInfo);
     }
 
     public void statusCycle() {
+        int estadoActual = Const.ESTADO_PRESENTACION;
+        int eventoEntrada = Const.EVENTO_NULO;
+
         while (estadoActual != Const.ESTADO_FINAL) {
-            switch (estadoActual) {
-                case Const.ESTADO_PRESENTACION:
-                    switch (eventoEntrada) {
-                        case Const.EVENTO_NULO:
-                            runControlClass(ControlPresentacion.class);
-                            estadoActual = Const.ESTADO_MENU_PRINCIPAL;
-                            break;
-                    }
-                    break;
+            int finalEstadoActual = estadoActual;
+            int finalEventoEntrada = eventoEntrada;
 
-                case Const.ESTADO_MENU_PRINCIPAL:
-                    switch (eventoEntrada) {
-                        case Const.EVENTO_NULO:
-                            runControlClass(MainMenu.class);
-                            estadoActual = Const.ESTADO_MENU_PRINCIPAL;
-                            break;
+            TransitionInfo transitionInfo = transitionsList.stream()
+                    .filter(t -> t.getCurrentStatus() == finalEstadoActual && t.getEvent() == finalEventoEntrada)
+                    .findFirst()
+                    .get();
 
-                        case Const.EVENTO_EMPEZAR:
-                            runControlClass(Juego.class);
-                            estadoActual = Const.ESTADO_JUEGO;
-                            break;
-
-                        case Const.EVENTO_OPCIONES:
-                            runControlClass(null);
-                            estadoActual = Const.ESTADO_OPCIONES;
-                            break;
-
-                        case Const.EVENTO_SALIR:
-                            runControlClass(null);
-                            estadoActual = Const.ESTADO_FINAL;
-                            break;
-                    }
-                    break;
-
-                case Const.ESTADO_OPCIONES:
-                    switch (eventoEntrada) {
-                        case Const.EVENTO_NULO:
-                            runControlClass(OptionsMenu.class);
-                            estadoActual = Const.ESTADO_OPCIONES;
-                            break;
-
-                        case Const.EVENTO_VOLVER:
-                            runControlClass(null);
-                            estadoActual = Const.ESTADO_MENU_PRINCIPAL;
-                            break;
-                    }
-                    break;
-
-                case Const.ESTADO_JUEGO:
-                    switch (eventoEntrada) {
-                        case Const.EVENTO_SALIR:
-                            runControlClass(null);
-                            estadoActual = Const.ESTADO_MENU_PRINCIPAL;
-                            break;
-                    }
-                    break;
-            }
-
+            runControlClass(transitionInfo.getClassToExecute());
+            estadoActual = transitionInfo.getNextStatus();
             eventoEntrada = gameStatus.getCurrentEvent();
         }
     }
 
     private void runControlClass(Class clazz) {
         if(clazz == null) {
-            eventoEntrada = Const.EVENTO_NULO;
             gameStatus.setCurrentEvent(Const.EVENTO_NULO);
             return;
         }
@@ -87,9 +60,7 @@ public class ControlFlujo {
         ClaseControladora controllerClass = null;
 
         try {
-            controllerClass = (ClaseControladora) clazz
-                    .getConstructor(GameStatus.class)
-                    .newInstance(gameStatus);
+            controllerClass = (ClaseControladora) clazz.getConstructor(GameStatus.class).newInstance(gameStatus);
         } catch (Exception ex) {
             System.err.println("Can't load the class " + clazz);
             System.exit(1);
@@ -100,6 +71,7 @@ public class ControlFlujo {
 
     public static void main(String[] args) {
         ControlFlujo flowControl = new ControlFlujo();
+        flowControl.addTransitions();
         flowControl.statusCycle();
 
         flowControl.getGameStatus().getPanel().descargarGraficos();
