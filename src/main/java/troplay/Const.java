@@ -18,7 +18,6 @@ public abstract class Const {
     public static final int ALTA = 2;
     public static final int NUMCASIFACIL = 23;
     public static final int NUMCASIMEDIO = 23;
-    public static final int NUMCASIDIFICIL = 23;
 
     public static final String DIRECTORIO_GRAFICOS = "/home/alejandro/programs/troplay/src/main/resources/graficos/";
     //public static final String DIRECTORIO_GRAFICOS = "/Users/alejandro/programs/troplay/src/main/resources/graficos/";
@@ -125,6 +124,33 @@ public abstract class Const {
         new Rectangle(ARR_COORDS_JUEGO[7], new Dimension(19,19)), //Checkboxes del juego
         new Rectangle(ARR_COORDS_JUEGO[8], new Dimension(19,19)),
         new Rectangle(ARR_COORDS_JUEGO[9], new Dimension(19,19))
+	};
+
+	public static final Rectangle ARR_RECTS_BUTTONS_MAIN_MENU[] = {
+			new Rectangle(ARR_COORDS_MENU[0], new Dimension(165,46)),
+			new Rectangle(ARR_COORDS_MENU[1], new Dimension(165,46)),
+			new Rectangle(ARR_COORDS_MENU[2], new Dimension(165,46)),
+			new Rectangle(ARR_COORDS_MENU[3], new Dimension(165,46))
+	};
+
+	public static final Rectangle ARR_RECTS_BUTTONS_GAME[] = {
+			new Rectangle(ARR_COORDS_JUEGO[5], new Dimension(133,37)),
+			new Rectangle(ARR_COORDS_JUEGO[6], new Dimension(133,37))
+	};
+
+	public static final Rectangle ARR_RECTS_CHECKBOXES_MENU[] = {
+			new Rectangle(ARR_COORDS_MENU[4], new Dimension(19,19)),
+			new Rectangle(ARR_COORDS_MENU[5], new Dimension(19,19)),
+			new Rectangle(ARR_COORDS_MENU[6], new Dimension(19,19)),
+			new Rectangle(ARR_COORDS_MENU[7], new Dimension(19,19)),
+			new Rectangle(ARR_COORDS_MENU[8], new Dimension(19,19)),
+			new Rectangle(ARR_COORDS_MENU[9], new Dimension(19,19))
+	};
+
+	public static final Rectangle ARR_RECTS_CHECKBOXES_JUEGO[] = {
+			new Rectangle(ARR_COORDS_JUEGO[7], new Dimension(19,19)),
+			new Rectangle(ARR_COORDS_JUEGO[8], new Dimension(19,19)),
+			new Rectangle(ARR_COORDS_JUEGO[9], new Dimension(19,19))
 	};
 
     public static final int ANCHOPREGUNTA = 40;
