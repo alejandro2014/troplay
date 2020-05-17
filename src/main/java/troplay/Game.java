@@ -39,7 +39,7 @@ public class Game implements Subgame {
     public Ventana ventana = null;
 
     //Control de los gráficos
-    private Rectangle[] rectangulos = null;
+    //private Rectangle[] rectangulos = null;
 
     //Elementos dinámicos del juego (botones y checkboxes)
     private Drawable[] botones = new Drawable[2];
@@ -97,12 +97,14 @@ public class Game implements Subgame {
 
         this.raton = gameStatus.getMouse();
 
-        rectangulos = Const.ARR_RECTS;
+        //rectangulos = Const.ARR_RECTS;
 
         idiomaJuego = gameStatus.getLanguage();
         consultasJDBC = new ConexionJDBC(idiomaJuego);
 
-        for(i=0; i<Const.NUM_CASILLAS; i++) tablero[i] = new Casilla(i);
+        for(i=0; i<Const.NUM_CASILLAS; i++) {
+            tablero[i] = new Casilla(i);
+        }
 
 		dice = createDice();
 
@@ -147,7 +149,7 @@ public class Game implements Subgame {
             botones[i] = new Drawable();
             botones[i].setPoint(Const.ARR_COORDS_JUEGO[i+5]);
             botones[i].setShow(true);
-            botones[i].setRectangle(rectangulos[i+4]);
+            botones[i].setRectangle(Const.ARR_RECTS_BUTTONS_GAME[i]);
         }
 	}
 
@@ -156,7 +158,7 @@ public class Game implements Subgame {
             checkboxes[i] = new CheckBox(conjCbxActual);
             checkboxes[i].setPoint(Const.ARR_COORDS_JUEGO[i+7]);
             checkboxes[i].setShow(false);
-            checkboxes[i].setRectangle(rectangulos[i+7]);
+            checkboxes[i].setRectangle(Const.ARR_RECTS_CHECKBOXES_JUEGO[i]);
         }
         checkboxes[0].setActivado(true);
 	}
