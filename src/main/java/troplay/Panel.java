@@ -480,9 +480,9 @@ public class Panel extends JPanel implements ActionListener {
                     insActualizacion(6,0,Const.ARR_RECTS_CHECKBOXES_MENU[3].getLocation());
                     insActualizacion(6,0,Const.ARR_RECTS_CHECKBOXES_MENU[4].getLocation());
                     insActualizacion(6,0,Const.ARR_RECTS_CHECKBOXES_MENU[5].getLocation());
-                    insActualizacion(12,0,Const.ARR_COORDS_OPCIONES[0]); //Letreros
-                    insActualizacion(13,0,Const.ARR_COORDS_OPCIONES[1]);
-                    insActualizacion(15,0,Const.ARR_COORDS_OPCIONES[3]);
+                    insActualizacion(12,0, new Point(320,161)); //Letreros
+                    insActualizacion(13,0, new Point(318,299));
+                    insActualizacion(15,0, new Point(310,66));
                 }
                 break;
 
@@ -608,9 +608,9 @@ public class Panel extends JPanel implements ActionListener {
 
         nuevoDibujo[Const.MODOMENU] = true;
 
-        insActualizacion(12,idiomaJuego,Const.ARR_COORDS_OPCIONES[0]);
-        insActualizacion(13,idiomaJuego,Const.ARR_COORDS_OPCIONES[1]);
-        insActualizacion(15,idiomaJuego,Const.ARR_COORDS_OPCIONES[3]);
+        insActualizacion(12,idiomaJuego,new Point(320,161)); //Letreros
+        insActualizacion(13,idiomaJuego,new Point(318,299));
+        insActualizacion(15,idiomaJuego,new Point(310,66));
         insActualizacion(6,(idiomaJuego == 0 ? 1 : 0),Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation());
         insActualizacion(6,(idiomaJuego == 0 ? 0 : 1),Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
         insActualizacion(3,2*idiomaJuego,Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation());

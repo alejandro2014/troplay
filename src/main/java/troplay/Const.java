@@ -72,13 +72,6 @@ public abstract class Const {
     public static final int FONDOINIC = 23;
     public static final int FONDOTABL = 24;
 
-    public static final Point[] ARR_COORDS_OPCIONES = {
-		new Point(320,161),
-		new Point(318,299),
-		new Point(314,437),
-		new Point(310,66)
-	};
-
 	public static final Rectangle ARR_RECTS_BUTTONS_MAIN_MENU[] = {
 		new Rectangle(new Point(389,234), new Dimension(165,46)),
 		new Rectangle(new Point(389,303), new Dimension(165,46)),
