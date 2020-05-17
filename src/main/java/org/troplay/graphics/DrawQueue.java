@@ -1,8 +1,9 @@
-package graphics;
+package org.troplay.graphics;
+
+import troplay.Drawable;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import troplay.Drawable;
 
 public class DrawQueue {
 	Comparator<GraphicalUpdate> comparator = new GraphicalUpdateComparator();
@@ -10,7 +11,7 @@ public class DrawQueue {
 	
 	public void insertDrawable(Drawable drawable) {
 		GraphicalUpdate graphicalUpdate = new GraphicalUpdate();
-		graphicalUpdate.setCoords(drawable.getPoint());
+		graphicalUpdate.setPoint(drawable.getPoint());
 		graphicalUpdate.setImage(drawable.getImage());
 		graphicalUpdate.setZ(drawable.getCz());
 		
