@@ -1,6 +1,7 @@
 package troplay;
 
 import lombok.Setter;
+import org.troplay.graphics.GraphicalUpdate;
 import troplay.enums.BalloonPosition;
 import troplay.enums.Language;
 import troplay.game.Casilla;
@@ -547,12 +548,9 @@ public class Panel extends JPanel implements ActionListener {
             /* Establecimiento de un gráfico determinado dentro de un array,
             con unas coordenadas determinadas */
             while(!colaActualizar.isEmpty()) {
-                elementos[0] = (Integer)colaActualizar.poll();
-                elementos[1] = (Integer)colaActualizar.poll();
-                elementos[2] = (Integer)colaActualizar.poll();
-                elementos[3] = (Integer)colaActualizar.poll();
+                GraphicalUpdate graphicalUpdate = (GraphicalUpdate) colaActualizar.poll();
 
-                g.drawImage(arrayGraficos[elementos[0]][elementos[1]],elementos[2],elementos[3],null);
+                g.drawImage(graphicalUpdate.getImage(), (int) graphicalUpdate.getPoint().getX(), (int) graphicalUpdate.getPoint().getY(),null);
                 ultimaActualizacion = elementos[0];
             }
 
@@ -611,10 +609,11 @@ public class Panel extends JPanel implements ActionListener {
     }
 
 	public void insActualizacion(int indice, int subind, Point coords) {
-        colaActualizar.add(indice);
-		colaActualizar.add(subind);
-        colaActualizar.add(coords.x);
-		colaActualizar.add(coords.y);
+        GraphicalUpdate graphicalUpdate = GraphicalUpdate.builder()
+                .image(arrayGraficos[indice][subind])
+                .point(coords)
+                .build();
+        colaActualizar.add(graphicalUpdate);
     }
 
     public int getContadorTimer() {

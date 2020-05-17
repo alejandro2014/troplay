@@ -20,11 +20,9 @@ public class Drawable {
     public int getCx() {
 		return point.x;
 	}
-
     public int getCy() {
 		return point.y;
 	}
-
     public int getCz() {
 		return 0;
 	}
@@ -37,7 +35,6 @@ public class Drawable {
     public void setCx(int newX) {
 		point.x = newX;
 	}
-
     public void setCy(int newY) {
 		point.y = newY;
 	}

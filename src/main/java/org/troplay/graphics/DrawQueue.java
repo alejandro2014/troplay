@@ -10,12 +10,12 @@ public class DrawQueue {
 	PriorityQueue<GraphicalUpdate> queue = new PriorityQueue<GraphicalUpdate>(10, comparator);
 	
 	public void insertDrawable(Drawable drawable) {
-		GraphicalUpdate graphicalUpdate = new GraphicalUpdate();
+		/*GraphicalUpdate graphicalUpdate = new GraphicalUpdate();
 		graphicalUpdate.setPoint(drawable.getPoint());
 		graphicalUpdate.setImage(drawable.getImage());
 		graphicalUpdate.setZ(drawable.getCz());
 		
-		queue.add(graphicalUpdate);
+		queue.add(graphicalUpdate);*/
 	}
 }
 
