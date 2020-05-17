@@ -4,8 +4,10 @@ import java.awt.Image;
 import javax.swing.JFrame;
 
 public class Ventana extends JFrame {
-      public static final int ANCHO = Const.ANCHOVENTANA + 8;
-      public static final int ALTO = Const.ALTOVENTANA + 27;
+    private final int ANCHOVENTANA = 946;
+    private final int ALTOVENTANA = 644;
+    private final int ANCHO = ANCHOVENTANA + 8;
+    private final int ALTO = ALTOVENTANA + 27;
       
       private Image icono = null;
       private Panel panel = new Panel();
