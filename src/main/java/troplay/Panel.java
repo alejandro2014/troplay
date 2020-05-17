@@ -257,7 +257,7 @@ public class Panel extends JPanel implements ActionListener {
         int casy = casillaActual.getY() + 24;
         int xBocad = 0,yBocad = 0;
         int arrX[] = new int[3], arrY[] = new int[3];
-        int numLineas = preguntaActual.getLineasPreg();
+        int numLineas = preguntaActual.getLineasPregunta();
 
         FontMetrics metrics = g.getFontMetrics(fuentePreguntas);
         int longActual = preguntaActual.getTextoPregunta().length();

@@ -1,6 +1,6 @@
 package troplay;
 
-class Presentation extends ControllerClass {
+class Presentation implements Subgame {
     private final GameStatus gameStatus;
     private boolean acabar = false;
     private int contador = 0;
@@ -28,7 +28,7 @@ class Presentation extends ControllerClass {
         }
     }
 
-    public boolean finalBucle() {
+    public Boolean finalBucle() {
         contador = panel.getContadorTimer();
         return (contador >= contadorFinal);
     }

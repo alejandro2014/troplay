@@ -52,19 +52,12 @@ public class Casilla {
     public int getY() {
 		return coordsRef.y;
 	}
-    
-    /**
-     * Asigna las preguntas a la casilla
-     * @param array Array con las preguntas
-     */
+
     public void setPreguntas(Pregunta array[]){
         arrayPreguntas = array;
         pregActual = arrayPreguntas[0];
     }
-    
-    /**
-     * Determina si una pregunta se encuentra resuelta
-     */
+
     public void preguntaResuelta() {
         numPregunta++;
         if(numPregunta == Const.PREGS_POR_CASILLA) numPregunta = 0;

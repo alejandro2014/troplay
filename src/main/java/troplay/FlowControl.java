@@ -10,6 +10,7 @@ import java.util.List;
 public class FlowControl {
     @Getter
     private GameStatus gameStatus = new GameStatus();
+
     private List<TransitionInfo> transitionsList = new ArrayList<>();
 
     //TODO Maybe there are redundant statuses
@@ -64,16 +65,16 @@ public class FlowControl {
             return;
         }
 
-        ControllerClass controllerClass = null;
+        Subgame subgame = null;
 
         try {
-            controllerClass = (ControllerClass) clazz.getConstructor(GameStatus.class).newInstance(gameStatus);
+            subgame = (Subgame) clazz.getConstructor(GameStatus.class).newInstance(gameStatus);
         } catch (Exception ex) {
             System.err.println("Can't load controller class " + clazz);
             System.exit(1);
         }
 
-        controllerClass.loop();
+        subgame.loop();
     }
 
     public static void main(String[] args) {

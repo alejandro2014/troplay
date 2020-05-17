@@ -3,23 +3,14 @@ package troplay;
 import java.awt.Image;
 import javax.swing.JFrame;
 
-/**
- * La función de la clase Ventana es manejar todo lo relacionado con los gráficos
- * en el juego: carga, descarga y muestra de los mismos.
- * @author alejandro
- */
 public class Ventana extends JFrame {
       public static final int ANCHO = Const.ANCHOVENTANA + 8;
       public static final int ALTO = Const.ALTOVENTANA + 27;
       
       private Image icono = null;
-      private Panel panel = null;
-            
-      /**
-       * Constructor de la ventana
-       */
+      private Panel panel = new Panel();
+
       public Ventana() {
-          panel = new Panel();
           add(panel);
           setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           setSize(ANCHO,ALTO);
@@ -37,5 +28,7 @@ public class Ventana extends JFrame {
           this.setIconImage(icono);
       }
       
-      public Panel getPanel() {return panel;}
+      public Panel getPanel() {
+          return panel;
+      }
 }

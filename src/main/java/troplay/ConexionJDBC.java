@@ -13,10 +13,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Control del acceso a la base de datos
- * @author alejandro
- */
 public class ConexionJDBC {
     private Connection conexion;
     private ResultSet resultado,resultado2,resultado3;
@@ -27,10 +23,6 @@ public class ConexionJDBC {
     private String troplayDirectory = "/home/alejandro/programs/troplay";
     //private String troplayDirectory = "/Users/alejandro/programs/troplay";
 
-    /**
-     * Conexión local con la base de datos
-     * @param idio Idioma utilizado
-     */
     public ConexionJDBC(Language idio) {
         cadConexion = "jdbc:sqlite:" + troplayDirectory + "/src/main/resources/db/tenia.sqlite";
         driver = "org.sqlite.JDBC";
@@ -44,9 +36,6 @@ public class ConexionJDBC {
         conectar();
     }
 
-    /**
-     * Conexión con una base de datos
-     */
     public void conectar() {
 		System.out.println("conectar()");
 
@@ -66,18 +55,10 @@ public class ConexionJDBC {
 				System.out.println(">>>>>>>>>>>");
 			}
         } catch(Exception e) {
-            //System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
 
-    /**
-     * Obtención del número de preguntas de la base de datos en función
-     * de la dificultad y del idioma
-     * @param dificultad Dificultad de la pregunta
-     * @return El número de preguntas
-     * @throws java.sql.SQLException
-     */
     public int obtenerNumPreguntas(int dificultad) throws SQLException {
         resultado = ejecutarConsulta("select count(*) from respuesta where" +
                 " dificultad = " + dificultad + " and id_idioma = " + idioma);
@@ -88,13 +69,6 @@ public class ConexionJDBC {
         return Integer.parseInt(cadena) / 3;
     }
 
-    /**
-     * Obtención de una pregunta con un identificador y una dificultad determinados
-     * @param num Número de la pregunta dentro de la base de datos
-     * @param dificultad Dificultad de la pregunta
-     * @return La pregunta completa
-     * @throws java.sql.SQLException
-     */
     public Pregunta obtenerPregunta(int num, int dificultad) throws SQLException {
         Pregunta  pregunta = new Pregunta(Const.ANCHOPREGUNTA);
         int idPregunta=0;
@@ -130,10 +104,6 @@ public class ConexionJDBC {
         return pregunta;
     }
 
-    /**
-     * Obtención del número de curiosidades del final del juego
-     * @return Número de curiosidades
-     */
     public int getNumeroCuriosidades() throws SQLException {
         resultado = ejecutarConsulta("select count(*) from curiosidadtropical where id_idioma = " + idioma);
         resultado.next();
@@ -142,11 +112,6 @@ public class ConexionJDBC {
         return Integer.parseInt(cadena);
     }
 
-    /**
-     * Obtención del texto de la curiosidad que aparece al final
-     * @return El texto de la curiosidad
-     * @throws java.sql.SQLException
-     */
     public String getTextoCuriosidad() throws SQLException {
         int cantidad = getNumeroCuriosidades();
         int valor;
@@ -163,11 +128,6 @@ public class ConexionJDBC {
         return resultado.getString("curiosidad");
     }
 
-    /**
-     * Ejecución de una consulta SQL determinada
-     * @param consulta Cadena con la consulta que se queire realizar
-     * @return Resultado de la consulta
-     */
     public ResultSet ejecutarConsulta(String consulta) {
         ResultSet result = null;
 
@@ -175,29 +135,12 @@ public class ConexionJDBC {
 			System.out.println(">>" + consulta + " - " + comando);
             result = comando.executeQuery(consulta);
         } catch (SQLException ex) {
-            //Logger.getLogger(ConexionJDBC.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex);
         }
 
         return result;
     }
 
-    /**
-     * Realiza una inserción determinada
-     * @param accion SQL a ejecutar
-     */
-    public void ejecutarInsercion(String accion) {
-        try {
-            comando.executeUpdate(accion);
-        } catch (SQLException ex) {
-            System.err.println();
-            Logger.getLogger(ConexionJDBC.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /**
-     * Finalización de la clase cerrando la conexión
-     */
     protected void cerrarConexion() {
         try {
             comando.close();

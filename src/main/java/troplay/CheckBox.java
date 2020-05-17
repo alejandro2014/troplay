@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Implementación de los controles checkbox
  * @author alejandro
  */
-public class CheckBox extends Dibujable {
+public class CheckBox extends Drawable {
     private ArrayList conjCasillas = null;
     private CheckBox actual = null;
     public boolean activado = false;

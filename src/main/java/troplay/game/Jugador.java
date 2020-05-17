@@ -3,9 +3,10 @@ package troplay.game;
 import lombok.Getter;
 import lombok.Setter;
 import troplay.Const;
+import troplay.Drawable;
 import troplay.Game;
 
-public class Jugador extends troplay.Dibujable {
+public class Jugador extends Drawable {
     private Game game;
 
     @Getter
@@ -23,7 +24,6 @@ public class Jugador extends troplay.Dibujable {
     private int[][] desplaz = {{6,0},{12,6},{6,12},{0,6}};
     private int idJugador;
 
-    //Eventos de la clase Juego (necesarios para su flujo normal)
     private final int EVENTO_SEGUIR_ANIMACION = 4;
     private final int EVENTO_PARAR_ANIMACION = 0;
     private final int EVENTO_ESCALERA = 5;

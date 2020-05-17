@@ -127,12 +127,10 @@ public abstract class Const {
         new Rectangle(ARR_COORDS_JUEGO[9], new Dimension(19,19))
 	};
 
-    //Anchos de los textos en caracteres
     public static final int ANCHOPREGUNTA = 40;
     public static final int ANCHORESPUESTA = 28;
     public static final int ANCHOCURIOSIDAD = 44;
 
-    //Dimensiones de la ventana
     public static final int ANCHOVENTANA = 946;
     public static final int ALTOVENTANA = 644;
 

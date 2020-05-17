@@ -2,15 +2,15 @@ package graphics;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import troplay.Dibujable;
+import troplay.Drawable;
 
 public class DrawQueue {
 	Comparator<GraphicalUpdate> comparator = new GraphicalUpdateComparator();
 	PriorityQueue<GraphicalUpdate> queue = new PriorityQueue<GraphicalUpdate>(10, comparator);
 	
-	public void insertDrawable(Dibujable drawable) {
+	public void insertDrawable(Drawable drawable) {
 		GraphicalUpdate graphicalUpdate = new GraphicalUpdate();
-		graphicalUpdate.setCoords(drawable.getCoords());
+		graphicalUpdate.setCoords(drawable.getPoint());
 		graphicalUpdate.setImage(drawable.getImage());
 		graphicalUpdate.setZ(drawable.getCz());
 		

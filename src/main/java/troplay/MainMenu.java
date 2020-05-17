@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import static troplay.enums.Language.ENGLISH;
 import static troplay.enums.Language.SPANISH;
 
-public class MainMenu extends ControllerClass {
+public class MainMenu implements Subgame {
     private final GameStatus gameStatus;
     private Language idioma;
 
@@ -22,7 +22,7 @@ public class MainMenu extends ControllerClass {
     private final int NUM_BOTONES = 4;
     private final int NUM_CHECKBOXES = 6;
 
-    private Dibujable[] botones = new Dibujable[NUM_BOTONES];
+    private Drawable[] botones = new Drawable[NUM_BOTONES];
     private CheckBox[] checkboxes = new CheckBox[NUM_CHECKBOXES];
     private ArrayList conjCbxIdioma = new ArrayList();
     private ArrayList conjCbxJugadores = new ArrayList();
@@ -56,28 +56,28 @@ public class MainMenu extends ControllerClass {
 		coords = Const.ARR_COORDS_MENU;
 
         for(i = 0; i < longBotones; i++) {
-            botones[i] = new Dibujable();
-			botones[i].setCoords(coords[i]);
-            botones[i].setRectangulo(Const.ARR_RECTS[i]);
+            botones[i] = new Drawable();
+			botones[i].setPoint(coords[i]);
+            botones[i].setRectangle(Const.ARR_RECTS[i]);
         }
 
         for(i = 0; i < longCheckBox; i++) {
             conjCbxActual = (i < longCbxIdioma ? conjCbxIdioma : conjCbxJugadores);
 
             checkboxes[i] = new CheckBox(conjCbxActual);
-			checkboxes[i].setCoords(coords[i + longBotones]);
-            checkboxes[i].setRectangulo(Const.ARR_RECTS[i + 6]);
+			checkboxes[i].setPoint(coords[i + longBotones]);
+            checkboxes[i].setRectangle(Const.ARR_RECTS[i + 6]);
         }
 
         boolean valorVerdad = true;
 
-        botones[0].setMostrar(valorVerdad);
-        botones[1].setMostrar(valorVerdad);
-        botones[2].setMostrar(valorVerdad);
-        botones[3].setMostrar(!valorVerdad);
+        botones[0].setShow(valorVerdad);
+        botones[1].setShow(valorVerdad);
+        botones[2].setShow(valorVerdad);
+        botones[3].setShow(!valorVerdad);
 
         for(i = 0; i < longCheckBox; i++) {
-            checkboxes[i].setMostrar(!valorVerdad);
+            checkboxes[i].setShow(!valorVerdad);
         }
     }
 
@@ -106,7 +106,7 @@ public class MainMenu extends ControllerClass {
         gameStatus.setCurrentEvent(eventoRealizado);
     }
 
-    public boolean finalBucle() {
+    public Boolean finalBucle() {
         return (eventoRealizado == MainEvents.EXIT || eventoRealizado == MainEvents.START ||
                 eventoRealizado == MainEvents.BACK || eventoRealizado == MainEvents.OPTIONS);
     }
@@ -125,7 +125,7 @@ public class MainMenu extends ControllerClass {
         int longitud = botones.length, i;
 
         for(i=0; i< longitud; i++) {
-            if(botones[i].getMostrar() && botones[i].colision(coordsRaton)) {
+            if(botones[i].getShow() && botones[i].collision(coordsRaton)) {
                 tipoColision = "boton";
                 indiceColision = i;
                 return;
@@ -134,7 +134,7 @@ public class MainMenu extends ControllerClass {
 
         longitud = checkboxes.length;
         for(i=0; i<longitud; i++) {
-            if (checkboxes[i].getMostrar() && checkboxes[i].colision(coordsRaton)) {
+            if (checkboxes[i].getShow() && checkboxes[i].collision(coordsRaton)) {
                 tipoColision = "checkBox";
                 indiceColision = i;
                 return;

@@ -3,7 +3,7 @@ package troplay;
 import troplay.enums.Language;
 import troplay.enums.MainEvents;
 import troplay.game.Casilla;
-import troplay.game.Dado;
+import troplay.game.Dice;
 import troplay.game.Jugador;
 import troplay.game.Pregunta;
 
@@ -15,7 +15,7 @@ import java.util.Random;
 
 import static troplay.enums.Language.SPANISH;
 
-public class Game extends ControllerClass {
+public class Game implements Subgame {
     private final GameStatus gameStatus;
     private Language idiomaJuego;
     private int numJugadores = 1;
@@ -27,7 +27,7 @@ public class Game extends ControllerClass {
     private Pregunta preguntaActual = null;
     private int respuestaMarcada = 0;
 
-    private Dado dado = null;
+    private Dice dice = null;
     private Jugador[] jugadores = new Jugador[Const.MAX_JUGADORES];
 
     private Casilla[] tablero = new Casilla[Const.NUM_CASILLAS];
@@ -42,7 +42,7 @@ public class Game extends ControllerClass {
     private Rectangle[] rectangulos = null;
 
     //Elementos dinámicos del juego (botones y checkboxes)
-    private Dibujable[] botones = new Dibujable[2];
+    private Drawable[] botones = new Drawable[2];
     private CheckBox[] checkboxes = new CheckBox[3];
 
     private Raton raton = null;
@@ -104,7 +104,7 @@ public class Game extends ControllerClass {
 
         for(i=0; i<Const.NUM_CASILLAS; i++) tablero[i] = new Casilla(i);
 
-		dado = createDice();
+		dice = createDice();
 
         initPlayers();
 		initButtons();
@@ -136,7 +136,7 @@ public class Game extends ControllerClass {
         //Inicializa el número de jugadores y el tipo de juego
         for(i=0; i<numJugadores; i++) {
             jugadores[i] = new Jugador(this,i);
-            jugadores[i].setMostrar(true);
+            jugadores[i].setShow(true);
         }
 	}
 
@@ -144,19 +144,19 @@ public class Game extends ControllerClass {
 		longBotones = botones.length;
         for(int i = 0; i < longBotones; i++) {
             //botones[i] = new Boton(idiomaJuego);
-            botones[i] = new Dibujable();
-            botones[i].setCoords(Const.ARR_COORDS_JUEGO[i+5]);
-            botones[i].setMostrar(true);
-            botones[i].setRectangulo(rectangulos[i+4]);
+            botones[i] = new Drawable();
+            botones[i].setPoint(Const.ARR_COORDS_JUEGO[i+5]);
+            botones[i].setShow(true);
+            botones[i].setRectangle(rectangulos[i+4]);
         }
 	}
 
 	private void initCheckboxes() {
 		for(int i = 0; i < 3; i++) {
             checkboxes[i] = new CheckBox(conjCbxActual);
-            checkboxes[i].setCoords(Const.ARR_COORDS_JUEGO[i+7]);
-            checkboxes[i].setMostrar(false);
-            checkboxes[i].setRectangulo(rectangulos[i+7]);
+            checkboxes[i].setPoint(Const.ARR_COORDS_JUEGO[i+7]);
+            checkboxes[i].setShow(false);
+            checkboxes[i].setRectangle(rectangulos[i+7]);
         }
         checkboxes[0].setActivado(true);
 	}
@@ -183,10 +183,10 @@ public class Game extends ControllerClass {
 		return question;
 	}
 
-	private Dado createDice() {
-		Dado dice = new Dado();
-		dice.setCoords(new Point(698,67));
-		dice.setMostrar(true);
+	private Dice createDice() {
+		Dice dice = new Dice();
+		dice.setPoint(new Point(698,67));
+		dice.setShow(true);
 
 		return dice;
 	}
@@ -298,7 +298,7 @@ public class Game extends ControllerClass {
             case ESTADO_LANZANDO:
                 switch(evento) {
                     case EVENTO_NULO: //Una vez que ya se ha puesto un tiempo de incertidumbre se muestra el resultado
-                        int incCasilla = dado.getNuevoValor();
+                        int incCasilla = dice.getNewValue();
 
                         jugadores[jugadorActual].avanzarCasilla(incCasilla);
 
@@ -313,7 +313,7 @@ public class Game extends ControllerClass {
                         }
 
                         eventoActual = EVENTO_PARAR;
-                        panel.insActualizacion(11, dado.getValor() - 1, Const.ARR_COORDS_JUEGO[4]);
+                        panel.insActualizacion(11, dice.getValue() - 1, Const.ARR_COORDS_JUEGO[4]);
 
                         nuevoEstado = ESTADO_AVANZANDO;
                         break;
@@ -347,7 +347,7 @@ public class Game extends ControllerClass {
                         if(contador == contadorMas1) {
                             eventoActual = jugadores[jugadorActual].setCoordsAnim();
                             panel.setRefrescarTablero();
-                            panel.insActualizacion(jugadorActual+7, 0, jugadores[jugadorActual].getCoords());
+                            panel.insActualizacion(jugadorActual+7, 0, jugadores[jugadorActual].getPoint());
                             contadorMas1++;
                         }
                         break;
@@ -385,7 +385,7 @@ public class Game extends ControllerClass {
                         if(contador == contadorFinal) {
                             eventoActual = jugadores[jugadorActual].avanzarEscalera();
                             panel.setRefrescarTablero();
-                            panel.insActualizacion(jugadorActual+7, 0, jugadores[jugadorActual].getCoords());
+                            panel.insActualizacion(jugadorActual+7, 0, jugadores[jugadorActual].getPoint());
                             contadorFinal++;
                         }
                         break;
@@ -415,7 +415,7 @@ public class Game extends ControllerClass {
         return nuevoEstado;
     }
 
-    public boolean finalBucle() {return (eventoActual == EVENTO_SALIR || estadoActual == ESTADO_FINAL);}
+    public Boolean finalBucle() {return (eventoActual == EVENTO_SALIR || estadoActual == ESTADO_FINAL);}
 
     public void controlEntrada() {
         ratonPulsado = raton.getEstado();
@@ -431,7 +431,7 @@ public class Game extends ControllerClass {
         int longitud = botones.length, i;
 
         for(i=0; i< longitud; i++) {
-            if(botones[i].colision(coordsRaton)) {
+            if(botones[i].collision(coordsRaton)) {
                 tipoColision = "boton";
                 indiceColision = i;
                 return;
@@ -440,7 +440,7 @@ public class Game extends ControllerClass {
 
         longitud = checkboxes.length;
         for(i=0; i<longitud; i++) {
-            if (checkboxes[i].colision(coordsRaton)) {
+            if (checkboxes[i].collision(coordsRaton)) {
                 tipoColision = "checkBox";
                 indiceColision = i;
                 return;
@@ -456,7 +456,7 @@ public class Game extends ControllerClass {
                 checkboxes[indiceColision].setActivado(true);
                 respuestaMarcada = indiceColision;
                 for(int i = 0; i < 3; i++)
-                    panel.insActualizacion(6,(respuestaMarcada == i ? 1 : 0), checkboxes[i].getCoords());
+                    panel.insActualizacion(6,(respuestaMarcada == i ? 1 : 0), checkboxes[i].getPoint());
 
                 cambiadoCheckbox = true;
             }
@@ -543,7 +543,7 @@ public class Game extends ControllerClass {
     public Casilla getCasilla(int numero) {return tablero[numero];}
     public Casilla getCasillaActual() {return tablero[casillaActual];}
 	public Point getCheckBoxCoords(int numCheckbox) {
-		return checkboxes[numCheckbox].getCoords();
+		return checkboxes[numCheckbox].getPoint();
 	}
     public Jugador getJugador(int i) {return jugadores[i];}
     public int getJugadorActual() {return jugadorActual;}
@@ -558,7 +558,7 @@ public class Game extends ControllerClass {
 
     public void setCheckBoxVert(int numCheck, int despVr) {
         checkboxes[numCheck].setCy(despVr);
-        checkboxes[numCheck].setRectangulo(new Rectangle(703,despVr,19,19));
+        checkboxes[numCheck].setRectangle(new Rectangle(703,despVr,19,19));
     }
 
     void setRespuestaSeleccionada(int i) {respuestaMarcada = i;}
