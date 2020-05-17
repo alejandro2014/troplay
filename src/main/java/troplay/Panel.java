@@ -32,6 +32,40 @@ import javax.swing.Timer;
 import static troplay.enums.BalloonPosition.ARRIBA;
 
 public class Panel extends JPanel implements ActionListener {
+    //Array con los nombres de los gráficos del juego
+    private final String[][] ARR_GRAFS = {
+            {"espBotonEmpezar1","espBotonEmpezar2","ingBotonEmpezar1","ingBotonEmpezar2"}, //Botones del menú [0-3]
+            {"espBotonOpciones1","espBotonOpciones2","ingBotonOpciones1","ingBotonOpciones2"},
+            {"espBotonSalir1","espBotonSalir2","ingBotonSalir1","ingBotonSalir2"},
+            {"espVolverMenu1","espVolverMenu2","ingVolverMenu1","ingVolverMenu2"},
+
+            {"espBotonRespon1","espBotonRespon2","ingBotonRespon1","ingBotonRespon2"}, //Botones del juego [4-5]
+            {"espBotonVolver1","espBotonVolver2","ingBotonVolver1","ingBotonVolver2"},
+            {"checkBoxNo","checkBoxSi"}, //CheckBoxes [6]
+
+            {"jugador1"},{"jugador2"},{"jugador3"},{"jugador4"}, //Elementos propios de la partida en sí [7-11]
+            {"dado1","dado2","dado3","dado4","dado5","dado6"},
+
+            //Letreros fijos del menú de opciones [12-15]
+            {"espTituloIdioma","ingTituloIdioma"}, {"espTituloJugadores","ingTituloJugadores"},
+            {"espTituloConexion","ingTituloConexion"}, {"espTituloOpciones","ingTituloOpciones"},
+
+            {"jug11","jug12","jug13","jug14","jug15"}, //Indicadores del jugador actual [16-19]
+            {"jug21","jug22","jug23","jug24","jug25"},
+            {"jug31","jug32","jug33","jug34","jug35"},
+            {"jug41","jug42","jug43","jug44","jug45"},
+
+            {"fondoSabias"},{"sabiasEsp","sabiasIng"}, //Otros elementos del juego [20-21]
+
+            {"presentacion"},{"inicio3"},{"tableroc"}, //Fondos [22-25]
+            {"tablero1","tableroN"}
+    };
+
+    //Diferentes fondos del juego
+    private final int FONDOPRES = 22;
+    private final int FONDOINIC = 23;
+    private final int FONDOTABL = 24;
+
     private Font fuentePreguntas = new Font("LuciSans",Font.PLAIN,14);
     private Font fuenteCursiva = new Font("LuciSans",Font.ITALIC,14);
     private Font fuentePequeña = new Font("LuciSans",Font.PLAIN,10);
@@ -83,7 +117,9 @@ public class Panel extends JPanel implements ActionListener {
     private String cadenaEstado = "";
     private Timer timer = null;
 
-    private int idiomaJuego = Const.ESPAÑOL;
+    private final int ESPAÑOL = 0;
+
+    private int idiomaJuego = ESPAÑOL;
     private int contadorTimer = 0;
 
     //Modos diferentes representando momentos del juego
@@ -526,7 +562,7 @@ public class Panel extends JPanel implements ActionListener {
     }
 
     private void cargaGraficos() {
-        String[][] arrGrafs = Const.ARR_GRAFS;
+        String[][] arrGrafs = ARR_GRAFS;
         int longitud = arrGrafs.length;
         int longitudSub = 0;
         int i = 0, j = 0;
@@ -551,9 +587,9 @@ public class Panel extends JPanel implements ActionListener {
         }
 
         //Inicialización de los diferentes gráficos (presentacion, menu de opciones, juego)
-        bufferMenu.getGraphics().drawImage(arrayGraficos[Const.FONDOPRES][0], 0, 0, this);
-        bufferOpciones.getGraphics().drawImage(arrayGraficos[Const.FONDOINIC][0], 0, 0, this);
-        bufferJuego.getGraphics().drawImage(arrayGraficos[Const.FONDOTABL][0], 0, 0, this);
+        bufferMenu.getGraphics().drawImage(arrayGraficos[FONDOPRES][0], 0, 0, this);
+        bufferOpciones.getGraphics().drawImage(arrayGraficos[FONDOINIC][0], 0, 0, this);
+        bufferJuego.getGraphics().drawImage(arrayGraficos[FONDOTABL][0], 0, 0, this);
 
         bufferTablero1 = arrayGraficos[25][0]; //Tableros para uno y varios jugadores
         bufferTableroN = arrayGraficos[25][1];

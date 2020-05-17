@@ -5,19 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 public abstract class Const {
-    public static final int ESPAÑOL = 0;
-
-    public static final int MAX_JUGADORES = 4;
-    public static final int NUM_CASILLAS = 70;
     public static final int PREGS_POR_CASILLA = 3;
-    public static final int NUM_RESPUESTAS = 3;
-
-    public static final int NUM_DIFICULTADES = 3;
-    public static final int BAJA = 0;
-    public static final int MEDIA = 1;
-    public static final int ALTA = 2;
-    public static final int NUMCASIFACIL = 23;
-    public static final int NUMCASIMEDIO = 23;
 
     public static final String DIRECTORIO_GRAFICOS = "/home/alejandro/programs/troplay/src/main/resources/graficos/";
     //public static final String DIRECTORIO_GRAFICOS = "/Users/alejandro/programs/troplay/src/main/resources/graficos/";
@@ -38,50 +26,11 @@ public abstract class Const {
 		new Point(401, 296), new Point(385, 262), new Point(346, 251), new Point(285, 248)
 	};
 
-    //Array con los nombres de los gráficos del juego
-    public static final String[][] ARR_GRAFS = {
-        {"espBotonEmpezar1","espBotonEmpezar2","ingBotonEmpezar1","ingBotonEmpezar2"}, //Botones del menú [0-3]
-        {"espBotonOpciones1","espBotonOpciones2","ingBotonOpciones1","ingBotonOpciones2"},
-        {"espBotonSalir1","espBotonSalir2","ingBotonSalir1","ingBotonSalir2"},
-        {"espVolverMenu1","espVolverMenu2","ingVolverMenu1","ingVolverMenu2"},
-
-        {"espBotonRespon1","espBotonRespon2","ingBotonRespon1","ingBotonRespon2"}, //Botones del juego [4-5]
-        {"espBotonVolver1","espBotonVolver2","ingBotonVolver1","ingBotonVolver2"},
-        {"checkBoxNo","checkBoxSi"}, //CheckBoxes [6]
-
-        {"jugador1"},{"jugador2"},{"jugador3"},{"jugador4"}, //Elementos propios de la partida en sí [7-11]
-        {"dado1","dado2","dado3","dado4","dado5","dado6"},
-
-        //Letreros fijos del menú de opciones [12-15]
-        {"espTituloIdioma","ingTituloIdioma"}, {"espTituloJugadores","ingTituloJugadores"},
-        {"espTituloConexion","ingTituloConexion"}, {"espTituloOpciones","ingTituloOpciones"},
-
-        {"jug11","jug12","jug13","jug14","jug15"}, //Indicadores del jugador actual [16-19]
-        {"jug21","jug22","jug23","jug24","jug25"},
-        {"jug31","jug32","jug33","jug34","jug35"},
-        {"jug41","jug42","jug43","jug44","jug45"},
-
-        {"fondoSabias"},{"sabiasEsp","sabiasIng"}, //Otros elementos del juego [20-21]
-
-        {"presentacion"},{"inicio3"},{"tableroc"}, //Fondos [22-25]
-        {"tablero1","tableroN"}
-    };
-
-    //Diferentes fondos del juego
-    public static final int FONDOPRES = 22;
-    public static final int FONDOINIC = 23;
-    public static final int FONDOTABL = 24;
-
 	public static final Rectangle ARR_RECTS_BUTTONS_MAIN_MENU[] = {
 		new Rectangle(new Point(389,234), new Dimension(165,46)),
 		new Rectangle(new Point(389,303), new Dimension(165,46)),
 		new Rectangle(new Point(389,372), new Dimension(165,46)),
 		new Rectangle(new Point(574,220), new Dimension(165,46))
-	};
-
-	public static final Rectangle ARR_RECTS_BUTTONS_GAME[] = {
-		new Rectangle(new Point(746,470), new Dimension(133,37)),
-		new Rectangle(new Point(746,512), new Dimension(133,37))
 	};
 
 	public static final Rectangle ARR_RECTS_CHECKBOXES_MENU[] = {
@@ -93,15 +42,8 @@ public abstract class Const {
 		new Rectangle(new Point(480,485), new Dimension(19,19))
 	};
 
-	public static final Rectangle ARR_RECTS_CHECKBOXES_JUEGO[] = {
-		new Rectangle(new Point(703,20), new Dimension(19,19)),
-		new Rectangle(new Point(703,50), new Dimension(19,19)),
-		new Rectangle(new Point(703,80), new Dimension(19,19))
-	};
-
     public static final int ANCHOPREGUNTA = 40;
     public static final int ANCHORESPUESTA = 28;
-    public static final int ANCHOCURIOSIDAD = 44;
 
     public static final int MODOPRESEN = 0;
     public static final int MODOMENU = 1;

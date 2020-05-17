@@ -28,6 +28,8 @@ public class Jugador extends Drawable {
     private final int EVENTO_PARAR_ANIMACION = 0;
     private final int EVENTO_ESCALERA = 5;
 
+    private int MAX_CASILLAS = 69;
+
     public Jugador(Game referGame, int idJug) {
         game = referGame;
         this.idJugador = idJug;
@@ -39,8 +41,8 @@ public class Jugador extends Drawable {
 
     public void avanzarCasilla(int numCasillas) {
         casillaInicial = casilla;
-        if(casilla + numCasillas >= Const.NUM_CASILLAS) //Para que no se salga del tablero
-            numCasillas = Const.NUM_CASILLAS - casilla - 1;
+        if(casilla + numCasillas >= MAX_CASILLAS) //Para que no se salga del tablero
+            numCasillas = MAX_CASILLAS - casilla - 1;
 
         casilla += numCasillas;
 
@@ -61,14 +63,14 @@ public class Jugador extends Drawable {
             casillaVieja = casillaActual;
             casillaNueva = casillaVieja + 1;
 
-            if(casillaNueva < Const.NUM_CASILLAS) {
+            if(casillaNueva < MAX_CASILLAS) {
                 desplX = (int)Const.arrayCasillas[casillaNueva].getX() - (int)Const.arrayCasillas[casillaVieja].getX();
                 desplY = (int)Const.arrayCasillas[casillaNueva].getY() - (int)Const.arrayCasillas[casillaVieja].getY();
             }
         }
 
         //Actualiza las coordenadas o termina la animación
-        if(fotogrActual < fotogrTotales && casillaVieja < Const.NUM_CASILLAS - 1) {
+        if(fotogrActual < fotogrTotales && casillaVieja < MAX_CASILLAS - 1) {
             xActual = xVieja + (despl * desplX) / 7;
             yActual = yVieja + (despl * desplY) / 7;
             this.setXY(xActual,yActual);

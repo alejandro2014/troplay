@@ -7,8 +7,7 @@ import troplay.game.Dice;
 import troplay.game.Jugador;
 import troplay.game.Pregunta;
 
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,6 +15,18 @@ import java.util.Random;
 import static troplay.enums.Language.SPANISH;
 
 public class Game implements Subgame {
+    private final int ANCHOCURIOSIDAD = 44;
+
+    private final int MAX_JUGADORES = 4;
+    private final int NUM_CASILLAS = 70;
+
+    private final int NUM_DIFICULTADES = 3;
+    private final int BAJA = 0;
+    private final int MEDIA = 1;
+    private final int ALTA = 2;
+    private final int NUMCASIFACIL = 23;
+    private final int NUMCASIMEDIO = 23;
+
     private final GameStatus gameStatus;
     private Language idiomaJuego;
     private int numJugadores = 1;
@@ -28,18 +39,26 @@ public class Game implements Subgame {
     private int respuestaMarcada = 0;
 
     private Dice dice = null;
-    private Jugador[] jugadores = new Jugador[Const.MAX_JUGADORES];
+    private Jugador[] jugadores = new Jugador[MAX_JUGADORES];
 
-    private Casilla[] tablero = new Casilla[Const.NUM_CASILLAS];
-    private int[] numPreguntas = new int[Const.NUM_DIFICULTADES];
+    private Casilla[] tablero = new Casilla[NUM_CASILLAS];
+    private int[] numPreguntas = new int[NUM_DIFICULTADES];
 
     private boolean[] asigFacil, asigMedio, asigDificil;
     private int ganador = -1;
 
     public Ventana ventana = null;
 
-    //Control de los gráficos
-    //private Rectangle[] rectangulos = null;
+    private final Rectangle ARR_RECTS_BUTTONS_GAME[] = {
+            new Rectangle(new Point(746,470), new Dimension(133,37)),
+            new Rectangle(new Point(746,512), new Dimension(133,37))
+    };
+
+    private final Rectangle ARR_RECTS_CHECKBOXES_JUEGO[] = {
+            new Rectangle(new Point(703,20), new Dimension(19,19)),
+            new Rectangle(new Point(703,50), new Dimension(19,19)),
+            new Rectangle(new Point(703,80), new Dimension(19,19))
+    };
 
     //Elementos dinámicos del juego (botones y checkboxes)
     private Drawable[] botones = new Drawable[2];
@@ -102,7 +121,7 @@ public class Game implements Subgame {
         idiomaJuego = gameStatus.getLanguage();
         consultasJDBC = new ConexionJDBC(idiomaJuego);
 
-        for(i=0; i<Const.NUM_CASILLAS; i++) {
+        for(i=0; i < NUM_CASILLAS; i++) {
             tablero[i] = new Casilla(i);
         }
 
@@ -133,7 +152,7 @@ public class Game implements Subgame {
 		numJugadores = gameStatus.getPlayersNo();
         jugadorActual = (numJugadores == 1 ? 0 : -1);
 
-		for(i=0; i<Const.MAX_JUGADORES; i++) jugadores[i] = null;
+		for(i=0; i< MAX_JUGADORES; i++) jugadores[i] = null;
 
         //Inicializa el número de jugadores y el tipo de juego
         for(i=0; i<numJugadores; i++) {
@@ -147,18 +166,18 @@ public class Game implements Subgame {
         for(int i = 0; i < longBotones; i++) {
             //botones[i] = new Boton(idiomaJuego);
             botones[i] = new Drawable();
-            botones[i].setPoint(Const.ARR_RECTS_BUTTONS_GAME[i].getLocation());
+            botones[i].setPoint(ARR_RECTS_BUTTONS_GAME[i].getLocation());
             botones[i].setShow(true);
-            botones[i].setRectangle(Const.ARR_RECTS_BUTTONS_GAME[i]);
+            botones[i].setRectangle(ARR_RECTS_BUTTONS_GAME[i]);
         }
 	}
 
 	private void initCheckboxes() {
 		for(int i = 0; i < 3; i++) {
             checkboxes[i] = new CheckBox(conjCbxActual);
-            checkboxes[i].setPoint(Const.ARR_RECTS_CHECKBOXES_JUEGO[i].getLocation());
+            checkboxes[i].setPoint(ARR_RECTS_CHECKBOXES_JUEGO[i].getLocation());
             checkboxes[i].setShow(false);
-            checkboxes[i].setRectangle(Const.ARR_RECTS_CHECKBOXES_JUEGO[i]);
+            checkboxes[i].setRectangle(ARR_RECTS_CHECKBOXES_JUEGO[i]);
         }
         checkboxes[0].setActivado(true);
 	}
@@ -166,20 +185,20 @@ public class Game implements Subgame {
 	private void initQuestions() throws SQLException {
 		int i;
 
-        for(i=0; i<Const.NUM_DIFICULTADES; i++)numPreguntas[i] = getNumPreguntas(i, idiomaJuego);
-        asigFacil = new boolean[numPreguntas[Const.BAJA]];
-        asigMedio = new boolean[numPreguntas[Const.MEDIA]];
-        asigDificil = new boolean[numPreguntas[Const.ALTA]];
+        for(i=0; i < NUM_DIFICULTADES; i++)numPreguntas[i] = getNumPreguntas(i, idiomaJuego);
+        asigFacil = new boolean[numPreguntas[BAJA]];
+        asigMedio = new boolean[numPreguntas[MEDIA]];
+        asigDificil = new boolean[numPreguntas[ALTA]];
 
-        for(i=0; i<numPreguntas[Const.BAJA]; i++) asigFacil[i] = false;
-        for(i=0; i<numPreguntas[Const.MEDIA]; i++) asigMedio[i] = false;
-        for(i=0; i<numPreguntas[Const.ALTA]; i++) asigDificil[i] = false;
+        for(i=0; i<numPreguntas[BAJA]; i++) asigFacil[i] = false;
+        for(i=0; i<numPreguntas[MEDIA]; i++) asigMedio[i] = false;
+        for(i=0; i<numPreguntas[ALTA]; i++) asigDificil[i] = false;
 	}
 
 	private Pregunta getCuriosity() throws SQLException {
 		String textCuriosity = consultasJDBC.getTextoCuriosidad();
 		textCuriosity = textCuriosity.substring(textCuriosity.indexOf("?")+1);
-		Pregunta question = new Pregunta(Const.ANCHOCURIOSIDAD);
+		Pregunta question = new Pregunta(ANCHOCURIOSIDAD);
 		question.setTextoPregunta(textCuriosity);
 
 		return question;
@@ -468,7 +487,7 @@ public class Game implements Subgame {
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
                 int subind = (idiomaJuego == SPANISH) ? 1 : 3;
-                panel.insActualizacion(indiceColision + 4, subind, Const.ARR_RECTS_BUTTONS_GAME[indiceColision].getLocation());
+                panel.insActualizacion(indiceColision + 4, subind, ARR_RECTS_BUTTONS_GAME[indiceColision].getLocation());
                 cambiadoBoton = true;
             }
             botonPulsado = indiceColision;
@@ -477,7 +496,7 @@ public class Game implements Subgame {
 
     public void desencadenarAccion(int numBoton) {
         int subind = (idiomaJuego == SPANISH) ? 0 : 2;
-        panel.insActualizacion(numBoton+4,subind, Const.ARR_RECTS_BUTTONS_GAME[numBoton].getLocation());
+        panel.insActualizacion(numBoton+4,subind, ARR_RECTS_BUTTONS_GAME[numBoton].getLocation());
         cambiadoBoton = false;
 
         switch(numBoton) {
@@ -494,18 +513,25 @@ public class Game implements Subgame {
     public void asignarPreguntas() throws SQLException {
         Random rnd = new Random();
         boolean[] asig = asigFacil;
-        int dificultad = Const.BAJA;
+        int dificultad = BAJA;
         Pregunta[] pregun = new Pregunta[Const.PREGS_POR_CASILLA];
         int[] idPreg = new int[Const.PREGS_POR_CASILLA];
-        int limite1 = Const.NUMCASIFACIL;
-        int limite2 = Const.NUMCASIFACIL + Const.NUMCASIMEDIO;
+        int limite1 = NUMCASIFACIL;
+        int limite2 = NUMCASIFACIL + NUMCASIMEDIO;
 
         //Se rellenan todas las casillas con preguntas
-        for(int i=0; i<Const.NUM_CASILLAS-1; i++) {
+        for(int i=0; i < NUM_CASILLAS - 1; i++) {
             //Ajusta la dificultad de la pregunta en función de la casilla
-            if(i>-1 && i<limite1) {dificultad = Const.BAJA; asig = asigFacil;}
-            else if(i>limite1 - 1 && i<limite2) {dificultad = Const.MEDIA; asig = asigMedio;}
-            else if(i> limite2-1) {dificultad = Const.ALTA; asig = asigDificil;}
+            if(i>-1 && i<limite1) {
+                dificultad = BAJA;
+                asig = asigFacil;
+            } else if(i>limite1 - 1 && i<limite2) {
+                dificultad = MEDIA;
+                asig = asigMedio;
+            } else if(i> limite2-1) {
+                dificultad = ALTA;
+                asig = asigDificil;
+            }
 
             //Dentro de cada casilla se rellenan cuatro preguntas
             for(int j=0; j<Const.PREGS_POR_CASILLA; j++) {
@@ -532,7 +558,7 @@ public class Game implements Subgame {
         int jugadorGanador = -1;
 
         for(int i=0; i<numJugadores && jugadorGanador == -1; i++) {
-            if(jugadores[i].getCasilla() == (Const.NUM_CASILLAS-1)) {
+            if(jugadores[i].getCasilla() == (NUM_CASILLAS - 1)) {
                 switch(idiomaJuego) {
                     case SPANISH: panel.setCadenaEstado("Jugador " + (i+1) + " gana"); break;
                     case ENGLISH: panel.setCadenaEstado("Player " + (i+1) + " wins"); break;

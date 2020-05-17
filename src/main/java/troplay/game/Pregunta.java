@@ -8,10 +8,12 @@ import troplay.Drawable;
 import java.util.ArrayList;
 
 public class Pregunta extends Drawable {
+    private final int NUM_RESPUESTAS = 3;
+
     @Getter
     private String textoPregunta;
 
-    private String respuestas[] = new String[Const.NUM_RESPUESTAS];
+    private String respuestas[] = new String[NUM_RESPUESTAS];
 
     @Setter
     private Integer respCorrecta = -1;
