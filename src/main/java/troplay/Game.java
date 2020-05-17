@@ -147,7 +147,7 @@ public class Game implements Subgame {
         for(int i = 0; i < longBotones; i++) {
             //botones[i] = new Boton(idiomaJuego);
             botones[i] = new Drawable();
-            botones[i].setPoint(Const.ARR_COORDS_JUEGO[i+5]);
+            botones[i].setPoint(Const.ARR_RECTS_BUTTONS_GAME[i].getLocation());
             botones[i].setShow(true);
             botones[i].setRectangle(Const.ARR_RECTS_BUTTONS_GAME[i]);
         }
@@ -156,7 +156,7 @@ public class Game implements Subgame {
 	private void initCheckboxes() {
 		for(int i = 0; i < 3; i++) {
             checkboxes[i] = new CheckBox(conjCbxActual);
-            checkboxes[i].setPoint(Const.ARR_COORDS_JUEGO[i+7]);
+            checkboxes[i].setPoint(Const.ARR_RECTS_CHECKBOXES_JUEGO[i].getLocation());
             checkboxes[i].setShow(false);
             checkboxes[i].setRectangle(Const.ARR_RECTS_CHECKBOXES_JUEGO[i]);
         }
@@ -298,6 +298,8 @@ public class Game implements Subgame {
 
             //Estado en el que se lanza el dado y se muestra la animación
             case ESTADO_LANZANDO:
+                Point diceLocation = new Point(698, 67);
+
                 switch(evento) {
                     case EVENTO_NULO: //Una vez que ya se ha puesto un tiempo de incertidumbre se muestra el resultado
                         int incCasilla = dice.getNewValue();
@@ -315,7 +317,7 @@ public class Game implements Subgame {
                         }
 
                         eventoActual = EVENTO_PARAR;
-                        panel.insActualizacion(11, dice.getValue() - 1, Const.ARR_COORDS_JUEGO[4]);
+                        panel.insActualizacion(11, dice.getValue() - 1, diceLocation);
 
                         nuevoEstado = ESTADO_AVANZANDO;
                         break;
@@ -323,7 +325,7 @@ public class Game implements Subgame {
                         int contador = panel.getContadorTimer();
 
                         if(contador == contadorMas1) {
-                            panel.insActualizacion(11, contador % 6, Const.ARR_COORDS_JUEGO[4]);
+                            panel.insActualizacion(11, contador % 6, diceLocation);
                             contadorMas1++;
                         }
 
@@ -466,7 +468,7 @@ public class Game implements Subgame {
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
                 int subind = (idiomaJuego == SPANISH) ? 1 : 3;
-                panel.insActualizacion(indiceColision + 4, subind, Const.ARR_COORDS_JUEGO[indiceColision + 5]);
+                panel.insActualizacion(indiceColision + 4, subind, Const.ARR_RECTS_BUTTONS_GAME[indiceColision].getLocation());
                 cambiadoBoton = true;
             }
             botonPulsado = indiceColision;
@@ -475,7 +477,7 @@ public class Game implements Subgame {
 
     public void desencadenarAccion(int numBoton) {
         int subind = (idiomaJuego == SPANISH) ? 0 : 2;
-        panel.insActualizacion(numBoton+4,subind, Const.ARR_COORDS_JUEGO[numBoton+5]);
+        panel.insActualizacion(numBoton+4,subind, Const.ARR_RECTS_BUTTONS_GAME[numBoton].getLocation());
         cambiadoBoton = false;
 
         switch(numBoton) {

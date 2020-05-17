@@ -79,19 +79,6 @@ public abstract class Const {
 		new Point(310,66)
 	};
 
-	public static final Point[] ARR_COORDS_JUEGO = {
-		new Point(343,543),
-		new Point(343,543),
-        new Point(343,543),
-		new Point(343,543),
-        new Point(698,67), /**/
-		new Point(746,470),
-		new Point(746,512),
-		new Point(703,20),
-		new Point(703,50),
-		new Point(703,80)
-	};
-
 	public static final Rectangle ARR_RECTS_BUTTONS_MAIN_MENU[] = {
 		new Rectangle(new Point(389,234), new Dimension(165,46)),
 		new Rectangle(new Point(389,303), new Dimension(165,46)),

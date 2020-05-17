@@ -494,9 +494,10 @@ public class Panel extends JPanel implements ActionListener {
                     nuevoDibujo[tipoDibujo] = false;
                     insActualizacion(24,0,new Point()); //Marco del tablero
                     insActualizacion(25,(refGame.getNumJugadores() == 1 ? 0 : 1), new Point(6,6)); //Tablero
-                    insActualizacion(11,0,Const.ARR_COORDS_JUEGO[4]);
-                    insActualizacion(4,2*idiomaJuego,Const.ARR_COORDS_JUEGO[5]);
-                    insActualizacion(5,2*idiomaJuego,Const.ARR_COORDS_JUEGO[6]);
+
+                    insActualizacion(11,0, new Point(698,67));
+                    insActualizacion(4,2*idiomaJuego, new Point(746,470));
+                    insActualizacion(5,2*idiomaJuego, new Point(746,512));
                 }
                 break;
         }
