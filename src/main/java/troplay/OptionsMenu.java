@@ -26,8 +26,6 @@ public class OptionsMenu implements Subgame {
     private ArrayList conjCbxIdioma = new ArrayList();
     private ArrayList conjCbxJugadores = new ArrayList();
 
-    private Point[] coords = null;
-
     private boolean ratonPulsado = false;
 
 	private Point coordsRaton = new Point();
@@ -53,11 +51,9 @@ public class OptionsMenu implements Subgame {
 
         this.raton = gameStatus.getMouse();
 
-		coords = Const.ARR_COORDS_MENU;
-
         for(i = 0; i < longBotones; i++) {
             botones[i] = new Drawable();
-			botones[i].setPoint(coords[i]);
+			botones[i].setPoint(Const.ARR_RECTS_CHECKBOXES_MENU[i].getLocation());
             botones[i].setRectangle(Const.ARR_RECTS_BUTTONS_MAIN_MENU[i]);
         }
 
@@ -65,7 +61,7 @@ public class OptionsMenu implements Subgame {
             conjCbxActual = (i < longCbxIdioma ? conjCbxIdioma : conjCbxJugadores);
 
             checkboxes[i] = new CheckBox(conjCbxActual);
-			checkboxes[i].setPoint(coords[i + longBotones]);
+			checkboxes[i].setPoint(Const.ARR_RECTS_CHECKBOXES_MENU[i].getLocation());
             checkboxes[i].setRectangle(Const.ARR_RECTS_CHECKBOXES_MENU[i]);
         }
 
@@ -105,11 +101,12 @@ public class OptionsMenu implements Subgame {
 
             try {
                 Thread.sleep(70);
-            } catch (InterruptedException ex) {}
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         }
 
         gameStatus.setPlayersNo(numJugadores);
-
         gameStatus.setCurrentEvent(eventoRealizado);
     }
 
@@ -157,20 +154,16 @@ public class OptionsMenu implements Subgame {
 
             if (indiceColision < 2) { //Selección del idioma
                 if(!cambiadoCheckbox) {
-                    if(indiceColision == 0) {
-                        gameStatus.setLanguage(SPANISH);
-                    } else {
-                        gameStatus.setLanguage(ENGLISH);
-                    }
-
+                    gameStatus.setLanguage(indiceColision == 0 ? SPANISH : ENGLISH);
                     cambiadoCheckbox = true;
                 }
             } else if(indiceColision < 6) { //Selección del número de jugadores
                 if(!cambiadoCheckbox) {
                     numJugadores = indiceColision - 1;
 
-                    for(int i = 0; i < 4; i++)
-                        panel.insActualizacion(6, (indiceColision-2 == i ? 1 : 0), Const.ARR_COORDS_MENU[i+6]);
+                    for(int i = 0; i < 4; i++) {
+                        panel.insActualizacion(6, (indiceColision - 2 == i ? 1 : 0), Const.ARR_RECTS_CHECKBOXES_MENU[i + 2].getLocation());
+                    }
 
                     cambiadoCheckbox = true;
                 }
@@ -179,7 +172,7 @@ public class OptionsMenu implements Subgame {
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
                 int subind = (gameStatus.getLanguage() == SPANISH) ? 1 : 3;
-                panel.insActualizacion(indiceColision,subind, Const.ARR_COORDS_MENU[indiceColision]);
+                panel.insActualizacion(indiceColision,subind, Const.ARR_RECTS_BUTTONS_MAIN_MENU[indiceColision].getLocation());
                 botonPulsado = indiceColision;
                 cambiadoBoton = true;
             }
@@ -188,7 +181,7 @@ public class OptionsMenu implements Subgame {
 
     public void desencadenarAccion(int numBoton) {
         int subind = (gameStatus.getLanguage() == SPANISH) ? 0 : 2;
-        panel.insActualizacion(indiceColision, subind, Const.ARR_COORDS_MENU[indiceColision]);
+        panel.insActualizacion(indiceColision, subind, Const.ARR_RECTS_BUTTONS_MAIN_MENU[indiceColision].getLocation());
         cambiadoBoton = false;
 
         switch(numBoton) {

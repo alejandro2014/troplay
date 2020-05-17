@@ -463,9 +463,9 @@ public class Panel extends JPanel implements ActionListener {
                 if(nuevoDibujo[tipoDibujo]) {
                     nuevoDibujo[tipoDibujo] = false;
 
-                    insActualizacion(0,2*idiomaJuego,Const.ARR_COORDS_MENU[0]); //Botones
-                    insActualizacion(1,2*idiomaJuego,Const.ARR_COORDS_MENU[1]);
-                    insActualizacion(2,2*idiomaJuego,Const.ARR_COORDS_MENU[2]);
+                    insActualizacion(0,2*idiomaJuego,Const.ARR_RECTS_BUTTONS_MAIN_MENU[0].getLocation()); //Botones
+                    insActualizacion(1,2*idiomaJuego,Const.ARR_RECTS_BUTTONS_MAIN_MENU[1].getLocation());
+                    insActualizacion(2,2*idiomaJuego,Const.ARR_RECTS_BUTTONS_MAIN_MENU[2].getLocation());
                 }
                 break;
 
@@ -473,13 +473,13 @@ public class Panel extends JPanel implements ActionListener {
                 bufferActual = bufferOpciones;
                 if(nuevoDibujo[tipoDibujo]) {
                     nuevoDibujo[tipoDibujo] = false;
-                    insActualizacion(3,0,Const.ARR_COORDS_MENU[3]); //Boton volver
-                    insActualizacion(6,1,Const.ARR_COORDS_MENU[4]); //Checkboxes idioma
-                    insActualizacion(6,0,Const.ARR_COORDS_MENU[5]);
-                    insActualizacion(6,1,Const.ARR_COORDS_MENU[6]); //Checkboxes jugadores
-                    insActualizacion(6,0,Const.ARR_COORDS_MENU[7]);
-                    insActualizacion(6,0,Const.ARR_COORDS_MENU[8]);
-                    insActualizacion(6,0,Const.ARR_COORDS_MENU[9]);
+                    insActualizacion(3,0,Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation()); //Boton volver
+                    insActualizacion(6,1,Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation()); //Checkboxes idioma
+                    insActualizacion(6,0,Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
+                    insActualizacion(6,1,Const.ARR_RECTS_CHECKBOXES_MENU[2].getLocation()); //Checkboxes jugadores
+                    insActualizacion(6,0,Const.ARR_RECTS_CHECKBOXES_MENU[3].getLocation());
+                    insActualizacion(6,0,Const.ARR_RECTS_CHECKBOXES_MENU[4].getLocation());
+                    insActualizacion(6,0,Const.ARR_RECTS_CHECKBOXES_MENU[5].getLocation());
                     insActualizacion(12,0,Const.ARR_COORDS_OPCIONES[0]); //Letreros
                     insActualizacion(13,0,Const.ARR_COORDS_OPCIONES[1]);
                     insActualizacion(15,0,Const.ARR_COORDS_OPCIONES[3]);
@@ -610,9 +610,9 @@ public class Panel extends JPanel implements ActionListener {
         insActualizacion(12,idiomaJuego,Const.ARR_COORDS_OPCIONES[0]);
         insActualizacion(13,idiomaJuego,Const.ARR_COORDS_OPCIONES[1]);
         insActualizacion(15,idiomaJuego,Const.ARR_COORDS_OPCIONES[3]);
-        insActualizacion(6,(idiomaJuego == 0 ? 1 : 0),Const.ARR_COORDS_MENU[4]);
-        insActualizacion(6,(idiomaJuego == 0 ? 0 : 1),Const.ARR_COORDS_MENU[5]);
-        insActualizacion(3,2*idiomaJuego,Const.ARR_COORDS_MENU[3]);
+        insActualizacion(6,(idiomaJuego == 0 ? 1 : 0),Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation());
+        insActualizacion(6,(idiomaJuego == 0 ? 0 : 1),Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
+        insActualizacion(3,2*idiomaJuego,Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation());
     }
 
     public void setRefrescarTablero() {refrescarTablero = true;}

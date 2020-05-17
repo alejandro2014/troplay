@@ -92,40 +92,6 @@ public abstract class Const {
 		new Point(703,80)
 	};
 
-	public static final Point[] ARR_COORDS_MENU = {
-			new Point(389,234),
-			new Point(389,303),
-			new Point(389,372),
-			new Point(574,220),
-			new Point(346,226),
-			new Point(513,225),
-			new Point(317,384),
-			new Point(476,384),
-			new Point(317,484),
-			new Point(480,485)
-	};
-
-    public static final Rectangle ARR_RECTS[] = {
-        new Rectangle(new Point(389,234), new Dimension(165,46)), //Botones del menú principal
-        new Rectangle(new Point(389,303), new Dimension(165,46)),
-        new Rectangle(new Point(389,372), new Dimension(165,46)),
-        new Rectangle(new Point(574,220), new Dimension(165,46)),
-
-        new Rectangle(new Point(746,470), new Dimension(133,37)), //Botones del juego
-        new Rectangle(new Point(746,512), new Dimension(133,37)),
-
-        new Rectangle(new Point(346,226), new Dimension(19,19)), //Checkboxes del menú
-        new Rectangle(new Point(513,225), new Dimension(19,19)),
-        new Rectangle(new Point(317,384), new Dimension(19,19)),
-        new Rectangle(new Point(476,384), new Dimension(19,19)),
-        new Rectangle(new Point(317,484), new Dimension(19,19)),
-        new Rectangle(new Point(480,485), new Dimension(19,19)),
-
-        new Rectangle(new Point(703,20), new Dimension(19,19)), //Checkboxes del juego
-        new Rectangle(new Point(703,50), new Dimension(19,19)),
-        new Rectangle(new Point(703,80), new Dimension(19,19))
-	};
-
 	public static final Rectangle ARR_RECTS_BUTTONS_MAIN_MENU[] = {
 		new Rectangle(new Point(389,234), new Dimension(165,46)),
 		new Rectangle(new Point(389,303), new Dimension(165,46)),
