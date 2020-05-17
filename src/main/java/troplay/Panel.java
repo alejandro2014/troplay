@@ -90,9 +90,6 @@ public class Panel extends JPanel implements ActionListener {
     private Graphics2D g2d = null;
     private Graphics2D g3d = null;
 
-    /**
-     * Crea el panel donde se mostrarán los gráficos del juego
-     */
     public Panel() {
         setBackground(Color.BLACK);
         this.cargaGraficos();
@@ -102,10 +99,6 @@ public class Panel extends JPanel implements ActionListener {
         timer.start();
     }
 
-    /**
-     * Método de dibujado de la pantalla
-     * @param g Gráfico donde se dibujará
-     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -118,18 +111,11 @@ public class Panel extends JPanel implements ActionListener {
         g.dispose();
     }
 
-    /**
-     * Se lleva a cabo con cada tick del timer
-     * @param e Evento
-     */
     public void actionPerformed(ActionEvent e) {
         contadorTimer++;
         repaint();
     }
 
-    /**
-     * Dibujado de la pregunta cuando es necesaria
-     */
     void dibujarEscenaPregunta() {
         Jugador jugadorActual = null;
         int i;
@@ -152,9 +138,6 @@ public class Panel extends JPanel implements ActionListener {
         dibujarPregunta = false;
     }
 
-    /**
-     * Dibujado del tablero, hace falta cuando el jugador avanza
-     */
     void dibujarTablero() {
         Graphics2D g = (Graphics2D) bufferActual.getGraphics();
 
@@ -170,10 +153,6 @@ public class Panel extends JPanel implements ActionListener {
         refrescarTablero = false;
     }
 
-    /**
-     * Sirve para destacar el jugador que se encuentra jugando en un momento dado
-     * @param g Superficie en la que se dibujará
-     */
     public void dibujarEstado(Graphics2D g) {
           int jugadorActual = refGame.getJugadorActual();
           int desplaz;
@@ -191,10 +170,6 @@ public class Panel extends JPanel implements ActionListener {
           }
       }
 
-    /**
-     * Utilizado para presentar la curiosidad que aparece al final del juego
-     * @return Verdadero si la curiosidad se tiene que dibujar
-     */
     public boolean dibujarCuriosidad() {
         ArrayList trozosCadena = pregCuriosidad.getTrozosCadena(0);
         ArrayList tiposCadena = pregCuriosidad.getTiposCadena(0);
@@ -248,9 +223,6 @@ public class Panel extends JPanel implements ActionListener {
         return devuelto;
     }
 
-    /**
-     * Método que se encarga de dibujar una pregunta en pantalla
-     */
     public void dibujarPregunta(Graphics2D g) {
         Casilla casillaActual = refGame.getCasillaActual();
         int casx = casillaActual.getX() + 4;
@@ -342,12 +314,6 @@ public class Panel extends JPanel implements ActionListener {
         escribirRespuestas(superf);
     }
 
-    /**
-     * Escritura del texto de la pregunta
-     * @param superf Superficie de dibujo
-     * @param x Coordenada x
-     * @param y Coordenada y
-     */
     public void escribirPregunta(Graphics2D superf, int x, int y) {
         ArrayList trozosCadena = preguntaActual.getTrozosCadena(0);
         ArrayList tiposCadena = preguntaActual.getTiposCadena(0);
@@ -384,14 +350,6 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
-    /**
-     * Escritura de una cadena determinada
-     * @param superf Superficie sobre la que se escribira la cadena
-     * @param cadenaActual Cadena que se quiere escribir
-     * @param despVr Coordenada vertical
-     * @param anchoCad Ancho de la cadena
-     * @param metrica Métrica de la fuente con la que se escribirá
-     */
     public void escribirCadena(Graphics2D superf, String cadenaActual, int despVr, int anchoCad, FontMetrics metrica) {
         int long1;
         int despFinal;
@@ -415,10 +373,6 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
-    /**
-     * Escritura de las respuestas en función de su longitud
-     * @param superf Superficie de dibujo
-     */
     public void escribirRespuestas(Graphics2D superf) {
         ArrayList trozosCadena = null;
         ArrayList tiposCadena = null;
@@ -587,9 +541,6 @@ public class Panel extends JPanel implements ActionListener {
         bufferTableroN = arrayGraficos[25][1];
     }
 
-    /**
-     * Realiza una descarga de los gráficos del juego
-     */
     public void unloadGraphics() {
         int longitudArray = arrayGraficos.length;
         int longitudElem = 0;
@@ -605,11 +556,6 @@ public class Panel extends JPanel implements ActionListener {
         arrayGraficos = null;
     }
 
-    /**
-     * Inserción de nuevos elementos en la cola de actualizaciones
-     * @param indice Array dentro del array de gráficos
-     * @param subind Posición dentro del array anterior
-     */
 	public void insActualizacion(int indice, int subind, Point coords) {
         colaActualizar.add(indice);
 		colaActualizar.add(subind);
@@ -619,10 +565,6 @@ public class Panel extends JPanel implements ActionListener {
 
     public int getContadorTimer() {return contadorTimer;}
 
-    /**
-     * Establece el estado del juego
-     * @param cadena Cadena informativa
-     */
     public void setCadenaEstado(String cadena) {
         Graphics2D g = (Graphics2D) bufferActual.getGraphics();
         BufferedImage trozo = arrayGraficos[24][0].getSubimage(748, 55, 192, 57);
