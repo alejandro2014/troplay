@@ -118,7 +118,7 @@ public class Game implements Subgame {
 		    ex.printStackTrace();
         }
 
-        panel.setCuriosidad(pregCuriosidad);
+        panel.setPregCuriosidad(pregCuriosidad);
 
         consultasJDBC.cerrarConexion();
 
@@ -250,7 +250,7 @@ public class Game implements Subgame {
                         preguntaActual = tablero[casillaActual].getPregActual();
 
                         //Obtención de la pregunta
-                        panel.setPregunta(preguntaActual);
+                        panel.setPreguntaActual(preguntaActual);
                         panel.setRefrescarTablero();
                         panel.setDibujarPregunta(true);
 
@@ -268,7 +268,7 @@ public class Game implements Subgame {
                             case ENGLISH: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " is right"); break;
                         }
 
-                        panel.setPregunta(null);
+                        panel.setPreguntaActual(null);
                         tablero[casillaActual].preguntaResuelta();
                         nuevoEstado = ESTADO_LANZANDO;
                         contadorInicial = panel.getContadorTimer();
@@ -283,7 +283,7 @@ public class Game implements Subgame {
                             case ENGLISH: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " fails"); break;
                         }
 
-                        panel.setPregunta(null);
+                        panel.setPreguntaActual(null);
                         eventoActual = EVENTO_NULO;
                         nuevoEstado = ESTADO_INICIAL;
                         break;
@@ -481,7 +481,7 @@ public class Game implements Subgame {
                 eventoActual = preguntaActual.compruebaCorrecta(respuestaMarcada) ? EVENTO_ACIERTO : EVENTO_FALLO;
                 break;
             case 1: //Botón volver al menú
-                panel.setPregunta(null);
+                panel.setPreguntaActual(null);
                 eventoActual = EVENTO_SALIR;
                 break;
         }

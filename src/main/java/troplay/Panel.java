@@ -1,5 +1,6 @@
 package troplay;
 
+import lombok.Setter;
 import troplay.enums.Language;
 import troplay.game.Casilla;
 import troplay.game.Jugador;
@@ -46,10 +47,14 @@ public class Panel extends JPanel implements ActionListener {
 
     private int posicionBocad = Const.ARRIBA;
 
-    private int numJugadores = 1;
+    @Setter
+    private Integer numJugadores = 1;
+
     private int animEstado = -1, despAnim = 1;
 
+    @Setter
     private Pregunta preguntaActual = null;
+
     public int lineaActual = 0;
     public int despX = 0;
     private int desp0;
@@ -66,8 +71,12 @@ public class Panel extends JPanel implements ActionListener {
     private BufferedImage bufferTablero1 = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
     private BufferedImage bufferTableroN = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
 
+    @Setter
     private Game refGame = null;
+
+    @Setter
     private Pregunta pregCuriosidad = null;
+
     private String cadenaEstado = "";
     private Timer timer = null;
 
@@ -83,8 +92,13 @@ public class Panel extends JPanel implements ActionListener {
 
     private Integer[] elementos = {0,0,0,0};
     private int ultimaActualizacion = -1;
-    private boolean dibujadaCuriosidad = false;
-    private boolean dibujarPregunta = false;
+
+    @Setter
+    private Boolean dibujadaCuriosidad = false;
+
+    @Setter
+    private Boolean dibujarPregunta = false;
+
     private boolean refrescarTablero = false;
 
     private Graphics2D g2d = null;
@@ -563,7 +577,9 @@ public class Panel extends JPanel implements ActionListener {
 		colaActualizar.add(coords.y);
     }
 
-    public int getContadorTimer() {return contadorTimer;}
+    public int getContadorTimer() {
+        return contadorTimer;
+    }
 
     public void setCadenaEstado(String cadena) {
         Graphics2D g = (Graphics2D) bufferActual.getGraphics();
@@ -583,10 +599,6 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
-    public void setCuriosidad(Pregunta pregCuriosidad) {this.pregCuriosidad = pregCuriosidad;}
-    public void setDibujadaCuriosidad(boolean valor) {dibujadaCuriosidad = valor;}
-    public void setDibujarPregunta(boolean valor) {dibujarPregunta = valor;}
-
     public void setIdioma(Language nuevoIdioma) {
         idiomaJuego = nuevoIdioma == Language.SPANISH ? 0 : 1;
 
@@ -600,9 +612,6 @@ public class Panel extends JPanel implements ActionListener {
         insActualizacion(3,2*idiomaJuego,Const.ARR_COORDS_MENU[3]);
     }
 
-    public void setNuevoDibujado(int i, boolean b) {nuevoDibujo[i] = b;}
-    public void setNumJugadores(int numJugadores) {this.numJugadores = numJugadores;}
-    public void setPregunta(Pregunta preguntaActual) {this.preguntaActual = preguntaActual;}
-    public void setRefGame(Game refGame) {this.refGame = refGame;}
     public void setRefrescarTablero() {refrescarTablero = true;}
+    public void setNuevoDibujado(int i, boolean b) {nuevoDibujo[i] = b;}
 }
