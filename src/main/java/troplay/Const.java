@@ -134,21 +134,6 @@ public abstract class Const {
     public static final int ANCHOVENTANA = 946;
     public static final int ALTOVENTANA = 644;
 
-    //Posiciones del bocadillo
-    public static final int ARRIBA = 1;
-    public static final int ABAJO = 2;
-    public static final int IZQUIERDA = 3;
-    public static final int DERECHA = 4;
-    public static final int ARRIBAIZQ = 5;
-    public static final int ARRIBADER = 6;
-    public static final int ABAJOIZQ = 7;
-    public static final int ABAJODER = 8;
-
-    //Array con las posiciones
-    public static final int arrBocad[] = {1,5,5,5,5,5,5,5,5,5,5,7,7,7,7,7,7,7,7,
-                                          7,7,8,8,8,8,8,8,8,8,8,8,6,6,6,6,6,6,6,
-                                          6,6,5,5,5,5,5,5,7,7,7,7,7,7,7,8,8,8,8,
-                                          8,8,8,8,8,8,8,7,7,7,7,7,7};
     public static final int MODOPRESEN = 0;
     public static final int MODOMENU = 1;
     public static final int MODOOPCION = 2;

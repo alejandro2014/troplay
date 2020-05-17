@@ -1,6 +1,7 @@
 package troplay;
 
 import lombok.Setter;
+import troplay.enums.BalloonPosition;
 import troplay.enums.Language;
 import troplay.game.Casilla;
 import troplay.game.Jugador;
@@ -28,6 +29,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import static troplay.enums.BalloonPosition.ARRIBA;
+
 public class Panel extends JPanel implements ActionListener {
     private Font fuentePreguntas = new Font("LuciSans",Font.PLAIN,14);
     private Font fuenteCursiva = new Font("LuciSans",Font.ITALIC,14);
@@ -45,7 +48,7 @@ public class Panel extends JPanel implements ActionListener {
     private final Color NEGRO = new Color(0,0,0);
     private final Color AMARILLO = new Color(240,240,0);
 
-    private int posicionBocad = Const.ARRIBA;
+    private BalloonPosition posicionBocad = ARRIBA;
 
     @Setter
     private Integer numJugadores = 1;
@@ -259,49 +262,49 @@ public class Panel extends JPanel implements ActionListener {
 
         //Las constantes indican la posición del bocadillo con respecto a la casilla
         switch(posicionBocad) {
-            case Const.ARRIBAIZQ:
+            case ARRIBAIZQ:
                 xBocad = casx - desplaz - anchoBocad; yBocad = casy - desplaz - altoBocad;
                 arrX[0] = xBocad + anchoBocad; arrX[1] = xBocad + 2*anchoBocad/3;
                 arrY[0] = yBocad + 2*altoBocad/3; arrY[1] = yBocad + altoBocad;
                 break;
 
-            case Const.ARRIBADER:
+            case ARRIBADER:
                 xBocad = casx + desplaz; yBocad = casy - desplaz - altoBocad;
                 arrX[0] = xBocad; arrX[1] = xBocad + anchoBocad/3;
                 arrY[0] = yBocad + 2*altoBocad/3; arrY[1] = yBocad + altoBocad;
                 break;
 
-            case Const.ABAJODER:
+            case ABAJODER:
                 xBocad = casx + desplaz; yBocad = casy + desplaz;
                 arrX[0] = xBocad + anchoBocad/3; arrX[1] = xBocad;
                 arrY[0] = yBocad; arrY[1] = yBocad + altoBocad/3;
                 break;
 
-            case Const.ABAJOIZQ:
+            case ABAJOIZQ:
                 xBocad = casx - desplaz - anchoBocad; yBocad = casy + desplaz;
                 arrX[0] = xBocad + anchoBocad; arrX[1] = xBocad + 2*anchoBocad/3;
                 arrY[0] = yBocad + altoBocad/3; arrY[1] = yBocad;
                 break;
 
-            case Const.ARRIBA:
+            case ARRIBA:
                 xBocad = casx - desplaz; yBocad = casy - desplaz - altoBocad;
                 arrX[0] = xBocad + anchoBocad/3; arrX[1] = xBocad + 2*anchoBocad/3;
                 arrY[0] = yBocad + altoBocad; arrY[1] = yBocad + altoBocad;
                 break;
 
-            case Const.DERECHA:
+            case DERECHA:
                 xBocad = casx + desplaz; yBocad = casy - desplaz;
                 arrX[0] = xBocad; arrX[1] = xBocad;
                 arrY[0] = yBocad + altoBocad/3; arrY[1] = yBocad + 2*altoBocad/3;
                 break;
 
-            case Const.ABAJO:
+            case ABAJO:
                 xBocad = casx - desplaz; yBocad = casy + desplaz;
                 arrX[0] = xBocad + anchoBocad/3; arrX[1] = xBocad + 2*anchoBocad/3;
                 arrY[0] = yBocad; arrY[1] = yBocad;
                 break;
 
-            case Const.IZQUIERDA:
+            case IZQUIERDA:
                 xBocad = casx - desplaz - anchoBocad; yBocad = casy - desplaz;
                 arrX[0] = xBocad + anchoBocad; arrX[1] = xBocad + anchoBocad;
                 arrY[0] = yBocad + altoBocad/3; arrY[1] = yBocad + 2*altoBocad/3;

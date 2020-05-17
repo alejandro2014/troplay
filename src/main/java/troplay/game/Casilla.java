@@ -2,8 +2,11 @@ package troplay.game;
 
 import lombok.Getter;
 import troplay.Const;
+import troplay.enums.BalloonPosition;
 
 import java.awt.Point;
+
+import static troplay.enums.BalloonPosition.*;
 
 public class Casilla {
     private Pregunta[] arrayPreguntas;
@@ -22,11 +25,16 @@ public class Casilla {
 	private Point coordsRef = new Point();
 
 	@Getter
-    private int posicionBocad = 1;
+    private BalloonPosition posicionBocad = ARRIBA;
+
+    private final BalloonPosition arrBocad[] = {ARRIBA, ARRIBAIZQ, ARRIBAIZQ, ARRIBAIZQ, ARRIBAIZQ, ARRIBAIZQ, ARRIBAIZQ, ARRIBAIZQ, ARRIBAIZQ, ARRIBAIZQ, ARRIBAIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ,
+            ABAJOIZQ, ABAJOIZQ, ABAJODER, ABAJODER, ABAJODER, ABAJODER, ABAJODER, ABAJODER, ABAJODER, ABAJODER, ABAJODER, ABAJODER, ARRIBADER, ARRIBADER, ARRIBADER, ARRIBADER, ARRIBADER, ARRIBADER, ARRIBADER,
+            ARRIBADER, ARRIBADER, ARRIBAIZQ, ARRIBAIZQ, ARRIBAIZQ, ARRIBAIZQ, ARRIBAIZQ, ARRIBAIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJODER, ABAJODER, ABAJODER, ABAJODER,
+            ABAJODER, ABAJODER, ABAJODER, ABAJODER, ABAJODER, ABAJODER, ABAJODER, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ, ABAJOIZQ};
 
     public Casilla(int cas){
         numCasilla = cas;
-        posicionBocad = Const.arrBocad[cas];
+        posicionBocad = arrBocad[cas];
 		coordsRef = Const.arrayCasillas[numCasilla];
         
         //Determinación de las casillas especiales, pozos y escaleras
