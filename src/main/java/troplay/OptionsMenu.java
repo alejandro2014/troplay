@@ -58,7 +58,7 @@ public class OptionsMenu implements Subgame {
         for(i = 0; i < longBotones; i++) {
             botones[i] = new Drawable();
 			botones[i].setPoint(coords[i]);
-            botones[i].setRectangle(Const.ARR_RECTS[i]);
+            botones[i].setRectangle(Const.ARR_RECTS_BUTTONS_MAIN_MENU[i]);
         }
 
         for(i = 0; i < longCheckBox; i++) {
@@ -66,7 +66,7 @@ public class OptionsMenu implements Subgame {
 
             checkboxes[i] = new CheckBox(conjCbxActual);
 			checkboxes[i].setPoint(coords[i + longBotones]);
-            checkboxes[i].setRectangle(Const.ARR_RECTS[i + 6]);
+            checkboxes[i].setRectangle(Const.ARR_RECTS_CHECKBOXES_MENU[i]);
         }
 
         boolean valorVerdad = false;
