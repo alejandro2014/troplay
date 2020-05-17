@@ -1,21 +1,17 @@
 package troplay;
 
+import lombok.Setter;
+
 import java.util.ArrayList;
 
-/**
- * Implementación de los controles checkbox
- * @author alejandro
- */
 public class CheckBox extends Drawable {
     private ArrayList conjCasillas = null;
     private CheckBox actual = null;
     public boolean activado = false;
+
+    @Setter
     private int tamaño = 0;
-    
-    /**
-     * Constructor del checkbox
-     * @param conjunto Es el grupo al que pertenece la casilla para marcar
-     */
+
     public CheckBox(ArrayList conjunto) {
         conjCasillas = conjunto;
         conjCasillas.add(this);
@@ -31,11 +27,7 @@ public class CheckBox extends Drawable {
         if(tamaño == 1) setActivado(true);
         else setActivado(false);
     }
-    
-    /**
-     * Determina si el checkbox está activado o no
-     * @param estado Verdadero si hay que activarlo, falso si no
-     */
+
     public void setActivado(boolean estado) {
         CheckBox checkActual = null;
         int longitud = conjCasillas.size();
@@ -49,6 +41,4 @@ public class CheckBox extends Drawable {
         
         activado = estado;
     }
-    
-    public void setTamaño(int nuevoTamaño) {tamaño = nuevoTamaño;}
 }
