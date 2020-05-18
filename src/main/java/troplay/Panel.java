@@ -1,5 +1,6 @@
 package troplay;
 
+import lombok.Getter;
 import lombok.Setter;
 import org.troplay.graphics.GraphicalUpdate;
 import troplay.enums.BalloonPosition;
@@ -92,6 +93,7 @@ public class Panel extends JPanel implements ActionListener {
     private int quedan;
 
     //Imagenes del juego
+    @Getter
     private BufferedImage[][] arrayGraficos = null;
     private BufferedImage bufferMenu = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
     private BufferedImage bufferOpciones = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
@@ -612,12 +614,6 @@ public class Panel extends JPanel implements ActionListener {
                 .point(coords)
                 .build();
         colaActualizar.add(graphicalUpdate);
-    }
-
-    public void insActualizacion(int index, int subindex, Point coords) {
-        BufferedImage image = arrayGraficos[index][subindex];
-
-        insActualizacion(image, coords);
     }
 
     public int getContadorTimer() {
