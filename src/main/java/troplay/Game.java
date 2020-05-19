@@ -336,7 +336,7 @@ public class Game implements Subgame {
                         }
 
                         eventoActual = EVENTO_PARAR;
-                        panel.insActualizacion( gameStatus.getPanel().getArrayGraficos()[11][dice.getValue() - 1], diceLocation);
+                        panel.getScene().update(gameStatus.getPanel().getArrayGraficos()[11][dice.getValue() - 1], diceLocation);
 
                         nuevoEstado = ESTADO_AVANZANDO;
                         break;
@@ -344,7 +344,7 @@ public class Game implements Subgame {
                         int contador = panel.getContadorTimer();
 
                         if(contador == contadorMas1) {
-                            panel.insActualizacion(gameStatus.getPanel().getArrayGraficos()[11][contador % 6], diceLocation);
+                            panel.getScene().update(gameStatus.getPanel().getArrayGraficos()[11][contador % 6], diceLocation);
                             contadorMas1++;
                         }
 
@@ -370,7 +370,7 @@ public class Game implements Subgame {
                         if(contador == contadorMas1) {
                             eventoActual = jugadores[jugadorActual].setCoordsAnim();
                             panel.setRefrescarTablero();
-                            panel.insActualizacion(gameStatus.getPanel().getArrayGraficos()[jugadorActual+7][0], jugadores[jugadorActual].getPoint());
+                            panel.getScene().update(gameStatus.getPanel().getArrayGraficos()[jugadorActual+7][0], jugadores[jugadorActual].getPoint());
                             contadorMas1++;
                         }
                         break;
@@ -408,7 +408,7 @@ public class Game implements Subgame {
                         if(contador == contadorFinal) {
                             eventoActual = jugadores[jugadorActual].avanzarEscalera();
                             panel.setRefrescarTablero();
-                            panel.insActualizacion(gameStatus.getPanel().getArrayGraficos()[jugadorActual+7][0], jugadores[jugadorActual].getPoint());
+                            panel.getScene().update(gameStatus.getPanel().getArrayGraficos()[jugadorActual+7][0], jugadores[jugadorActual].getPoint());
                             contadorFinal++;
                         }
                         break;
@@ -479,7 +479,7 @@ public class Game implements Subgame {
                 checkboxes[indiceColision].setActivado(true);
                 respuestaMarcada = indiceColision;
                 for(int i = 0; i < 3; i++) {
-                    panel.insActualizacion(gameStatus.getPanel().getArrayGraficos()[6][(respuestaMarcada == i ? 1 : 0)], checkboxes[i].getPoint());
+                    panel.getScene().update(gameStatus.getPanel().getArrayGraficos()[6][(respuestaMarcada == i ? 1 : 0)], checkboxes[i].getPoint());
                 }
 
                 cambiadoCheckbox = true;
@@ -488,7 +488,7 @@ public class Game implements Subgame {
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
                 int subind = (idiomaJuego == SPANISH) ? 1 : 3;
-                panel.insActualizacion(gameStatus.getPanel().getArrayGraficos()[indiceColision + 4][subind], ARR_RECTS_BUTTONS_GAME[indiceColision].getLocation());
+                panel.getScene().update(gameStatus.getPanel().getArrayGraficos()[indiceColision + 4][subind], ARR_RECTS_BUTTONS_GAME[indiceColision].getLocation());
                 cambiadoBoton = true;
             }
             botonPulsado = indiceColision;
@@ -497,7 +497,7 @@ public class Game implements Subgame {
 
     public void desencadenarAccion(int numBoton) {
         int subind = (idiomaJuego == SPANISH) ? 0 : 2;
-        panel.insActualizacion(gameStatus.getPanel().getArrayGraficos()[numBoton+4][subind], ARR_RECTS_BUTTONS_GAME[numBoton].getLocation());
+        panel.getScene().update(gameStatus.getPanel().getArrayGraficos()[numBoton+4][subind], ARR_RECTS_BUTTONS_GAME[numBoton].getLocation());
         cambiadoBoton = false;
 
         switch(numBoton) {

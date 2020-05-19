@@ -3,6 +3,7 @@ package troplay;
 import lombok.Getter;
 import lombok.Setter;
 import org.troplay.graphics.GraphicalUpdate;
+import org.troplay.graphics.Scene;
 import troplay.enums.BalloonPosition;
 import troplay.enums.Language;
 import troplay.game.Casilla;
@@ -27,6 +28,9 @@ import javax.swing.Timer;
 import static troplay.enums.BalloonPosition.ARRIBA;
 
 public class Panel extends JPanel implements ActionListener {
+    @Getter
+    private Scene scene = new Scene();
+
     //Array con los nombres de los gráficos del juego
     private final String[][] ARR_GRAFS = {
             {"espBotonEmpezar1","espBotonEmpezar2","ingBotonEmpezar1","ingBotonEmpezar2"}, //Botones del menú [0-3]
@@ -95,6 +99,7 @@ public class Panel extends JPanel implements ActionListener {
     //Imagenes del juego
     @Getter
     private BufferedImage[][] arrayGraficos = null;
+
     private BufferedImage bufferMenu = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
     private BufferedImage bufferOpciones = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
     private BufferedImage bufferJuego = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
@@ -125,7 +130,10 @@ public class Panel extends JPanel implements ActionListener {
     private boolean[] nuevoDibujo  = {true, true, true, true};
     private LinkedList colaActualizar = new LinkedList();
 
+    @Getter
     private Integer[] elementos = {0,0,0,0};
+
+    @Setter
     private int ultimaActualizacion = -1;
 
     @Setter
@@ -182,7 +190,7 @@ public class Panel extends JPanel implements ActionListener {
         //Dibujado de los checkboxes con las respuestas
         refGame.setRespuestaSeleccionada(0);
         for(i = 0; i < 3; i++) {
-            insActualizacion(arrayGraficos[6][(i == 0 ? 1 : 0)], refGame.getCheckBoxCoords(i));
+            scene.update(arrayGraficos[6][(i == 0 ? 1 : 0)], refGame.getCheckBoxCoords(i));
         }
 
         dibujarPregunta = false;
@@ -233,8 +241,8 @@ public class Panel extends JPanel implements ActionListener {
         int tipoFuente = -1;
 
         if(!dibujadaCuriosidad) {
-            insActualizacion(arrayGraficos[20][0], new Point(100,100));
-            insActualizacion(arrayGraficos[21][idiomaJuego], new Point(110,105));
+            scene.update(arrayGraficos[20][0], new Point(100,100));
+            scene.update(arrayGraficos[21][idiomaJuego], new Point(110,105));
             dibujadaCuriosidad = true;
         }
 
@@ -432,7 +440,8 @@ public class Panel extends JPanel implements ActionListener {
 
         int desp2 = 0;
         int numCadenas = 0;
-        int numLineas = preguntaActual.getLineasResp(0) + preguntaActual.getLineasResp(1) +
+        int numLineas = preguntaActual.getLineasResp(0) +
+                        preguntaActual.getLineasResp(1) +
                         preguntaActual.getLineasResp(2);
         int[] arrDesplaz = {4,3,3,2,2,1,1,0,0,-1};
         int tipoFuente = -1;
@@ -496,9 +505,9 @@ public class Panel extends JPanel implements ActionListener {
                 if(nuevoDibujo[tipoDibujo]) {
                     nuevoDibujo[tipoDibujo] = false;
 
-                    insActualizacion(arrayGraficos[0][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[0].getLocation()); //Botones
-                    insActualizacion(arrayGraficos[1][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[1].getLocation());
-                    insActualizacion(arrayGraficos[2][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[2].getLocation());
+                    scene.update(arrayGraficos[0][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[0].getLocation()); //Botones
+                    scene.update(arrayGraficos[1][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[1].getLocation());
+                    scene.update(arrayGraficos[2][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[2].getLocation());
                 }
                 break;
 
@@ -506,16 +515,16 @@ public class Panel extends JPanel implements ActionListener {
                 bufferActual = bufferOpciones;
                 if(nuevoDibujo[tipoDibujo]) {
                     nuevoDibujo[tipoDibujo] = false;
-                    insActualizacion(arrayGraficos[3][0], Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation()); //Boton volver
-                    insActualizacion(arrayGraficos[6][1], Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation()); //Checkboxes idioma
-                    insActualizacion(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
-                    insActualizacion(arrayGraficos[6][1], Const.ARR_RECTS_CHECKBOXES_MENU[2].getLocation()); //Checkboxes jugadores
-                    insActualizacion(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[3].getLocation());
-                    insActualizacion(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[4].getLocation());
-                    insActualizacion(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[5].getLocation());
-                    insActualizacion(arrayGraficos[12][0], new Point(320,161)); //Letreros
-                    insActualizacion(arrayGraficos[13][0], new Point(318,299));
-                    insActualizacion(arrayGraficos[15][0], new Point(310,66));
+                    scene.update(arrayGraficos[3][0], Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation()); //Boton volver
+                    scene.update(arrayGraficos[6][1], Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation()); //Checkboxes idioma
+                    scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
+                    scene.update(arrayGraficos[6][1], Const.ARR_RECTS_CHECKBOXES_MENU[2].getLocation()); //Checkboxes jugadores
+                    scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[3].getLocation());
+                    scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[4].getLocation());
+                    scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[5].getLocation());
+                    scene.update(arrayGraficos[12][0], new Point(320,161)); //Letreros
+                    scene.update(arrayGraficos[13][0], new Point(318,299));
+                    scene.update(arrayGraficos[15][0], new Point(310,66));
                 }
                 break;
 
@@ -525,38 +534,29 @@ public class Panel extends JPanel implements ActionListener {
 
                 if(nuevoDibujo[tipoDibujo]) {
                     nuevoDibujo[tipoDibujo] = false;
-                    insActualizacion(arrayGraficos[24][0],new Point()); //Marco del tablero
-                    insActualizacion(arrayGraficos[25][(refGame.getNumJugadores() == 1 ? 0 : 1)], new Point(6,6)); //Tablero
+                    scene.update(arrayGraficos[24][0],new Point()); //Marco del tablero
+                    scene.update(arrayGraficos[25][(refGame.getNumJugadores() == 1 ? 0 : 1)], new Point(6,6)); //Tablero
 
-                    insActualizacion(arrayGraficos[11][0], new Point(698,67));
-                    insActualizacion(arrayGraficos[4][2*idiomaJuego], new Point(746,470));
-                    insActualizacion(arrayGraficos[5][2*idiomaJuego], new Point(746,512));
+                    scene.update(arrayGraficos[11][0], new Point(698,67));
+                    scene.update(arrayGraficos[4][2*idiomaJuego], new Point(746,470));
+                    scene.update(arrayGraficos[5][2*idiomaJuego], new Point(746,512));
                 }
                 break;
         }
     }
 
     private void actualizar() {
-        if(bufferActual != null) {
-            Graphics2D g = (Graphics2D) bufferActual.getGraphics();
-            if(refrescarTablero) dibujarTablero();
-
-            /* Establecimiento de un gráfico determinado dentro de un array,
-            con unas coordenadas determinadas */
-            while(!colaActualizar.isEmpty()) {
-                GraphicalUpdate graphicalUpdate = (GraphicalUpdate) colaActualizar.poll();
-
-                Image image = graphicalUpdate.getImage();
-                int x = (int) graphicalUpdate.getPoint().getX();
-                int y = (int) graphicalUpdate.getPoint().getY();
-
-                g.drawImage(image, x, y,null);
-                ultimaActualizacion = elementos[0];
-            }
-
-            if(dibujarPregunta) dibujarEscenaPregunta();
-            if(bufferActual == bufferJuego) dibujarEstado(g);
+        if(bufferActual == null) {
+            return;
         }
+
+        Graphics2D g = (Graphics2D) bufferActual.getGraphics();
+        if(refrescarTablero) dibujarTablero();
+
+        scene.draw(g, this);
+
+        if(dibujarPregunta) dibujarEscenaPregunta();
+        if(bufferActual == bufferJuego) dibujarEstado(g);
     }
 
     private void cargaGraficos() {
@@ -599,6 +599,7 @@ public class Panel extends JPanel implements ActionListener {
 
         for(int i=0; i<longitudArray; i++) {
             longitudElem = arrayGraficos[i].length;
+
             for(int j = 0; j < longitudElem; j++)
                 arrayGraficos[i][j] = null;
 
@@ -606,14 +607,6 @@ public class Panel extends JPanel implements ActionListener {
         }
 
         arrayGraficos = null;
-    }
-
-	public void insActualizacion(BufferedImage image, Point coords) {
-        GraphicalUpdate graphicalUpdate = GraphicalUpdate.builder()
-                .image(image)
-                .point(coords)
-                .build();
-        colaActualizar.add(graphicalUpdate);
     }
 
     public int getContadorTimer() {
@@ -643,12 +636,12 @@ public class Panel extends JPanel implements ActionListener {
 
         nuevoDibujo[Const.MODOMENU] = true;
 
-        insActualizacion(arrayGraficos[12][idiomaJuego], new Point(320,161)); //Letreros
-        insActualizacion(arrayGraficos[13][idiomaJuego], new Point(318,299));
-        insActualizacion(arrayGraficos[15][idiomaJuego], new Point(310,66));
-        insActualizacion(arrayGraficos[6][(idiomaJuego == 0 ? 1 : 0)], Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation());
-        insActualizacion(arrayGraficos[6][(idiomaJuego == 0 ? 0 : 1)], Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
-        insActualizacion(arrayGraficos[3][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation());
+        scene.update(arrayGraficos[12][idiomaJuego], new Point(320,161)); //Letreros
+        scene.update(arrayGraficos[13][idiomaJuego], new Point(318,299));
+        scene.update(arrayGraficos[15][idiomaJuego], new Point(310,66));
+        scene.update(arrayGraficos[6][(idiomaJuego == 0 ? 1 : 0)], Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation());
+        scene.update(arrayGraficos[6][(idiomaJuego == 0 ? 0 : 1)], Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
+        scene.update(arrayGraficos[3][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation());
     }
 
     public void setRefrescarTablero() {refrescarTablero = true;}
