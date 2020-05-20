@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
@@ -49,10 +50,10 @@ public class Panel extends JPanel implements ActionListener {
             {"espTituloIdioma","ingTituloIdioma"}, {"espTituloJugadores","ingTituloJugadores"},
             {"espTituloConexion","ingTituloConexion"}, {"espTituloOpciones","ingTituloOpciones"},
 
-            {"jug11","jug12","jug13","jug14","jug15"}, //Indicadores del jugador actual [16-19]
-            {"jug21","jug22","jug23","jug24","jug25"},
-            {"jug31","jug32","jug33","jug34","jug35"},
-            {"jug41","jug42","jug43","jug44","jug45"},
+            null,
+            null,
+            null,
+            null,
 
             {"fondoSabias"},{"sabiasEsp","sabiasIng"}, //Otros elementos del juego [20-21]
 
@@ -224,7 +225,8 @@ public class Panel extends JPanel implements ActionListener {
 
           for(int i = 0; i < numJugadores; i++) {
               desplaz = (i == jugadorActual ? animEstado: 0);
-              g.drawImage(arrayGraficos[i+16][desplaz], 691 + i*63, 554, null);
+              //g.drawImage(arrayGraficos[i+16][desplaz], 691 + i*63, 554, null);
+              g.drawImage(playerGraphics[i][desplaz], 691 + i*63, 554, null);
           }
       }
 
@@ -559,6 +561,9 @@ public class Panel extends JPanel implements ActionListener {
         if(bufferActual == bufferJuego) dibujarEstado(g);
     }
 
+    @Getter
+    private BufferedImage[][] playerGraphics;
+
     private void cargaGraficos() {
         String[][] arrGrafs = ARR_GRAFS;
         int longitud = arrGrafs.length;
@@ -569,8 +574,34 @@ public class Panel extends JPanel implements ActionListener {
 
         arrayGraficos = new BufferedImage[longitud][0];
 
+        String[][] playerGraphicPaths = {
+                {"jug11", "jug12", "jug13", "jug14", "jug15"}, //Indicadores del jugador actual [16-19]
+                {"jug21", "jug22", "jug23", "jug24", "jug25"},
+                {"jug31", "jug32", "jug33", "jug34", "jug35"},
+                {"jug41", "jug42", "jug43", "jug44", "jug45"}
+        };
+
+        playerGraphics = new BufferedImage[4][5];
+
+        for(i = 0; i < 4; i++) {
+            for (j = 0; j < 5; j++) {
+                filePath = Const.DIRECTORIO_GRAFICOS + playerGraphicPaths[i][j] + ".png";
+                System.out.println("Loading " + filePath);
+
+                try {
+                    playerGraphics[i][j] = ImageIO.read(new File(filePath));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         try {
             for(i = 0; i < longitud; i++) {
+                if (arrGrafs[i] == null) {
+                    continue;
+                }
+
                 longitudSub = arrGrafs[i].length;
                 arrayGraficos[i] = new BufferedImage[longitudSub];
 
