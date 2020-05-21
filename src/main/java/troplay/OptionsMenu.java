@@ -89,6 +89,7 @@ public class OptionsMenu implements Subgame {
     public void loop() {
         while(!acabar) {
             controlEntrada();
+
             if (ratonPulsado)
                 procesarEntrada();
             else

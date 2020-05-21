@@ -68,15 +68,13 @@ public class MainMenu implements Subgame {
             checkboxes[i].setRectangle(Const.ARR_RECTS_CHECKBOXES_MENU[i]);
         }
 
-        boolean valorVerdad = true;
-
-        botones[0].setShow(valorVerdad);
-        botones[1].setShow(valorVerdad);
-        botones[2].setShow(valorVerdad);
-        botones[3].setShow(!valorVerdad);
+        botones[0].setShow(true);
+        botones[1].setShow(true);
+        botones[2].setShow(true);
+        botones[3].setShow(!true);
 
         for(i = 0; i < longCheckBox; i++) {
-            checkboxes[i].setShow(!valorVerdad);
+            checkboxes[i].setShow(false);
         }
     }
 

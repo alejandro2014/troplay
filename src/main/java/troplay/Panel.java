@@ -201,7 +201,8 @@ public class Panel extends JPanel implements ActionListener {
         //Dibujado de los jugadores
         for(i = 0; i < numJugadores; i++) {
             jugadorActual = refGame.getJugador(i);
-            g3d.drawImage(arrayGraficos[i+7][0],jugadorActual.getCx(),jugadorActual.getCy(),null);
+            scene.update(arrayGraficos[i+7][0], new Point(jugadorActual.getCx(),jugadorActual.getCy()));
+            //g3d.drawImage(arrayGraficos[i+7][0],jugadorActual.getCx(),jugadorActual.getCy(),null);
         }
 
         dibujarPregunta(g3d); //Bocadillo con la pregunta
