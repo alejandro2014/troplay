@@ -170,6 +170,23 @@ public class Panel extends JPanel implements ActionListener {
         g.dispose();
     }
 
+    private void actualizar() {
+        if(bufferActual == null) {
+            return;
+        }
+
+
+        if(refrescarTablero) dibujarTablero();
+
+        if(dibujarPregunta) dibujarEscenaPregunta();
+        if(tipoDibujo == Const.MODOJUEGO) {
+            dibujarEstado();
+        }
+
+        Graphics2D g = (Graphics2D) bufferActual.getGraphics();
+        scene.draw(g, this);
+    }
+
     public void actionPerformed(ActionEvent e) {
         contadorTimer++;
         repaint();
@@ -554,22 +571,6 @@ public class Panel extends JPanel implements ActionListener {
         }
 
         bufferActual.getGraphics().drawImage(arrayGraficos[backGroundIndex][0], 0, 0, this);
-    }
-
-    private void actualizar() {
-        if(bufferActual == null) {
-            return;
-        }
-
-        Graphics2D g = (Graphics2D) bufferActual.getGraphics();
-        if(refrescarTablero) dibujarTablero();
-
-        scene.draw(g, this);
-
-        if(dibujarPregunta) dibujarEscenaPregunta();
-        if(tipoDibujo == Const.MODOJUEGO) {
-            dibujarEstado();
-        }
     }
 
     @Getter
