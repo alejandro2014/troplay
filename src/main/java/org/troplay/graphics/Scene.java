@@ -22,7 +22,7 @@ public class Scene {
 
 	public void draw(Graphics2D g, Panel panel) {
 		while(!queue.isEmpty()) {
-			GraphicalUpdate graphicalUpdate = (GraphicalUpdate) queue.poll();
+			GraphicalUpdate graphicalUpdate = queue.poll();
 
 			Image image = graphicalUpdate.getImage();
 			int x = (int) graphicalUpdate.getPoint().getX();
@@ -32,14 +32,4 @@ public class Scene {
 			panel.setUltimaActualizacion(panel.getElementos()[0]);
 		}
 	}
-
-    /*public void drawScene() {
-		GraphicalUpdate graphicalUpdate = queue.poll();
-
-		Image image = graphicalUpdate.getImage();
-		int x = (int) graphicalUpdate.getPoint().getX();
-		int y = (int) graphicalUpdate.getPoint().getY();
-
-        g.drawImage(image, x, y, null);
-    }*/
 }

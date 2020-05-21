@@ -83,7 +83,6 @@ public class FlowControl {
         flowControl.addTransitions();
         flowControl.statusCycle();
 
-        flowControl.getGameStatus().getPanel().unloadGraphics();
         System.exit(0);
     }
 }

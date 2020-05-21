@@ -12,6 +12,8 @@ class Presentation implements Subgame {
 
         Ventana vent = gameStatus.getWindow();
         panel = vent.getPanel();
+
+        panel.setBuffer(0);
         panel.setModo(Const.MODOPRESEN);
     }
 

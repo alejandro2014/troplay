@@ -47,6 +47,8 @@ public class OptionsMenu implements Subgame {
 
         ventana = gameStatus.getWindow();
         panel = ventana.getPanel();
+
+        panel.setBuffer(2);
         panel.setModo(Const.MODOOPCION);
 
         this.raton = gameStatus.getMouse();

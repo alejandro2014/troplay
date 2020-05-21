@@ -48,6 +48,8 @@ public class MainMenu implements Subgame {
 
         ventana = gameStatus.getWindow();
         panel = ventana.getPanel();
+
+        panel.setBuffer(1);
         panel.setModo(Const.MODOMENU);
 
         this.raton = gameStatus.getMouse();
@@ -95,14 +97,18 @@ public class MainMenu implements Subgame {
 
             acabar = finalBucle();
 
-            try {
-                Thread.sleep(70);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            frame();
         }
 
         gameStatus.setCurrentEvent(eventoRealizado);
+    }
+
+    private void frame() {
+        try {
+            Thread.sleep(70);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public Boolean finalBucle() {

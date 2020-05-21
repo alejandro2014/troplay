@@ -101,9 +101,10 @@ public class Panel extends JPanel implements ActionListener {
     @Getter
     private BufferedImage[][] arrayGraficos = null;
 
-    private BufferedImage bufferMenu = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
-    private BufferedImage bufferOpciones = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
-    private BufferedImage bufferJuego = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
+    //private BufferedImage bufferMenu = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
+    //private BufferedImage bufferOpciones = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
+    //private BufferedImage bufferJuego = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
+
     private BufferedImage bufferActual = null;
     private BufferedImage bufferTablero = null;
     private BufferedImage bufferRespuestas = null;
@@ -212,7 +213,7 @@ public class Panel extends JPanel implements ActionListener {
         refrescarTablero = false;
     }
 
-    public void dibujarEstado(Graphics2D g) {
+    public void dibujarEstado() {
           int jugadorActual = refGame.getJugadorActual();
           int desplaz;
 
@@ -225,8 +226,8 @@ public class Panel extends JPanel implements ActionListener {
 
           for(int i = 0; i < numJugadores; i++) {
               desplaz = (i == jugadorActual ? animEstado: 0);
-              //g.drawImage(arrayGraficos[i+16][desplaz], 691 + i*63, 554, null);
-              g.drawImage(playerGraphics[i][desplaz], 691 + i*63, 554, null);
+              //g.drawImage(playerGraphics[i][desplaz], 691 + i*63, 554, null);
+              scene.update(playerGraphics[i][desplaz], new Point(i * 63 + 691, 554));
           }
       }
 
@@ -497,54 +498,62 @@ public class Panel extends JPanel implements ActionListener {
         tipoDibujo = modo;
 
         switch(modo) {
-            case Const.MODOPRESEN: //Presentación
-                bufferActual = bufferMenu;
-                if(nuevoDibujo[tipoDibujo]) nuevoDibujo[tipoDibujo] = false;
+            case Const.MODOMENU: //Menú principal 1
+                addMainMenuGraphicalUpdates();
                 break;
 
-            case Const.MODOMENU: //Menú principal
-                bufferActual = bufferMenu;
-                if(nuevoDibujo[tipoDibujo]) {
-                    nuevoDibujo[tipoDibujo] = false;
-
-                    scene.update(arrayGraficos[0][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[0].getLocation()); //Botones
-                    scene.update(arrayGraficos[1][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[1].getLocation());
-                    scene.update(arrayGraficos[2][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[2].getLocation());
-                }
+            case Const.MODOOPCION: //Menú de opciones 2
+                addOptionsMenuGraphicalUpdates();
                 break;
 
-            case Const.MODOOPCION: //Menú de opciones
-                bufferActual = bufferOpciones;
-                if(nuevoDibujo[tipoDibujo]) {
-                    nuevoDibujo[tipoDibujo] = false;
-                    scene.update(arrayGraficos[3][0], Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation()); //Boton volver
-                    scene.update(arrayGraficos[6][1], Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation()); //Checkboxes idioma
-                    scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
-                    scene.update(arrayGraficos[6][1], Const.ARR_RECTS_CHECKBOXES_MENU[2].getLocation()); //Checkboxes jugadores
-                    scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[3].getLocation());
-                    scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[4].getLocation());
-                    scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[5].getLocation());
-                    scene.update(arrayGraficos[12][0], new Point(320,161)); //Letreros
-                    scene.update(arrayGraficos[13][0], new Point(318,299));
-                    scene.update(arrayGraficos[15][0], new Point(310,66));
-                }
-                break;
-
-            case Const.MODOJUEGO: //Juego en sí
-                bufferActual = bufferJuego;
+            case Const.MODOJUEGO: //Juego en sí 3
                 bufferTablero = (refGame.getNumJugadores() == 1 ? bufferTablero1 : bufferTableroN);
-
-                if(nuevoDibujo[tipoDibujo]) {
-                    nuevoDibujo[tipoDibujo] = false;
-                    scene.update(arrayGraficos[24][0],new Point()); //Marco del tablero
-                    scene.update(arrayGraficos[25][(refGame.getNumJugadores() == 1 ? 0 : 1)], new Point(6,6)); //Tablero
-
-                    scene.update(arrayGraficos[11][0], new Point(698,67));
-                    scene.update(arrayGraficos[4][2*idiomaJuego], new Point(746,470));
-                    scene.update(arrayGraficos[5][2*idiomaJuego], new Point(746,512));
-                }
+                addGameGraphicalUpdates();
                 break;
         }
+    }
+
+    private void addMainMenuGraphicalUpdates() {
+        scene.update(arrayGraficos[0][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[0].getLocation()); //Botones
+        scene.update(arrayGraficos[1][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[1].getLocation());
+        scene.update(arrayGraficos[2][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[2].getLocation());
+    }
+
+    private void addOptionsMenuGraphicalUpdates() {
+        scene.update(arrayGraficos[3][0], Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation()); //Boton volver
+        scene.update(arrayGraficos[6][1], Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation()); //Checkboxes idioma
+        scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
+        scene.update(arrayGraficos[6][1], Const.ARR_RECTS_CHECKBOXES_MENU[2].getLocation()); //Checkboxes jugadores
+        scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[3].getLocation());
+        scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[4].getLocation());
+        scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[5].getLocation());
+        scene.update(arrayGraficos[12][0], new Point(320,161)); //Letreros
+        scene.update(arrayGraficos[13][0], new Point(318,299));
+        scene.update(arrayGraficos[15][0], new Point(310,66));
+    }
+
+    private void addGameGraphicalUpdates() {
+        scene.update(arrayGraficos[24][0],new Point()); //Marco del tablero
+        scene.update(arrayGraficos[25][(refGame.getNumJugadores() == 1 ? 0 : 1)], new Point(6,6)); //Tablero
+
+        scene.update(arrayGraficos[11][0], new Point(698,67));
+        scene.update(arrayGraficos[4][2*idiomaJuego], new Point(746,470));
+        scene.update(arrayGraficos[5][2*idiomaJuego], new Point(746,512));
+    }
+
+    public void setBuffer(int bufferType) {
+        System.out.println("Set buffer to " + bufferType);
+        bufferActual = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
+        int backGroundIndex = 0;
+
+        switch(bufferType) {
+            case 0: backGroundIndex = FONDOPRES; break;
+            case 1: backGroundIndex = FONDOPRES; break;
+            case 2: backGroundIndex = FONDOINIC; break;
+            case 3: backGroundIndex = FONDOTABL; break;
+        }
+
+        bufferActual.getGraphics().drawImage(arrayGraficos[backGroundIndex][0], 0, 0, this);
     }
 
     private void actualizar() {
@@ -558,7 +567,9 @@ public class Panel extends JPanel implements ActionListener {
         scene.draw(g, this);
 
         if(dibujarPregunta) dibujarEscenaPregunta();
-        if(bufferActual == bufferJuego) dibujarEstado(g);
+        if(tipoDibujo == Const.MODOJUEGO) {
+            dibujarEstado();
+        }
     }
 
     @Getter
@@ -615,29 +626,8 @@ public class Panel extends JPanel implements ActionListener {
             System.err.println("Error en la carga de gráficos: " + e.toString() + " -- " + filePath + "[" + i + "][" + j + "]");
         }
 
-        //Inicialización de los diferentes gráficos (presentacion, menu de opciones, juego)
-        bufferMenu.getGraphics().drawImage(arrayGraficos[FONDOPRES][0], 0, 0, this);
-        bufferOpciones.getGraphics().drawImage(arrayGraficos[FONDOINIC][0], 0, 0, this);
-        bufferJuego.getGraphics().drawImage(arrayGraficos[FONDOTABL][0], 0, 0, this);
-
         bufferTablero1 = arrayGraficos[25][0]; //Tableros para uno y varios jugadores
         bufferTableroN = arrayGraficos[25][1];
-    }
-
-    public void unloadGraphics() {
-        int longitudArray = arrayGraficos.length;
-        int longitudElem = 0;
-
-        for(int i=0; i<longitudArray; i++) {
-            longitudElem = arrayGraficos[i].length;
-
-            for(int j = 0; j < longitudElem; j++)
-                arrayGraficos[i][j] = null;
-
-            arrayGraficos[i] = null;
-        }
-
-        arrayGraficos = null;
     }
 
     public int getContadorTimer() {

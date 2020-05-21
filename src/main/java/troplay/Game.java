@@ -143,6 +143,7 @@ public class Game implements Subgame {
 
         consultasJDBC.cerrarConexion();
 
+        panel.setBuffer(3);
         panel.setModo(3);
     }
 
