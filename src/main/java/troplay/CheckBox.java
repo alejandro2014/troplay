@@ -2,6 +2,7 @@ package troplay;
 
 import lombok.Setter;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class CheckBox extends Drawable {
@@ -12,6 +13,9 @@ public class CheckBox extends Drawable {
     @Setter
     private int tamaño = 0;
 
+    public CheckBox() {
+        super();
+    }
     public CheckBox(ArrayList conjunto) {
         conjCasillas = conjunto;
         conjCasillas.add(this);

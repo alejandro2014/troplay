@@ -1,49 +1,47 @@
 package troplay;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+@Data
+@NoArgsConstructor
 public class Drawable {
-	@Getter @Setter
-    protected Boolean show = true;
+	protected Point point;
+    protected Rectangle rectangle;
 
-    @Getter @Setter
-	protected Point point = new Point();
+    protected BufferedImage currentImage;
+    protected List<BufferedImage> images = new ArrayList<>();
+	protected Boolean show;
 
-    @Setter
-    protected Rectangle rectangle = null;
+	protected Boolean refresh;
+	protected Boolean drawOnce;
 
-    public int getCx() {
-		return point.x;
-	}
-    public int getCy() {
-		return point.y;
-	}
-    public int getCz() {
-		return 0;
-	}
+	protected final String graphicsBasePath = "/home/alejandro/programs/troplay/src/main/resources/graphics";
+	protected String graphicsPath;
 
-    public void setXY(int newX, int newY) {
-		point.x = newX;
-		point.y = newY;
-	}
+	protected void loadGraphics() throws IOException {
+		images = new ArrayList<>();
 
-    public void setCx(int newX) {
-		point.x = newX;
-	}
-    public void setCy(int newY) {
-		point.y = newY;
+		String[] playerGraphicPaths = { "presentacion" };
+
+		for (int j = 0; j < playerGraphicPaths.length; j++) {
+			String filePath = graphicsBasePath + "/" + graphicsPath + "/" + playerGraphicPaths[j] + ".png";
+			System.out.println("Loading " + filePath);
+
+			BufferedImage image = ImageIO.read(new File(filePath));
+			this.images.add(image);
+		}
 	}
 
 	public Boolean collision(Point mousePoint) {
 		return rectangle.contains(mousePoint);
-	}
-
-	public Image getImage() {
-		return null;
 	}
 }

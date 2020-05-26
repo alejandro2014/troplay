@@ -1,6 +1,7 @@
 package troplay;
 
 import lombok.Data;
+
 import troplay.enums.Language;
 import troplay.enums.MainEvents;
 
@@ -16,16 +17,16 @@ public class GameStatus {
     public GameStatus() {
         window = new Ventana();
         panel = window.getPanel();
-        mouse = new Raton(panel);
+        //mouse = new Raton(panel);
     }
 
     public void setLanguage(Language language) {
         this.language = language;
-        panel.setIdioma(language);
+        //panel.setIdioma(language);
     }
 
     public void setPlayersNo(int playersNo) {
         this.playersNo = playersNo;
-        panel.setNumJugadores(playersNo);
+        //panel.setNumJugadores(playersNo);
     }
 }

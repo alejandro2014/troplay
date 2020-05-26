@@ -6,7 +6,8 @@ import troplay.Const;
 import troplay.Drawable;
 import troplay.Game;
 
-public class Jugador extends Drawable {
+//public class Jugador extends Drawable {
+public class Jugador {
     private Game game;
 
     @Getter
@@ -33,8 +34,8 @@ public class Jugador extends Drawable {
     public Jugador(Game referGame, int idJug) {
         game = referGame;
         this.idJugador = idJug;
-        this.setXY((int) Const.arrayCasillas[casilla].getX() + desplaz[idJugador][0],
-                   (int)Const.arrayCasillas[casilla].getY() + desplaz[idJugador][1]);
+        //this.setXY((int) Const.arrayCasillas[casilla].getX() + desplaz[idJugador][0],
+          //         (int)Const.arrayCasillas[casilla].getY() + desplaz[idJugador][1]);
     }
 
     public void mover(int pos) {casilla = pos;}
@@ -73,14 +74,14 @@ public class Jugador extends Drawable {
         if(fotogrActual < fotogrTotales && casillaVieja < MAX_CASILLAS - 1) {
             xActual = xVieja + (despl * desplX) / 7;
             yActual = yVieja + (despl * desplY) / 7;
-            this.setXY(xActual,yActual);
+            //this.setXY(xActual,yActual);
         } else {
-            this.setCx((int)Const.arrayCasillas[casillaNueva - 1].getX() + desplaz[idJugador][0]);
+            //this.setCx((int)Const.arrayCasillas[casillaNueva - 1].getX() + desplaz[idJugador][0]);
             fotogrActual = 0;
 
             if(game.getNumJugadores() > 1 && game.getCasilla(casillaNueva-1).getComplementaria() != -1) {
                 eventoRetorno = EVENTO_ESCALERA;
-                this.setXY((int)Const.arrayCasillas[casillaNueva - 1].getX(), (int)Const.arrayCasillas[casillaNueva - 1].getY());
+                //this.setXY((int)Const.arrayCasillas[casillaNueva - 1].getX(), (int)Const.arrayCasillas[casillaNueva - 1].getY());
             } else {
                 eventoRetorno = EVENTO_PARAR_ANIMACION;
             }
@@ -113,12 +114,12 @@ public class Jugador extends Drawable {
         if(fotogrActual != 15) {
             fotogrActual++;
 
-            this.setXY((int)Const.arrayCasillas[casillaVieja].getX() + fotogrActual * desplX / 15,
-                       (int)Const.arrayCasillas[casillaVieja].getY() + fotogrActual * desplY / 15);
+            //this.setXY((int)Const.arrayCasillas[casillaVieja].getX() + fotogrActual * desplX / 15,
+              //         (int)Const.arrayCasillas[casillaVieja].getY() + fotogrActual * desplY / 15);
         } else {
             mover(casillaNueva + 1);
-            this.setXY((int)Const.arrayCasillas[casillaNueva + 1].getX() + desplaz[idJugador][0],
-                       (int)Const.arrayCasillas[casillaNueva + 1].getY() + desplaz[idJugador][1]);
+            //this.setXY((int)Const.arrayCasillas[casillaNueva + 1].getX() + desplaz[idJugador][0],
+              //         (int)Const.arrayCasillas[casillaNueva + 1].getY() + desplaz[idJugador][1]);
             desplX = desplY = 0;
             fotogrActual = 0;
             eventoRetorno = EVENTO_PARAR_ANIMACION;

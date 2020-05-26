@@ -1,7 +1,12 @@
 package troplay;
 
+import com.sun.prism.paint.Color;
+import lombok.Getter;
+
 import java.awt.Image;
-import javax.swing.JFrame;
+import javax.swing.*;
+
+import static java.awt.Color.BLACK;
 
 public class Ventana extends JFrame {
     private final int ANCHOVENTANA = 946;
@@ -10,12 +15,18 @@ public class Ventana extends JFrame {
     private final int ALTO = ALTOVENTANA + 27;
       
       private Image icono = null;
+
+      @Getter
       private Panel panel = new Panel();
+      //private JPanel panel = new JPanel();
 
       public Ventana() {
+          //panel.setBackground(BLACK);
+          //panel.setDoubleBuffered(true);
+
           add(panel);
           setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          setSize(ANCHO,ALTO);
+          setSize(ANCHO, ALTO);
           setLocationRelativeTo(null);
           setTitle("TROPLAY - El juego de la tenia");
           setResizable(false);
@@ -28,9 +39,5 @@ public class Ventana extends JFrame {
           }
           
           this.setIconImage(icono);
-      }
-      
-      public Panel getPanel() {
-          return panel;
       }
 }

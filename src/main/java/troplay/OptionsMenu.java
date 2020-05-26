@@ -46,10 +46,10 @@ public class OptionsMenu implements Subgame {
         numJugadores = gameStatus.getPlayersNo();
 
         ventana = gameStatus.getWindow();
-        panel = ventana.getPanel();
+        //panel = ventana.getPanel();
 
-        panel.setBuffer(2);
-        panel.setModo(Const.MODOOPCION);
+        //panel.setBuffer(2);
+        //panel.setModo(Const.MODOOPCION);
 
         this.raton = gameStatus.getMouse();
 
@@ -165,7 +165,7 @@ public class OptionsMenu implements Subgame {
                     numJugadores = indiceColision - 1;
 
                     for(int i = 0; i < 4; i++) {
-                        panel.getScene().update(panel.getArrayGraficos()[6][(indiceColision - 2 == i ? 1 : 0)], Const.ARR_RECTS_CHECKBOXES_MENU[i + 2].getLocation());
+                        //panel.getScene().addToQueue(panel.getArrayGraficos()[6][(indiceColision - 2 == i ? 1 : 0)], Const.ARR_RECTS_CHECKBOXES_MENU[i + 2].getLocation());
                     }
 
                     cambiadoCheckbox = true;
@@ -175,7 +175,7 @@ public class OptionsMenu implements Subgame {
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
                 int subind = (gameStatus.getLanguage() == SPANISH) ? 1 : 3;
-                panel.getScene().update(panel.getArrayGraficos()[indiceColision][subind], Const.ARR_RECTS_BUTTONS_MAIN_MENU[indiceColision].getLocation());
+                //panel.getScene().addToQueue(panel.getArrayGraficos()[indiceColision][subind], Const.ARR_RECTS_BUTTONS_MAIN_MENU[indiceColision].getLocation());
                 botonPulsado = indiceColision;
                 cambiadoBoton = true;
             }
@@ -184,7 +184,7 @@ public class OptionsMenu implements Subgame {
 
     public void desencadenarAccion(int numBoton) {
         int subind = (gameStatus.getLanguage() == SPANISH) ? 0 : 2;
-        panel.getScene().update(panel.getArrayGraficos()[indiceColision][subind], Const.ARR_RECTS_BUTTONS_MAIN_MENU[indiceColision].getLocation());
+        //panel.getScene().addToQueue(panel.getArrayGraficos()[indiceColision][subind], Const.ARR_RECTS_BUTTONS_MAIN_MENU[indiceColision].getLocation());
         cambiadoBoton = false;
 
         switch(numBoton) {

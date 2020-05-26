@@ -5,6 +5,7 @@ import troplay.enums.MainEvents;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import static troplay.enums.Language.ENGLISH;
 import static troplay.enums.Language.SPANISH;
@@ -36,6 +37,8 @@ public class MainMenu implements Subgame {
     private boolean cambiadoCheckbox = false;
     private boolean cambiadoBoton = false;
 
+    private List<Drawable> drawableList = new ArrayList<>();
+
     public MainMenu(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
         ArrayList conjCbxActual = null;
@@ -47,18 +50,18 @@ public class MainMenu implements Subgame {
         idioma = gameStatus.getLanguage();
 
         ventana = gameStatus.getWindow();
-        panel = ventana.getPanel();
+        //panel = ventana.getPanel();
 
-        panel.setBuffer(1);
-        panel.setModo(Const.MODOMENU);
+        //panel.setBuffer(1);
+        //panel.setModo(Const.MODOMENU);
 
         this.raton = gameStatus.getMouse();
 
-        for(i = 0; i < longBotones; i++) {
-            botones[i] = new Drawable();
-			botones[i].setPoint(Const.ARR_RECTS_BUTTONS_MAIN_MENU[i].getLocation());
-            botones[i].setRectangle(Const.ARR_RECTS_BUTTONS_MAIN_MENU[i]);
-        }
+        botones[0] = createDrawable(new Rectangle(389,234, 165,46), true);
+        botones[1] = createDrawable(new Rectangle(389,303, 165,46), true);
+        botones[2] = createDrawable(new Rectangle(389,372, 165,46), true);
+
+        botones[3] = createDrawable(new Rectangle(574,220, 165,46), false);
 
         for(i = 0; i < longCheckBox; i++) {
             conjCbxActual = (i < longCbxIdioma ? conjCbxIdioma : conjCbxJugadores);
@@ -68,14 +71,18 @@ public class MainMenu implements Subgame {
             checkboxes[i].setRectangle(Const.ARR_RECTS_CHECKBOXES_MENU[i]);
         }
 
-        botones[0].setShow(true);
-        botones[1].setShow(true);
-        botones[2].setShow(true);
-        botones[3].setShow(!true);
-
         for(i = 0; i < longCheckBox; i++) {
             checkboxes[i].setShow(false);
         }
+    }
+
+    private Drawable createDrawable(Rectangle rectangle, Boolean show) {
+        /*return Drawable.builder()
+                .point(rectangle.getLocation())
+                .rectangle(rectangle)
+                .show(show)
+                .build();*/
+        return null;
     }
 
     public void loop() {
@@ -166,7 +173,7 @@ public class MainMenu implements Subgame {
                 if(!cambiadoCheckbox) {
 
                     for(int i = 0; i < 4; i++) {
-                        panel.getScene().update(gameStatus.getPanel().getArrayGraficos()[6][(indiceColision-2 == i ? 1 : 0)], Const.ARR_RECTS_CHECKBOXES_MENU[i + 2].getLocation());
+                        //panel.getScene().addToQueue(gameStatus.getPanel().getArrayGraficos()[6][(indiceColision-2 == i ? 1 : 0)], Const.ARR_RECTS_CHECKBOXES_MENU[i + 2].getLocation());
                     }
 
                     cambiadoCheckbox = true;
@@ -175,7 +182,7 @@ public class MainMenu implements Subgame {
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
                 int subind = (idioma == SPANISH) ? 1 : 3;
-                panel.getScene().update(gameStatus.getPanel().getArrayGraficos()[indiceColision][subind], Const.ARR_RECTS_BUTTONS_MAIN_MENU[indiceColision].getLocation());
+                //panel.getScene().addToQueue(gameStatus.getPanel().getArrayGraficos()[indiceColision][subind], Const.ARR_RECTS_BUTTONS_MAIN_MENU[indiceColision].getLocation());
                 botonPulsado = indiceColision;
                 cambiadoBoton = true;
             }
@@ -184,7 +191,7 @@ public class MainMenu implements Subgame {
 
     public void desencadenarAccion(int numBoton) {
         int subind = (idioma == SPANISH) ? 0 : 2;
-        panel.getScene().update(panel.getArrayGraficos()[indiceColision][subind], Const.ARR_RECTS_BUTTONS_MAIN_MENU[indiceColision].getLocation());
+        //panel.getScene().addToQueue(panel.getArrayGraficos()[indiceColision][subind], Const.ARR_RECTS_BUTTONS_MAIN_MENU[indiceColision].getLocation());
         cambiadoBoton = false;
 
         switch(numBoton) {

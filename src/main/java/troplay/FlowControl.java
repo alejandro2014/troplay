@@ -68,7 +68,9 @@ public class FlowControl {
         Subgame subgame = null;
 
         try {
-            subgame = (Subgame) clazz.getConstructor(GameStatus.class).newInstance(gameStatus);
+            subgame = (Subgame) clazz
+                    .getConstructor(GameStatus.class)
+                    .newInstance(gameStatus);
         } catch (Exception ex) {
             System.err.println("Can't load controller " + clazz);
             ex.printStackTrace();

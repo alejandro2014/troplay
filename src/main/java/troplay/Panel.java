@@ -2,7 +2,6 @@ package troplay;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.troplay.graphics.GraphicalUpdate;
 import org.troplay.graphics.Scene;
 import troplay.enums.BalloonPosition;
 import troplay.enums.Language;
@@ -28,8 +27,8 @@ import javax.swing.Timer;
 
 import static troplay.enums.BalloonPosition.ARRIBA;
 
-public class Panel extends JPanel implements ActionListener {
-    @Getter
+public class Panel extends JPanel {//implements ActionListener {
+    /*@Getter
     private Scene scene = new Scene();
 
     //Array con los nombres de los gráficos del juego
@@ -99,14 +98,15 @@ public class Panel extends JPanel implements ActionListener {
 
     //Imagenes del juego
     @Getter
-    private BufferedImage[][] arrayGraficos = null;
+    private BufferedImage[][] arrayGraficos = null;*/
 
     //private BufferedImage bufferMenu = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
     //private BufferedImage bufferOpciones = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
     //private BufferedImage bufferJuego = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
 
-    private BufferedImage bufferActual = null;
-    private BufferedImage bufferTablero = null;
+    @Getter
+    private BufferedImage bufferActual = new BufferedImage(946,644, BufferedImage.TYPE_INT_RGB);
+    /*private BufferedImage bufferTablero = null;
     private BufferedImage bufferRespuestas = null;
     private BufferedImage bufferTablero1 = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
     private BufferedImage bufferTableroN = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
@@ -117,10 +117,10 @@ public class Panel extends JPanel implements ActionListener {
     @Setter
     private Pregunta pregCuriosidad = null;
 
-    private String cadenaEstado = "";
+    private String cadenaEstado = "";*/
     private Timer timer = null;
 
-    private final int ESPAÑOL = 0;
+    /*private final int ESPAÑOL = 0;
 
     private int idiomaJuego = ESPAÑOL;
     private int contadorTimer = 0;
@@ -144,33 +144,43 @@ public class Panel extends JPanel implements ActionListener {
     @Setter
     private Boolean dibujarPregunta = false;
 
-    private boolean refrescarTablero = false;
+    private boolean refrescarTablero = false;*/
 
     private Graphics2D g2d = null;
-    private Graphics2D g3d = null;
+    //private Graphics2D g3d = null;
 
     public Panel() {
         setBackground(Color.BLACK);
-        this.cargaGraficos();
+        //this.cargaGraficos();
         setDoubleBuffered(true);
 
-        timer = new Timer(70, this);
-        timer.start();
+        //timer = new Timer(70, this);
+        //timer.start();
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
 
-        actualizar();
-        g2d = (Graphics2D)g;
-        g2d.drawImage(bufferActual, 0, 0, this);
+        //actualizar();
+        //Graphics2D g = (Graphics2D) bufferActual.getGraphics();
+        //scene.draw(g, this);
+
+        //g2d = (Graphics2D) g;
+
+        //scene.draw(g, this);
+        g.drawImage(bufferActual, 0, 0, this);
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
 
-    private void actualizar() {
+    public void actionPerformed(ActionEvent e) {
+        //contadorTimer++;
+        //repaint();
+    }
+
+    /*private void actualizar() {
         if(bufferActual == null) {
             return;
         }
@@ -184,15 +194,10 @@ public class Panel extends JPanel implements ActionListener {
         }
 
         Graphics2D g = (Graphics2D) bufferActual.getGraphics();
-        scene.draw(g, this);
-    }
+        //scene.draw(g, this);
+    }*/
 
-    public void actionPerformed(ActionEvent e) {
-        contadorTimer++;
-        repaint();
-    }
-
-    void dibujarEscenaPregunta() {
+    /*void dibujarEscenaPregunta() {
         Jugador jugadorActual = null;
         int i;
 
@@ -201,7 +206,7 @@ public class Panel extends JPanel implements ActionListener {
         //Dibujado de los jugadores
         for(i = 0; i < numJugadores; i++) {
             jugadorActual = refGame.getJugador(i);
-            scene.update(arrayGraficos[i+7][0], new Point(jugadorActual.getCx(),jugadorActual.getCy()));
+            //scene.update(arrayGraficos[i+7][0], new Point(jugadorActual.getCx(),jugadorActual.getCy()));
             //g3d.drawImage(arrayGraficos[i+7][0],jugadorActual.getCx(),jugadorActual.getCy(),null);
         }
 
@@ -210,13 +215,13 @@ public class Panel extends JPanel implements ActionListener {
         //Dibujado de los checkboxes con las respuestas
         refGame.setRespuestaSeleccionada(0);
         for(i = 0; i < 3; i++) {
-            scene.update(arrayGraficos[6][(i == 0 ? 1 : 0)], refGame.getCheckBoxCoords(i));
+            scene.addToQueue(arrayGraficos[6][(i == 0 ? 1 : 0)], refGame.getCheckBoxCoords(i));
         }
 
         dibujarPregunta = false;
-    }
+    }*/
 
-    void dibujarTablero() {
+    /*void dibujarTablero() {
         Graphics2D g = (Graphics2D) bufferActual.getGraphics();
 
         if(bufferRespuestas == null) bufferRespuestas = arrayGraficos[24][0].getSubimage(684, 118, 256, 340);
@@ -229,9 +234,9 @@ public class Panel extends JPanel implements ActionListener {
 		}
 
         refrescarTablero = false;
-    }
+    }*/
 
-    public void dibujarEstado() {
+    /*public void dibujarEstado() {
           int jugadorActual = refGame.getJugadorActual();
           int desplaz;
 
@@ -245,11 +250,11 @@ public class Panel extends JPanel implements ActionListener {
           for(int i = 0; i < numJugadores; i++) {
               desplaz = (i == jugadorActual ? animEstado: 0);
               //g.drawImage(playerGraphics[i][desplaz], 691 + i*63, 554, null);
-              scene.update(playerGraphics[i][desplaz], new Point(i * 63 + 691, 554));
+              scene.addToQueue(playerGraphics[i][desplaz], new Point(i * 63 + 691, 554));
           }
-      }
+      }*/
 
-    public boolean dibujarCuriosidad() {
+    /*public boolean dibujarCuriosidad() {
         ArrayList trozosCadena = pregCuriosidad.getTrozosCadena(0);
         ArrayList tiposCadena = pregCuriosidad.getTiposCadena(0);
         Graphics2D g = (Graphics2D) bufferActual.getGraphics();
@@ -262,8 +267,8 @@ public class Panel extends JPanel implements ActionListener {
         int tipoFuente = -1;
 
         if(!dibujadaCuriosidad) {
-            scene.update(arrayGraficos[20][0], new Point(100,100));
-            scene.update(arrayGraficos[21][idiomaJuego], new Point(110,105));
+            scene.addToQueue(arrayGraficos[20][0], new Point(100,100));
+            scene.addToQueue(arrayGraficos[21][idiomaJuego], new Point(110,105));
             dibujadaCuriosidad = true;
         }
 
@@ -288,7 +293,7 @@ public class Panel extends JPanel implements ActionListener {
                     case 3: y -= 5; break;
                 }
 
-                escribirCadena((Graphics2D) g,cadenaActual, y, 44, metrica);
+                //escribirCadena((Graphics2D) g,cadenaActual, y, 44, metrica);
 
                 switch(tipoFuente) {
                     case 2: y += 5; break;
@@ -300,9 +305,9 @@ public class Panel extends JPanel implements ActionListener {
             devuelto = false;
 
         return devuelto;
-    }
+    }*/
 
-    public void dibujarPregunta(Graphics2D g) {
+    /*public void dibujarPregunta(Graphics2D g) {
         Casilla casillaActual = refGame.getCasillaActual();
         int casx = casillaActual.getX() + 4;
         int casy = casillaActual.getY() + 24;
@@ -391,9 +396,9 @@ public class Panel extends JPanel implements ActionListener {
 
         escribirPregunta(superf, xBocad + 10, yBocad + 25);
         escribirRespuestas(superf);
-    }
+    }*/
 
-    public void escribirPregunta(Graphics2D superf, int x, int y) {
+    /*public void escribirPregunta(Graphics2D superf, int x, int y) {
         ArrayList trozosCadena = preguntaActual.getTrozosCadena(0);
         ArrayList tiposCadena = preguntaActual.getTiposCadena(0);
         int numCadenas = preguntaActual.getNumTrozosCadena(trozosCadena);
@@ -427,9 +432,9 @@ public class Panel extends JPanel implements ActionListener {
                 case 3: y += 4; break;
             }
         }
-    }
+    }*/
 
-    public void escribirCadena(Graphics2D superf, String cadenaActual, int despVr, int anchoCad, FontMetrics metrica) {
+    /*public void escribirCadena(Graphics2D superf, String cadenaActual, int despVr, int anchoCad, FontMetrics metrica) {
         int long1;
         int despFinal;
 
@@ -450,9 +455,9 @@ public class Panel extends JPanel implements ActionListener {
                 lineaActual++;
             }
         }
-    }
+    }*/
 
-    public void escribirRespuestas(Graphics2D superf) {
+    /*public void escribirRespuestas(Graphics2D superf) {
         ArrayList trozosCadena = null;
         ArrayList tiposCadena = null;
         String cadenaActual = null;
@@ -510,9 +515,9 @@ public class Panel extends JPanel implements ActionListener {
 
             lineaActual++;
         }
-    }
+    }*/
 
-    public void setModo(int modo) {
+    /*public void setModo(int modo) {
         tipoDibujo = modo;
 
         switch(modo) {
@@ -529,37 +534,37 @@ public class Panel extends JPanel implements ActionListener {
                 addGameGraphicalUpdates();
                 break;
         }
-    }
+    }*/
 
-    private void addMainMenuGraphicalUpdates() {
-        scene.update(arrayGraficos[0][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[0].getLocation()); //Botones
-        scene.update(arrayGraficos[1][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[1].getLocation());
-        scene.update(arrayGraficos[2][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[2].getLocation());
+    /*private void addMainMenuGraphicalUpdates() {
+        scene.addToQueue(arrayGraficos[0][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[0].getLocation()); //Botones
+        scene.addToQueue(arrayGraficos[1][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[1].getLocation());
+        scene.addToQueue(arrayGraficos[2][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[2].getLocation());
     }
 
     private void addOptionsMenuGraphicalUpdates() {
-        scene.update(arrayGraficos[3][0], Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation()); //Boton volver
-        scene.update(arrayGraficos[6][1], Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation()); //Checkboxes idioma
-        scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
-        scene.update(arrayGraficos[6][1], Const.ARR_RECTS_CHECKBOXES_MENU[2].getLocation()); //Checkboxes jugadores
-        scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[3].getLocation());
-        scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[4].getLocation());
-        scene.update(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[5].getLocation());
-        scene.update(arrayGraficos[12][0], new Point(320,161)); //Letreros
-        scene.update(arrayGraficos[13][0], new Point(318,299));
-        scene.update(arrayGraficos[15][0], new Point(310,66));
+        scene.addToQueue(arrayGraficos[3][0], Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation()); //Boton volver
+        scene.addToQueue(arrayGraficos[6][1], Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation()); //Checkboxes idioma
+        scene.addToQueue(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
+        scene.addToQueue(arrayGraficos[6][1], Const.ARR_RECTS_CHECKBOXES_MENU[2].getLocation()); //Checkboxes jugadores
+        scene.addToQueue(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[3].getLocation());
+        scene.addToQueue(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[4].getLocation());
+        scene.addToQueue(arrayGraficos[6][0], Const.ARR_RECTS_CHECKBOXES_MENU[5].getLocation());
+        scene.addToQueue(arrayGraficos[12][0], new Point(320,161)); //Letreros
+        scene.addToQueue(arrayGraficos[13][0], new Point(318,299));
+        scene.addToQueue(arrayGraficos[15][0], new Point(310,66));
     }
 
     private void addGameGraphicalUpdates() {
-        scene.update(arrayGraficos[24][0],new Point()); //Marco del tablero
-        scene.update(arrayGraficos[25][(refGame.getNumJugadores() == 1 ? 0 : 1)], new Point(6,6)); //Tablero
+        scene.addToQueue(arrayGraficos[24][0],new Point()); //Marco del tablero
+        scene.addToQueue(arrayGraficos[25][(refGame.getNumJugadores() == 1 ? 0 : 1)], new Point(6,6)); //Tablero
 
-        scene.update(arrayGraficos[11][0], new Point(698,67));
-        scene.update(arrayGraficos[4][2*idiomaJuego], new Point(746,470));
-        scene.update(arrayGraficos[5][2*idiomaJuego], new Point(746,512));
-    }
+        scene.addToQueue(arrayGraficos[11][0], new Point(698,67));
+        scene.addToQueue(arrayGraficos[4][2*idiomaJuego], new Point(746,470));
+        scene.addToQueue(arrayGraficos[5][2*idiomaJuego], new Point(746,512));
+    }*/
 
-    public void setBuffer(int bufferType) {
+    /*public void setBuffer(int bufferType) {
         System.out.println("Set buffer to " + bufferType);
         bufferActual = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
         int backGroundIndex = 0;
@@ -572,12 +577,12 @@ public class Panel extends JPanel implements ActionListener {
         }
 
         bufferActual.getGraphics().drawImage(arrayGraficos[backGroundIndex][0], 0, 0, this);
-    }
+    }*/
 
-    @Getter
-    private BufferedImage[][] playerGraphics;
+    /*@Getter
+    private BufferedImage[][] playerGraphics;*/
 
-    private void cargaGraficos() {
+    /*private void cargaGraficos() {
         String[][] arrGrafs = ARR_GRAFS;
         int longitud = arrGrafs.length;
         int longitudSub = 0;
@@ -630,9 +635,9 @@ public class Panel extends JPanel implements ActionListener {
 
         bufferTablero1 = arrayGraficos[25][0]; //Tableros para uno y varios jugadores
         bufferTableroN = arrayGraficos[25][1];
-    }
+    }*/
 
-    public int getContadorTimer() {
+    /*public int getContadorTimer() {
         return contadorTimer;
     }
 
@@ -652,21 +657,21 @@ public class Panel extends JPanel implements ActionListener {
                 g.setColor(NEGRO);
             }
         }
-    }
+    }*/
 
-    public void setIdioma(Language nuevoIdioma) {
+    /*public void setIdioma(Language nuevoIdioma) {
         idiomaJuego = nuevoIdioma == Language.SPANISH ? 0 : 1;
 
         nuevoDibujo[Const.MODOMENU] = true;
 
-        scene.update(arrayGraficos[12][idiomaJuego], new Point(320,161)); //Letreros
-        scene.update(arrayGraficos[13][idiomaJuego], new Point(318,299));
-        scene.update(arrayGraficos[15][idiomaJuego], new Point(310,66));
-        scene.update(arrayGraficos[6][(idiomaJuego == 0 ? 1 : 0)], Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation());
-        scene.update(arrayGraficos[6][(idiomaJuego == 0 ? 0 : 1)], Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
-        scene.update(arrayGraficos[3][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation());
-    }
+        scene.addToQueue(arrayGraficos[12][idiomaJuego], new Point(320,161)); //Letreros
+        scene.addToQueue(arrayGraficos[13][idiomaJuego], new Point(318,299));
+        scene.addToQueue(arrayGraficos[15][idiomaJuego], new Point(310,66));
+        scene.addToQueue(arrayGraficos[6][(idiomaJuego == 0 ? 1 : 0)], Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation());
+        scene.addToQueue(arrayGraficos[6][(idiomaJuego == 0 ? 0 : 1)], Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
+        scene.addToQueue(arrayGraficos[3][2*idiomaJuego], Const.ARR_RECTS_BUTTONS_MAIN_MENU[3].getLocation());
+    }*/
 
-    public void setRefrescarTablero() {refrescarTablero = true;}
-    public void setNuevoDibujado(int i, boolean b) {nuevoDibujo[i] = b;}
+    /*public void setRefrescarTablero() {refrescarTablero = true;}
+    public void setNuevoDibujado(int i, boolean b) {nuevoDibujo[i] = b;}*/
 }

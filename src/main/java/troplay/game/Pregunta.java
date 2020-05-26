@@ -7,7 +7,8 @@ import troplay.Drawable;
 
 import java.util.ArrayList;
 
-public class Pregunta extends Drawable {
+//public class Pregunta extends Drawable {
+public class Pregunta {
     private final int NUM_RESPUESTAS = 3;
 
     @Getter

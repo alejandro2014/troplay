@@ -1,13 +1,16 @@
 package troplay.game;
 
+import lombok.Setter;
 import troplay.Drawable;
 
 import java.util.Date;
 import java.util.Random;
 
-public class Dice extends Drawable {
+//public class Dice extends Drawable {
+@Setter
+public class Dice {
     private Random rnd;
-    private int value = 0;
+    private Integer value = 0;
 
     public Dice() {
         rnd = new Random();
