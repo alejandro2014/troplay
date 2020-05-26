@@ -65,10 +65,10 @@ public class FlowControl {
             return;
         }
 
-        Subgame subgame = null;
+        SubgameInterface subgameInterface = null;
 
         try {
-            subgame = (Subgame) clazz
+            subgameInterface = (SubgameInterface) clazz
                     .getConstructor(GameStatus.class)
                     .newInstance(gameStatus);
         } catch (Exception ex) {
@@ -77,7 +77,7 @@ public class FlowControl {
             System.exit(1);
         }
 
-        subgame.loop();
+        subgameInterface.loop();
     }
 
     public static void main(String[] args) {

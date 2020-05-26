@@ -6,15 +6,15 @@ import org.troplay.graphics.Scene;
 import java.io.IOException;
 
 @Data
-public class Presentation implements Subgame {
-    private final GameStatus gameStatus;
+public class Presentation extends SubGameBase implements SubgameInterface {
+    private GameStatus gameStatus;
     private Scene scene;
+    private Panel panel;
 
     public Presentation(GameStatus gameStatus) throws IOException {
         this.gameStatus = gameStatus;
         this.scene = createScene();
-
-        createScene();
+        this.panel = gameStatus.getPanel();
     }
 
     public Scene createScene() throws IOException {
@@ -31,26 +31,12 @@ public class Presentation implements Subgame {
         int meter = 0;
 
         while (meter < finalMeter) {
-            frame();
+            frame(scene, panel);
             meter++;
         }
     }
 
-    public Boolean finalBucle() {
-        return true;
-    }
-
-    private void frame() {
-        scene.draw(gameStatus.getPanel());
-
-        try {
-            Thread.sleep(Const.MILLIS_SLEEP);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void controlEntrada() {
+    public void inputControl() {
 
     }
 }

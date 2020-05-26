@@ -1,14 +1,16 @@
 package troplay;
 
+import org.troplay.graphics.Scene;
 import troplay.enums.MainEvents;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static troplay.enums.Language.ENGLISH;
 import static troplay.enums.Language.SPANISH;
 
-public class OptionsMenu implements Subgame {
+public class OptionsMenu extends SubGameBase implements SubgameInterface {
     private final GameStatus gameStatus;
     private int numJugadores;
 
@@ -86,9 +88,14 @@ public class OptionsMenu implements Subgame {
         checkboxes[numJugadores + 1].setActivado(true);
     }
 
+    @Override
+    public Scene createScene() throws IOException {
+        return null;
+    }
+
     public void loop() {
         while(!acabar) {
-            controlEntrada();
+            inputControl();
 
             if (ratonPulsado)
                 procesarEntrada();
@@ -100,7 +107,7 @@ public class OptionsMenu implements Subgame {
                 botonPulsado = -1;
             }
 
-            acabar = finalBucle();
+            acabar = endOfLoop();
 
             try {
                 Thread.sleep(70);
@@ -113,12 +120,12 @@ public class OptionsMenu implements Subgame {
         gameStatus.setCurrentEvent(eventoRealizado);
     }
 
-    public Boolean finalBucle() {
+    public Boolean endOfLoop() {
         return (eventoRealizado == MainEvents.EXIT || eventoRealizado == MainEvents.START ||
                 eventoRealizado == MainEvents.BACK || eventoRealizado == MainEvents.OPTIONS);
     }
 
-    public void controlEntrada() {
+    public void inputControl() {
         ratonPulsado = raton.getEstado();
 
         if (ratonPulsado) {

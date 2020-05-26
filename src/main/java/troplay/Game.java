@@ -1,5 +1,6 @@
 package troplay;
 
+import org.troplay.graphics.Scene;
 import troplay.enums.Language;
 import troplay.game.Casilla;
 import troplay.game.Dice;
@@ -7,13 +8,14 @@ import troplay.game.Jugador;
 import troplay.game.Pregunta;
 
 import java.awt.*;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import static troplay.enums.Language.SPANISH;
 
-public class Game implements Subgame {
+public class Game extends SubGameBase implements SubgameInterface {
     private final int ANCHOCURIOSIDAD = 44;
 
     private final int MAX_JUGADORES = 4;
@@ -451,13 +453,18 @@ public class Game implements Subgame {
     }*/
 
     @Override
+    public Scene createScene() throws IOException {
+        return null;
+    }
+
+    @Override
     public void loop() {
 
     }
 
-    public Boolean finalBucle() {return (eventoActual == EVENTO_SALIR || estadoActual == ESTADO_FINAL);}
+    public Boolean endOfLoop() {return (eventoActual == EVENTO_SALIR || estadoActual == ESTADO_FINAL);}
 
-    public void controlEntrada() {
+    public void inputControl() {
         ratonPulsado = raton.getEstado();
 
         if (ratonPulsado) {

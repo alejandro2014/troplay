@@ -1,16 +1,18 @@
 package troplay;
 
+import org.troplay.graphics.Scene;
 import troplay.enums.Language;
 import troplay.enums.MainEvents;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static troplay.enums.Language.ENGLISH;
 import static troplay.enums.Language.SPANISH;
 
-public class MainMenu implements Subgame {
+public class MainMenu extends SubGameBase implements SubgameInterface {
     private final GameStatus gameStatus;
     private Language idioma;
 
@@ -85,9 +87,14 @@ public class MainMenu implements Subgame {
         return null;
     }
 
+    @Override
+    public Scene createScene() throws IOException {
+        return null;
+    }
+
     public void loop() {
         while(!acabar) {
-            controlEntrada();
+            inputControl();
 
             if (ratonPulsado) {
                 procesarEntrada();
@@ -100,7 +107,7 @@ public class MainMenu implements Subgame {
                 botonPulsado = -1;
             }
 
-            acabar = finalBucle();
+            acabar = endOfLoop();
 
             frame();
         }
@@ -116,12 +123,12 @@ public class MainMenu implements Subgame {
         }
     }
 
-    public Boolean finalBucle() {
+    public Boolean endOfLoop() {
         return (eventoRealizado == MainEvents.EXIT || eventoRealizado == MainEvents.START ||
                 eventoRealizado == MainEvents.BACK || eventoRealizado == MainEvents.OPTIONS);
     }
 
-    public void controlEntrada() {
+    public void inputControl() {
         ratonPulsado = raton.getEstado();
 
         if (ratonPulsado) {
