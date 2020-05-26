@@ -49,4 +49,7 @@ public abstract class Const {
     public static final int MODOMENU = 1;
     public static final int MODOOPCION = 2;
     public static final int MODOJUEGO  = 3;
+
+    public static final int SCREEN_WIDTH = 946;
+    public static  final int SCREEN_HEIGHT = 644;
 }
