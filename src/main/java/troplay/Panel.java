@@ -105,7 +105,7 @@ public class Panel extends JPanel {//implements ActionListener {
     //private BufferedImage bufferJuego = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
 
     @Getter
-    private BufferedImage bufferActual = new BufferedImage(946,644, BufferedImage.TYPE_INT_RGB);
+    private BufferedImage bufferActual;
     /*private BufferedImage bufferTablero = null;
     private BufferedImage bufferRespuestas = null;
     private BufferedImage bufferTablero1 = new BufferedImage(946,644,BufferedImage.TYPE_INT_RGB);
@@ -117,10 +117,9 @@ public class Panel extends JPanel {//implements ActionListener {
     @Setter
     private Pregunta pregCuriosidad = null;
 
-    private String cadenaEstado = "";*/
-    private Timer timer = null;
+    private String cadenaEstado = "";
 
-    /*private final int ESPAÑOL = 0;
+    private final int ESPAÑOL = 0;
 
     private int idiomaJuego = ESPAÑOL;
     private int contadorTimer = 0;
@@ -146,16 +145,11 @@ public class Panel extends JPanel {//implements ActionListener {
 
     private boolean refrescarTablero = false;*/
 
-    private Graphics2D g2d = null;
-    //private Graphics2D g3d = null;
-
     public Panel() {
         setBackground(Color.BLACK);
-        //this.cargaGraficos();
         setDoubleBuffered(true);
 
-        //timer = new Timer(70, this);
-        //timer.start();
+        this.bufferActual = new BufferedImage(Const.SCREEN_WIDTH,Const.SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
     }
 
     @Override
@@ -163,21 +157,10 @@ public class Panel extends JPanel {//implements ActionListener {
         super.paint(g);
 
         //actualizar();
-        //Graphics2D g = (Graphics2D) bufferActual.getGraphics();
-        //scene.draw(g, this);
-
-        //g2d = (Graphics2D) g;
-
-        //scene.draw(g, this);
         g.drawImage(bufferActual, 0, 0, this);
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        //contadorTimer++;
-        //repaint();
     }
 
     /*private void actualizar() {

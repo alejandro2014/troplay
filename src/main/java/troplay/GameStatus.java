@@ -7,7 +7,7 @@ import troplay.enums.MainEvents;
 
 @Data
 public class GameStatus {
-    private Ventana window;
+    private Window window;
     private Panel panel;
     private Raton mouse;
     private Language language = Language.SPANISH;
@@ -15,7 +15,7 @@ public class GameStatus {
     private MainEvents currentEvent = MainEvents.NULL;
 
     public GameStatus() {
-        window = new Ventana();
+        window = new Window();
         panel = window.getPanel();
         //mouse = new Raton(panel);
     }

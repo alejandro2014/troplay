@@ -3,36 +3,36 @@ package troplay;
 import lombok.Data;
 import org.troplay.graphics.Background;
 import org.troplay.graphics.Scene;
-
-import java.awt.*;
 import java.io.IOException;
 
 @Data
 public class Presentation implements Subgame {
     private final GameStatus gameStatus;
-    private Scene scene = new Scene();
+    private Scene scene;
 
     public Presentation(GameStatus gameStatus) throws IOException {
         this.gameStatus = gameStatus;
+        this.scene = createScene();
 
         createScene();
     }
 
-    public void createScene() throws IOException {
-        Background background = new Background("common/background/presentation");
+    public Scene createScene() throws IOException {
+        Scene scene = new Scene();
 
+        Background background = new Background("common/background/presentation");
         scene.addDrawable(background);
+
+        return scene;
     }
 
     public void loop() {
-        int contadorFinal = 60;
-        int contador = 0;
+        int finalMeter = 60;
+        int meter = 0;
 
-        while (contador < contadorFinal) {
-            scene.draw(gameStatus.getPanel());
-            //gameStatus.getPanel().paint(g);
-            contador++;
+        while (meter < finalMeter) {
             frame();
+            meter++;
         }
     }
 
@@ -41,8 +41,10 @@ public class Presentation implements Subgame {
     }
 
     private void frame() {
+        scene.draw(gameStatus.getPanel());
+
         try {
-            Thread.sleep(70);
+            Thread.sleep(Const.MILLIS_SLEEP);
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }

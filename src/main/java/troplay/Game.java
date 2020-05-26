@@ -1,7 +1,6 @@
 package troplay;
 
 import troplay.enums.Language;
-import troplay.enums.MainEvents;
 import troplay.game.Casilla;
 import troplay.game.Dice;
 import troplay.game.Jugador;
@@ -47,7 +46,7 @@ public class Game implements Subgame {
     private boolean[] asigFacil, asigMedio, asigDificil;
     private int ganador = -1;
 
-    public Ventana ventana = null;
+    public Window window = null;
 
     private final Rectangle ARR_RECTS_BUTTONS_GAME[] = {
             new Rectangle(new Point(746,470), new Dimension(133,37)),

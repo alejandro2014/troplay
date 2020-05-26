@@ -14,7 +14,7 @@ public class MainMenu implements Subgame {
     private final GameStatus gameStatus;
     private Language idioma;
 
-    private Ventana ventana = null;
+    private Window window = null;
     private Panel panel = null;
     private Raton raton = null;
     private boolean acabar = false;
@@ -49,7 +49,7 @@ public class MainMenu implements Subgame {
 
         idioma = gameStatus.getLanguage();
 
-        ventana = gameStatus.getWindow();
+        window = gameStatus.getWindow();
         //panel = ventana.getPanel();
 
         //panel.setBuffer(1);

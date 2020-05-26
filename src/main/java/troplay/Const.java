@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 public abstract class Const {
     public static final int PREGS_POR_CASILLA = 3;
 
-    public static final String DIRECTORIO_GRAFICOS = "/home/alejandro/programs/troplay/src/main/resources/graficos/";
+    public static final String DIRECTORIO_GRAFICOS = "/home/alejandro/programs/troplay/src/main/resources/graficos";
     //public static final String DIRECTORIO_GRAFICOS = "/Users/alejandro/programs/troplay/src/main/resources/graficos/";
 
     //Coordenadas de los centros de cada casilla
@@ -52,4 +52,5 @@ public abstract class Const {
 
     public static final int SCREEN_WIDTH = 946;
     public static  final int SCREEN_HEIGHT = 644;
+	public static final long MILLIS_SLEEP = 70;
 }

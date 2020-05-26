@@ -25,9 +25,8 @@ public class Drawable {
 	protected Boolean drawOnce;
 
 	protected final String graphicsBasePath = "/home/alejandro/programs/troplay/src/main/resources/graphics";
-	protected String graphicsPath;
 
-	protected void loadGraphics() throws IOException {
+	protected void loadGraphics(String graphicsPath) throws IOException {
 		images = new ArrayList<>();
 
 		String[] playerGraphicPaths = { "presentacion" };

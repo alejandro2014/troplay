@@ -12,7 +12,7 @@ public class OptionsMenu implements Subgame {
     private final GameStatus gameStatus;
     private int numJugadores;
 
-    private Ventana ventana = null;
+    private Window window = null;
     private Panel panel = null;
     private Raton raton = null;
     private boolean acabar = false;
@@ -45,7 +45,7 @@ public class OptionsMenu implements Subgame {
 
         numJugadores = gameStatus.getPlayersNo();
 
-        ventana = gameStatus.getWindow();
+        window = gameStatus.getWindow();
         //panel = ventana.getPanel();
 
         //panel.setBuffer(2);
