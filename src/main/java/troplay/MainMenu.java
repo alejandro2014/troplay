@@ -1,6 +1,7 @@
 package troplay;
 
 import org.troplay.graphics.Background;
+import org.troplay.graphics.Button;
 import org.troplay.graphics.Drawable;
 import org.troplay.graphics.Scene;
 import troplay.enums.Language;
@@ -16,10 +17,12 @@ import static troplay.enums.Language.SPANISH;
 
 public class MainMenu extends SubGameBase implements SubgameInterface {
     private final GameStatus gameStatus;
+    private final Scene scene;
+    private Panel panel;
+
     private Language idioma;
 
     private Window window = null;
-    private Panel panel = null;
     private Raton raton = null;
     private boolean acabar = false;
     private MainEvents eventoRealizado = MainEvents.NULL;
@@ -43,8 +46,11 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
 
     private List<Drawable> drawableList = new ArrayList<>();
 
-    public MainMenu(GameStatus gameStatus) {
+    public MainMenu(GameStatus gameStatus) throws IOException {
         this.gameStatus = gameStatus;
+        this.scene = createScene();
+        this.panel = gameStatus.getPanel();
+
         ArrayList conjCbxActual = null;
         int longBotones = botones.length;
         int longCbxIdioma = 2;
@@ -52,18 +58,9 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         int i;
 
         idioma = gameStatus.getLanguage();
-
         window = gameStatus.getWindow();
-        //panel = ventana.getPanel();
-
-        //panel.setBuffer(1);
-        //panel.setModo(Const.MODOMENU);
 
         this.raton = gameStatus.getMouse();
-
-        botones[0] = createDrawable(new Rectangle(389,234, 165,46), true);
-        botones[1] = createDrawable(new Rectangle(389,303, 165,46), true);
-        botones[2] = createDrawable(new Rectangle(389,372, 165,46), true);
 
         botones[3] = createDrawable(new Rectangle(574,220, 165,46), false);
 
@@ -96,12 +93,20 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         Background background = new Background("common/background/presentation");
         scene.addDrawable(background);
 
+        Button startButton = new Button("ES/buttons/start", new Rectangle(389,234, 165,46));
+        Button optionsButton = new Button("ES/buttons/options", new Rectangle(389,303, 165,46));
+        Button exitButton = new Button("ES/buttons/exit", new Rectangle(389,372, 165,46));
+
+        scene.addDrawable(startButton);
+        scene.addDrawable(optionsButton);
+        scene.addDrawable(exitButton);
+
         return scene;
     }
 
     public void loop() {
         while(!acabar) {
-            inputControl();
+            /*inputControl();
 
             if (ratonPulsado) {
                 procesarEntrada();
@@ -112,27 +117,21 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
             if (botonPulsado != -1 && !ratonPulsado) {
                 desencadenarAccion(botonPulsado);
                 botonPulsado = -1;
-            }
+            }*/
 
             acabar = endOfLoop();
 
-            frame();
+            frame(scene, panel);
         }
 
         gameStatus.setCurrentEvent(eventoRealizado);
     }
 
-    private void frame() {
-        try {
-            Thread.sleep(70);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     public Boolean endOfLoop() {
-        return (eventoRealizado == MainEvents.EXIT || eventoRealizado == MainEvents.START ||
-                eventoRealizado == MainEvents.BACK || eventoRealizado == MainEvents.OPTIONS);
+        return (eventoRealizado == MainEvents.EXIT ||
+                eventoRealizado == MainEvents.START ||
+                eventoRealizado == MainEvents.BACK ||
+                eventoRealizado == MainEvents.OPTIONS);
     }
 
     public void inputControl() {

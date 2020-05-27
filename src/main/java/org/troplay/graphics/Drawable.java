@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,9 +51,13 @@ public class Drawable {
 		String filePath = graphicsBasePath + "/" + graphicsPath;
 		File[] files = new File(filePath).listFiles();
 
-		return Arrays.stream(files)
+		List<String> fileNames = Arrays.stream(files)
 				.map(File::toString)
 				.collect(Collectors.toList());
+
+		Collections.sort(fileNames);
+
+		return fileNames;
 	}
 
 	public Boolean collision(Point mousePoint) {
