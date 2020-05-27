@@ -70,7 +70,6 @@ public class Jugador {
             }
         }
 
-        //Actualiza las coordenadas o termina la animación
         if(fotogrActual < fotogrTotales && casillaVieja < MAX_CASILLAS - 1) {
             xActual = xVieja + (despl * desplX) / 7;
             yActual = yVieja + (despl * desplY) / 7;
@@ -94,7 +93,6 @@ public class Jugador {
     public int avanzarEscalera() {
         int eventoRetorno = EVENTO_ESCALERA;
 
-        //Determinación de la "salida" y la "meta"
         if (fotogrActual == 1) {
             casillaVieja = casilla;
 
@@ -109,8 +107,6 @@ public class Jugador {
             desplY = (int)Const.arrayCasillas[casillaNueva].getY() - (int)Const.arrayCasillas[casillaVieja].getY();
         }
 
-        /* Avance por la escalera en cada fotograma avanza un poco más
-        hasta llegar al final */
         if(fotogrActual != 15) {
             fotogrActual++;
 

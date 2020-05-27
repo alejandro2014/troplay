@@ -33,7 +33,7 @@ public class Window extends JFrame {
         try {
             icon = getToolkit().getImage(Const.DIRECTORIO_GRAFICOS + "/icono.png");
         } catch (Exception e) {
-            System.err.println("Error en la carga de imágenes" + e.toString());
+            System.err.println("Error en la carga de imagenes" + e.toString());
         }
 
         return icon;

@@ -3,7 +3,6 @@ package troplay.game;
 import lombok.Getter;
 import lombok.Setter;
 import troplay.Const;
-import troplay.Drawable;
 
 import java.util.ArrayList;
 
@@ -21,8 +20,7 @@ public class Pregunta {
 
     @Setter
     private Integer idPregunta;
-    
-    //Variables para la correcta maquetación de las preguntas
+
     private final int NORMAL = 0;
     private final int CURSIVA = 1;
     private final int SUBINDICE = 2;
@@ -51,7 +49,7 @@ public class Pregunta {
         }
     }
     
-    public void añadirCadena(String texto, ArrayList trozosCadena, ArrayList tiposCadena, int contador, int tipo) {
+    public void addString(String texto, ArrayList trozosCadena, ArrayList tiposCadena, int contador, int tipo) {
         trozosCadena.add(texto.substring(limiteAnterior,contador));
         tiposCadena.add(tipo);
         limiteAnterior = contador + 1;
@@ -75,29 +73,28 @@ public class Pregunta {
         int contador;
         
         caracter = texto.charAt(0);
-        switch(caracter) { //Determinación del estado inicial
+        switch(caracter) {
             case '$': estado = CURSIVA;     limiteAnterior = 1; break;
             case '#': estado = SUBINDICE;   limiteAnterior = 1; break;
             case '@': estado = SUPERINDICE; limiteAnterior = 1; break;
         }
-            
-        //Análisis de la cadena por caracteres
+
         for(contador = 1; contador < longitud; contador++) {
             caracter = texto.charAt(contador);
             
             switch(estado) {
                 case NORMAL:
                     switch(caracter) {
-                        case '$': añadirCadena(texto,trozosCadena,tiposCadena,contador,estado); estado = CURSIVA; break;
-                        case '#': añadirCadena(texto,trozosCadena,tiposCadena,contador,estado); estado = SUBINDICE; break;
-                        case '@': añadirCadena(texto,trozosCadena,tiposCadena,contador,estado); estado = SUPERINDICE; break;
+                        case '$': addString(texto,trozosCadena,tiposCadena,contador,estado); estado = CURSIVA; break;
+                        case '#': addString(texto,trozosCadena,tiposCadena,contador,estado); estado = SUBINDICE; break;
+                        case '@': addString(texto,trozosCadena,tiposCadena,contador,estado); estado = SUPERINDICE; break;
                     }
                     
                     break;
                     
                 default:
                     if(caracter == '$' || caracter == '#' || caracter == '@') {
-                        añadirCadena(texto,trozosCadena,tiposCadena,contador,estado); estado = NORMAL; 
+                        addString(texto,trozosCadena,tiposCadena,contador,estado); estado = NORMAL;
                     }
                     break;
             }

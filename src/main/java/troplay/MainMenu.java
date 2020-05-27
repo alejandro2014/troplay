@@ -165,7 +165,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         if (tipoColision.equals("checkBox")) {
             checkboxes[indiceColision].setActivado(true);
 
-            if (indiceColision < 2) { //Selección del idioma
+            if (indiceColision < 2) {
                 if(!cambiadoCheckbox) {
                     if (indiceColision == 0) {
                         idioma = SPANISH;
@@ -176,7 +176,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
                     gameStatus.setLanguage(idioma);
                     cambiadoCheckbox = true;
                 }
-            } else if(indiceColision < 6) { //Selección del número de jugadores
+            } else if(indiceColision < 6) {
                 if(!cambiadoCheckbox) {
 
                     for(int i = 0; i < 4; i++) {

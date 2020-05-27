@@ -61,7 +61,6 @@ public class Game extends SubGameBase implements SubgameInterface {
             new Rectangle(new Point(703,80), new Dimension(19,19))
     };
 
-    //Elementos dinámicos del juego (botones y checkboxes)
     private Drawable[] botones = new Drawable[2];
     private CheckBox[] checkboxes = new CheckBox[3];
 
@@ -78,7 +77,6 @@ public class Game extends SubGameBase implements SubgameInterface {
 
     private boolean acabar = false;
 
-    //Elementos del autómata de estados del juego en sí
     private final int ESTADO_INICIAL = 0;
     private final int ESTADO_PREGUNTANDO = 1;
     private final int ESTADO_LANZANDO = 2;
@@ -165,7 +163,6 @@ public class Game extends SubGameBase implements SubgameInterface {
 
 		for(i=0; i< MAX_JUGADORES; i++) jugadores[i] = null;
 
-        //Inicializa el número de jugadores y el tipo de juego
         for(i=0; i<numJugadores; i++) {
             jugadores[i] = new Jugador(this,i);
             //jugadores[i].setShow(true);
@@ -230,7 +227,6 @@ public class Game extends SubGameBase implements SubgameInterface {
         while(!acabar) {
             estadoActual = cambiarEstado(estadoActual, eventoActual);
 
-            //Controla la entrada del usuario sólo si se está preguntando
             if(estadoActual == ESTADO_PREGUNTANDO) {
                 //Lectura de la entrada
                 controlEntrada();
@@ -241,7 +237,6 @@ public class Game extends SubGameBase implements SubgameInterface {
                 else
                     cambiadoCheckbox = false;
 
-                //Se actúa cuando se deja de pulsar el botón, no antes
                 if (botonPulsado != -1 && !ratonPulsado) {
                     //botones[botonPulsado].setPulsado(false);
                     desencadenarAccion(botonPulsado);
@@ -273,18 +268,15 @@ public class Game extends SubGameBase implements SubgameInterface {
                         if(numJugadores != 1) {
                             if((jugadorActual++) == numJugadores-1) jugadorActual = 0;
 
-                                //Cuando está en un pozo pasa el turno pero ya puede tirar la siguiente
                                 while(!jugadores[jugadorActual].getPuedoTirar()) {
                                     jugadores[jugadorActual].setPuedoTirar(true);
                                     if((jugadorActual++) == numJugadores-1) jugadorActual = 0;
                                 }
                         }
 
-                        //Obtención de la pregunta correspondiente por casilla y jugador
                         casillaActual = jugadores[jugadorActual].getCasilla();
                         preguntaActual = tablero[casillaActual].getPregActual();
 
-                        //Obtención de la pregunta
                         panel.setPreguntaActual(preguntaActual);
                         panel.setRefrescarTablero();
                         panel.setDibujarPregunta(true);
@@ -329,7 +321,6 @@ public class Game extends SubGameBase implements SubgameInterface {
                 }
                 break;
 
-            //Estado en el que se lanza el dado y se muestra la animación
             case ESTADO_LANZANDO:
                 Point diceLocation = new Point(698, 67);
 
@@ -370,7 +361,6 @@ public class Game extends SubGameBase implements SubgameInterface {
                 }
                 break;
 
-            //Estado de muestra de la animación del avance del jugador
             case ESTADO_AVANZANDO:
                 switch(evento) {
                     case EVENTO_PARAR:
@@ -525,10 +515,10 @@ public class Game extends SubGameBase implements SubgameInterface {
         cambiadoBoton = false;
 
         switch(numBoton) {
-            case 0: //Botón responder
+            case 0:
                 eventoActual = preguntaActual.compruebaCorrecta(respuestaMarcada) ? EVENTO_ACIERTO : EVENTO_FALLO;
                 break;
-            case 1: //Botón volver al menú
+            case 1:
                 //panel.setPreguntaActual(null);
                 eventoActual = EVENTO_SALIR;
                 break;
@@ -546,7 +536,6 @@ public class Game extends SubGameBase implements SubgameInterface {
 
         //Se rellenan todas las casillas con preguntas
         for(int i=0; i < NUM_CASILLAS - 1; i++) {
-            //Ajusta la dificultad de la pregunta en función de la casilla
             if(i>-1 && i<limite1) {
                 dificultad = BAJA;
                 asig = asigFacil;
@@ -575,10 +564,6 @@ public class Game extends SubGameBase implements SubgameInterface {
         }
     }
 
-    /**
-     * Comprueba la condición de final de juego
-     * @return Verdadero si el juego ha acabado, falso en caso contrario
-     */
     public int hayGanador() {
         int jugadorGanador = -1;
 

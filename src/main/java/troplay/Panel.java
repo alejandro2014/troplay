@@ -31,9 +31,9 @@ public class Panel extends JPanel {//implements ActionListener {
     /*@Getter
     private Scene scene = new Scene();
 
-    //Array con los nombres de los gráficos del juego
+    //Array con los nombres de los graficos del juego
     private final String[][] ARR_GRAFS = {
-            {"espBotonEmpezar1","espBotonEmpezar2","ingBotonEmpezar1","ingBotonEmpezar2"}, //Botones del menú [0-3]
+            {"espBotonEmpezar1","espBotonEmpezar2","ingBotonEmpezar1","ingBotonEmpezar2"}, //Botones del menu [0-3]
             {"espBotonOpciones1","espBotonOpciones2","ingBotonOpciones1","ingBotonOpciones2"},
             {"espBotonSalir1","espBotonSalir2","ingBotonSalir1","ingBotonSalir2"},
             {"espVolverMenu1","espVolverMenu2","ingVolverMenu1","ingVolverMenu2"},
@@ -42,10 +42,10 @@ public class Panel extends JPanel {//implements ActionListener {
             {"espBotonVolver1","espBotonVolver2","ingBotonVolver1","ingBotonVolver2"},
             {"checkBoxNo","checkBoxSi"}, //CheckBoxes [6]
 
-            {"jugador1"},{"jugador2"},{"jugador3"},{"jugador4"}, //Elementos propios de la partida en sí [7-11]
+            {"jugador1"},{"jugador2"},{"jugador3"},{"jugador4"}, //Elementos propios de la partida en si [7-11]
             {"dado1","dado2","dado3","dado4","dado5","dado6"},
 
-            //Letreros fijos del menú de opciones [12-15]
+            //Letreros fijos del menu de opciones [12-15]
             {"espTituloIdioma","ingTituloIdioma"}, {"espTituloJugadores","ingTituloJugadores"},
             {"espTituloConexion","ingTituloConexion"}, {"espTituloOpciones","ingTituloOpciones"},
 
@@ -67,8 +67,8 @@ public class Panel extends JPanel {//implements ActionListener {
 
     private Font fuentePreguntas = new Font("LuciSans",Font.PLAIN,14);
     private Font fuenteCursiva = new Font("LuciSans",Font.ITALIC,14);
-    private Font fuentePequeña = new Font("LuciSans",Font.PLAIN,10);
-    private Font[] fuentes = {fuentePreguntas, fuenteCursiva, fuentePequeña, fuentePequeña};
+    private Font fuentePequena = new Font("LuciSans",Font.PLAIN,10);
+    private Font[] fuentes = {fuentePreguntas, fuenteCursiva, fuentePequena, fuentePequena};
 
     private Font fuenteCuriosidad = new Font("Lucida Bright", Font.PLAIN,18);
     private Font fuenteCurCuriosidad = new Font("Lucida Bright",Font.ITALIC,18);
@@ -119,9 +119,9 @@ public class Panel extends JPanel {//implements ActionListener {
 
     private String cadenaEstado = "";
 
-    private final int ESPAÑOL = 0;
+    private final int ESPANOL = 0;
 
-    private int idiomaJuego = ESPAÑOL;
+    private int idiomaJuego = ESPANOL;
     private int contadorTimer = 0;
 
     //Modos diferentes representando momentos del juego
@@ -310,7 +310,6 @@ public class Panel extends JPanel {//implements ActionListener {
 
         this.setFont(fuentePreguntas);
 
-        //Las constantes indican la posición del bocadillo con respecto a la casilla
         switch(posicionBocad) {
             case ARRIBAIZQ:
                 xBocad = casx - desplaz - anchoBocad; yBocad = casy - desplaz - altoBocad;
@@ -421,7 +420,6 @@ public class Panel extends JPanel {//implements ActionListener {
         int long1;
         int despFinal;
 
-        //Escribe la cadena por trozos, lo que quepa en cada línea
         while(cadenaActual.length() > 0) {
             long1 = cadenaActual.length();
             despFinal = (long1 <= quedan ? long1 : quedan);
@@ -457,7 +455,6 @@ public class Panel extends JPanel {//implements ActionListener {
 
         lineaActual = 0;
 
-        //Desplazamiento de la pregunta en función del número de líneas
         desp2 = arrDesplaz[numLineas-3];
 
         int despVr = 417 - (numLineas-1 + desp2) * 25;
@@ -466,14 +463,12 @@ public class Panel extends JPanel {//implements ActionListener {
         refGame.setCheckBoxVert(1, preguntaActual.getLineasResp(0) * 25 + (despVr-13));
         refGame.setCheckBoxVert(2, (preguntaActual.getLineasResp(0) + preguntaActual.getLineasResp(1)) * 25 + (despVr-13));
 
-        //Escritura de las tres respuestas
         for(int respActual = 0; respActual < 3; respActual++) {
             trozosCadena = preguntaActual.getTrozosCadena(respActual + 1);
             tiposCadena = preguntaActual.getTiposCadena(respActual + 1);
             numCadenas = preguntaActual.getNumTrozosCadena(trozosCadena);
             quedan = Const.ANCHORESPUESTA;
 
-            //Escribe todas las cadenas que forman parte de la respuesta
             desp0 = despX = 726;
             for(int i = 0; i < numCadenas; i++) {
                 cadenaActual = (String)trozosCadena.get(i);
@@ -504,15 +499,15 @@ public class Panel extends JPanel {//implements ActionListener {
         tipoDibujo = modo;
 
         switch(modo) {
-            case Const.MODOMENU: //Menú principal 1
+            case Const.MODOMENU: //Menu principal 1
                 addMainMenuGraphicalUpdates();
                 break;
 
-            case Const.MODOOPCION: //Menú de opciones 2
+            case Const.MODOOPCION: //Menu de opciones 2
                 addOptionsMenuGraphicalUpdates();
                 break;
 
-            case Const.MODOJUEGO: //Juego en sí 3
+            case Const.MODOJUEGO: //Juego en si 3
                 bufferTablero = (refGame.getNumJugadores() == 1 ? bufferTablero1 : bufferTableroN);
                 addGameGraphicalUpdates();
                 break;
@@ -613,7 +608,7 @@ public class Panel extends JPanel {//implements ActionListener {
 				}
             }
         } catch(Exception e) {
-            System.err.println("Error en la carga de gráficos: " + e.toString() + " -- " + filePath + "[" + i + "][" + j + "]");
+            System.err.println("Error en la carga de graficos: " + e.toString() + " -- " + filePath + "[" + i + "][" + j + "]");
         }
 
         bufferTablero1 = arrayGraficos[25][0]; //Tableros para uno y varios jugadores

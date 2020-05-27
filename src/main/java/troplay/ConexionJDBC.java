@@ -74,7 +74,6 @@ public class ConexionJDBC {
         int idPregunta=0;
         int contador = 0;
 
-        //Obtención del identificador de la pregunta
         resultado = ejecutarConsulta("select distinct id_pregunta from respuesta where " +
                                      "id_idioma = " + idioma + " and dificultad = " +
                                      dificultad + " limit 1 offset " + num);
@@ -84,7 +83,6 @@ public class ConexionJDBC {
         }
         resultado.close();
 
-        //Obtención del texto de las respuestas
         resultado2 = ejecutarConsulta("select respuesta, correcta from respuesta where id_pregunta = " + idPregunta);
         while(resultado2.next()) {
             pregunta.setTextoRespuesta(contador,resultado2.getString("respuesta"));

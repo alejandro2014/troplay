@@ -2,7 +2,6 @@ package troplay;
 
 import lombok.Setter;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class CheckBox extends Drawable {
@@ -11,7 +10,7 @@ public class CheckBox extends Drawable {
     public boolean activado = false;
 
     @Setter
-    private int tamaño = 0;
+    private int size = 0;
 
     public CheckBox() {
         super();
@@ -19,16 +18,14 @@ public class CheckBox extends Drawable {
     public CheckBox(ArrayList conjunto) {
         conjCasillas = conjunto;
         conjCasillas.add(this);
-        tamaño = conjCasillas.size();
-        
-        /* Actualiza el tamaño que tienen los otros controles (así todos
-        los checkboxes del grupo saben el tamaño) */
-        for(int i=0; i<tamaño; i++) {
+        size = conjCasillas.size();
+
+        for(int i = 0; i< size; i++) {
             actual = (CheckBox)conjCasillas.get(i);
-            actual.setTamaño(tamaño);
+            actual.setSize(size);
         }
         
-        if(tamaño == 1) setActivado(true);
+        if(size == 1) setActivado(true);
         else setActivado(false);
     }
 

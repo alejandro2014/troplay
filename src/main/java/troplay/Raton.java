@@ -21,7 +21,6 @@ public class Raton implements MouseListener {
     }
 
     public void mousePressed(MouseEvent e) {
-        //Sólo vale cuando se pulsa el botón izquierdo
         if(e.getButton() == MouseEvent.BUTTON1) {
 			coords.x = e.getX();
 			coords.y = e.getY();

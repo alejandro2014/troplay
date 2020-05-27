@@ -162,12 +162,12 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
         if (tipoColision.equals("checkBox")) {
             checkboxes[indiceColision].setActivado(true);
 
-            if (indiceColision < 2) { //Selección del idioma
+            if (indiceColision < 2) {
                 if(!cambiadoCheckbox) {
                     gameStatus.setLanguage(indiceColision == 0 ? SPANISH : ENGLISH);
                     cambiadoCheckbox = true;
                 }
-            } else if(indiceColision < 6) { //Selección del número de jugadores
+            } else if(indiceColision < 6) {
                 if(!cambiadoCheckbox) {
                     numJugadores = indiceColision - 1;
 

@@ -36,8 +36,7 @@ public class Casilla {
         numCasilla = cas;
         posicionBocad = arrBocad[cas];
 		coordsRef = Const.arrayCasillas[numCasilla];
-        
-        //Determinación de las casillas especiales, pozos y escaleras
+
         switch(cas) {
             //Escaleras
             case 15: casillaEspecial = true; complementaria = 49; break;
@@ -52,8 +51,7 @@ public class Casilla {
             case 65: casillaEspecial = true; complementaria = -1; break;
         }
     }
-   
-    //Métodos get
+
     public int getX() {
 		return coordsRef.x;
 	}
