@@ -3,7 +3,6 @@ package troplay.game;
 import lombok.Getter;
 import lombok.Setter;
 import troplay.Const;
-import troplay.Drawable;
 import troplay.Game;
 
 //public class Jugador extends Drawable {

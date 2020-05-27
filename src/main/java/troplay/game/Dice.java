@@ -1,7 +1,6 @@
 package troplay.game;
 
 import lombok.Setter;
-import troplay.Drawable;
 
 import java.util.Date;
 import java.util.Random;

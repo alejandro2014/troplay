@@ -1,7 +1,5 @@
 package org.troplay.graphics;
 
-import troplay.Drawable;
-
 import java.awt.*;
 import java.io.IOException;
 

@@ -2,7 +2,6 @@ package org.troplay.graphics;
 
 import lombok.Data;
 import troplay.Const;
-import troplay.Drawable;
 import troplay.Panel;
 
 import java.awt.*;

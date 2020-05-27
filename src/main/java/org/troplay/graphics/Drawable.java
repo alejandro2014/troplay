@@ -1,4 +1,4 @@
-package troplay;
+package org.troplay.graphics;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static troplay.Const.BASE_DIR;
 
@@ -28,18 +30,29 @@ public class Drawable {
 
 	protected final String graphicsBasePath = BASE_DIR + "/src/main/resources/graphics";
 
-	protected void loadGraphics(String graphicsPath) throws IOException {
-		images = new ArrayList<>();
+	protected void loadGraphics(String graphicsPath) {
+		List<String> graphics = getGraphicsInDirectory(graphicsPath);
 
-		String[] playerGraphicPaths = { "presentacion" };
+		this.images = graphics.stream()
+				.map(gp -> {
+					try {
+						System.out.println("Loading " + gp + "...");
+						return ImageIO.read(new File(gp));
+					} catch (IOException e) {
+						e.printStackTrace();
+						return null;
+					}
+				})
+				.collect(Collectors.toList());
+	}
 
-		for (int j = 0; j < playerGraphicPaths.length; j++) {
-			String filePath = graphicsBasePath + "/" + graphicsPath + "/" + playerGraphicPaths[j] + ".png";
-			System.out.println("Loading " + filePath);
+	private List<String> getGraphicsInDirectory(String graphicsPath) {
+		String filePath = graphicsBasePath + "/" + graphicsPath;
+		File[] files = new File(filePath).listFiles();
 
-			BufferedImage image = ImageIO.read(new File(filePath));
-			this.images.add(image);
-		}
+		return Arrays.stream(files)
+				.map(File::toString)
+				.collect(Collectors.toList());
 	}
 
 	public Boolean collision(Point mousePoint) {

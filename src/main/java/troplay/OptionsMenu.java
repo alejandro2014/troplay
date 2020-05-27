@@ -1,5 +1,6 @@
 package troplay;
 
+import org.troplay.graphics.Drawable;
 import org.troplay.graphics.Scene;
 import troplay.enums.MainEvents;
 

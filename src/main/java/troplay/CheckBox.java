@@ -1,6 +1,7 @@
 package troplay;
 
 import lombok.Setter;
+import org.troplay.graphics.Drawable;
 
 import java.util.ArrayList;
 

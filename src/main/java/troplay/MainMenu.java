@@ -1,5 +1,7 @@
 package troplay;
 
+import org.troplay.graphics.Background;
+import org.troplay.graphics.Drawable;
 import org.troplay.graphics.Scene;
 import troplay.enums.Language;
 import troplay.enums.MainEvents;
@@ -89,7 +91,12 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
 
     @Override
     public Scene createScene() throws IOException {
-        return null;
+        Scene scene = new Scene();
+
+        Background background = new Background("common/background/presentation");
+        scene.addDrawable(background);
+
+        return scene;
     }
 
     public void loop() {

@@ -17,7 +17,7 @@ public class GameStatus {
     public GameStatus() {
         window = new Window();
         panel = window.getPanel();
-        //mouse = new Raton(panel);
+        mouse = new Raton(panel);
     }
 
     public void setLanguage(Language language) {
