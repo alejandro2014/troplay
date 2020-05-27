@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static troplay.Const.BASE_DIR;
+
 @Data
 @NoArgsConstructor
 public class Drawable {
@@ -24,7 +26,7 @@ public class Drawable {
 	protected Boolean refresh;
 	protected Boolean drawOnce;
 
-	protected final String graphicsBasePath = "/home/alejandro/programs/troplay/src/main/resources/graphics";
+	protected final String graphicsBasePath = BASE_DIR + "/src/main/resources/graphics";
 
 	protected void loadGraphics(String graphicsPath) throws IOException {
 		images = new ArrayList<>();

@@ -20,8 +20,7 @@ public class ConexionJDBC {
     private int idioma;
     private String cadConexion, driver;
 
-    private String troplayDirectory = "/home/alejandro/programs/troplay";
-    //private String troplayDirectory = "/Users/alejandro/programs/troplay";
+    private String troplayDirectory = Const.BASE_DIR;
 
     public ConexionJDBC(Language idio) {
         cadConexion = "jdbc:sqlite:" + troplayDirectory + "/src/main/resources/db/tenia.sqlite";
