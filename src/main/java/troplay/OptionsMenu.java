@@ -17,7 +17,7 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
 
     private Window window = null;
     private Panel panel = null;
-    private Raton raton = null;
+    private Mouse mouse = null;
     private boolean acabar = false;
     private MainEvents eventoRealizado = MainEvents.NULL;
 
@@ -54,7 +54,7 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
         //panel.setBuffer(2);
         //panel.setModo(Const.MODOOPCION);
 
-        this.raton = gameStatus.getMouse();
+        this.mouse = gameStatus.getMouse();
 
         for(i = 0; i < longBotones; i++) {
             botones[i] = new Drawable();
@@ -127,10 +127,10 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
     }
 
     public void inputControl() {
-        ratonPulsado = raton.getEstado();
+        ratonPulsado = mouse.getMousePressed();
 
         if (ratonPulsado) {
-			coordsRaton = raton.getCoords();
+			coordsRaton = mouse.getPoint();
             controlColision();
         } else
             ratonPulsado = false;

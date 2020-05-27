@@ -23,7 +23,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
     private Language idioma;
 
     private Window window = null;
-    private Raton raton = null;
+    private Mouse mouse = null;
     private boolean acabar = false;
     private MainEvents eventoRealizado = MainEvents.NULL;
 
@@ -35,9 +35,9 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
     private ArrayList conjCbxIdioma = new ArrayList();
     private ArrayList conjCbxJugadores = new ArrayList();
 
-    private boolean ratonPulsado = false;
+    private boolean mousePressed = false;
 
-	private Point coordsRaton = new Point();
+	private Point mousePoint = new Point();
     private String tipoColision = "";
     private int indiceColision = 0;
     private int botonPulsado = -1;
@@ -60,7 +60,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         idioma = gameStatus.getLanguage();
         window = gameStatus.getWindow();
 
-        this.raton = gameStatus.getMouse();
+        this.mouse = gameStatus.getMouse();
 
         botones[3] = createDrawable(new Rectangle(574,220, 165,46), false);
 
@@ -106,18 +106,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
 
     public void loop() {
         while(!acabar) {
-            /*inputControl();
-
-            if (ratonPulsado) {
-                procesarEntrada();
-            } else {
-                cambiadoCheckbox = false;
-            }
-
-            if (botonPulsado != -1 && !ratonPulsado) {
-                desencadenarAccion(botonPulsado);
-                botonPulsado = -1;
-            }*/
+            manageInput();
 
             acabar = endOfLoop();
 
@@ -125,6 +114,21 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         }
 
         gameStatus.setCurrentEvent(eventoRealizado);
+    }
+
+    private void manageInput() {
+        inputControl();
+
+        if (mousePressed) {
+            procesarEntrada();
+        } else {
+            cambiadoCheckbox = false;
+        }
+
+        if (botonPulsado != -1 && !mousePressed) {
+            desencadenarAccion(botonPulsado);
+            botonPulsado = -1;
+        }
     }
 
     public Boolean endOfLoop() {
@@ -135,36 +139,37 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
     }
 
     public void inputControl() {
-        ratonPulsado = raton.getEstado();
+        mousePressed = mouse.getMousePressed();
 
-        if (ratonPulsado) {
-			coordsRaton = raton.getCoords();
+        if (mousePressed) {
+			mousePoint = mouse.getPoint();
             controlColision();
-        } else
-            ratonPulsado = false;
+        } /*else
+            mousePressed = false;*/
+    }
+
+    private Boolean drawableClicked(Drawable drawable, Point mousePoint) {
+        return drawable.getShow() && drawable.collision(mousePoint);
     }
 
     public void controlColision() {
-        int longitud = botones.length, i;
-
-        for(i=0; i< longitud; i++) {
-            if(botones[i].getShow() && botones[i].collision(coordsRaton)) {
+        for(int i = 0; i < botones.length; i++) {
+            if(drawableClicked(botones[i], mousePoint)) {
                 tipoColision = "boton";
                 indiceColision = i;
                 return;
             }
         }
 
-        longitud = checkboxes.length;
-        for(i=0; i<longitud; i++) {
-            if (checkboxes[i].getShow() && checkboxes[i].collision(coordsRaton)) {
+        for(int i = 0; i < checkboxes.length; i++) {
+            if(drawableClicked(checkboxes[i], mousePoint)) {
                 tipoColision = "checkBox";
                 indiceColision = i;
                 return;
             }
         }
 
-        ratonPulsado = false;
+        mousePressed = false;
     }
 
     public void procesarEntrada() {
@@ -173,12 +178,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
 
             if (indiceColision < 2) {
                 if(!cambiadoCheckbox) {
-                    if (indiceColision == 0) {
-                        idioma = SPANISH;
-                    } else {
-                        idioma = ENGLISH;
-                    }
-
+                    idioma = (indiceColision == 0) ? SPANISH : ENGLISH;
                     gameStatus.setLanguage(idioma);
                     cambiadoCheckbox = true;
                 }

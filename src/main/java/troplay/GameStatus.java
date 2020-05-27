@@ -9,7 +9,7 @@ import troplay.enums.MainEvents;
 public class GameStatus {
     private Window window;
     private Panel panel;
-    private Raton mouse;
+    private Mouse mouse;
     private Language language = Language.SPANISH;
     private Integer playersNo = 1;
     private MainEvents currentEvent = MainEvents.NULL;
@@ -17,7 +17,7 @@ public class GameStatus {
     public GameStatus() {
         window = new Window();
         panel = window.getPanel();
-        mouse = new Raton(panel);
+        mouse = new Mouse(panel);
     }
 
     public void setLanguage(Language language) {

@@ -39,4 +39,10 @@ public class Scene {
 	public void addDrawable(Drawable drawable) {
 		this.drawables.add(drawable);
     }
+
+    private void checkCollistion(Point mousePoint) {
+		this.drawables.stream()
+				.filter(d -> d.getRectangle() != null && d.getShow() && d.collision(mousePoint))
+				.findFirst();
+	}
 }

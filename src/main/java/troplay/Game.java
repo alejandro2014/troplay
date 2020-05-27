@@ -65,7 +65,7 @@ public class Game extends SubGameBase implements SubgameInterface {
     private Drawable[] botones = new Drawable[2];
     private CheckBox[] checkboxes = new CheckBox[3];
 
-    private Raton raton = null;
+    private Mouse mouse = null;
     private int longBotones = 0;
     private ArrayList conjCbxActual = new ArrayList();
 
@@ -456,10 +456,10 @@ public class Game extends SubGameBase implements SubgameInterface {
     public Boolean endOfLoop() {return (eventoActual == EVENTO_SALIR || estadoActual == ESTADO_FINAL);}
 
     public void inputControl() {
-        ratonPulsado = raton.getEstado();
+        ratonPulsado = mouse.getMousePressed();
 
         if (ratonPulsado) {
-			coordsRaton = raton.getCoords();
+			coordsRaton = mouse.getPoint();
             controlColision();
         } else
             ratonPulsado = false;
