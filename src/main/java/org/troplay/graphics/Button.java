@@ -2,13 +2,22 @@ package org.troplay.graphics;
 
 import java.awt.*;
 
-public class Button extends Drawable {
+public class Button extends Drawable implements Clickable {
+    private Boolean clicked = true;
+
     public Button(String graphicsPath, Rectangle rectangle) {
         super.loadGraphics(graphicsPath);
 
         this.setPoint(rectangle.getLocation());
         this.setRectangle(rectangle);
-        this.setCurrentImage(images.get(0));
+
+        int graphicIndex = (clicked ? 1 : 0);
+
+        this.setCurrentImage(images.get(graphicIndex));
         this.setShow(true);
+    }
+
+    public void click() {
+
     }
 }

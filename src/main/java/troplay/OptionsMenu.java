@@ -70,21 +70,17 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
             checkboxes[i].setRectangle(Const.ARR_RECTS_CHECKBOXES_MENU[i]);
         }
 
-        boolean valorVerdad = false;
+        botones[0].setShow(false);
+        botones[1].setShow(false);
+        botones[2].setShow(false);
+        botones[3].setShow(true);
 
-        botones[0].setShow(valorVerdad);
-        botones[1].setShow(valorVerdad);
-        botones[2].setShow(valorVerdad);
-        botones[3].setShow(!valorVerdad);
         for(i = 0; i < longCheckBox; i++) {
-            checkboxes[i].setShow(!valorVerdad);
+            checkboxes[i].setShow(true);
         }
 
-        if(gameStatus.getLanguage() == SPANISH) {
-            checkboxes[0].setActivado(true);
-        } else {
-            checkboxes[1].setActivado(true);
-        }
+        int checkboxId = (gameStatus.getLanguage() == SPANISH) ? 0 : 1;
+        checkboxes[checkboxId].setActivado(true);
 
         checkboxes[numJugadores + 1].setActivado(true);
     }

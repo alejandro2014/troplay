@@ -15,6 +15,7 @@ public class Scene {
 	private BufferedImage buffer;
 	private List<Drawable> drawables;
 	private Graphics2D canvas;
+	private Drawable clickedDrawable;
 
 	public Scene() {
 		this.buffer = new BufferedImage(Const.SCREEN_WIDTH,Const.SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -42,18 +43,20 @@ public class Scene {
     }
 
     public void checkCollision(Point mousePoint) {
+		/*this.clickedDrawable = null;
 		this.drawables.forEach(d -> d.setIsClicking(false));
 
 		Optional<Drawable> drawableClicked = this.drawables.stream()
 				.filter(d -> isColliding(d, mousePoint))
 				.findFirst();
 
-		drawableClicked.ifPresent(drawable -> drawable.setIsClicking(true));
+		drawableClicked.ifPresent(drawable -> {
+			drawable.setIsClicking(true);
+			this.clickedDrawable = drawable;
+		});*/
 	}
 
 	private boolean isColliding(Drawable d, Point mousePoint) {
 		return d.getShow() && d.getRectangle() != null  && d.collision(mousePoint);
 	}
-
-
 }
