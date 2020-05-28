@@ -43,7 +43,7 @@ public class Scene {
     }
 
     public void checkCollision(Point mousePoint) {
-		/*this.clickedDrawable = null;
+		this.clickedDrawable = null;
 		this.drawables.forEach(d -> d.setIsClicking(false));
 
 		Optional<Drawable> drawableClicked = this.drawables.stream()
@@ -53,7 +53,7 @@ public class Scene {
 		drawableClicked.ifPresent(drawable -> {
 			drawable.setIsClicking(true);
 			this.clickedDrawable = drawable;
-		});*/
+		});
 	}
 
 	private boolean isColliding(Drawable d, Point mousePoint) {

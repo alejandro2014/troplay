@@ -3,7 +3,7 @@ package org.troplay.graphics;
 import java.awt.*;
 
 public class Button extends Drawable implements Clickable {
-    private Boolean clicked = true;
+    private Boolean clicked = false;
 
     public Button(String graphicsPath, Rectangle rectangle) {
         super.loadGraphics(graphicsPath);

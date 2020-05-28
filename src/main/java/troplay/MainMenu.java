@@ -6,6 +6,7 @@ import troplay.enums.Language;
 import troplay.enums.MainEvents;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import static troplay.enums.Language.ENGLISH;
@@ -61,7 +62,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
 
     public void loop() {
         while(!acabar) {
-            //manageInput();
+            manageInput();
 
             acabar = endOfLoop();
 
@@ -72,9 +73,23 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
     }
 
     private void manageInput() {
-        mousePressed = mouse.getMousePressed();
+        Boolean mousePressed = mouse.getMousePressed();
+        Point mousePoint = mouse.getPoint();
 
-        if (!mousePressed) {
+        scene.checkCollision(mousePoint);
+
+        Drawable drawable = scene.getClickedDrawable();
+
+        if(drawable == null) {
+            return;
+        }
+
+        int currentGraphic = (mousePressed ? 1 : 0);
+
+        BufferedImage currentImage = drawable.getImages().get(currentGraphic);
+        drawable.setCurrentImage(currentImage);
+
+        /*if (!mousePressed) {
             mousePressed = false;
             cambiadoCheckbox = false;
             return;
@@ -82,7 +97,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
 
         mousePoint = mouse.getPoint();
 
-        scene.checkCollision(mousePoint);
+        scene.checkCollision(mousePoint);*/
 
         //Clickable clickedDrawable = scene.getClickedDrawable();
 
