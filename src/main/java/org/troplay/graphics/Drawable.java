@@ -22,6 +22,8 @@ public class Drawable {
 	protected Point point;
     protected Rectangle rectangle;
 
+    public Boolean isClicking;
+
     protected BufferedImage currentImage;
     protected List<BufferedImage> images = new ArrayList<>();
 	protected Boolean show;
@@ -35,16 +37,18 @@ public class Drawable {
 		List<String> graphics = getGraphicsInDirectory(graphicsPath);
 
 		this.images = graphics.stream()
-				.map(gp -> {
-					try {
-						System.out.println("Loading " + gp + "...");
-						return ImageIO.read(new File(gp));
-					} catch (IOException e) {
-						e.printStackTrace();
-						return null;
-					}
-				})
+				.map(gp -> loadImage(gp))
 				.collect(Collectors.toList());
+	}
+
+	private BufferedImage loadImage(String graphicsPath) {
+		try {
+			System.out.println("Loading " + graphicsPath + "...");
+			return ImageIO.read(new File(graphicsPath));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	private List<String> getGraphicsInDirectory(String graphicsPath) {

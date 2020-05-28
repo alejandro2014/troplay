@@ -142,7 +142,6 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         mousePressed = mouse.getMousePressed();
 
         if (mousePressed) {
-			mousePoint = mouse.getPoint();
             controlColision();
         } /*else
             mousePressed = false;*/
@@ -153,7 +152,11 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
     }
 
     public void controlColision() {
-        for(int i = 0; i < botones.length; i++) {
+        mousePoint = mouse.getPoint();
+
+        scene.checkCollision(mousePoint);
+
+        /*for(int i = 0; i < botones.length; i++) {
             if(drawableClicked(botones[i], mousePoint)) {
                 tipoColision = "boton";
                 indiceColision = i;
@@ -167,7 +170,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
                 indiceColision = i;
                 return;
             }
-        }
+        }*/
 
         mousePressed = false;
     }

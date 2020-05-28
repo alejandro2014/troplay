@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 public class Scene {
@@ -40,9 +41,19 @@ public class Scene {
 		this.drawables.add(drawable);
     }
 
-    private void checkCollistion(Point mousePoint) {
-		this.drawables.stream()
-				.filter(d -> d.getRectangle() != null && d.getShow() && d.collision(mousePoint))
+    public void checkCollision(Point mousePoint) {
+		this.drawables.forEach(d -> d.setIsClicking(false));
+
+		Optional<Drawable> drawableClicked = this.drawables.stream()
+				.filter(d -> isColliding(d, mousePoint))
 				.findFirst();
+
+		drawableClicked.ifPresent(drawable -> drawable.setIsClicking(true));
 	}
+
+	private boolean isColliding(Drawable d, Point mousePoint) {
+		return d.getShow() && d.getRectangle() != null  && d.collision(mousePoint);
+	}
+
+
 }
