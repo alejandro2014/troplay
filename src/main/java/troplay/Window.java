@@ -12,8 +12,8 @@ public class Window extends JFrame {
     @Getter
     private Panel panel;
 
-    public Window() {
-        this.panel = new Panel();
+    public Window(Panel panel) {
+        this.panel = panel;
 
         add(panel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

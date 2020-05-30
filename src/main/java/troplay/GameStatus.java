@@ -2,8 +2,14 @@ package troplay;
 
 import lombok.Data;
 
+import org.troplay.graphics.Button;
+import org.troplay.graphics.Clickable;
 import troplay.enums.Language;
 import troplay.enums.MainEvents;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class GameStatus {
@@ -14,10 +20,15 @@ public class GameStatus {
     private Integer playersNo = 1;
     private MainEvents currentEvent = MainEvents.NULL;
 
+    private List<Clickable> clickables;
+
     public GameStatus() {
-        window = new Window();
-        panel = window.getPanel();
-        mouse = new Mouse(panel);
+        panel = new Panel();
+        window = new Window(panel);
+        mouse = new Mouse();
+        clickables = new ArrayList<>();
+
+        panel.addMouseListener(mouse);
     }
 
     public void setLanguage(Language language) {
@@ -28,5 +39,13 @@ public class GameStatus {
     public void setPlayersNo(int playersNo) {
         this.playersNo = playersNo;
         //panel.setNumJugadores(playersNo);
+    }
+
+    public void addClickable(Clickable clickable) {
+        this.clickables.add(clickable);
+    }
+
+    public void sendEvent(String event, Point point) {
+        this.clickables.forEach(c -> c.sendEvent(event, point));
     }
 }

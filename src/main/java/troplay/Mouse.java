@@ -8,27 +8,24 @@ import java.awt.event.MouseListener;
 
 @Data
 public class Mouse implements MouseListener {
-    private Panel panel;
 	private Point point;
-    private Boolean mousePressed;
+    private Boolean mouseClicked;
 
-    public Mouse(Panel panel) {
-        this.panel = panel;
-        this.panel.addMouseListener(this);
+    public Mouse() {
         this.point = new Point();
-        this.mousePressed = false;
+        this.mouseClicked = false;
     }
 
     public void mousePressed(MouseEvent e) {
         if(e.getButton() == MouseEvent.BUTTON1) {
             point = e.getPoint();
-            mousePressed = true;
+            this.mouseClicked = true;
         }
     }
     
     public void mouseReleased(MouseEvent e) {
 		point = e.getPoint();
-        mousePressed = false;
+        this.mouseClicked = false;
     }
     
     public void mouseExited(MouseEvent event) {}

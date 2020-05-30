@@ -41,7 +41,7 @@ public class FlowControl {
     }
 
     public void statusCycle() {
-        MainStatuses currentStatus = MainStatuses.PRESENTATION;
+        MainStatuses currentStatus = MainStatuses.MAIN_MENU;
         MainEvents event = MainEvents.NULL;
 
         while (currentStatus != MainStatuses.FINAL) {

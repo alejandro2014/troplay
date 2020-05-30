@@ -456,7 +456,7 @@ public class Game extends SubGameBase implements SubgameInterface {
     public Boolean endOfLoop() {return (eventoActual == EVENTO_SALIR || estadoActual == ESTADO_FINAL);}
 
     public void inputControl() {
-        ratonPulsado = mouse.getMousePressed();
+        //ratonPulsado = mouse.getMousePressed();
 
         if (ratonPulsado) {
 			coordsRaton = mouse.getPoint();

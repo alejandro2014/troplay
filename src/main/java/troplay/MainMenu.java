@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import static troplay.enums.Language.ENGLISH;
 import static troplay.enums.Language.SPANISH;
 
 public class MainMenu extends SubGameBase implements SubgameInterface {
@@ -57,6 +56,10 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         scene.addDrawable(optionsButton);
         scene.addDrawable(exitButton);
 
+        gameStatus.addClickable(startButton);
+        gameStatus.addClickable(optionsButton);
+        gameStatus.addClickable(exitButton);
+
         return scene;
     }
 
@@ -64,33 +67,35 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         while(!acabar) {
             manageInput();
 
-            acabar = endOfLoop();
+            //acabar = endOfLoop();
 
             frame(scene, panel);
         }
 
-        gameStatus.setCurrentEvent(eventoRealizado);
+        //gameStatus.setCurrentEvent(eventoRealizado);
     }
 
     private void manageInput() {
-        Boolean mousePressed = mouse.getMousePressed();
+        Boolean mouseClicked = mouse.getMouseClicked();
         Point mousePoint = mouse.getPoint();
+        String eventType = mouseClicked ? "click" : "release";
 
-        scene.checkCollision(mousePoint);
+        gameStatus.sendEvent(eventType, mousePoint);
 
-        Drawable drawable = scene.getClickedDrawable();
+        //Drawable drawable = scene.checkCollision(mousePoint);
+        /*Drawable drawable = null;
 
         if(drawable == null) {
             return;
         }
 
-        int currentGraphic = (mousePressed ? 1 : 0);
+        int currentGraphic = (mouseClicked ? 1 : 0);
 
         BufferedImage currentImage = drawable.getImages().get(currentGraphic);
-        drawable.setCurrentImage(currentImage);
+        drawable.setCurrentImage(currentImage);*/
 
-        /*if (!mousePressed) {
-            mousePressed = false;
+        /*if (!mouseClicked) {
+            mouseClicked = false;
             cambiadoCheckbox = false;
             return;
         }
@@ -106,7 +111,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
             clickedDrawable.setCurrentImage(clickedDrawable.getImages().get(1));
         }
 
-        mousePressed = false;
+        mouseClicked = false;
 
         if (tipoColision.equals("checkBox")) {
             checkboxes[indiceColision].setActivado(true);
@@ -134,7 +139,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
             cambiadoBoton = true;
         }*/
 
-        /*if (botonPulsado != -1 && !mousePressed) {
+        /*if (botonPulsado != -1 && !mouseClicked) {
             desencadenarAccion(botonPulsado);
             botonPulsado = -1;
         }*/

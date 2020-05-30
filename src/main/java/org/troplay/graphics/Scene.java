@@ -18,7 +18,7 @@ public class Scene {
 	private Drawable clickedDrawable;
 
 	public Scene() {
-		this.buffer = new BufferedImage(Const.SCREEN_WIDTH,Const.SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
+		this.buffer = new BufferedImage(Const.SCREEN_WIDTH, Const.SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
 		this.drawables = new ArrayList<>();
 	}
 
@@ -42,21 +42,29 @@ public class Scene {
 		this.drawables.add(drawable);
     }
 
-    public void checkCollision(Point mousePoint) {
+    /*public Drawable checkCollision(Point mousePoint) {
 		this.clickedDrawable = null;
 		this.drawables.forEach(d -> d.setIsClicking(false));
 
-		Optional<Drawable> drawableClicked = this.drawables.stream()
+		Drawable drawableClicked = this.drawables.stream()
 				.filter(d -> isColliding(d, mousePoint))
-				.findFirst();
+				.findFirst()
+				.orElse(null);
 
 		drawableClicked.ifPresent(drawable -> {
 			drawable.setIsClicking(true);
-			this.clickedDrawable = drawable;
+			returned = drawable;
+			//this.clickedDrawable = drawable;
 		});
-	}
 
-	private boolean isColliding(Drawable d, Point mousePoint) {
+		return drawableClicked;
+	}*/
+
+	/*private boolean isColliding(Drawable d, Point mousePoint) {
 		return d.getShow() && d.getRectangle() != null  && d.collision(mousePoint);
-	}
+	}*/
+
+	/*public void sendEvent(String event, Point point) {
+		this.drawables.forEach(d -> d.sendEvent(event, point));
+	}*/
 }

@@ -123,7 +123,7 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
     }
 
     public void inputControl() {
-        ratonPulsado = mouse.getMousePressed();
+        //ratonPulsado = mouse.getMousePressed();
 
         if (ratonPulsado) {
 			coordsRaton = mouse.getPoint();

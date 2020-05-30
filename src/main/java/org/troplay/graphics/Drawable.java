@@ -67,4 +67,14 @@ public class Drawable {
 	public Boolean collision(Point mousePoint) {
 		return rectangle.contains(mousePoint);
 	}
+
+	/*public void sendEvent(String event, Point point) {
+		if(event.equals("click") && collision(point)) {
+			this.setCurrentImage(this.getImages().get(1));
+		}
+
+		if(event.equals("release") && collision(point)) {
+			this.setCurrentImage(this.getImages().get(0));
+		}
+	}*/
 }
