@@ -31,6 +31,10 @@ public class GameStatus {
         panel.addMouseListener(mouse);
     }
 
+    public void setEvent(MainEvents event) {
+        this.currentEvent = event;
+    }
+
     public void setLanguage(Language language) {
         this.language = language;
         //panel.setIdioma(language);

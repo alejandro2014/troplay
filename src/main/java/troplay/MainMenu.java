@@ -4,9 +4,9 @@ import org.troplay.graphics.*;
 import org.troplay.graphics.Button;
 import troplay.enums.Language;
 import troplay.enums.MainEvents;
+import troplay.handlers.ExitHandler;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import static troplay.enums.Language.SPANISH;
@@ -20,7 +20,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
 
     private Mouse mouse = null;
     private boolean acabar = false;
-    private MainEvents eventoRealizado = MainEvents.NULL;
+    private MainEvents currentEvent = MainEvents.NULL;
 
     private CheckBox[] checkboxes = new CheckBox[6];
 
@@ -48,9 +48,9 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         Background background = new Background("common/background/presentation");
         scene.addDrawable(background);
 
-        Button startButton = new Button("ES/buttons/start", new Rectangle(389,234, 165,46));
-        Button optionsButton = new Button("ES/buttons/options", new Rectangle(389,303, 165,46));
-        Button exitButton = new Button("ES/buttons/exit", new Rectangle(389,372, 165,46));
+        Button startButton = new Button("ES/buttons/start", new Rectangle(389,234, 165,46), gameStatus);
+        Button optionsButton = new Button("ES/buttons/options", new Rectangle(389,303, 165,46), gameStatus);
+        Button exitButton = new Button("ES/buttons/exit", new Rectangle(389,372, 165,46), gameStatus, ExitHandler.class);
 
         scene.addDrawable(startButton);
         scene.addDrawable(optionsButton);
@@ -67,7 +67,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         while(!acabar) {
             manageInput();
 
-            //acabar = endOfLoop();
+            acabar = endOfLoop();
 
             frame(scene, panel);
         }
@@ -150,10 +150,10 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
     }
 
     public Boolean endOfLoop() {
-        return (eventoRealizado == MainEvents.EXIT ||
-                eventoRealizado == MainEvents.START ||
-                eventoRealizado == MainEvents.BACK ||
-                eventoRealizado == MainEvents.OPTIONS);
+        return (currentEvent == MainEvents.EXIT ||
+                currentEvent == MainEvents.START ||
+                currentEvent == MainEvents.BACK ||
+                currentEvent == MainEvents.OPTIONS);
     }
 
     private Boolean drawableClicked(Drawable drawable, Point mousePoint) {
@@ -166,10 +166,10 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         cambiadoBoton = false;
 
         switch(numBoton) {
-            case 0: eventoRealizado = MainEvents.START;  break;
-            case 1: eventoRealizado = MainEvents.OPTIONS; break;
-            case 2: eventoRealizado = MainEvents.EXIT;    break;
-            case 3: eventoRealizado = MainEvents.BACK;   break;
+            case 0: currentEvent = MainEvents.START;  break;
+            case 1: currentEvent = MainEvents.OPTIONS; break;
+            case 2: currentEvent = MainEvents.EXIT;    break;
+            case 3: currentEvent = MainEvents.BACK;   break;
         }
     }
 

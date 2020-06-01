@@ -55,6 +55,6 @@ public abstract class Const {
 	public static final long MILLIS_SLEEP = 70;
 
 	public static final String BASE_DIR_LINUX = "/home/alejandro/programs/troplay";
-	public static final String BASE_DIR_MAC = "/Users/alejandro/programs/troplay";
-    public static final String BASE_DIR = BASE_DIR_LINUX;
+	public static final String BASE_DIR_MAC = "/Users/alejandroruperez/personal/troplay";
+    public static final String BASE_DIR = BASE_DIR_MAC;
 }
