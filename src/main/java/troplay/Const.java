@@ -56,5 +56,5 @@ public abstract class Const {
 
 	public static final String BASE_DIR_LINUX = "/home/alejandro/programs/troplay";
 	public static final String BASE_DIR_MAC = "/Users/alejandroruperez/personal/troplay";
-    public static final String BASE_DIR = BASE_DIR_MAC;
+    public static final String BASE_DIR = BASE_DIR_LINUX;
 }

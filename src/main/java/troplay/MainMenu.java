@@ -150,6 +150,8 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
     }
 
     public Boolean endOfLoop() {
+        MainEvents currentEvent = gameStatus.getCurrentEvent();
+
         return (currentEvent == MainEvents.EXIT ||
                 currentEvent == MainEvents.START ||
                 currentEvent == MainEvents.BACK ||
