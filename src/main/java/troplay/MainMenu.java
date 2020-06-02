@@ -5,6 +5,7 @@ import org.troplay.graphics.Button;
 import troplay.enums.Language;
 import troplay.enums.MainEvents;
 import troplay.handlers.ExitHandler;
+import troplay.handlers.OptionsHandler;
 
 import java.awt.*;
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         scene.addDrawable(background);
 
         Button startButton = new Button("ES/buttons/start", new Rectangle(389,234, 165,46), gameStatus);
-        Button optionsButton = new Button("ES/buttons/options", new Rectangle(389,303, 165,46), gameStatus);
+        Button optionsButton = new Button("ES/buttons/options", new Rectangle(389,303, 165,46), gameStatus, OptionsHandler.class);
         Button exitButton = new Button("ES/buttons/exit", new Rectangle(389,372, 165,46), gameStatus, ExitHandler.class);
 
         scene.addDrawable(startButton);
@@ -158,11 +159,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
                 currentEvent == MainEvents.OPTIONS);
     }
 
-    private Boolean drawableClicked(Drawable drawable, Point mousePoint) {
-        return drawable.getShow() && drawable.collision(mousePoint);
-    }
-
-    public void desencadenarAccion(int numBoton) {
+    /*public void desencadenarAccion(int numBoton) {
         int subind = (idioma == SPANISH) ? 0 : 2;
         //panel.getScene().addToQueue(panel.getArrayGraficos()[indiceColision][subind], Const.ARR_RECTS_BUTTONS_MAIN_MENU[indiceColision].getLocation());
         cambiadoBoton = false;
@@ -173,7 +170,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
             case 2: currentEvent = MainEvents.EXIT;    break;
             case 3: currentEvent = MainEvents.BACK;   break;
         }
-    }
+    }*/
 
     /*private void createSceneOptionsMenu() {
         ArrayList conjCbxActual = null;
