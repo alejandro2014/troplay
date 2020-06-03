@@ -13,6 +13,7 @@ import java.util.List;
 
 @Data
 public class GameStatus {
+    private String absolutePath;
     private Window window;
     private Panel panel;
     private Mouse mouse;

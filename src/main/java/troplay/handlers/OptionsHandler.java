@@ -12,6 +12,6 @@ public class OptionsHandler implements ButtonHandler {
 
     @Override
     public void triggerEvent() {
-        gameStatus.setCurrentEvent(MainEvents.OPTIONS);
+        gameStatus.setEvent(MainEvents.OPTIONS);
     }
 }

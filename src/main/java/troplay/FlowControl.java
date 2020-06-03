@@ -4,14 +4,22 @@ import lombok.Getter;
 import troplay.enums.MainEvents;
 import troplay.enums.MainStatuses;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FlowControl {
     @Getter
-    private GameStatus gameStatus = new GameStatus();
+    private GameStatus gameStatus;
 
     private List<TransitionInfo> transitionsList = new ArrayList<>();
+
+    public FlowControl() {
+        this.gameStatus = new GameStatus();
+
+        String absolutePath = Paths.get(".").toAbsolutePath().normalize().toString();
+        gameStatus.setAbsolutePath(absolutePath);
+    }
 
     //TODO Maybe there are redundant statuses
     private void addTransitions() {
