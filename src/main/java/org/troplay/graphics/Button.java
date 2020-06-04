@@ -48,7 +48,6 @@ public class Button extends Drawable implements Clickable {
     }
 
     public void triggerEvent() {
-        System.out.println(actionClass);
         if(actionClass == null) {
             return;
         }

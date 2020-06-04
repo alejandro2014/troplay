@@ -23,7 +23,6 @@ public class FlowControl {
 
     //TODO Maybe there are redundant statuses
     private void addTransitions() {
-        addTransition(MainStatuses.INIT, MainEvents.NULL, MainStatuses.PRESENTATION, Presentation.class);
         addTransition(MainStatuses.PRESENTATION, MainEvents.NULL, MainStatuses.MAIN_MENU, Presentation.class);
 
         addTransition(MainStatuses.MAIN_MENU, MainEvents.NULL, MainStatuses.MAIN_MENU, MainMenu.class);
@@ -60,6 +59,7 @@ public class FlowControl {
             MainStatuses finalCurrentStatus = currentStatus;
             MainEvents finalEvent = event;
 
+            System.out.println("----------------");
             System.out.println("currentStatus = " + currentStatus);
             System.out.println("currentEvent = " + event);
 

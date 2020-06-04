@@ -84,7 +84,7 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
         this.panel = gameStatus.getPanel();
         this.mouse = gameStatus.getMouse();
 
-        this.gameStatus.setCurrentEvent(MainEvents.NULL);
+        //this.gameStatus.setCurrentEvent(MainEvents.NULL);
 
         /*ArrayList conjCbxActual = null;
         int longBotones = botones.length;
@@ -167,10 +167,7 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
     public Boolean endOfLoop() {
         MainEvents currentEvent = gameStatus.getCurrentEvent();
 
-        return (currentEvent == MainEvents.EXIT ||
-                currentEvent == MainEvents.START ||
-                currentEvent == MainEvents.BACK ||
-                currentEvent == MainEvents.OPTIONS);
+        return (currentEvent == MainEvents.BACK);
     }
 
     public void inputControl() {
