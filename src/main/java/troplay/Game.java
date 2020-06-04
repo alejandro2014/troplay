@@ -1,5 +1,6 @@
 package troplay;
 
+import org.troplay.graphics.CheckBox;
 import org.troplay.graphics.Drawable;
 import org.troplay.graphics.Scene;
 import troplay.enums.Language;
@@ -491,7 +492,7 @@ public class Game extends SubGameBase implements SubgameInterface {
     public void procesarEntrada() {
         if (tipoColision.equals("checkBox")) {
             if(!cambiadoCheckbox) {
-                checkboxes[indiceColision].setActivado(true);
+                checkboxes[indiceColision].setActivated(true);
                 respuestaMarcada = indiceColision;
                 for(int i = 0; i < 3; i++) {
                     //panel.getScene().update(gameStatus.getPanel().getArrayGraficos()[6][(respuestaMarcada == i ? 1 : 0)], checkboxes[i].getPoint());

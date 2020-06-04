@@ -1,17 +1,12 @@
 package troplay;
 
-import org.troplay.graphics.Background;
+import org.troplay.graphics.*;
 import org.troplay.graphics.Button;
-import org.troplay.graphics.Drawable;
-import org.troplay.graphics.Scene;
 import troplay.enums.MainEvents;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import static troplay.enums.Language.ENGLISH;
-import static troplay.enums.Language.SPANISH;
+import java.util.List;
 
 public class OptionsMenu extends SubGameBase implements SubgameInterface {
     private int numJugadores;
@@ -25,8 +20,8 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
 
     private Drawable[] botones = new Drawable[NUM_BOTONES];
     private CheckBox[] checkboxes = new CheckBox[NUM_CHECKBOXES];
-    private ArrayList conjCbxIdioma = new ArrayList();
-    private ArrayList conjCbxJugadores = new ArrayList();
+    private List<CheckBox> conjCbxIdioma = new ArrayList();
+    private List<CheckBox> conjCbxJugadores = new ArrayList();
 
     private boolean ratonPulsado = false;
 
@@ -145,6 +140,28 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
         scene.addDrawable(backButton);
 
         gameStatus.addClickable(backButton);
+
+        CheckboxContainer containerLanguage = new CheckboxContainer();
+        containerLanguage.add("ES", new Rectangle(346, 226,19,19));
+        ArrayList conjCbxActual = null;
+
+        checkboxes[0] = new CheckBox(conjCbxActual);
+        checkboxes[0].setRectangle(new Rectangle(346, 226,19,19));
+
+        checkboxes[1] = new CheckBox(conjCbxActual);
+        checkboxes[1].setRectangle(new Rectangle(513,225,19,19));
+
+        checkboxes[2] = new CheckBox(conjCbxActual);
+        checkboxes[2].setRectangle(new Rectangle(317,384,19,19));
+
+        checkboxes[3] = new CheckBox(conjCbxActual);
+        checkboxes[3].setRectangle(new Rectangle(476,384,19,19));
+
+        checkboxes[4] = new CheckBox(conjCbxActual);
+        checkboxes[4].setRectangle(new Rectangle(317, 484, 19,19));
+
+        checkboxes[5] = new CheckBox(conjCbxActual);
+        checkboxes[5].setRectangle(new Rectangle(480, 485, 19,19));
 
         return scene;
     }
