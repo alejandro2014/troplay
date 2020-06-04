@@ -1,5 +1,7 @@
 package troplay;
 
+import org.troplay.graphics.Background;
+import org.troplay.graphics.Button;
 import org.troplay.graphics.Drawable;
 import org.troplay.graphics.Scene;
 import troplay.enums.MainEvents;
@@ -12,12 +14,9 @@ import static troplay.enums.Language.ENGLISH;
 import static troplay.enums.Language.SPANISH;
 
 public class OptionsMenu extends SubGameBase implements SubgameInterface {
-    private final GameStatus gameStatus;
     private int numJugadores;
 
     private Window window = null;
-    private Panel panel = null;
-    private Mouse mouse = null;
     private boolean acabar = false;
     private MainEvents eventoRealizado = MainEvents.NULL;
 
@@ -37,6 +36,11 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
     private int botonPulsado = -1;
     private boolean cambiadoCheckbox = false;
     private boolean cambiadoBoton = false;
+
+    private GameStatus gameStatus;
+    private Scene scene;
+    private Panel panel;
+    private Mouse mouse;
 
     /*private void createSceneOptionsMenu() {
         ArrayList conjCbxActual = null;
@@ -76,7 +80,13 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
 
     public OptionsMenu(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
-        ArrayList conjCbxActual = null;
+        this.scene = createScene();
+        this.panel = gameStatus.getPanel();
+        this.mouse = gameStatus.getMouse();
+
+        this.gameStatus.setCurrentEvent(MainEvents.NULL);
+
+        /*ArrayList conjCbxActual = null;
         int longBotones = botones.length;
         int longCbxIdioma = 2;
         int longCheckBox = checkboxes.length;
@@ -92,11 +102,11 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
 
         this.mouse = gameStatus.getMouse();
 
-        /*for(i = 0; i < longBotones; i++) {
+        for(i = 0; i < longBotones; i++) {
             botones[i] = new Drawable();
 			botones[i].setPoint(Const.ARR_RECTS_CHECKBOXES_MENU[i].getLocation());
             botones[i].setRectangle(Const.ARR_RECTS_BUTTONS_MAIN_MENU[i]);
-        }*/
+        }
 
         for(i = 0; i < longCheckBox; i++) {
             conjCbxActual = (i < longCbxIdioma ? conjCbxIdioma : conjCbxJugadores);
@@ -118,57 +128,67 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
         int checkboxId = (gameStatus.getLanguage() == SPANISH) ? 0 : 1;
         checkboxes[checkboxId].setActivado(true);
 
-        checkboxes[numJugadores + 1].setActivado(true);
+        checkboxes[numJugadores + 1].setActivado(true);*/
     }
 
     @Override
-    public Scene createScene() throws IOException {
-        return null;
+    public Scene createScene() {
+        Scene scene = new Scene();
+
+        Background background = new Background("common/background/optionsmenu");
+        scene.addDrawable(background);
+
+        String language = "ES";
+
+        Button backButton = new Button(language + "/buttons/back", new Rectangle(574,220, 165,46), gameStatus);
+
+        scene.addDrawable(backButton);
+
+        gameStatus.addClickable(backButton);
+
+        return scene;
     }
 
     public void loop() {
-        while(!acabar) {
+        boolean finish = false;
+
+        while(!finish) {
             inputControl();
 
-            if (ratonPulsado)
-                procesarEntrada();
-            else
-                cambiadoCheckbox = false;
+            frame(scene, panel);
 
-            if (botonPulsado != -1 && !ratonPulsado) {
-                desencadenarAccion(botonPulsado);
-                botonPulsado = -1;
-            }
-
-            acabar = endOfLoop();
-
-            try {
-                Thread.sleep(70);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            finish = endOfLoop();
         }
 
-        gameStatus.setPlayersNo(numJugadores);
-        gameStatus.setCurrentEvent(eventoRealizado);
+        //gameStatus.setPlayersNo(numJugadores);
+        //gameStatus.setCurrentEvent(eventoRealizado);
     }
 
     public Boolean endOfLoop() {
-        return (eventoRealizado == MainEvents.EXIT || eventoRealizado == MainEvents.START ||
-                eventoRealizado == MainEvents.BACK || eventoRealizado == MainEvents.OPTIONS);
+        MainEvents currentEvent = gameStatus.getCurrentEvent();
+
+        return (currentEvent == MainEvents.EXIT ||
+                currentEvent == MainEvents.START ||
+                currentEvent == MainEvents.BACK ||
+                currentEvent == MainEvents.OPTIONS);
     }
 
     public void inputControl() {
+        Boolean mouseClicked = mouse.getMouseClicked();
+        Point mousePoint = mouse.getPoint();
+        String eventType = mouseClicked ? "click" : "release";
+
+        gameStatus.sendEvent(eventType, mousePoint);
         //ratonPulsado = mouse.getMousePressed();
 
-        if (ratonPulsado) {
+        /*if (ratonPulsado) {
 			coordsRaton = mouse.getPoint();
             controlColision();
         } else
-            ratonPulsado = false;
+            ratonPulsado = false;*/
     }
 
-    private void controlColision() {
+    /*private void controlColision() {
         int longitud = botones.length, i;
 
         for(i=0; i< longitud; i++) {
@@ -233,5 +253,5 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
             case 2: eventoRealizado = MainEvents.EXIT;    break;
             case 3: eventoRealizado = MainEvents.BACK;   break;
         }
-    }
+    }*/
 }

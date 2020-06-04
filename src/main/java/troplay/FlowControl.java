@@ -23,13 +23,17 @@ public class FlowControl {
 
     //TODO Maybe there are redundant statuses
     private void addTransitions() {
+        addTransition(MainStatuses.INIT, MainEvents.NULL, MainStatuses.PRESENTATION, Presentation.class);
         addTransition(MainStatuses.PRESENTATION, MainEvents.NULL, MainStatuses.MAIN_MENU, Presentation.class);
+
         addTransition(MainStatuses.MAIN_MENU, MainEvents.NULL, MainStatuses.MAIN_MENU, MainMenu.class);
         addTransition(MainStatuses.MAIN_MENU, MainEvents.START, MainStatuses.GAME, Game.class);
-        addTransition(MainStatuses.MAIN_MENU, MainEvents.OPTIONS, MainStatuses.OPTIONS_MENU);
+        addTransition(MainStatuses.MAIN_MENU, MainEvents.OPTIONS, MainStatuses.OPTIONS_MENU, OptionsMenu.class);
         addTransition(MainStatuses.MAIN_MENU, MainEvents.EXIT, MainStatuses.FINAL);
-        addTransition(MainStatuses.OPTIONS_MENU, MainEvents.NULL, MainStatuses.OPTIONS_MENU, OptionsMenu.class);
+
+        addTransition(MainStatuses.OPTIONS_MENU, MainEvents.NULL, MainStatuses.OPTIONS_MENU);
         addTransition(MainStatuses.OPTIONS_MENU, MainEvents.BACK, MainStatuses.MAIN_MENU);
+
         addTransition(MainStatuses.GAME, MainEvents.EXIT, MainStatuses.MAIN_MENU);
     }
 
@@ -55,6 +59,9 @@ public class FlowControl {
         while (currentStatus != MainStatuses.FINAL) {
             MainStatuses finalCurrentStatus = currentStatus;
             MainEvents finalEvent = event;
+
+            System.out.println("currentStatus = " + currentStatus);
+            System.out.println("currentEvent = " + event);
 
             TransitionInfo transitionInfo = transitionsList.stream()
                     .filter(t -> t.getCurrentStatus() == finalCurrentStatus && t.getEvent() == finalEvent)

@@ -53,7 +53,6 @@ public class Drawable {
 
 	private List<String> getGraphicsInDirectory(String graphicsPath) {
 		String filePath = graphicsBasePath + "/" + graphicsPath;
-		System.out.println(filePath);
 		File[] files = new File(filePath).listFiles();
 
 		List<String> fileNames = Arrays.stream(files)
