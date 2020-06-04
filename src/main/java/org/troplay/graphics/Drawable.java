@@ -1,8 +1,6 @@
 package org.troplay.graphics;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import troplay.GameStatus;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -15,10 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static troplay.Const.BASE_DIR;
-
 @Data
-@NoArgsConstructor
 public class Drawable {
 	protected Point point;
     protected Rectangle rectangle;
@@ -32,7 +27,11 @@ public class Drawable {
 	protected Boolean refresh;
 	protected Boolean drawOnce;
 
-	protected final String graphicsBasePath = GameStatus + "/src/main/resources/graphics";
+	protected final String graphicsBasePath;
+
+	protected Drawable() {
+		this.graphicsBasePath = System.getProperty("user.dir") + "/src/main/resources/graphics";
+	}
 
 	protected void loadGraphics(String graphicsPath) {
 		List<String> graphics = getGraphicsInDirectory(graphicsPath);

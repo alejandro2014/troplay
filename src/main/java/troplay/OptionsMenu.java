@@ -38,6 +38,42 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
     private boolean cambiadoCheckbox = false;
     private boolean cambiadoBoton = false;
 
+    /*private void createSceneOptionsMenu() {
+        ArrayList conjCbxActual = null;
+
+        botones[3] = createDrawable(new Rectangle(574,220, 165,46), false);
+
+        checkboxes[0] = new CheckBox(conjCbxActual);
+        checkboxes[0].setPoint(Const.ARR_RECTS_CHECKBOXES_MENU[0].getLocation());
+        checkboxes[0].setRectangle(Const.ARR_RECTS_CHECKBOXES_MENU[0]);
+        checkboxes[0].setShow(false);
+
+        checkboxes[1] = new CheckBox(conjCbxActual);
+        checkboxes[1].setPoint(Const.ARR_RECTS_CHECKBOXES_MENU[1].getLocation());
+        checkboxes[1].setRectangle(Const.ARR_RECTS_CHECKBOXES_MENU[1]);
+        checkboxes[1].setShow(false);
+
+        checkboxes[2] = new CheckBox(conjCbxActual);
+        checkboxes[2].setPoint(Const.ARR_RECTS_CHECKBOXES_MENU[2].getLocation());
+        checkboxes[2].setRectangle(Const.ARR_RECTS_CHECKBOXES_MENU[2]);
+        checkboxes[2].setShow(false);
+
+        checkboxes[3] = new CheckBox(conjCbxActual);
+        checkboxes[3].setPoint(Const.ARR_RECTS_CHECKBOXES_MENU[3].getLocation());
+        checkboxes[3].setRectangle(Const.ARR_RECTS_CHECKBOXES_MENU[3]);
+        checkboxes[3].setShow(false);
+
+        checkboxes[4] = new CheckBox(conjCbxActual);
+        checkboxes[4].setPoint(Const.ARR_RECTS_CHECKBOXES_MENU[4].getLocation());
+        checkboxes[4].setRectangle(Const.ARR_RECTS_CHECKBOXES_MENU[4]);
+        checkboxes[4].setShow(false);
+
+        checkboxes[5] = new CheckBox(conjCbxActual);
+        checkboxes[5].setPoint(Const.ARR_RECTS_CHECKBOXES_MENU[5].getLocation());
+        checkboxes[5].setRectangle(Const.ARR_RECTS_CHECKBOXES_MENU[5]);
+        checkboxes[5].setShow(false);
+    }*/
+
     public OptionsMenu(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
         ArrayList conjCbxActual = null;
@@ -56,11 +92,11 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
 
         this.mouse = gameStatus.getMouse();
 
-        for(i = 0; i < longBotones; i++) {
+        /*for(i = 0; i < longBotones; i++) {
             botones[i] = new Drawable();
 			botones[i].setPoint(Const.ARR_RECTS_CHECKBOXES_MENU[i].getLocation());
             botones[i].setRectangle(Const.ARR_RECTS_BUTTONS_MAIN_MENU[i]);
-        }
+        }*/
 
         for(i = 0; i < longCheckBox; i++) {
             conjCbxActual = (i < longCbxIdioma ? conjCbxIdioma : conjCbxJugadores);

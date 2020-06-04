@@ -20,17 +20,12 @@ public class ConexionJDBC {
     private int idioma;
     private String cadConexion, driver;
 
-    private String troplayDirectory = Const.BASE_DIR;
-
     public ConexionJDBC(Language idio) {
-        cadConexion = "jdbc:sqlite:" + troplayDirectory + "/src/main/resources/db/tenia.sqlite";
-        driver = "org.sqlite.JDBC";
+        String baseDir = System.getProperty("user.dir");
 
-        if (idio == Language.SPANISH) {
-            idioma = 1;
-        } else {
-            idioma = 2;
-        }
+        cadConexion = "jdbc:sqlite:" + baseDir + "/src/main/resources/db/tenia.sqlite";
+        driver = "org.sqlite.JDBC";
+        idioma = idio == Language.SPANISH ? 1 : 2;
 
         conectar();
     }
