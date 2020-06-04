@@ -1,5 +1,6 @@
 package org.troplay.graphics;
 
+import lombok.Data;
 import troplay.GameStatus;
 import troplay.enums.MainEvents;
 import troplay.handlers.ButtonHandler;
@@ -7,6 +8,7 @@ import troplay.handlers.ButtonHandler;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 
+@Data
 public class Button extends Drawable implements Clickable {
     private GameStatus gameStatus;
     private Class actionClass;

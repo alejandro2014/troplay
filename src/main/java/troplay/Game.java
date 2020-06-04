@@ -186,13 +186,14 @@ public class Game extends SubGameBase implements SubgameInterface {
 	}*/
 
 	private CheckBox createCheckbox(ArrayList<CheckBox> conjCbxActual, Rectangle rectangle) {
-        CheckBox checkbox = new CheckBox(conjCbxActual);
+        //CheckBox checkbox = new CheckBox(conjCbxActual);
 
         /*checkbox.setPoint(rectangle.getLocation());
         checkbox.setRectangle(rectangle);
         checkbox.setShow(false);*/
 
-        return checkbox;
+        //return checkbox;
+        return null;
     }
 
 	/*private void initQuestions() throws SQLException {
@@ -492,7 +493,7 @@ public class Game extends SubGameBase implements SubgameInterface {
     public void procesarEntrada() {
         if (tipoColision.equals("checkBox")) {
             if(!cambiadoCheckbox) {
-                checkboxes[indiceColision].setActivated(true);
+                //checkboxes[indiceColision].setActivated(true);
                 respuestaMarcada = indiceColision;
                 for(int i = 0; i < 3; i++) {
                     //panel.getScene().update(gameStatus.getPanel().getArrayGraficos()[6][(respuestaMarcada == i ? 1 : 0)], checkboxes[i].getPoint());
