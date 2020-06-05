@@ -65,6 +65,7 @@ public class Drawable {
 	}
 
 	public Boolean collision(Point mousePoint) {
+		System.out.println("Show: " + show + " Rectangle: " + rectangle + " Mouse point: " + mousePoint);
 		return show && rectangle != null && rectangle.contains(mousePoint);
 	}
 }

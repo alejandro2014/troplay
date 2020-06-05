@@ -75,9 +75,10 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
 
     public OptionsMenu(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
-        this.scene = createScene();
         this.panel = gameStatus.getPanel();
         this.mouse = gameStatus.getMouse();
+
+        this.createScene();
 
         //this.gameStatus.setCurrentEvent(MainEvents.NULL);
 
@@ -127,8 +128,8 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
     }
 
     @Override
-    public Scene createScene() {
-        Scene scene = new Scene();
+    public void createScene() {
+        scene = new Scene();
 
         Background background = new Background("common/background/optionsmenu");
         scene.addDrawable(background);
@@ -140,19 +141,17 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
         gameStatus.addClickable(backButton);
 
         CheckboxContainer containerLanguage = new CheckboxContainer();
-        addCheckboxToScene(new CheckBox("ES", new Rectangle(346, 226, 19, 19)), scene, containerLanguage);
-        addCheckboxToScene(new CheckBox("EN", new Rectangle(513, 225, 19, 19)), scene, containerLanguage);
+        addCheckboxToScene(new CheckBox("ES", new Rectangle(346, 226, 19, 19)), containerLanguage);
+        addCheckboxToScene(new CheckBox("EN", new Rectangle(513, 225, 19, 19)), containerLanguage);
 
         CheckboxContainer containerPlayers = new CheckboxContainer();
-        addCheckboxToScene(new CheckBox("1", new Rectangle(317,384, 19, 19)), scene, containerPlayers);
-        addCheckboxToScene(new CheckBox("2", new Rectangle(476,384, 19, 19)), scene, containerPlayers);
-        addCheckboxToScene(new CheckBox("3", new Rectangle(317,484, 19, 19)), scene, containerPlayers);
-        addCheckboxToScene(new CheckBox("4", new Rectangle(480,485, 19, 19)), scene, containerPlayers);
-
-        return scene;
+        addCheckboxToScene(new CheckBox("1", new Rectangle(317,384, 19, 19)), containerPlayers);
+        addCheckboxToScene(new CheckBox("2", new Rectangle(476,384, 19, 19)), containerPlayers);
+        addCheckboxToScene(new CheckBox("3", new Rectangle(317,484, 19, 19)), containerPlayers);
+        addCheckboxToScene(new CheckBox("4", new Rectangle(480,485, 19, 19)), containerPlayers);
     }
 
-    private void addCheckboxToScene(CheckBox checkbox, Scene scene, CheckboxContainer container) {
+    private void addCheckboxToScene(CheckBox checkbox, CheckboxContainer container) {
         container.add(checkbox);
         scene.addDrawable(checkbox);
         gameStatus.addClickable(checkbox);

@@ -40,8 +40,4 @@ public class Scene {
 	public void addDrawable(Drawable drawable) {
 		this.drawables.add(drawable);
     }
-
-	public void addDrawables(List<Drawable> drawables) {
-		drawables.forEach(dr -> this.drawables.add(dr));
-	}
 }

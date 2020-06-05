@@ -25,7 +25,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
     }
 
     @Override
-    public Scene createScene() {
+    public void createScene() {
         Scene scene = new Scene();
 
         Background background = new Background("common/background/presentation");

@@ -22,6 +22,7 @@ public class CheckBox extends Drawable implements Clickable {
 
     @Override
     public void click() {
+        System.out.println("Clicked value " + value);
         this.container.notifyChange(value);
         this.currentImage = images.get(1);
     }
@@ -33,6 +34,12 @@ public class CheckBox extends Drawable implements Clickable {
 
     @Override
     public void sendEvent(String event, Point point) {
+        if(event.equals("click") && collision(point)) {
+            this.click();
+        }
 
+        if(event.equals("release") && collision(point)) {
+            this.release();
+        }
     }
 }

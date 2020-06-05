@@ -17,7 +17,7 @@ public class Presentation extends SubGameBase implements SubgameInterface {
         this.panel = gameStatus.getPanel();
     }
 
-    public Scene createScene() throws IOException {
+    public void createScene() throws IOException {
         Scene scene = new Scene();
 
         Background background = new Background("common/background/presentation");

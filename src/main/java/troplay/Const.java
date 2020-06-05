@@ -1,16 +1,12 @@
 package troplay;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 
 public abstract class Const {
     public static final int PREGS_POR_CASILLA = 3;
 
     public static final String DIRECTORIO_GRAFICOS = "/home/alejandro/programs/troplay/src/main/resources/graficos";
-    //public static final String DIRECTORIO_GRAFICOS = "/Users/alejandro/programs/troplay/src/main/resources/graficos/";
 
-    //Coordenadas de los centros de cada casilla
 	public static final Point arrayCasillas[] = {
 		new Point(343, 543), new Point(401, 545), new Point(449, 545), new Point(499, 545), new Point(544, 547), new Point(585, 531),
 		new Point(595, 488), new Point(595, 439), new Point(595, 389), new Point(595, 340), new Point(595, 293), new Point(595, 243),
@@ -26,29 +22,8 @@ public abstract class Const {
 		new Point(401, 296), new Point(385, 262), new Point(346, 251), new Point(285, 248)
 	};
 
-	public static final Rectangle ARR_RECTS_BUTTONS_MAIN_MENU[] = {
-		new Rectangle(new Point(389,234), new Dimension(165,46)),
-		new Rectangle(new Point(389,303), new Dimension(165,46)),
-		new Rectangle(new Point(389,372), new Dimension(165,46)),
-		new Rectangle(new Point(574,220), new Dimension(165,46))
-	};
-
-	public static final Rectangle ARR_RECTS_CHECKBOXES_MENU[] = {
-		new Rectangle(new Point(346,226), new Dimension(19,19)),
-		new Rectangle(new Point(513,225), new Dimension(19,19)),
-		new Rectangle(new Point(317,384), new Dimension(19,19)),
-		new Rectangle(new Point(476,384), new Dimension(19,19)),
-		new Rectangle(new Point(317,484), new Dimension(19,19)),
-		new Rectangle(new Point(480,485), new Dimension(19,19))
-	};
-
     public static final int ANCHOPREGUNTA = 40;
     public static final int ANCHORESPUESTA = 28;
-
-    public static final int MODOPRESEN = 0;
-    public static final int MODOMENU = 1;
-    public static final int MODOOPCION = 2;
-    public static final int MODOJUEGO  = 3;
 
     public static final int SCREEN_WIDTH = 946;
     public static  final int SCREEN_HEIGHT = 644;

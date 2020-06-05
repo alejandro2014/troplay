@@ -2,7 +2,6 @@ package troplay;
 
 import org.troplay.graphics.CheckBox;
 import org.troplay.graphics.Drawable;
-import org.troplay.graphics.Scene;
 import troplay.enums.Language;
 import troplay.game.Casilla;
 import troplay.game.Dice;
@@ -446,7 +445,7 @@ public class Game extends SubGameBase implements SubgameInterface {
     }*/
 
     @Override
-    public Scene createScene() throws IOException {
+    public void createScene() throws IOException {
         return null;
     }
 
