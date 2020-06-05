@@ -17,6 +17,7 @@ import java.util.Random;
 import static troplay.enums.Language.SPANISH;
 
 public class Game extends SubGameBase implements SubgameInterface {
+    private final int PREGS_POR_CASILLA = 3;
     private final int ANCHOCURIOSIDAD = 44;
 
     private final int MAX_JUGADORES = 4;
@@ -446,7 +447,7 @@ public class Game extends SubGameBase implements SubgameInterface {
 
     @Override
     public void createScene() throws IOException {
-        return null;
+
     }
 
     @Override
@@ -531,8 +532,8 @@ public class Game extends SubGameBase implements SubgameInterface {
         Random rnd = new Random();
         boolean[] asig = asigFacil;
         int dificultad = BAJA;
-        Pregunta[] pregun = new Pregunta[Const.PREGS_POR_CASILLA];
-        int[] idPreg = new int[Const.PREGS_POR_CASILLA];
+        Pregunta[] pregun = new Pregunta[PREGS_POR_CASILLA];
+        int[] idPreg = new int[PREGS_POR_CASILLA];
         int limite1 = NUMCASIFACIL;
         int limite2 = NUMCASIFACIL + NUMCASIMEDIO;
 
@@ -550,7 +551,7 @@ public class Game extends SubGameBase implements SubgameInterface {
             }
 
             //Dentro de cada casilla se rellenan cuatro preguntas
-            for(int j=0; j<Const.PREGS_POR_CASILLA; j++) {
+            for(int j=0; j < PREGS_POR_CASILLA; j++) {
                 do {
                     idPreg[j] = rnd.nextInt() % numPreguntas[dificultad];
                     if(idPreg[j] < 0) idPreg[j] *= -1;

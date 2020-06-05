@@ -13,17 +13,16 @@ public class Presentation extends SubGameBase implements SubgameInterface {
 
     public Presentation(GameStatus gameStatus) throws IOException {
         this.gameStatus = gameStatus;
-        this.scene = createScene();
         this.panel = gameStatus.getPanel();
+
+        createScene();
     }
 
-    public void createScene() throws IOException {
-        Scene scene = new Scene();
+    public void createScene() {
+        scene = new Scene();
 
         Background background = new Background("common/background/presentation");
         scene.addDrawable(background);
-
-        return scene;
     }
 
     public void loop() {

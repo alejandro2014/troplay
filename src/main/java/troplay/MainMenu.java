@@ -17,16 +17,17 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
 
     public MainMenu(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
-        this.scene = createScene();
         this.panel = gameStatus.getPanel();
         this.mouse = gameStatus.getMouse();
 
         this.gameStatus.setCurrentEvent(MainEvents.NULL);
+
+        createScene();
     }
 
     @Override
     public void createScene() {
-        Scene scene = new Scene();
+        scene = new Scene();
 
         Background background = new Background("common/background/presentation");
         scene.addDrawable(background);
@@ -44,8 +45,6 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         gameStatus.addClickable(startButton);
         gameStatus.addClickable(optionsButton);
         gameStatus.addClickable(exitButton);
-
-        return scene;
     }
 
     public void loop() {

@@ -3,10 +3,6 @@ package troplay;
 import java.awt.*;
 
 public abstract class Const {
-    public static final int PREGS_POR_CASILLA = 3;
-
-    public static final String DIRECTORIO_GRAFICOS = "/home/alejandro/programs/troplay/src/main/resources/graficos";
-
 	public static final Point arrayCasillas[] = {
 		new Point(343, 543), new Point(401, 545), new Point(449, 545), new Point(499, 545), new Point(544, 547), new Point(585, 531),
 		new Point(595, 488), new Point(595, 439), new Point(595, 389), new Point(595, 340), new Point(595, 293), new Point(595, 243),

@@ -9,6 +9,7 @@ import java.awt.Point;
 import static troplay.enums.BalloonPosition.*;
 
 public class Casilla {
+    private int PREGS_POR_CASILLA = 3;
     private Pregunta[] arrayPreguntas;
 
     @Getter
@@ -66,7 +67,7 @@ public class Casilla {
 
     public void preguntaResuelta() {
         numPregunta++;
-        if(numPregunta == Const.PREGS_POR_CASILLA) numPregunta = 0;
+        if(numPregunta == PREGS_POR_CASILLA) numPregunta = 0;
         pregActual = arrayPreguntas[numPregunta];
     }
 }

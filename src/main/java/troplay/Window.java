@@ -31,7 +31,8 @@ public class Window extends JFrame {
         Image icon = null;
 
         try {
-            icon = getToolkit().getImage(Const.DIRECTORIO_GRAFICOS + "/icono.png");
+            String graphicsDirectory = System.getProperty("user.dir") + "/src/main/resources/graphics";
+            icon = getToolkit().getImage(graphicsDirectory + "/icono.png");
         } catch (Exception e) {
             System.err.println("Error en la carga de imagenes" + e.toString());
         }
