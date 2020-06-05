@@ -37,7 +37,7 @@ public class Drawable {
 		List<String> graphics = getGraphicsInDirectory(graphicsPath);
 
 		this.images = graphics.stream()
-				.map(gp -> loadImage(gp))
+				.map(this::loadImage)
 				.collect(Collectors.toList());
 	}
 
@@ -55,13 +55,14 @@ public class Drawable {
 		String filePath = graphicsBasePath + "/" + graphicsPath;
 		File[] files = new File(filePath).listFiles();
 
-		List<String> fileNames = Arrays.stream(files)
+		if(files == null) {
+			return null;
+		}
+
+		return Arrays.stream(files)
 				.map(File::toString)
+				.sorted()
 				.collect(Collectors.toList());
-
-		Collections.sort(fileNames);
-
-		return fileNames;
 	}
 
 	public Boolean collision(Point mousePoint) {
