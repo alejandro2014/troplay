@@ -140,14 +140,14 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
         gameStatus.addClickable(backButton);
 
         CheckboxContainer containerLanguage = new CheckboxContainer();
-        addCheckboxToScene(new CheckBox("ES", new Rectangle(346, 226)), scene, containerLanguage);
-        addCheckboxToScene(new CheckBox("EN", new Rectangle(513, 225)), scene, containerLanguage);
+        addCheckboxToScene(new CheckBox("ES", new Rectangle(346, 226, 19, 19)), scene, containerLanguage);
+        addCheckboxToScene(new CheckBox("EN", new Rectangle(513, 225, 19, 19)), scene, containerLanguage);
 
         CheckboxContainer containerPlayers = new CheckboxContainer();
-        addCheckboxToScene(new CheckBox("1", new Rectangle(317,384)), scene, containerPlayers);
-        addCheckboxToScene(new CheckBox("2", new Rectangle(476,384)), scene, containerPlayers);
-        addCheckboxToScene(new CheckBox("3", new Rectangle(317,484)), scene, containerPlayers);
-        addCheckboxToScene(new CheckBox("4", new Rectangle(480,485)), scene, containerPlayers);
+        addCheckboxToScene(new CheckBox("1", new Rectangle(317,384, 19, 19)), scene, containerPlayers);
+        addCheckboxToScene(new CheckBox("2", new Rectangle(476,384, 19, 19)), scene, containerPlayers);
+        addCheckboxToScene(new CheckBox("3", new Rectangle(317,484, 19, 19)), scene, containerPlayers);
+        addCheckboxToScene(new CheckBox("4", new Rectangle(480,485, 19, 19)), scene, containerPlayers);
 
         return scene;
     }

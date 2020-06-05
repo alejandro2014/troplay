@@ -26,11 +26,11 @@ public class CheckboxContainer {
     }
 
     public void add(CheckBox checkBox) {
+        checkBox.setContainer(this);
+
         if (checkBoxes.size() == 0) {
             checkBox.click();
         }
-
-        checkBox.setContainer(this);
 
         checkBoxes.add(checkBox);
     }

@@ -11,26 +11,24 @@ public class CheckBox extends Drawable implements Clickable {
     private Rectangle rectangle;
 
     public CheckBox(String value, Rectangle rectangle) {
-        this.value = value;
-
-        this.rectangle = rectangle;
-        this.rectangle.setSize(new Dimension(19, 19));
-
         super.loadGraphics("common/checkbox");
 
-        this.setCurrentImage(images.get(0));
-        this.setShow(true);
+        this.value = value;
+        this.rectangle = rectangle;
+        this.point = rectangle.getLocation();
+        this.currentImage = images.get(0);
+        this.show = true;
     }
 
     @Override
     public void click() {
         this.container.notifyChange(value);
-        this.setCurrentImage(this.images.get(1));
+        this.currentImage = images.get(1);
     }
 
     @Override
     public void release() {
-        this.setCurrentImage(this.images.get(0));
+        this.currentImage = images.get(0);
     }
 
     @Override

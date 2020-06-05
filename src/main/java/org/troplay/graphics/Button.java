@@ -20,22 +20,20 @@ public class Button extends Drawable implements Clickable {
     public Button(String graphicsPath, Rectangle rectangle, GameStatus gameStatus, Class actionClass) {
         super.loadGraphics(graphicsPath);
 
-        this.setPoint(rectangle.getLocation());
-        this.setRectangle(rectangle);
-
-        this.setCurrentImage(images.get(0));
-        this.setShow(true);
-
+        this.rectangle = rectangle;
+        this.point = rectangle.getLocation();
+        this.currentImage = images.get(0);
+        this.show = true;
         this.gameStatus = gameStatus;
         this.actionClass = actionClass;
     }
 
     public void click() {
-        this.setCurrentImage(images.get(1));
+        this.currentImage = images.get(1);
     }
 
     public void release() {
-        this.setCurrentImage(images.get(0));
+        this.currentImage = images.get(0);
         triggerEvent();
     }
 
