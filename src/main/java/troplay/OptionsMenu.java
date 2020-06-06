@@ -42,6 +42,9 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
         addCheckboxToScene(new CheckBox("2", new Rectangle(476,384, 19, 19)), containerPlayers);
         addCheckboxToScene(new CheckBox("3", new Rectangle(317,484, 19, 19)), containerPlayers);
         addCheckboxToScene(new CheckBox("4", new Rectangle(480,485, 19, 19)), containerPlayers);
+
+        StaticImage optionsText = new StaticImage(language + "/static-images/espTituloOpciones", new Point(310,66));
+        scene.addDrawable(optionsText);
     }
 
     private void addCheckboxToScene(CheckBox checkbox, CheckboxContainer container) {
@@ -60,6 +63,10 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
 
             finish = endOfLoop();
         }
+
+        /*new Point(574,220),
+        new Point(346,226),
+        new Point(513,225)*/
 
         //gameStatus.setPlayersNo(numJugadores);
         //gameStatus.setCurrentEvent(eventoRealizado);

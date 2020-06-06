@@ -35,6 +35,17 @@ public class Drawable {
 	protected void loadGraphics(String graphicsPath) {
 		List<String> graphics = getGraphicsInDirectory(graphicsPath);
 
+		setImagesList(graphics);
+	}
+
+	protected void loadGraphic(String graphicsPath) {
+		String filePath = graphicsBasePath + "/" + graphicsPath + ".png";
+		List<String> graphics = Arrays.asList(filePath);
+
+		setImagesList(graphics);
+	}
+
+	private void setImagesList(List<String> graphics) {
 		this.images = graphics.stream()
 				.map(this::loadImage)
 				.collect(Collectors.toList());

@@ -1,7 +1,6 @@
 package org.troplay.graphics;
 
 import java.awt.*;
-import java.io.IOException;
 
 public class Background extends Drawable {
     public Background(String graphicsPath) {
