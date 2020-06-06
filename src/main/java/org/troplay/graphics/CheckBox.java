@@ -35,9 +35,5 @@ public class CheckBox extends Drawable implements Clickable {
         if(event.equals("click") && collision(point)) {
             this.click();
         }
-
-        /*if(event.equals("release") && collision(point)) {
-            this.release();
-        }*/
     }
 }
