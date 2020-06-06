@@ -3,6 +3,7 @@ package troplay;
 import org.troplay.graphics.Button;
 import org.troplay.graphics.*;
 import troplay.enums.MainEvents;
+import troplay.handlers.BackHandler;
 
 import java.awt.*;
 
@@ -29,7 +30,7 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
 
         String language = "ES";
 
-        Button backButton = new Button(language + "/buttons/back", new Rectangle(574,220,165,46), gameStatus);
+        Button backButton = new Button(language + "/buttons/back", new Rectangle(574,220,165,46), gameStatus, BackHandler.class);
         scene.addDrawable(backButton);
         gameStatus.addClickable(backButton);
 

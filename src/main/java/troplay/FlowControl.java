@@ -30,8 +30,8 @@ public class FlowControl {
         addTransition(MainStatuses.MAIN_MENU, MainEvents.OPTIONS, MainStatuses.OPTIONS_MENU, OptionsMenu.class);
         addTransition(MainStatuses.MAIN_MENU, MainEvents.EXIT, MainStatuses.FINAL);
 
-        addTransition(MainStatuses.OPTIONS_MENU, MainEvents.NULL, MainStatuses.OPTIONS_MENU);
-        addTransition(MainStatuses.OPTIONS_MENU, MainEvents.BACK, MainStatuses.MAIN_MENU);
+        //addTransition(MainStatuses.OPTIONS_MENU, MainEvents.NULL, MainStatuses.OPTIONS_MENU);
+        addTransition(MainStatuses.OPTIONS_MENU, MainEvents.BACK, MainStatuses.MAIN_MENU, MainMenu.class);
 
         addTransition(MainStatuses.GAME, MainEvents.EXIT, MainStatuses.MAIN_MENU);
     }
@@ -41,6 +41,7 @@ public class FlowControl {
     }
 
     private void addTransition(MainStatuses currentStatus, MainEvents event, MainStatuses nextStatus, Class classToExecute) {
+        System.out.println("Adding > status: " + currentStatus + " event: " + event + " next status: " + nextStatus + " class: " + classToExecute);
         TransitionInfo transitionInfo = TransitionInfo.builder()
                 .currentStatus(currentStatus)
                 .event(event)
@@ -76,9 +77,10 @@ public class FlowControl {
 
     private void runControlClass(Class clazz) {
         if(clazz == null) {
-            gameStatus.setCurrentEvent(MainEvents.NULL);
             return;
         }
+
+        gameStatus.setCurrentEvent(MainEvents.NULL);
 
         SubgameInterface subgameInterface = null;
 
