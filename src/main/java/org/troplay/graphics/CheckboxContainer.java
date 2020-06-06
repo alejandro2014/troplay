@@ -2,7 +2,6 @@ package org.troplay.graphics;
 
 import lombok.Data;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +9,6 @@ import java.util.List;
 public class CheckboxContainer {
     private List<CheckBox> checkBoxes;
     private String currentValue;
-
-    /*public void add(String value, Rectangle rectangle) {
-        CheckBox checkBox = new CheckBox(value, rectangle, this);
-
-        if (checkBoxes.size() == 0) {
-            checkBox.click();
-        }
-
-        checkBoxes.add(checkBox);
-    }*/
 
     public CheckboxContainer() {
         this.checkBoxes = new ArrayList<>();
