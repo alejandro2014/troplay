@@ -8,7 +8,6 @@ import java.awt.*;
 public class CheckBox extends Drawable implements Clickable {
     private String value;
     private CheckboxContainer container;
-    private Rectangle rectangle;
 
     public CheckBox(String value, Rectangle rectangle) {
         super.loadGraphics("common/checkbox");
@@ -22,7 +21,6 @@ public class CheckBox extends Drawable implements Clickable {
 
     @Override
     public void click() {
-        System.out.println("Clicked value " + value);
         this.container.notifyChange(value);
         this.currentImage = images.get(1);
     }
@@ -38,8 +36,8 @@ public class CheckBox extends Drawable implements Clickable {
             this.click();
         }
 
-        if(event.equals("release") && collision(point)) {
+        /*if(event.equals("release") && collision(point)) {
             this.release();
-        }
+        }*/
     }
 }

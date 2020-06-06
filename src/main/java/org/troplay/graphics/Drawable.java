@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,7 +65,6 @@ public class Drawable {
 	}
 
 	public Boolean collision(Point mousePoint) {
-		System.out.println("Show: " + show + " Rectangle: " + rectangle + " Mouse point: " + mousePoint);
 		return show && rectangle != null && rectangle.contains(mousePoint);
 	}
 }
