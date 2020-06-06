@@ -45,6 +45,12 @@ public class OptionsMenu extends SubGameBase implements SubgameInterface {
 
         StaticImage optionsText = new StaticImage(language + "/static-images/espTituloOpciones", new Point(310,66));
         scene.addDrawable(optionsText);
+
+        StaticImage languageText = new StaticImage(language + "/static-images/espTituloIdioma", new Point(320,161));
+        scene.addDrawable(languageText);
+
+        StaticImage playersText = new StaticImage(language + "/static-images/espTituloJugadores", new Point(318,299));
+        scene.addDrawable(playersText);
     }
 
     private void addCheckboxToScene(CheckBox checkbox, CheckboxContainer container) {
