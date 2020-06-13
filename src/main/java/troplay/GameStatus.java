@@ -6,6 +6,7 @@ import org.troplay.graphics.Button;
 import org.troplay.graphics.Clickable;
 import troplay.enums.Language;
 import troplay.enums.MainEvents;
+import troplay.enums.MainStatuses;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class GameStatus {
     private Language language = Language.SPANISH;
     private Integer playersNo = 1;
     private MainEvents currentEvent = MainEvents.NULL;
+    private MainStatuses currentStatus = MainStatuses.INIT;
 
     private List<Clickable> clickables;
 

@@ -20,7 +20,7 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         this.panel = gameStatus.getPanel();
         this.mouse = gameStatus.getMouse();
 
-        this.gameStatus.setCurrentEvent(MainEvents.NULL);
+        //this.gameStatus.setCurrentEvent(MainEvents.NULL);
 
         createScene();
     }
