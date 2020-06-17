@@ -3,6 +3,8 @@ package troplay.handlers;
 import troplay.GameStatus;
 import troplay.enums.MainEvents;
 
+import static troplay.enums.MainEvents.BACK;
+
 public class BackHandler implements ButtonHandler {
     private GameStatus gameStatus;
 
@@ -11,6 +13,6 @@ public class BackHandler implements ButtonHandler {
     }
 
     public void triggerEvent() {
-        gameStatus.setEvent(MainEvents.BACK);
+        gameStatus.setCurrentEvent(BACK);
     }
 }

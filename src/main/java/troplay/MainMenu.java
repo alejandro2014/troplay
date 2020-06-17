@@ -20,8 +20,6 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
         this.panel = gameStatus.getPanel();
         this.mouse = gameStatus.getMouse();
 
-        //this.gameStatus.setCurrentEvent(MainEvents.NULL);
-
         createScene();
     }
 
@@ -72,7 +70,6 @@ public class MainMenu extends SubGameBase implements SubgameInterface {
 
         return (currentEvent == MainEvents.EXIT ||
                 currentEvent == MainEvents.START ||
-                currentEvent == MainEvents.BACK ||
                 currentEvent == MainEvents.OPTIONS);
     }
 }

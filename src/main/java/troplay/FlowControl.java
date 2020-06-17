@@ -3,10 +3,18 @@ package troplay;
 import lombok.Getter;
 import troplay.enums.MainEvents;
 import troplay.enums.MainStatuses;
+import troplay.fakes.FakeGame;
+import troplay.fakes.FakeMainMenu;
+import troplay.fakes.FakeOptionsMenu;
+import troplay.fakes.FakePresentation;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import static troplay.enums.MainEvents.*;
+import static troplay.enums.MainStatuses.*;
 
 public class FlowControl {
     @Getter
@@ -35,14 +43,20 @@ public class FlowControl {
 
         addTransition(MainStatuses.GAME, MainEvents.EXIT, MainStatuses.MAIN_MENU);*/
 
-        addTransition(MainStatuses.INIT, MainEvents.NULL, MainStatuses.PRESENTATION, Presentation.class);
+        addTransition(INIT, NULL, PRESENTATION, FakePresentation.class);
 
-        addTransition(MainStatuses.PRESENTATION, MainEvents.NULL, MainStatuses.MAIN_MENU, MainMenu.class);
+        addTransition(PRESENTATION, NULL, MAIN_MENU, FakeMainMenu.class);
 
-        addTransition(MainStatuses.MAIN_MENU, MainEvents.OPTIONS, MainStatuses.OPTIONS_MENU, OptionsMenu.class);
-        addTransition(MainStatuses.MAIN_MENU, MainEvents.EXIT, MainStatuses.FINAL);
+        addTransition(MAIN_MENU, START, GAME, FakeGame.class);
+        addTransition(MAIN_MENU, OPTIONS, OPTIONS_MENU, FakeOptionsMenu.class);
+        addTransition(MAIN_MENU, EXIT, FINAL);
 
-        addTransition(MainStatuses.OPTIONS_MENU, MainEvents.BACK, MainStatuses.MAIN_MENU, MainMenu.class);
+        addTransition(OPTIONS_MENU, BACK, MAIN_MENU, FakeMainMenu.class);
+
+        addTransition(GAME, BACK, MAIN_MENU, FakeMainMenu.class);
+
+        //addTransition(MAIN_MENU, NULL, MAIN_MENU, FakeMainMenu.class);
+        //addTransition(OPTIONS_MENU, NULL, OPTIONS_MENU, FakeOptionsMenu.class);
     }
 
     private void addTransition(MainStatuses currentStatus, MainEvents event, MainStatuses nextStatus) {
@@ -62,33 +76,41 @@ public class FlowControl {
     }
 
     public void statusCycle() {
-        //MainStatuses currentStatus = MainStatuses.INIT;
-        //MainEvents event = MainEvents.NULL;
+        MainStatuses currentStatus = INIT;
+        MainStatuses nextStatus = null;
+        MainEvents event = NULL;
+        Class classToExecute = null;
 
         while (currentStatus != MainStatuses.FINAL) {
-            System.out.println("----------------");
-            System.out.println("currentStatus = " + currentStatus);
-            System.out.println("currentEvent = " + event);
+            TransitionInfo transitionInfo = getTransitionInfo(currentStatus, event);
 
-            currentStatus = gameStatus.getCurrentStatus();
-            Class controlClass = getControlClass(currentStatus, event);
+            classToExecute = transitionInfo.getClassToExecute();
+            nextStatus = transitionInfo.getNextStatus();
 
-            runControlClass(controlClass);
-            //currentStatus = transitionInfo.getNextStatus();
-            //event = gameStatus.getCurrentEvent();
+            runControlClass(classToExecute);
+
+            currentStatus = nextStatus;
+            event = gameStatus.getCurrentEvent();
         }
     }
 
-    private Class getControlClass(MainStatuses currentStatus, MainEvents event) {
-        return transitionsList.stream()
+    private TransitionInfo getTransitionInfo(MainStatuses currentStatus, MainEvents event) {
+        System.out.println("----------------");
+        System.out.println("currentStatus = " + currentStatus);
+        System.out.println("event = " + event);
+
+        TransitionInfo transitionInfo = transitionsList.stream()
                 .filter(t -> t.getCurrentStatus() == currentStatus && t.getEvent() == event)
                 .findFirst()
-                .get()
-                .getClassToExecute();
+                .orElse(null);
+
+        System.out.println("Retrieved transition info: " + transitionInfo);
+
+        return transitionInfo;
     }
 
     private void runControlClass(Class clazz) {
-        gameStatus.setCurrentEvent(MainEvents.NULL);
+        System.out.println("Executing " + clazz);
 
         if(clazz == null) {
             return;

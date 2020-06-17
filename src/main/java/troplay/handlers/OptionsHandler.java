@@ -1,7 +1,8 @@
 package troplay.handlers;
 
 import troplay.GameStatus;
-import troplay.enums.MainEvents;
+
+import static troplay.enums.MainEvents.OPTIONS;
 
 public class OptionsHandler implements ButtonHandler {
     private GameStatus gameStatus;
@@ -12,6 +13,6 @@ public class OptionsHandler implements ButtonHandler {
 
     @Override
     public void triggerEvent() {
-        gameStatus.setEvent(MainEvents.OPTIONS);
+        gameStatus.setCurrentEvent(OPTIONS);
     }
 }

@@ -3,6 +3,8 @@ package troplay.handlers;
 import troplay.GameStatus;
 import troplay.enums.MainEvents;
 
+import static troplay.enums.MainEvents.EXIT;
+
 public class ExitHandler implements ButtonHandler {
     private GameStatus gameStatus;
 
@@ -11,6 +13,6 @@ public class ExitHandler implements ButtonHandler {
     }
 
     public void triggerEvent() {
-        gameStatus.setEvent(MainEvents.EXIT);
+        gameStatus.setCurrentEvent(EXIT);
     }
 }
