@@ -3,12 +3,7 @@ package troplay;
 import lombok.Getter;
 import troplay.enums.MainEvents;
 import troplay.enums.MainStatuses;
-import troplay.fakes.FakeGame;
-import troplay.fakes.FakeMainMenu;
-import troplay.fakes.FakeOptionsMenu;
-import troplay.fakes.FakePresentation;
 
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,34 +24,18 @@ public class FlowControl {
         gameStatus.setAbsolutePath(absolutePath);
     }
 
-    //TODO Maybe there are redundant statuses
     private void addTransitions() {
-        /*addTransition(MainStatuses.PRESENTATION, MainEvents.NULL, MainStatuses.MAIN_MENU, Presentation.class);
+        addTransition(INIT, NULL, PRESENTATION, Presentation.class);
 
-        addTransition(MainStatuses.MAIN_MENU, MainEvents.NULL, MainStatuses.MAIN_MENU, MainMenu.class);
-        addTransition(MainStatuses.MAIN_MENU, MainEvents.START, MainStatuses.GAME, Game.class);
-        addTransition(MainStatuses.MAIN_MENU, MainEvents.OPTIONS, MainStatuses.OPTIONS_MENU, OptionsMenu.class);
-        addTransition(MainStatuses.MAIN_MENU, MainEvents.EXIT, MainStatuses.FINAL);
+        addTransition(PRESENTATION, NULL, MAIN_MENU, MainMenu.class);
 
-        //addTransition(MainStatuses.OPTIONS_MENU, MainEvents.NULL, MainStatuses.OPTIONS_MENU);
-        addTransition(MainStatuses.OPTIONS_MENU, MainEvents.BACK, MainStatuses.MAIN_MENU, MainMenu.class);
-
-        addTransition(MainStatuses.GAME, MainEvents.EXIT, MainStatuses.MAIN_MENU);*/
-
-        addTransition(INIT, NULL, PRESENTATION, FakePresentation.class);
-
-        addTransition(PRESENTATION, NULL, MAIN_MENU, FakeMainMenu.class);
-
-        addTransition(MAIN_MENU, START, GAME, FakeGame.class);
-        addTransition(MAIN_MENU, OPTIONS, OPTIONS_MENU, FakeOptionsMenu.class);
+        addTransition(MAIN_MENU, START, GAME, Game.class);
+        addTransition(MAIN_MENU, OPTIONS, OPTIONS_MENU, OptionsMenu.class);
         addTransition(MAIN_MENU, EXIT, FINAL);
 
-        addTransition(OPTIONS_MENU, BACK, MAIN_MENU, FakeMainMenu.class);
+        addTransition(OPTIONS_MENU, BACK, MAIN_MENU, MainMenu.class);
 
-        addTransition(GAME, BACK, MAIN_MENU, FakeMainMenu.class);
-
-        //addTransition(MAIN_MENU, NULL, MAIN_MENU, FakeMainMenu.class);
-        //addTransition(OPTIONS_MENU, NULL, OPTIONS_MENU, FakeOptionsMenu.class);
+        addTransition(GAME, BACK, MAIN_MENU, MainMenu.class);
     }
 
     private void addTransition(MainStatuses currentStatus, MainEvents event, MainStatuses nextStatus) {
@@ -77,9 +56,9 @@ public class FlowControl {
 
     public void statusCycle() {
         MainStatuses currentStatus = INIT;
-        MainStatuses nextStatus = null;
+        MainStatuses nextStatus;
         MainEvents event = NULL;
-        Class classToExecute = null;
+        Class classToExecute;
 
         while (currentStatus != MainStatuses.FINAL) {
             TransitionInfo transitionInfo = getTransitionInfo(currentStatus, event);

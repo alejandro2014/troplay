@@ -26,16 +26,23 @@ public class GameStatus {
     private List<Clickable> clickables;
 
     public GameStatus() {
-        /*panel = new Panel();
+        this(true);
+    }
+
+    public GameStatus(boolean initGraphics) {
+        if(!initGraphics) {
+            return;
+        }
+
+        panel = new Panel();
         window = new Window(panel);
         mouse = new Mouse();
         clickables = new ArrayList<>();
 
-        panel.addMouseListener(mouse);*/
+        panel.addMouseListener(mouse);
     }
 
     public void setCurrentEvent(MainEvents event) {
-        System.out.println("Set current event to " + event);
         this.currentEvent = event;
     }
 
