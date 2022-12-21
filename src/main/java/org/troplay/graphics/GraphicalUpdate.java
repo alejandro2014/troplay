@@ -1,18 +1,34 @@
-package org.troplay.graphics;
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+package graphics;
 
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 
-@Getter @Setter
-@Builder
 public class GraphicalUpdate {
-	private Point point;
-	private BufferedImage image;
-	private Integer z;
+	private Point coords;
+	private Image image;
+	private int z;
+
+	public Point getCoords() {
+		return coords;
+	}
+
+	public void setCoords(Point coords) {
+		this.coords = coords;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
+	public int getZ() {
+		return z;
+	}
+
+	public void setZ(int z) {
+		this.z = z;
+	}
 }

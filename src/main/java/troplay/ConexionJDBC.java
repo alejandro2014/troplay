@@ -1,8 +1,5 @@
 package troplay;
 
-import troplay.enums.Language;
-import troplay.game.Pregunta;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -20,13 +17,12 @@ public class ConexionJDBC {
     private int idioma;
     private String cadConexion, driver;
 
-    public ConexionJDBC(Language idio) {
-        String baseDir = System.getProperty("user.dir");
+    private String troplayDirectory = ".";
 
-        cadConexion = "jdbc:sqlite:" + baseDir + "/src/main/resources/db/tenia.sqlite";
+    public ConexionJDBC(int idio) {
+        cadConexion = "jdbc:sqlite:" + troplayDirectory + "/src/main/resources/db/tenia.sqlite";
         driver = "org.sqlite.JDBC";
-        idioma = idio == Language.SPANISH ? 1 : 2;
-
+        idioma = idio+1;
         conectar();
     }
 
@@ -127,10 +123,20 @@ public class ConexionJDBC {
 			System.out.println(">>" + consulta + " - " + comando);
             result = comando.executeQuery(consulta);
         } catch (SQLException ex) {
+            //Logger.getLogger(ConexionJDBC.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex);
         }
 
         return result;
+    }
+
+    public void ejecutarInsercion(String accion) {
+        try {
+            comando.executeUpdate(accion);
+        } catch (SQLException ex) {
+            System.err.println();
+            Logger.getLogger(ConexionJDBC.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     protected void cerrarConexion() {
