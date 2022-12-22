@@ -33,7 +33,7 @@ public class Juego extends ClaseControladora {
     private Rectangle[] rectangulos = null;
     
     //Elementos dinámicos del juego (botones y checkboxes)
-    private Dibujable[] botones = new Dibujable[2];
+    private Drawable[] botones = new Drawable[2];
     private CheckBox[] checkboxes = new CheckBox[3];
     
     private Raton raton = null;
@@ -126,7 +126,7 @@ public class Juego extends ClaseControladora {
 	private void initButtons() {
 		longBotones = botones.length;
         for(int i = 0; i < longBotones; i++) {
-            botones[i] = new Dibujable();
+            botones[i] = new Drawable();
             botones[i].setCoords(Const.ARR_COORDS_JUEGO[i+5]);
             botones[i].setMostrar(true);
             botones[i].setRectangulo(rectangulos[i+4]);
@@ -521,8 +521,8 @@ public class Juego extends ClaseControladora {
 	}
     public Jugador getJugador(int i) {return jugadores[i];}
     public int getJugadorActual() {return jugadorActual;}
-    public int getJugadorX(int i) {return jugadores[i].getCx();}
-    public int getJugadorY(int i) {return jugadores[i].getCy();}
+    public int getJugadorX(int i) {return jugadores[i].getCoords().x;}
+    public int getJugadorY(int i) {return jugadores[i].getCoords().y;}
 
     public int getNumPreguntas(int dificultad, int idioma) throws SQLException {
         return consultasJDBC.obtenerNumPreguntas(dificultad+1);

@@ -1,6 +1,6 @@
 package troplay;
 
-public class Jugador extends troplay.Dibujable {
+public class Jugador extends Drawable {
     private Juego juego;
     private int casilla = 0;
     private int casillaVieja, casillaNueva;

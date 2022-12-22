@@ -2,7 +2,7 @@ package troplay;
 
 import java.util.ArrayList;
 
-public class CheckBox extends Dibujable {
+public class CheckBox extends Drawable {
     private ArrayList conjCasillas = null;
     private CheckBox actual = null;
     public boolean activado = false;

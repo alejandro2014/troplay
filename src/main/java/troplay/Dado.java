@@ -3,7 +3,7 @@ package troplay;
 import java.util.Date;
 import java.util.Random;
 
-public class Dado extends Dibujable{
+public class Dado extends Drawable{
     private Random rnd;
     private int valor = 0;
 

@@ -19,7 +19,7 @@ public class Menu extends troplay.ClaseControladora {
     private final int NUM_CHECKBOXES = 6;
     
     //Elementos dinámicos del menú (botones y checkboxes)
-    private Dibujable[] botones = new Dibujable[NUM_BOTONES];
+    private Drawable[] botones = new Drawable[NUM_BOTONES];
     private CheckBox[] checkboxes = new CheckBox[NUM_CHECKBOXES];
     private ArrayList conjCbxIdioma = new ArrayList();
     private ArrayList conjCbxJugadores = new ArrayList();
@@ -60,7 +60,7 @@ public class Menu extends troplay.ClaseControladora {
         //Inicializacion de los botones
         longBotones = botones.length;
         for(i = 0; i < longBotones; i++) {
-            botones[i] = new Dibujable();
+            botones[i] = new Drawable();
 			botones[i].setCoords(coords[i]);
             botones[i].setRectangulo(Const.ARR_RECTS[i]);
         }

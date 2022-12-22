@@ -2,7 +2,7 @@ package troplay;
 
 import java.util.ArrayList;
 
-public class Pregunta extends Dibujable {
+public class Pregunta extends Drawable {
     private String textoPregunta;
     private String respuestas[] = new String[Const.NUM_RESPUESTAS];
     private int respCorrecta = -1;

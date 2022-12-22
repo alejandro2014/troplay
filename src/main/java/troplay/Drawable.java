@@ -4,18 +4,10 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class Dibujable {
+public class Drawable {
     protected boolean mostrar = true;
 	protected Point coords = new Point();
     protected Rectangle rectangulo = null;
-    
-    public int getCx() {
-		return coords.x;
-	}
-	
-    public int getCy() {
-		return coords.y;
-	}
 	
 	public Point getCoords() {
 		return coords;
