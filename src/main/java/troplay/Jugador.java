@@ -1,6 +1,16 @@
 package troplay;
 
 public class Jugador extends Drawable {
+	//Coordenadas de los centros de cada casilla
+    private static final int arrX[] = {343,401,449,499,544,585,595,595,595,595,595,595,595,595,597,582,541,494,445,
+                                      395,346,296,249,199,151,107,67,55,55,55,55,55,55,53,69,112,158,207,256,305,
+                                      352,402,446,487,496,497,497,497,499,486,443,394,347,295,249,205,166,154,154,
+                                      150,169,210,256,305,348,388,401,385,346,285};
+
+    private static final int arrY[] = {543,545,545,545,547,531,488,439,389,340,293,243,194,146,103,58,54,54,54,54,
+                                      54,54,54,54,54,51,71,112,160,211,259,309,358,400,438,446,447,447,447,447,447,
+                                      447,447,431,391,341,291,243,201,161,152,152,152,152,152,149,167,212,261,302,
+                                      339,349,349,348,351,332,296,262,251,248};
     private Juego juego;
     private int casilla = 0;
     private int casillaVieja, casillaNueva;
@@ -20,8 +30,8 @@ public class Jugador extends Drawable {
     public Jugador(Juego referJuego,int idJug) {
         juego = referJuego;
         this.idJugador = idJug;
-        this.setXY(Const.arrX[casilla] + desplaz[idJugador][0],
-                   Const.arrY[casilla] + desplaz[idJugador][1]);
+        this.setXY(Jugador.arrX[casilla] + desplaz[idJugador][0],
+        		Jugador.arrY[casilla] + desplaz[idJugador][1]);
     }
     
     public void mover(int pos) {casilla = pos;}
@@ -42,8 +52,8 @@ public class Jugador extends Drawable {
         int casillasCompletas = fotogrActual / 7;
         int despl = fotogrActual % 7;
         int casillaActual = casillaInicial + casillasCompletas;
-        int xVieja = Const.arrX[casillaActual] + desplaz[idJugador][0];
-        int yVieja = Const.arrY[casillaActual] + desplaz[idJugador][1];
+        int xVieja = Jugador.arrX[casillaActual] + desplaz[idJugador][0];
+        int yVieja = Jugador.arrY[casillaActual] + desplaz[idJugador][1];
         int xActual, yActual;
         
         if (despl == 0 && casillasCompletas > 0) {
@@ -51,8 +61,8 @@ public class Jugador extends Drawable {
             casillaNueva = casillaVieja + 1;
             
             if(casillaNueva < Const.NUM_CASILLAS) {
-                desplX = Const.arrX[casillaNueva] - Const.arrX[casillaVieja];
-                desplY = Const.arrY[casillaNueva] - Const.arrY[casillaVieja];
+                desplX = Jugador.arrX[casillaNueva] - Jugador.arrX[casillaVieja];
+                desplY = Jugador.arrY[casillaNueva] - Jugador.arrY[casillaVieja];
             }
         }
         
@@ -62,12 +72,12 @@ public class Jugador extends Drawable {
             yActual = yVieja + (despl * desplY) / 7;
             this.setXY(xActual,yActual);
         } else {
-            this.setCx(Const.arrX[casillaNueva-1] + desplaz[idJugador][0]);
+            this.setCx(Jugador.arrX[casillaNueva-1] + desplaz[idJugador][0]);
             fotogrActual = 0;
             
             if(juego.getNumJugadores() > 1 && juego.getCasilla(casillaNueva-1).getComplementaria() != -1) {
                 eventoRetorno = EVENTO_ESCALERA;
-                this.setXY(Const.arrX[casillaNueva-1], Const.arrY[casillaNueva-1]);
+                this.setXY(Jugador.arrX[casillaNueva-1], Jugador.arrY[casillaNueva-1]);
             } else {
                 eventoRetorno = EVENTO_PARAR_ANIMACION;
             }
@@ -91,18 +101,18 @@ public class Jugador extends Drawable {
                 case 60: casillaNueva = 30; break;
             }
             
-            desplX = Const.arrX[casillaNueva] - Const.arrX[casillaVieja];
-            desplY = Const.arrY[casillaNueva] - Const.arrY[casillaVieja];
+            desplX = Jugador.arrX[casillaNueva] - Jugador.arrX[casillaVieja];
+            desplY = Jugador.arrY[casillaNueva] - Jugador.arrY[casillaVieja];
         }
         
         if(fotogrActual != 15) {
             fotogrActual++;
-            this.setXY(Const.arrX[casillaVieja] + fotogrActual * desplX/15,
-                       Const.arrY[casillaVieja] + fotogrActual * desplY/15);
+            this.setXY(Jugador.arrX[casillaVieja] + fotogrActual * desplX/15,
+            		Jugador.arrY[casillaVieja] + fotogrActual * desplY/15);
         } else {
             mover(casillaNueva + 1);
-            this.setXY(Const.arrX[casillaNueva + 1] + desplaz[idJugador][0],
-                       Const.arrY[casillaNueva + 1] + desplaz[idJugador][1]);
+            this.setXY(Jugador.arrX[casillaNueva + 1] + desplaz[idJugador][0],
+            		Jugador.arrY[casillaNueva + 1] + desplaz[idJugador][1]);
             desplX = desplY = 0;
             fotogrActual = 0;
             eventoRetorno = EVENTO_PARAR_ANIMACION;

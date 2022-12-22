@@ -3,10 +3,18 @@ package troplay;
 import java.sql.SQLException;
 
 public class ControlFlujo {
+	//Estados del juego
+    public final int ESTADO_MENU = 0;
+    public final int ESTADO_PRESENTACION = 1;
+    public final int ESTADO_OPCIONES = 2;
+    public final int ESTADO_MENU_PRINCIPAL = 4;
+    public final int ESTADO_JUEGO = 5;
+    public final int ESTADO_FINAL = 6;
+	
     public Ventana ventana = null;
     private Raton raton = null;
     
-    private int estadoActual = Const.ESTADO_PRESENTACION;
+    private int estadoActual = ESTADO_PRESENTACION;
     private int eventoEntrada = Const.EVENTO_NULO;
     
     private int idiomaJuego = Const.ESPAÑOL;
@@ -20,7 +28,7 @@ public class ControlFlujo {
         panel = ventana.getPanel();
         raton = new Raton(panel);
         
-        while (estadoActual != Const.ESTADO_FINAL)
+        while (estadoActual != ESTADO_FINAL)
             estadoActual = cambiarEstado(estadoActual, eventoEntrada);
         
         panel.descargarGraficos();
@@ -31,19 +39,19 @@ public class ControlFlujo {
 
         switch(estado) {
             //Pantalla de presentación
-            case Const.ESTADO_PRESENTACION:
+            case ESTADO_PRESENTACION:
                 switch(evento) {
                     case Const.EVENTO_NULO:
                         panel.setModo(Const.MODOPRESEN);
                         new ControlPresentacion(ventana,this);
-                        nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
+                        nuevoEstado = ESTADO_MENU_PRINCIPAL;
                         panel.setModo(Const.MODOMENU);
                         break;
                 }
                 break;
                 
             //Antes de empezar el juego
-            case Const.ESTADO_MENU_PRINCIPAL:
+            case ESTADO_MENU_PRINCIPAL:
                 switch(evento) {
                     //Nada más arrancar el programa
                     case Const.EVENTO_NULO:
@@ -58,24 +66,24 @@ public class ControlFlujo {
                             new Juego(panel, raton, this);
                         } catch (SQLException ex) {}
                         
-                        nuevoEstado = Const.ESTADO_JUEGO;
+                        nuevoEstado = ESTADO_JUEGO;
                         break;
                     
                     //Ir al menú de opciones
                     case Const.EVENTO_OPCIONES:
-                        nuevoEstado = Const.ESTADO_OPCIONES;
+                        nuevoEstado = ESTADO_OPCIONES;
                         eventoEntrada = Const.EVENTO_NULO;
                         break;
                         
                     //Salir del juego
                     case Const.EVENTO_SALIR:
-                        nuevoEstado = Const.ESTADO_FINAL;
+                        nuevoEstado = ESTADO_FINAL;
                         break;
                 }
                 break;
             
             //Menú de opciones
-            case Const.ESTADO_OPCIONES:
+            case ESTADO_OPCIONES:
                 switch(evento) {
                     //Apertura del menú de opciones
                     case Const.EVENTO_NULO:
@@ -87,19 +95,19 @@ public class ControlFlujo {
                     //Volver al menú principal
                     case Const.EVENTO_VOLVER:
                         panel.setModo(Const.MODOMENU);
-                        nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
+                        nuevoEstado = ESTADO_MENU_PRINCIPAL;
                         eventoEntrada = Const.EVENTO_NULO;
                         break;
                 }
                 break;
             
             //En el juego
-            case Const.ESTADO_JUEGO:
+            case ESTADO_JUEGO:
                 switch(evento) {
                     //Salida del juego
                     case Const.EVENTO_SALIR:
                         panel.setModo(Const.MODOMENU);
-                        nuevoEstado = Const.ESTADO_MENU_PRINCIPAL;
+                        nuevoEstado = ESTADO_MENU_PRINCIPAL;
                         eventoEntrada = Const.EVENTO_NULO;
                         break;
                 }

@@ -28,31 +28,6 @@ public abstract class Const {
 
     public static final String DIRECTORIO_GRAFICOS = "./src/main/resources/graficos/";
 
-    //Coordenadas de los centros de cada casilla
-    public static final int arrX[] = {343,401,449,499,544,585,595,595,595,595,595,595,595,595,597,582,541,494,445,
-                                      395,346,296,249,199,151,107,67,55,55,55,55,55,55,53,69,112,158,207,256,305,
-                                      352,402,446,487,496,497,497,497,499,486,443,394,347,295,249,205,166,154,154,
-                                      150,169,210,256,305,348,388,401,385,346,285};
-
-    public static final int arrY[] = {543,545,545,545,547,531,488,439,389,340,293,243,194,146,103,58,54,54,54,54,
-                                      54,54,54,54,54,51,71,112,160,211,259,309,358,400,438,446,447,447,447,447,447,
-                                      447,447,431,391,341,291,243,201,161,152,152,152,152,152,149,167,212,261,302,
-                                      339,349,349,348,351,332,296,262,251,248};
-	public static final Point arrayCasillas[] = {
-		new Point(343, 543), new Point(401, 545), new Point(449, 545), new Point(499, 545), new Point(544, 547), new Point(585, 531),
-		new Point(595, 488), new Point(595, 439), new Point(595, 389), new Point(595, 340), new Point(595, 293), new Point(595, 243),
-		new Point(595, 194), new Point(595, 146), new Point(597, 103), new Point(582, 58), new Point(541, 54), new Point(494, 54),
-		new Point(445, 54), new Point(395, 54), new Point(346, 54), new Point(296, 54), new Point(249, 54), new Point(199, 54),
-		new Point(151, 54), new Point(107, 51), new Point(67, 71), new Point(55, 112), new Point(55, 160), new Point(55, 211),
-		new Point(55, 259), new Point(55, 309), new Point(55, 358), new Point(53, 400), new Point(69, 438), new Point(112, 446),
-		new Point(158, 447), new Point(207, 447), new Point(256, 447), new Point(305, 447), new Point(352, 447), new Point(402, 447),
-		new Point(446, 447), new Point(487, 431), new Point(496, 391), new Point(497, 341), new Point(497, 291), new Point(497, 243),
-		new Point(499, 201), new Point(486, 161), new Point(443, 152), new Point(394, 152), new Point(347, 152), new Point(295, 152),
-		new Point(249, 152), new Point(205, 149), new Point(166, 167), new Point(154, 212), new Point(154, 261), new Point(150, 302),
-		new Point(169, 339), new Point(210, 349), new Point(256, 349), new Point(305, 348), new Point(348, 351), new Point(388, 332),
-		new Point(401, 296), new Point(385, 262), new Point(346, 251), new Point(285, 248)
-	};
-
     //Array con los nombres de los gráficos del juego
     public static final String[][] ARR_GRAFS = {
         {"espBotonEmpezar1.png","espBotonEmpezar2.png","ingBotonEmpezar1.png","ingBotonEmpezar2.png"}, //Botones del menú [0-3]
@@ -81,11 +56,6 @@ public abstract class Const {
         {"presentacion.png"},{"inicio3.png"},{"tableroc.png"}, //Fondos [22-25]
         {"tablero1.png","tableroN.png"}
     };
-
-    //Diferentes fondos del juego
-    public static final int FONDOPRES = 22;
-    public static final int FONDOINIC = 23;
-    public static final int FONDOTABL = 24;
 
 	public static final Point[] ARR_COORDS_MENU = {
 		new Point(389,234),
@@ -141,14 +111,6 @@ public abstract class Const {
         new Rectangle(ARR_COORDS_JUEGO[9], new Dimension(19,19))
 	};
 
-    //Estados del juego
-    public static final int ESTADO_MENU = 0;
-    public static final int ESTADO_PRESENTACION = 1;
-    public static final int ESTADO_OPCIONES = 2;
-    public static final int ESTADO_MENU_PRINCIPAL = 4;
-    public static final int ESTADO_JUEGO = 5;
-    public static final int ESTADO_FINAL = 6;
-
     //Eventos de la máquina de estados
     public static final int EVENTO_EMPEZAR = 0;
     public static final int EVENTO_SALIR = 1;
@@ -161,11 +123,6 @@ public abstract class Const {
     public static final int ANCHORESPUESTA = 28;
     public static final int ANCHOCURIOSIDAD = 44;
 
-    //Array con las posiciones
-    public static final int arrBocad[] = {1,5,5,5,5,5,5,5,5,5,5,7,7,7,7,7,7,7,7,
-                                          7,7,8,8,8,8,8,8,8,8,8,8,6,6,6,6,6,6,6,
-                                          6,6,5,5,5,5,5,5,7,7,7,7,7,7,7,8,8,8,8,
-                                          8,8,8,8,8,8,8,7,7,7,7,7,7};
     public static final int MODOPRESEN = 0;
     public static final int MODOMENU = 1;
     public static final int MODOOPCION = 2;

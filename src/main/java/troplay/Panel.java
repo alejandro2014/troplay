@@ -23,6 +23,11 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Panel extends JPanel implements ActionListener {
+	//Diferentes fondos del juego
+    public final int FONDOPRES = 22;
+    public final int FONDOINIC = 23;
+    public final int FONDOTABL = 24;
+	
 	//Posiciones del bocadillo
     private final int ARRIBA = 1;
     private final int ABAJO = 2;
@@ -538,9 +543,9 @@ public class Panel extends JPanel implements ActionListener {
         }
         
         //Inicialización de los diferentes gráficos (presentacion, menu de opciones, juego)
-        bufferMenu.getGraphics().drawImage(arrayGraficos[Const.FONDOPRES][0], 0, 0, this);
-        bufferOpciones.getGraphics().drawImage(arrayGraficos[Const.FONDOINIC][0], 0, 0, this);
-        bufferJuego.getGraphics().drawImage(arrayGraficos[Const.FONDOTABL][0], 0, 0, this);
+        bufferMenu.getGraphics().drawImage(arrayGraficos[FONDOPRES][0], 0, 0, this);
+        bufferOpciones.getGraphics().drawImage(arrayGraficos[FONDOINIC][0], 0, 0, this);
+        bufferJuego.getGraphics().drawImage(arrayGraficos[FONDOTABL][0], 0, 0, this);
         
         bufferTablero1 = arrayGraficos[25][0]; //Tableros para uno y varios jugadores
         bufferTableroN = arrayGraficos[25][1];
