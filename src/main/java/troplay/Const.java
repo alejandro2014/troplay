@@ -14,35 +14,6 @@ public abstract class Const {
 
     public static final String DIRECTORIO_GRAFICOS = "./src/main/resources/graficos/";
 
-    //Array con los nombres de los gráficos del juego
-    public static final String[][] ARR_GRAFS = {
-        {"espBotonEmpezar1.png","espBotonEmpezar2.png","ingBotonEmpezar1.png","ingBotonEmpezar2.png"}, //Botones del menú [0-3]
-        {"espBotonOpciones1.png","espBotonOpciones2.png","ingBotonOpciones1.png","ingBotonOpciones2.png"},
-        {"espBotonSalir1.png","espBotonSalir2.png","ingBotonSalir1.png","ingBotonSalir2.png"},
-        {"espVolverMenu1.png","espVolverMenu2.png","ingVolverMenu1.png","ingVolverMenu2.png"},
-
-        {"espBotonRespon1.png","espBotonRespon2.png","ingBotonRespon1.png","ingBotonRespon2.png"}, //Botones del juego [4-5]
-        {"espBotonVolver1.png","espBotonVolver2.png","ingBotonVolver1.png","ingBotonVolver2.png"},
-        {"checkBoxNo.png","checkBoxSi.png"}, //CheckBoxes [6]
-
-        {"jugador1.png"},{"jugador2.png"},{"jugador3.png"},{"jugador4.png"}, //Elementos propios de la partida en sí [7-11]
-        {"dado1.png","dado2.png","dado3.png","dado4.png","dado5.png","dado6.png"},
-
-        //Letreros fijos del menú de opciones [12-15]
-        {"espTituloIdioma.png","ingTituloIdioma.png"}, {"espTituloJugadores.png","ingTituloJugadores.png"},
-        {"espTituloConexion.png","ingTituloConexion.png"}, {"espTituloOpciones.png","ingTituloOpciones.png"},
-
-        {"jug11.png","jug12.png","jug13.png","jug14.png","jug15.png"}, //Indicadores del jugador actual [16-19]
-        {"jug21.png","jug22.png","jug23.png","jug24.png","jug25.png"},
-        {"jug31.png","jug32.png","jug33.png","jug34.png","jug35.png"},
-        {"jug41.png","jug42.png","jug43.png","jug44.png","jug45.png"},
-
-        {"fondoSabias.png"},{"sabiasEsp.png","sabiasIng.png"}, //Otros elementos del juego [20-21]
-
-        {"presentacion.png"},{"inicio3.png"},{"tableroc.png"}, //Fondos [22-25]
-        {"tablero1.png","tableroN.png"}
-    };
-
 	public static final Point[] ARR_COORDS_MENU = {
 		new Point(389,234),
 		new Point(389,303),
