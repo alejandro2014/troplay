@@ -36,9 +36,4 @@ public abstract class Const {
     public static final int ANCHOPREGUNTA = 40;
     public static final int ANCHORESPUESTA = 28;
     public static final int ANCHOCURIOSIDAD = 44;
-
-    public static final int MODOPRESEN = 0;
-    public static final int MODOMENU = 1;
-    public static final int MODOOPCION = 2;
-    public static final int MODOJUEGO  = 3;
 }

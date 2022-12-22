@@ -68,10 +68,10 @@ public class ControlFlujo {
             case ESTADO_PRESENTACION:
                 switch(evento) {
                     case NULO:
-                        panel.setModo(Const.MODOPRESEN);
+                        panel.setModo(GameMode.PRESEN);
                         new ControlPresentacion(ventana,this);
                         nuevoEstado = ESTADO_MENU_PRINCIPAL;
-                        panel.setModo(Const.MODOMENU);
+                        panel.setModo(GameMode.MENU);
                         break;
                 }
                 break;
@@ -113,14 +113,14 @@ public class ControlFlujo {
                 switch(evento) {
                     //Apertura del menú de opciones
                     case NULO:
-                        panel.setModo(Const.MODOOPCION);
+                        panel.setModo(GameMode.OPCION);
                         
                         new Menu(ventana,raton,this,1, ARR_RECTS);
                         break;
                         
                     //Volver al menú principal
                     case VOLVER:
-                        panel.setModo(Const.MODOMENU);
+                        panel.setModo(GameMode.MENU);
                         nuevoEstado = ESTADO_MENU_PRINCIPAL;
                         eventoEntrada = GameEvent.NULO;
                         break;
@@ -132,7 +132,7 @@ public class ControlFlujo {
                 switch(evento) {
                     //Salida del juego
                     case SALIR:
-                        panel.setModo(Const.MODOMENU);
+                        panel.setModo(GameMode.MENU);
                         nuevoEstado = ESTADO_MENU_PRINCIPAL;
                         eventoEntrada = GameEvent.NULO;
                         break;

@@ -96,7 +96,7 @@ public class Juego extends ClaseControladora {
         this.rectangles = rectangles;
         
         panel.setRefJuego(this);
-        panel.setNuevoDibujado(3,true);
+        ///panel.setNuevoDibujado(3,true);
         
         controladora = control;
         this.raton = raton;
@@ -118,7 +118,7 @@ public class Juego extends ClaseControladora {
         
         consultasJDBC.cerrarConexion();
         
-        panel.setModo(3);
+        panel.setModo(GameMode.JUEGO);
         bucleJuego();
     }
 	

@@ -121,11 +121,6 @@ public class Panel extends JPanel implements ActionListener {
     private int idiomaJuego = Const.ESPAÑOL;
     private int contadorTimer = 0;
     
-    //Modos diferentes representando momentos del juego
-    private int tipoDibujo = Const.MODOPRESEN;
-    
-    //Indicadores diciendo que se ha de crear la escena desde 0
-    private boolean[] nuevoDibujo  = {true, true, true, true};
     private LinkedList colaActualizar = new LinkedList();
     
     private Integer[] elementos = {0,0,0,0};
@@ -478,55 +473,46 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
    
-    public void setModo(int modo) {
-        tipoDibujo = modo;
+    public void setModo(GameMode modo) {
+        //tipoDibujo = modo;
         
         switch(modo) {
-            case Const.MODOPRESEN: //Presentación
+            case PRESEN: //Presentación
                 bufferActual = bufferMenu;
-                if(nuevoDibujo[tipoDibujo]) nuevoDibujo[tipoDibujo] = false;
                 break;
                 
-            case Const.MODOMENU: //Menú principal
+            case MENU: //Menú principal
                 bufferActual = bufferMenu;
-                if(nuevoDibujo[tipoDibujo]) {
-                    nuevoDibujo[tipoDibujo] = false;
                     
-                    insActualizacion(0,2*idiomaJuego,Const.ARR_COORDS_MENU[0]); //Botones
-                    insActualizacion(1,2*idiomaJuego,Const.ARR_COORDS_MENU[1]);
-                    insActualizacion(2,2*idiomaJuego,Const.ARR_COORDS_MENU[2]);
-                }
+                insActualizacion(0,2*idiomaJuego,Const.ARR_COORDS_MENU[0]); //Botones
+                insActualizacion(1,2*idiomaJuego,Const.ARR_COORDS_MENU[1]);
+                insActualizacion(2,2*idiomaJuego,Const.ARR_COORDS_MENU[2]);
                 break;
                 
-            case Const.MODOOPCION: //Menú de opciones
+            case OPCION: //Menú de opciones
                 bufferActual = bufferOpciones;
-                if(nuevoDibujo[tipoDibujo]) {
-                    nuevoDibujo[tipoDibujo] = false;
-                    insActualizacion(3,0,Const.ARR_COORDS_MENU[3]); //Boton volver
-                    insActualizacion(6,1,Const.ARR_COORDS_MENU[4]); //Checkboxes idioma
-                    insActualizacion(6,0,Const.ARR_COORDS_MENU[5]);
-                    insActualizacion(6,1,Const.ARR_COORDS_MENU[6]); //Checkboxes jugadores
-                    insActualizacion(6,0,Const.ARR_COORDS_MENU[7]);
-                    insActualizacion(6,0,Const.ARR_COORDS_MENU[8]);
-                    insActualizacion(6,0,Const.ARR_COORDS_MENU[9]);
-                    insActualizacion(12,0, ARR_COORDS_OPCIONES[0]); //Letreros
-                    insActualizacion(13,0, ARR_COORDS_OPCIONES[1]);
-                    insActualizacion(15,0, ARR_COORDS_OPCIONES[3]);
-                }
+                
+                insActualizacion(3,0,Const.ARR_COORDS_MENU[3]); //Boton volver
+                insActualizacion(6,1,Const.ARR_COORDS_MENU[4]); //Checkboxes idioma
+                insActualizacion(6,0,Const.ARR_COORDS_MENU[5]);
+                insActualizacion(6,1,Const.ARR_COORDS_MENU[6]); //Checkboxes jugadores
+                insActualizacion(6,0,Const.ARR_COORDS_MENU[7]);
+                insActualizacion(6,0,Const.ARR_COORDS_MENU[8]);
+                insActualizacion(6,0,Const.ARR_COORDS_MENU[9]);
+                insActualizacion(12,0, ARR_COORDS_OPCIONES[0]); //Letreros
+                insActualizacion(13,0, ARR_COORDS_OPCIONES[1]);
+                insActualizacion(15,0, ARR_COORDS_OPCIONES[3]);
                 break;
                 
-            case Const.MODOJUEGO: //Juego en sí
+            case JUEGO: //Juego en sí
                 bufferActual = bufferJuego;
                 bufferTablero = (refJuego.getNumJugadores() == 1 ? bufferTablero1 : bufferTableroN);
                 
-                if(nuevoDibujo[tipoDibujo]) {
-                    nuevoDibujo[tipoDibujo] = false;
-                    insActualizacion(24,0,new Point()); //Marco del tablero
-                    insActualizacion(25,(refJuego.getNumJugadores() == 1 ? 0 : 1), new Point(6,6)); //Tablero
-                    insActualizacion(11,0,Const.ARR_COORDS_JUEGO[4]);
-                    insActualizacion(4,2*idiomaJuego,Const.ARR_COORDS_JUEGO[5]);
-                    insActualizacion(5,2*idiomaJuego,Const.ARR_COORDS_JUEGO[6]);
-                }
+                insActualizacion(24,0,new Point()); //Marco del tablero
+                insActualizacion(25,(refJuego.getNumJugadores() == 1 ? 0 : 1), new Point(6,6)); //Tablero
+                insActualizacion(11,0,Const.ARR_COORDS_JUEGO[4]);
+                insActualizacion(4,2*idiomaJuego,Const.ARR_COORDS_JUEGO[5]);
+                insActualizacion(5,2*idiomaJuego,Const.ARR_COORDS_JUEGO[6]);
                 break;
         }
     }
@@ -536,8 +522,6 @@ public class Panel extends JPanel implements ActionListener {
             Graphics2D g = (Graphics2D) bufferActual.getGraphics();
             if(refrescarTablero) dibujarTablero();
             
-            /* Establecimiento de un gráfico determinado dentro de un array,
-            con unas coordenadas determinadas */
             while(!colaActualizar.isEmpty()) {
                 elementos[0] = (Integer)colaActualizar.poll();
                 elementos[1] = (Integer)colaActualizar.poll();
@@ -587,9 +571,6 @@ public class Panel extends JPanel implements ActionListener {
         bufferTableroN = arrayGraficos[25][1];
     }
     
-    /**
-     * Realiza una descarga de los gráficos del juego
-     */
     public void descargarGraficos() {
         int longitudArray = arrayGraficos.length;
         int longitudElem = 0;
@@ -605,11 +586,6 @@ public class Panel extends JPanel implements ActionListener {
         arrayGraficos = null;
     }
     
-    /**
-     * Inserción de nuevos elementos en la cola de actualizaciones
-     * @param indice Array dentro del array de gráficos
-     * @param subind Posición dentro del array anterior
-     */
 	public void insActualizacion(int indice, int subind, Point coords) {
         colaActualizar.add(indice);
 		colaActualizar.add(subind);
@@ -619,10 +595,6 @@ public class Panel extends JPanel implements ActionListener {
     
     public int getContadorTimer() {return contadorTimer;}
     
-    /**
-     * Establece el estado del juego
-     * @param cadena Cadena informativa
-     */
     public void setCadenaEstado(String cadena) {
         Graphics2D g = (Graphics2D) bufferActual.getGraphics();
         BufferedImage trozo = arrayGraficos[24][0].getSubimage(748, 55, 192, 57);
@@ -645,16 +617,9 @@ public class Panel extends JPanel implements ActionListener {
     public void setDibujadaCuriosidad(boolean valor) {dibujadaCuriosidad = valor;}
     public void setDibujarPregunta(boolean valor) {dibujarPregunta = valor;}
     
-    /**
-     * Cambio del idioma del juego. Como sólo se hace desde el menú controla también
-     * el cambio de las opciones del juego.
-     * @param nuevoIdioma Idioma al que se cambia (español o inglés)
-     */
     public void setIdioma(int nuevoIdioma) {
         idiomaJuego = nuevoIdioma;
-        
-        nuevoDibujo[Const.MODOMENU] = true;
-        
+            
         insActualizacion(12,idiomaJuego, ARR_COORDS_OPCIONES[0]);
         insActualizacion(13,idiomaJuego, ARR_COORDS_OPCIONES[1]);
         insActualizacion(15,idiomaJuego, ARR_COORDS_OPCIONES[3]);
@@ -663,7 +628,6 @@ public class Panel extends JPanel implements ActionListener {
         insActualizacion(3,2*idiomaJuego,Const.ARR_COORDS_MENU[3]);
     }
     
-    public void setNuevoDibujado(int i, boolean b) {nuevoDibujo[i] = b;}
     public void setNumJugadores(int numJugadores) {this.numJugadores = numJugadores;}
     public void setPregunta(Pregunta preguntaActual) {this.preguntaActual = preguntaActual;}
     public void setRefJuego(Juego refJuego) {this.refJuego = refJuego;}
