@@ -1,8 +1,32 @@
 package troplay;
 
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.sql.SQLException;
 
 public class ControlFlujo {
+	//Rectángulos correspondientes a los elementos pulsables
+    private static final Rectangle ARR_RECTS[] = {
+        new Rectangle(new Point(389,234), new Dimension(165,46)), //Botones del menú principal
+        new Rectangle(new Point(389,303), new Dimension(165,46)),
+        new Rectangle(new Point(389,372), new Dimension(165,46)),
+        new Rectangle(new Point(574,220), new Dimension(165,46)),
+        new Rectangle(new Point(746,470), new Dimension(133,37)), //Botones del juego
+        new Rectangle(new Point(746,512), new Dimension(133,37)),
+
+        new Rectangle(new Point(346,226), new Dimension(19,19)), //Checkboxes del menú
+        new Rectangle(new Point(513,225), new Dimension(19,19)),
+        new Rectangle(new Point(317,384), new Dimension(19,19)),
+        new Rectangle(new Point(476,384), new Dimension(19,19)),
+        new Rectangle(new Point(317,484), new Dimension(19,19)),
+        new Rectangle(new Point(480,485), new Dimension(19,19)),
+
+        new Rectangle(new Point(703,20), new Dimension(19,19)), //Checkboxes del juego
+        new Rectangle(new Point(703,50), new Dimension(19,19)),
+        new Rectangle(new Point(703,80), new Dimension(19,19))
+	};
+	
 	//Estados del juego
     public final int ESTADO_MENU = 0;
     public final int ESTADO_PRESENTACION = 1;
@@ -55,7 +79,7 @@ public class ControlFlujo {
                 switch(evento) {
                     //Nada más arrancar el programa
                     case Const.EVENTO_NULO:
-                        new Menu(ventana,raton,this,0);
+                        new Menu(ventana,raton,this,0, ARR_RECTS);
                         break;
                     
                     //Empezar el juego
@@ -63,7 +87,7 @@ public class ControlFlujo {
                         panel.setNumJugadores(numJugadores);
                         panel.setDibujadaCuriosidad(false);
                         try {
-                            new Juego(panel, raton, this);
+                            new Juego(panel, raton, this, ARR_RECTS);
                         } catch (SQLException ex) {}
                         
                         nuevoEstado = ESTADO_JUEGO;
@@ -89,7 +113,7 @@ public class ControlFlujo {
                     case Const.EVENTO_NULO:
                         panel.setModo(Const.MODOOPCION);
                         
-                        new Menu(ventana,raton,this,1);
+                        new Menu(ventana,raton,this,1, ARR_RECTS);
                         break;
                         
                     //Volver al menú principal

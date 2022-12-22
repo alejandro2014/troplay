@@ -1,6 +1,7 @@
 package troplay;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class Menu extends troplay.ClaseControladora {
@@ -38,7 +39,7 @@ public class Menu extends troplay.ClaseControladora {
     private boolean cambiadoCheckbox = false;
     private boolean cambiadoBoton = false;
     
-    public Menu(Ventana vent, Raton raton, ControlFlujo control, int tipoMenu) {
+    public Menu(Ventana vent, Raton raton, ControlFlujo control, int tipoMenu, Rectangle[] rectangles) {
         ArrayList conjCbxActual = null;
         int longBotones = botones.length;
         int longCbxIdioma = 2;
@@ -62,7 +63,7 @@ public class Menu extends troplay.ClaseControladora {
         for(i = 0; i < longBotones; i++) {
             botones[i] = new Drawable();
 			botones[i].setCoords(coords[i]);
-            botones[i].setRectangulo(Const.ARR_RECTS[i]);
+            botones[i].setRectangulo(rectangles[i]);
         }
         
         //Inicializacion de los checkBox
@@ -72,7 +73,7 @@ public class Menu extends troplay.ClaseControladora {
             
             checkboxes[i] = new CheckBox(conjCbxActual);
 			checkboxes[i].setCoords(coords[i + longBotones]);
-            checkboxes[i].setRectangulo(Const.ARR_RECTS[i + 6]);
+            checkboxes[i].setRectangulo(rectangles[i + 6]);
         }
         
         //Activado o desactivado de los elementos en función del tipo de menú

@@ -23,6 +23,13 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Panel extends JPanel implements ActionListener {
+	private static final Point[] ARR_COORDS_OPCIONES = {
+		new Point(320,161), //0
+		new Point(318,299), //1
+		new Point(314,437), //2
+		new Point(310,66)   //3
+	};
+	
 	//Array con los nombres de los gráficos del juego
     public static final String[][] ARR_GRAFS = {
         {"espBotonEmpezar1.png","espBotonEmpezar2.png","ingBotonEmpezar1.png","ingBotonEmpezar2.png"}, //Botones del menú [0-3]
@@ -502,9 +509,9 @@ public class Panel extends JPanel implements ActionListener {
                     insActualizacion(6,0,Const.ARR_COORDS_MENU[7]);
                     insActualizacion(6,0,Const.ARR_COORDS_MENU[8]);
                     insActualizacion(6,0,Const.ARR_COORDS_MENU[9]);
-                    insActualizacion(12,0,Const.ARR_COORDS_OPCIONES[0]); //Letreros
-                    insActualizacion(13,0,Const.ARR_COORDS_OPCIONES[1]);
-                    insActualizacion(15,0,Const.ARR_COORDS_OPCIONES[3]);
+                    insActualizacion(12,0, ARR_COORDS_OPCIONES[0]); //Letreros
+                    insActualizacion(13,0, ARR_COORDS_OPCIONES[1]);
+                    insActualizacion(15,0, ARR_COORDS_OPCIONES[3]);
                 }
                 break;
                 
@@ -648,9 +655,9 @@ public class Panel extends JPanel implements ActionListener {
         
         nuevoDibujo[Const.MODOMENU] = true;
         
-        insActualizacion(12,idiomaJuego,Const.ARR_COORDS_OPCIONES[0]);
-        insActualizacion(13,idiomaJuego,Const.ARR_COORDS_OPCIONES[1]);
-        insActualizacion(15,idiomaJuego,Const.ARR_COORDS_OPCIONES[3]);
+        insActualizacion(12,idiomaJuego, ARR_COORDS_OPCIONES[0]);
+        insActualizacion(13,idiomaJuego, ARR_COORDS_OPCIONES[1]);
+        insActualizacion(15,idiomaJuego, ARR_COORDS_OPCIONES[3]);
         insActualizacion(6,(idiomaJuego == 0 ? 1 : 0),Const.ARR_COORDS_MENU[4]);
         insActualizacion(6,(idiomaJuego == 0 ? 0 : 1),Const.ARR_COORDS_MENU[5]);
         insActualizacion(3,2*idiomaJuego,Const.ARR_COORDS_MENU[3]);

@@ -39,7 +39,7 @@ public class Juego extends ClaseControladora {
     public Ventana ventana = null;
     
     //Control de los gráficos
-    private Rectangle[] rectangulos = null;
+    //private Rectangle[] rectangulos = null;
     
     //Elementos dinámicos del juego (botones y checkboxes)
     private Drawable[] botones = new Drawable[2];
@@ -85,17 +85,19 @@ public class Juego extends ClaseControladora {
     private int contadorInicial, contadorFinal, contadorMas1;
     private boolean dibujadaCuriosidad = false;
     
-    public Juego(Panel panel, Raton raton, ControlFlujo control) throws SQLException {
+    private Rectangle[] rectangles = null;
+    
+    public Juego(Panel panel, Raton raton, ControlFlujo control, Rectangle[] rectangles) throws SQLException {
         int i;
         
         this.panel = panel;
+        this.rectangles = rectangles;
+        
         panel.setRefJuego(this);
         panel.setNuevoDibujado(3,true);
         
         controladora = control;
         this.raton = raton;
-
-        rectangulos = Const.ARR_RECTS;
         
         idiomaJuego = control.getIdioma();
         consultasJDBC = new ConexionJDBC(idiomaJuego);
@@ -138,7 +140,7 @@ public class Juego extends ClaseControladora {
             botones[i] = new Drawable();
             botones[i].setCoords(Const.ARR_COORDS_JUEGO[i+5]);
             botones[i].setMostrar(true);
-            botones[i].setRectangulo(rectangulos[i+4]);
+            botones[i].setRectangulo(rectangles[i+4]);
         }
 	}
 	
@@ -147,7 +149,7 @@ public class Juego extends ClaseControladora {
             checkboxes[i] = new CheckBox(conjCbxActual);
             checkboxes[i].setCoords(Const.ARR_COORDS_JUEGO[i+7]);
             checkboxes[i].setMostrar(false);
-            checkboxes[i].setRectangulo(rectangulos[i+7]);
+            checkboxes[i].setRectangulo(rectangles[i+7]);
         }
         checkboxes[0].setActivado(true);
 	}
