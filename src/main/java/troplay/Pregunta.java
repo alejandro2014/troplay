@@ -3,8 +3,9 @@ package troplay;
 import java.util.ArrayList;
 
 public class Pregunta extends Drawable {
+	private static final int NUM_RESPUESTAS = 3;
     private String textoPregunta;
-    private String respuestas[] = new String[Const.NUM_RESPUESTAS];
+    private String respuestas[] = new String[NUM_RESPUESTAS];
     private int respCorrecta = -1;
     
     private int idPregunta;

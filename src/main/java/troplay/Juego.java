@@ -7,6 +7,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Juego extends ClaseControladora {
+	private static final int NUM_DIFICULTADES = 3;
+	private static final int BAJA = 0;
+	private static final int MEDIA = 1;
+	private static final int ALTA = 2;
+	private static final int NUMCASIFACIL = 23;
+	private static final int NUMCASIMEDIO = 23;
+	private static final int NUMCASIDIFICIL = 23;
+    
+	private static final int MAX_JUGADORES = 4;
     private int idiomaJuego = Const.ESPAÑOL;
     private int numJugadores = 1;
     
@@ -18,10 +27,10 @@ public class Juego extends ClaseControladora {
     private int respuestaMarcada = 0;
     
     private Dado dado = null;
-    private Jugador[] jugadores = new Jugador[Const.MAX_JUGADORES];
+    private Jugador[] jugadores = new Jugador[MAX_JUGADORES];
     
     private Casilla[] tablero = new Casilla[Const.NUM_CASILLAS];
-    private int[] numPreguntas = new int[Const.NUM_DIFICULTADES];
+    private int[] numPreguntas = new int[NUM_DIFICULTADES];
     
     private boolean[] asigFacil, asigMedio, asigDificil;
     private int ganador = -1;
@@ -115,7 +124,7 @@ public class Juego extends ClaseControladora {
 		numJugadores = controladora.getNumJugadores();
         jugadorActual = (numJugadores == 1 ? 0 : -1);
 		
-		for(i=0; i<Const.MAX_JUGADORES; i++) jugadores[i] = null;
+		for(i=0; i < MAX_JUGADORES; i++) jugadores[i] = null;
 		
         for(i=0; i<numJugadores; i++) {
             jugadores[i] = new Jugador(this,i);
@@ -146,14 +155,14 @@ public class Juego extends ClaseControladora {
 	private void initQuestions() throws SQLException {
 		int i;
 		
-        for(i=0; i<Const.NUM_DIFICULTADES; i++)numPreguntas[i] = getNumPreguntas(i,idiomaJuego);
-        asigFacil = new boolean[numPreguntas[Const.BAJA]];
-        asigMedio = new boolean[numPreguntas[Const.MEDIA]];
-        asigDificil = new boolean[numPreguntas[Const.ALTA]];
+        for(i=0; i < NUM_DIFICULTADES; i++)numPreguntas[i] = getNumPreguntas(i,idiomaJuego);
+        asigFacil = new boolean[numPreguntas[BAJA]];
+        asigMedio = new boolean[numPreguntas[MEDIA]];
+        asigDificil = new boolean[numPreguntas[ALTA]];
         
-        for(i=0; i<numPreguntas[Const.BAJA]; i++) asigFacil[i] = false;
-        for(i=0; i<numPreguntas[Const.MEDIA]; i++) asigMedio[i] = false;
-        for(i=0; i<numPreguntas[Const.ALTA]; i++) asigDificil[i] = false;
+        for(i=0; i<numPreguntas[BAJA]; i++) asigFacil[i] = false;
+        for(i=0; i<numPreguntas[MEDIA]; i++) asigMedio[i] = false;
+        for(i=0; i<numPreguntas[ALTA]; i++) asigDificil[i] = false;
 	}
 	
 	private Pregunta getCuriosity() throws SQLException {
@@ -468,18 +477,18 @@ public class Juego extends ClaseControladora {
     public void asignarPreguntas() throws SQLException {
         Random rnd = new Random();
         boolean[] asig = asigFacil;
-        int dificultad = Const.BAJA;
+        int dificultad = BAJA;
         Pregunta[] pregun = new Pregunta[Const.PREGS_POR_CASILLA];
         int[] idPreg = new int[Const.PREGS_POR_CASILLA];
-        int limite1 = Const.NUMCASIFACIL;
-        int limite2 = Const.NUMCASIFACIL + Const.NUMCASIMEDIO;
+        int limite1 = NUMCASIFACIL;
+        int limite2 = NUMCASIFACIL + NUMCASIMEDIO;
         
         //Se rellenan todas las casillas con preguntas
         for(int i=0; i<Const.NUM_CASILLAS-1; i++) {
             //Ajusta la dificultad de la pregunta en función de la casilla
-            if(i>-1 && i<limite1) {dificultad = Const.BAJA; asig = asigFacil;}
-            else if(i>limite1 - 1 && i<limite2) {dificultad = Const.MEDIA; asig = asigMedio;}
-            else if(i> limite2-1) {dificultad = Const.ALTA; asig = asigDificil;}
+            if(i>-1 && i<limite1) {dificultad = BAJA; asig = asigFacil;}
+            else if(i>limite1 - 1 && i<limite2) {dificultad = MEDIA; asig = asigMedio;}
+            else if(i> limite2-1) {dificultad = ALTA; asig = asigDificil;}
             
             //Dentro de cada casilla se rellenan cuatro preguntas
             for(int j=0; j<Const.PREGS_POR_CASILLA; j++) {

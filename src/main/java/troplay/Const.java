@@ -4,27 +4,13 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-/**
- * Clase abstracta que contiene las constantes del juego
- * @author alejandro
- */
 public abstract class Const {
     public static final int NUM_IDIOMAS = 2;
     public static final int ESPAÑOL = 0;
     public static final int INGLES = 1;
 
-    public static final int MAX_JUGADORES = 4;
     public static final int NUM_CASILLAS = 70;
     public static final int PREGS_POR_CASILLA = 3;
-    public static final int NUM_RESPUESTAS = 3;
-
-    public static final int NUM_DIFICULTADES = 3;
-    public static final int BAJA = 0;
-    public static final int MEDIA = 1;
-    public static final int ALTA = 2;
-    public static final int NUMCASIFACIL = 23;
-    public static final int NUMCASIMEDIO = 23;
-    public static final int NUMCASIDIFICIL = 23;
 
     public static final String DIRECTORIO_GRAFICOS = "./src/main/resources/graficos/";
 
@@ -82,7 +68,7 @@ public abstract class Const {
 		new Point(343,543),
         new Point(343,543),
 		new Point(343,543),
-        new Point(698,67), /**/
+        new Point(698,67),
 		new Point(746,470),
 		new Point(746,512),
 		new Point(703,20),
