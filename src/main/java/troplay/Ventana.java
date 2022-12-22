@@ -11,9 +11,11 @@ public class Ventana extends JFrame {
       
       private Image icono = null;
       private Panel panel = null;
+      
+      private String graphicsDir = "./src/main/resources/graficos/";
      
       public Ventana() {
-          panel = new Panel();
+          panel = new Panel(this.graphicsDir);
           add(panel);
           setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           setSize(ANCHO,ALTO);
@@ -23,7 +25,7 @@ public class Ventana extends JFrame {
           setVisible(true);
               
           try {
-              icono = getToolkit().getImage(Const.DIRECTORIO_GRAFICOS + "icono.png");
+              icono = getToolkit().getImage(this.graphicsDir + "icono.png");
           } catch (Exception e) {
               System.err.println("Error en la carga de imágenes" + e.toString());
           }

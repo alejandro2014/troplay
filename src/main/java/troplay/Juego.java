@@ -29,7 +29,8 @@ public class Juego extends ClaseControladora {
     private Dado dado = null;
     private Jugador[] jugadores = new Jugador[MAX_JUGADORES];
     
-    private Casilla[] tablero = new Casilla[Const.NUM_CASILLAS];
+    private int squaresNo = 70;
+    private Casilla[] tablero = new Casilla[this.squaresNo];
     private int[] numPreguntas = new int[NUM_DIFICULTADES];
     
     private boolean[] asigFacil, asigMedio, asigDificil;
@@ -86,6 +87,7 @@ public class Juego extends ClaseControladora {
     private boolean dibujadaCuriosidad = false;
     
     private Rectangle[] rectangles = null;
+	private int questionsBySquare = 3;
     
     public Juego(Panel panel, Raton raton, ControlFlujo control, Rectangle[] rectangles) throws SQLException {
         int i;
@@ -102,7 +104,7 @@ public class Juego extends ClaseControladora {
         idiomaJuego = control.getIdioma();
         consultasJDBC = new ConexionJDBC(idiomaJuego);
         
-        for(i=0; i<Const.NUM_CASILLAS; i++) tablero[i] = new Casilla(i);
+        for(i=0; i < this.squaresNo; i++) tablero[i] = new Casilla(i, this.questionsBySquare);
         
 		dado = createDice();
         	
@@ -212,7 +214,7 @@ public class Juego extends ClaseControladora {
         panel.setCadenaEstado("");
         panel.setDibujadaCuriosidad(false);
         
-        controladora.setEvento(Const.EVENTO_SALIR);
+        controladora.setEvento(GameEvent.SALIR);
         }
 
     public int cambiarEstado(int estado, int evento) {
@@ -480,20 +482,20 @@ public class Juego extends ClaseControladora {
         Random rnd = new Random();
         boolean[] asig = asigFacil;
         int dificultad = BAJA;
-        Pregunta[] pregun = new Pregunta[Const.PREGS_POR_CASILLA];
-        int[] idPreg = new int[Const.PREGS_POR_CASILLA];
+        Pregunta[] pregun = new Pregunta[this.questionsBySquare];
+        int[] idPreg = new int[this.questionsBySquare];
         int limite1 = NUMCASIFACIL;
         int limite2 = NUMCASIFACIL + NUMCASIMEDIO;
         
         //Se rellenan todas las casillas con preguntas
-        for(int i=0; i<Const.NUM_CASILLAS-1; i++) {
+        for(int i=0; i < this.squaresNo - 1; i++) {
             //Ajusta la dificultad de la pregunta en función de la casilla
             if(i>-1 && i<limite1) {dificultad = BAJA; asig = asigFacil;}
             else if(i>limite1 - 1 && i<limite2) {dificultad = MEDIA; asig = asigMedio;}
             else if(i> limite2-1) {dificultad = ALTA; asig = asigDificil;}
             
             //Dentro de cada casilla se rellenan cuatro preguntas
-            for(int j=0; j<Const.PREGS_POR_CASILLA; j++) {
+            for(int j=0; j < this.questionsBySquare; j++) {
                 do {
                     idPreg[j] = rnd.nextInt() % numPreguntas[dificultad];
                     if(idPreg[j] < 0) idPreg[j] *= -1;
@@ -513,7 +515,7 @@ public class Juego extends ClaseControladora {
         int jugadorGanador = -1;
         
         for(int i=0; i<numJugadores && jugadorGanador == -1; i++) {
-            if(jugadores[i].getCasilla() == (Const.NUM_CASILLAS-1)) {
+            if(jugadores[i].getCasilla() == (this.squaresNo - 1)) {
                 switch(idiomaJuego) {
                     case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (i+1) + " gana"); break;
                     case Const.INGLES: panel.setCadenaEstado("Player " + (i+1) + " wins"); break;

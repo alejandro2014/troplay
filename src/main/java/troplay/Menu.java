@@ -14,7 +14,7 @@ public class Menu extends troplay.ClaseControladora {
     private Panel panel = null;
     private Raton raton = null;
     private boolean acabar = false;
-    private int eventoRealizado = Const.EVENTO_NULO;
+    private GameEvent eventoRealizado = GameEvent.NULO;
     
     private final int NUM_BOTONES = 4;
     private final int NUM_CHECKBOXES = 6;
@@ -123,8 +123,8 @@ public class Menu extends troplay.ClaseControladora {
     }
     
     public boolean finalBucle() {
-        return (eventoRealizado == Const.EVENTO_SALIR || eventoRealizado == Const.EVENTO_EMPEZAR ||
-                eventoRealizado == Const.EVENTO_VOLVER || eventoRealizado == Const.EVENTO_OPCIONES);
+        return (eventoRealizado == GameEvent.SALIR || eventoRealizado == GameEvent.EMPEZAR ||
+                eventoRealizado == GameEvent.VOLVER || eventoRealizado == GameEvent.OPCIONES);
     }
 
     public void controlEntrada() {
@@ -197,10 +197,10 @@ public class Menu extends troplay.ClaseControladora {
         cambiadoBoton = false;
         
         switch(numBoton) {
-            case 0: eventoRealizado = Const.EVENTO_EMPEZAR;  break;
-            case 1: eventoRealizado = Const.EVENTO_OPCIONES; break;
-            case 2: eventoRealizado = Const.EVENTO_SALIR;    break;
-            case 3: eventoRealizado = Const.EVENTO_VOLVER;   break;
+            case 0: eventoRealizado = GameEvent.EMPEZAR;  break;
+            case 1: eventoRealizado = GameEvent.OPCIONES; break;
+            case 2: eventoRealizado = GameEvent.SALIR;    break;
+            case 3: eventoRealizado = GameEvent.VOLVER;   break;
         }
     }
 }

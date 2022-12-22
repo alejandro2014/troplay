@@ -12,6 +12,8 @@ public class Casilla {
 	private Point coordsRef = new Point();
     private int posicionBocad = 1;
     
+    private int questionsBySquare = 0;
+    
     //Array con las posiciones
     private static final int arrBocad[] = {1,5,5,5,5,5,5,5,5,5,5,7,7,7,7,7,7,7,7,
                                           7,7,8,8,8,8,8,8,8,8,8,8,6,6,6,6,6,6,6,
@@ -33,7 +35,9 @@ public class Casilla {
 		new Point(401, 296), new Point(385, 262), new Point(346, 251), new Point(285, 248)
     };
     
-    public Casilla(int cas) {
+    public Casilla(int cas, int questionsBySquare) {
+    	this.questionsBySquare = questionsBySquare;
+    	
         numCasilla = cas;
         posicionBocad = Casilla.arrBocad[cas];
 		coordsRef = Casilla.arrayCasillas[numCasilla];
@@ -68,7 +72,7 @@ public class Casilla {
     public int getPosicionBocad() {return posicionBocad;}
     
     public Pregunta getPregunta(int num){
-        return arrayPreguntas[num < Const.PREGS_POR_CASILLA ? num : 0];
+        return arrayPreguntas[num < this.questionsBySquare ? num : 0];
     }
     
     public void setPreguntas(Pregunta array[]){
@@ -78,7 +82,7 @@ public class Casilla {
     
     public void preguntaResuelta() {
         numPregunta++;
-        if(numPregunta == Const.PREGS_POR_CASILLA) numPregunta = 0;
+        if(numPregunta == this.questionsBySquare) numPregunta = 0;
         pregActual = arrayPreguntas[numPregunta];
     }
 }

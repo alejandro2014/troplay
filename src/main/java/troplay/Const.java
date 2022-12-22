@@ -3,14 +3,8 @@ package troplay;
 import java.awt.Point;
 
 public abstract class Const {
-    public static final int NUM_IDIOMAS = 2;
     public static final int ESPAÑOL = 0;
     public static final int INGLES = 1;
-
-    public static final int NUM_CASILLAS = 70;
-    public static final int PREGS_POR_CASILLA = 3;
-
-    public static final String DIRECTORIO_GRAFICOS = "./src/main/resources/graficos/";
 
 	public static final Point[] ARR_COORDS_MENU = {
 		new Point(389,234), //0
@@ -37,13 +31,6 @@ public abstract class Const {
 		new Point(703,50),  //8
 		new Point(703,80)   //9
 	};
-
-    //Eventos de la máquina de estados
-    public static final int EVENTO_EMPEZAR = 0;
-    public static final int EVENTO_SALIR = 1;
-    public static final int EVENTO_NULO = 2;
-    public static final int EVENTO_OPCIONES = 3;
-    public static final int EVENTO_VOLVER = 5;
 
     //Anchos de los textos en caracteres
     public static final int ANCHOPREGUNTA = 40;

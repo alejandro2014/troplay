@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.sql.SQLException;
 
+
 public class ControlFlujo {
 	//Rectángulos correspondientes a los elementos pulsables
     private static final Rectangle ARR_RECTS[] = {
@@ -39,7 +40,7 @@ public class ControlFlujo {
     private Raton raton = null;
     
     private int estadoActual = ESTADO_PRESENTACION;
-    private int eventoEntrada = Const.EVENTO_NULO;
+    private GameEvent eventoEntrada = GameEvent.NULO;
     
     private int idiomaJuego = Const.ESPAÑOL;
     private int numJugadores = 1;
@@ -48,6 +49,7 @@ public class ControlFlujo {
     
     public ControlFlujo() {
         setVariables(idiomaJuego,numJugadores);
+        
         ventana = new Ventana();
         panel = ventana.getPanel();
         raton = new Raton(panel);
@@ -59,13 +61,13 @@ public class ControlFlujo {
         System.exit(0);
     }
     
-    public int cambiarEstado(int estado, int evento) {
+    public int cambiarEstado(int estado, GameEvent evento) {
 
         switch(estado) {
             //Pantalla de presentación
             case ESTADO_PRESENTACION:
                 switch(evento) {
-                    case Const.EVENTO_NULO:
+                    case NULO:
                         panel.setModo(Const.MODOPRESEN);
                         new ControlPresentacion(ventana,this);
                         nuevoEstado = ESTADO_MENU_PRINCIPAL;
@@ -78,12 +80,12 @@ public class ControlFlujo {
             case ESTADO_MENU_PRINCIPAL:
                 switch(evento) {
                     //Nada más arrancar el programa
-                    case Const.EVENTO_NULO:
+                    case NULO:
                         new Menu(ventana,raton,this,0, ARR_RECTS);
                         break;
                     
                     //Empezar el juego
-                    case Const.EVENTO_EMPEZAR:
+                    case EMPEZAR:
                         panel.setNumJugadores(numJugadores);
                         panel.setDibujadaCuriosidad(false);
                         try {
@@ -94,13 +96,13 @@ public class ControlFlujo {
                         break;
                     
                     //Ir al menú de opciones
-                    case Const.EVENTO_OPCIONES:
+                    case OPCIONES:
                         nuevoEstado = ESTADO_OPCIONES;
-                        eventoEntrada = Const.EVENTO_NULO;
+                        eventoEntrada = GameEvent.NULO;
                         break;
                         
                     //Salir del juego
-                    case Const.EVENTO_SALIR:
+                    case SALIR:
                         nuevoEstado = ESTADO_FINAL;
                         break;
                 }
@@ -110,17 +112,17 @@ public class ControlFlujo {
             case ESTADO_OPCIONES:
                 switch(evento) {
                     //Apertura del menú de opciones
-                    case Const.EVENTO_NULO:
+                    case NULO:
                         panel.setModo(Const.MODOOPCION);
                         
                         new Menu(ventana,raton,this,1, ARR_RECTS);
                         break;
                         
                     //Volver al menú principal
-                    case Const.EVENTO_VOLVER:
+                    case VOLVER:
                         panel.setModo(Const.MODOMENU);
                         nuevoEstado = ESTADO_MENU_PRINCIPAL;
-                        eventoEntrada = Const.EVENTO_NULO;
+                        eventoEntrada = GameEvent.NULO;
                         break;
                 }
                 break;
@@ -129,10 +131,10 @@ public class ControlFlujo {
             case ESTADO_JUEGO:
                 switch(evento) {
                     //Salida del juego
-                    case Const.EVENTO_SALIR:
+                    case SALIR:
                         panel.setModo(Const.MODOMENU);
                         nuevoEstado = ESTADO_MENU_PRINCIPAL;
-                        eventoEntrada = Const.EVENTO_NULO;
+                        eventoEntrada = GameEvent.NULO;
                         break;
                 }
                 break;
@@ -144,7 +146,7 @@ public class ControlFlujo {
     public int getIdioma() {return idiomaJuego;}
     public int getNumJugadores() {return numJugadores;}
     
-    public void setEvento(int eventoNuevo) {eventoEntrada = eventoNuevo;}
+    public void setEvento(GameEvent eventoNuevo) {eventoEntrada = eventoNuevo;}
     
     public void setVariables(int idioma, int jugadores) {
         idiomaJuego = idioma;

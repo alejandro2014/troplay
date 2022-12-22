@@ -136,10 +136,10 @@ public class Panel extends JPanel implements ActionListener {
     
     private Graphics2D g2d = null;
     private Graphics2D g3d = null;
-
-    public Panel() {
+    
+    public Panel(String graphicsDir) {
         setBackground(Color.BLACK);
-        this.cargaGraficos();
+        this.cargaGraficos(graphicsDir);
         setDoubleBuffered(true);
 
         timer = new Timer(70, this);
@@ -552,7 +552,7 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
     
-    private void cargaGraficos() {
+    private void cargaGraficos(String graphicsDir) {
         String[][] arrGrafs = ARR_GRAFS;
         int longitud = arrGrafs.length;
         int longitudSub = 0;
@@ -570,8 +570,8 @@ public class Panel extends JPanel implements ActionListener {
                 arrayGraficos[i] = new BufferedImage[longitudSub];
             
                 for(j = 0; j < longitudSub; j++) {
-                    arrayGraficos[i][j] = ImageIO.read(new File(Const.DIRECTORIO_GRAFICOS + arrGrafs[i][j]));
-                    direct = Const.DIRECTORIO_GRAFICOS + arrGrafs[i][j];
+                    arrayGraficos[i][j] = ImageIO.read(new File(graphicsDir + arrGrafs[i][j]));
+                    direct = graphicsDir + arrGrafs[i][j];
 				}
             }
         } catch(Exception e) {
