@@ -7,6 +7,19 @@ import java.sql.SQLException;
 
 
 public class ControlFlujo {
+	private final Rectangle rectsMenu[] = {
+		new Rectangle(new Point(389,234), new Dimension(165,46)), //Botones del menú principal
+        new Rectangle(new Point(389,303), new Dimension(165,46)),
+        new Rectangle(new Point(389,372), new Dimension(165,46)),
+        new Rectangle(new Point(574,220), new Dimension(165,46)),
+		new Rectangle(new Point(346,226), new Dimension(19,19)), //Checkboxes del menú
+	    new Rectangle(new Point(513,225), new Dimension(19,19)),
+	    new Rectangle(new Point(317,384), new Dimension(19,19)),
+	    new Rectangle(new Point(476,384), new Dimension(19,19)),
+	    new Rectangle(new Point(317,484), new Dimension(19,19)),
+	    new Rectangle(new Point(480,485), new Dimension(19,19))	
+	};
+	
 	//Rectángulos correspondientes a los elementos pulsables
     private static final Rectangle ARR_RECTS[] = {
         new Rectangle(new Point(389,234), new Dimension(165,46)), //Botones del menú principal
@@ -84,7 +97,7 @@ public class ControlFlujo {
                 switch(evento) {
                     //Nada más arrancar el programa
                     case NULO:
-                        new Menu(ventana,raton,this,0, ARR_RECTS);
+                        new Menu(ventana,raton,this,0, rectsMenu);
                         break;
                     
                     //Empezar el juego
@@ -118,7 +131,7 @@ public class ControlFlujo {
                     case NULO:
                         panel.setModo(GameMode.OPCION);
                         
-                        new Menu(ventana,raton,this,1, ARR_RECTS);
+                        new Menu(ventana,raton,this,1, rectsMenu);
                         break;
                         
                     //Volver al menú principal

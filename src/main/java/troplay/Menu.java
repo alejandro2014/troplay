@@ -1,5 +1,6 @@
 package troplay;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -25,12 +26,8 @@ public class Menu extends troplay.ClaseControladora {
     private ArrayList conjCbxIdioma = new ArrayList();
     private ArrayList conjCbxJugadores = new ArrayList();
     
-    //Control de los gráficos
-    private Point[] coords = null;
-    
     //Control de colisiones
     private boolean ratonPulsado = false;
-    //private int xRaton = 0, yRaton = 0;
 	private Point coordsRaton = new Point();
     private String tipoColision = "";
     private int indiceColision = 0;
@@ -52,15 +49,22 @@ public class Menu extends troplay.ClaseControladora {
 		new Point(480,485)  //9
 	};
     
+    private final Rectangle rectsMenu[] = {
+    		new Rectangle(new Point(389,234), new Dimension(165,46)), //Botones del menú principal
+            new Rectangle(new Point(389,303), new Dimension(165,46)),
+            new Rectangle(new Point(389,372), new Dimension(165,46)),
+            new Rectangle(new Point(574,220), new Dimension(165,46)),
+    		new Rectangle(new Point(346,226), new Dimension(19,19)), //Checkboxes del menú
+    	    new Rectangle(new Point(513,225), new Dimension(19,19)),
+    	    new Rectangle(new Point(317,384), new Dimension(19,19)),
+    	    new Rectangle(new Point(476,384), new Dimension(19,19)),
+    	    new Rectangle(new Point(317,484), new Dimension(19,19)),
+    	    new Rectangle(new Point(480,485), new Dimension(19,19))	
+    	};
+    
     public Menu(Ventana vent, Raton raton, ControlFlujo control, int tipoMenu, Rectangle[] rectangles) {
     	boolean valorVerdad = (tipoMenu == 0 ? true : false);
     	
-    	ArrayList conjCbxActual = null;
-        int longBotones = botones.length;
-        int longCbxIdioma = 2;
-        int longCheckBox = checkboxes.length;
-        int i;
-        
         controladora = control;
         idioma = controladora.getIdioma();
         numJugadores = controladora.getNumJugadores();
@@ -68,46 +72,58 @@ public class Menu extends troplay.ClaseControladora {
         ventana = vent;
         panel = ventana.getPanel();
         this.raton = raton;
-        //coords = Const.ARR_COORDS_MENU;
-		coords = ARR_COORDS_MENU;
         
         this.tipoMenu = tipoMenu;
-        
-        //Inicializacion de los botones
-        longBotones = botones.length;
-        
+          
         botones[0] = new Drawable();
-		botones[0].setCoords(coords[0]);
-        botones[0].setRectangulo(rectangles[0]);
+		botones[0].setCoords(new Point(389,234));
+        botones[0].setRectangulo(rectsMenu[0]);
         botones[0].setMostrar(valorVerdad);
         
         botones[1] = new Drawable();
-		botones[1].setCoords(coords[1]);
-        botones[1].setRectangulo(rectangles[1]);
+		botones[1].setCoords(new Point(389,303));
+        botones[1].setRectangulo(rectsMenu[1]);
         botones[1].setMostrar(valorVerdad);
         
         botones[2] = new Drawable();
-		botones[2].setCoords(coords[2]);
-        botones[2].setRectangulo(rectangles[2]);
+		botones[2].setCoords(new Point(389,372));
+        botones[2].setRectangulo(rectsMenu[2]);
         botones[2].setMostrar(valorVerdad);
         
         botones[3] = new Drawable();
-		botones[3].setCoords(coords[3]);
-        botones[3].setRectangulo(rectangles[3]);
+		botones[3].setCoords(new Point(574,220));
+        botones[3].setRectangulo(rectsMenu[3]);
         botones[3].setMostrar(!valorVerdad);
         
-        //Inicializacion de los checkBox
-        for(i = 0; i < longCheckBox; i++) {
-            //Determina el conjunto de checkboxes al que pertenece
-            conjCbxActual = (i < longCbxIdioma ? conjCbxIdioma : conjCbxJugadores);
-            
-            checkboxes[i] = new CheckBox(conjCbxActual);
-			checkboxes[i].setCoords(coords[i + longBotones]);
-            checkboxes[i].setRectangulo(rectangles[i + 6]);
-        }
+        checkboxes[0] = new CheckBox(conjCbxIdioma);
+		checkboxes[0].setCoords(new Point(346,226));
+        checkboxes[0].setRectangulo(rectsMenu[4]);
+        checkboxes[0].setMostrar(!valorVerdad);
         
-        //Activado o desactivado de los elementos en función del tipo de menú
-        for(i = 0; i < longCheckBox; i++) checkboxes[i].setMostrar(!valorVerdad);
+        checkboxes[1] = new CheckBox(conjCbxIdioma);
+		checkboxes[1].setCoords(new Point(513,225));
+        checkboxes[1].setRectangulo(rectsMenu[5]);
+        checkboxes[1].setMostrar(!valorVerdad);
+        
+        checkboxes[2] = new CheckBox(conjCbxJugadores);
+		checkboxes[2].setCoords(new Point(317,384));
+        checkboxes[2].setRectangulo(rectsMenu[6]);
+        checkboxes[2].setMostrar(!valorVerdad);
+        
+        checkboxes[3] = new CheckBox(conjCbxJugadores);
+		checkboxes[3].setCoords(new Point(476,384));
+        checkboxes[3].setRectangulo(rectsMenu[7]);
+        checkboxes[3].setMostrar(!valorVerdad);
+        
+        checkboxes[4] = new CheckBox(conjCbxJugadores);
+		checkboxes[4].setCoords(new Point(317,484));
+        checkboxes[4].setRectangulo(rectsMenu[8]);
+        checkboxes[4].setMostrar(!valorVerdad);
+        
+        checkboxes[5] = new CheckBox(conjCbxJugadores);
+		checkboxes[5].setCoords(new Point(480,485));
+        checkboxes[5].setRectangulo(rectsMenu[9]);
+        checkboxes[5].setMostrar(!valorVerdad);
         
         if(tipoMenu == 1) {
             checkboxes[idioma].setActivado(true);
