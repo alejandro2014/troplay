@@ -60,7 +60,7 @@ public class ConexionJDBC {
     }
 
     public Pregunta obtenerPregunta(int num, int dificultad) throws SQLException {
-        Pregunta  pregunta = new Pregunta(Const.ANCHOPREGUNTA);
+        Pregunta  pregunta = new Pregunta(40);
         int idPregunta=0;
         int contador = 0;
 

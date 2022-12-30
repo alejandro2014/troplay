@@ -88,6 +88,19 @@ public class Juego extends ClaseControladora {
     
     private Rectangle[] rectangles = null;
 	private int questionsBySquare = 3;
+	
+	private final Point[] ARR_COORDS_JUEGO = {
+			new Point(343,543), //0
+			new Point(343,543), //1
+	        new Point(343,543), //2
+			new Point(343,543), //3
+	        new Point(698,67),  //4
+			new Point(746,470), //5
+			new Point(746,512), //6
+			new Point(703,20),  //7
+			new Point(703,50),  //8
+			new Point(703,80)   //9
+		};
     
     public Juego(Panel panel, Raton raton, ControlFlujo control, Rectangle[] rectangles) throws SQLException {
         int i;
@@ -140,7 +153,7 @@ public class Juego extends ClaseControladora {
 		longBotones = botones.length;
         for(int i = 0; i < longBotones; i++) {
             botones[i] = new Drawable();
-            botones[i].setCoords(Const.ARR_COORDS_JUEGO[i+5]);
+            botones[i].setCoords(ARR_COORDS_JUEGO[i+5]);
             botones[i].setMostrar(true);
             botones[i].setRectangulo(rectangles[i+4]);
         }
@@ -149,7 +162,7 @@ public class Juego extends ClaseControladora {
 	private void initCheckboxes() {
 		for(int i = 0; i < 3; i++) {
             checkboxes[i] = new CheckBox(conjCbxActual);
-            checkboxes[i].setCoords(Const.ARR_COORDS_JUEGO[i+7]);
+            checkboxes[i].setCoords(ARR_COORDS_JUEGO[i+7]);
             checkboxes[i].setMostrar(false);
             checkboxes[i].setRectangulo(rectangles[i+7]);
         }
@@ -172,7 +185,7 @@ public class Juego extends ClaseControladora {
 	private Pregunta getCuriosity() throws SQLException {
 		String textCuriosity = consultasJDBC.getTextoCuriosidad();
 		textCuriosity = textCuriosity.substring(textCuriosity.indexOf("?")+1);
-		Pregunta question = new Pregunta(Const.ANCHOCURIOSIDAD);
+		Pregunta question = new Pregunta(44);
 		question.setTextoPregunta(textCuriosity);
 		
 		return question;
@@ -305,7 +318,7 @@ public class Juego extends ClaseControladora {
                         }
                         
                         eventoActual = EVENTO_PARAR;
-                        panel.insActualizacion(11, dado.getValor() - 1, Const.ARR_COORDS_JUEGO[4]);
+                        panel.insActualizacion(11, dado.getValor() - 1, ARR_COORDS_JUEGO[4]);
                         
                         nuevoEstado = ESTADO_AVANZANDO;
                         break;
@@ -313,7 +326,7 @@ public class Juego extends ClaseControladora {
                         int contador = panel.getContadorTimer();
                         
                         if(contador == contadorMas1) {
-                            panel.insActualizacion(11, contador % 6, Const.ARR_COORDS_JUEGO[4]);
+                            panel.insActualizacion(11, contador % 6, ARR_COORDS_JUEGO[4]);
                             contadorMas1++;
                         }
                         
@@ -456,7 +469,7 @@ public class Juego extends ClaseControladora {
         } else if (tipoColision.equals("boton")) {
             if(!cambiadoBoton) {
                 //botones[indiceColision].setPulsado(true);
-                panel.insActualizacion(indiceColision+4,2*idiomaJuego+1, Const.ARR_COORDS_JUEGO[indiceColision+5]);
+                panel.insActualizacion(indiceColision+4,2*idiomaJuego+1, ARR_COORDS_JUEGO[indiceColision+5]);
                 cambiadoBoton = true;
             }
             botonPulsado = indiceColision;
@@ -464,7 +477,7 @@ public class Juego extends ClaseControladora {
     }
     
     public void desencadenarAccion(int numBoton) {
-        panel.insActualizacion(numBoton+4,2*idiomaJuego, Const.ARR_COORDS_JUEGO[numBoton+5]);
+        panel.insActualizacion(numBoton+4,2*idiomaJuego, ARR_COORDS_JUEGO[numBoton+5]);
         cambiadoBoton = false;
         
         switch(numBoton) {

@@ -58,6 +58,32 @@ public class Panel extends JPanel implements ActionListener {
         {"presentacion.png"},{"inicio3.png"},{"tableroc.png"}, //Fondos [22-25]
         {"tablero1.png","tableroN.png"}
     };
+    
+    private final Point[] ARR_COORDS_MENU = {
+    		new Point(389,234), //0
+    		new Point(389,303), //1
+    		new Point(389,372), //2
+    		new Point(574,220), //3
+    		new Point(346,226), //4
+    		new Point(513,225), //5
+    		new Point(317,384), //6
+    		new Point(476,384), //7
+    		new Point(317,484), //8
+    		new Point(480,485)  //9
+    	};
+    
+    private final Point[] ARR_COORDS_JUEGO = {
+    		new Point(343,543), //0
+    		new Point(343,543), //1
+            new Point(343,543), //2
+    		new Point(343,543), //3
+            new Point(698,67),  //4
+    		new Point(746,470), //5
+    		new Point(746,512), //6
+    		new Point(703,20),  //7
+    		new Point(703,50),  //8
+    		new Point(703,80)   //9
+    	};
 	
 	//Diferentes fondos del juego
     public final int FONDOPRES = 22;
@@ -271,11 +297,12 @@ public class Panel extends JPanel implements ActionListener {
         int xBocad = 0,yBocad = 0;
         int arrX[] = new int[3], arrY[] = new int[3];
         int numLineas = preguntaActual.getLineasPreg();
+        int anchoPregunta = 40;
           
         FontMetrics metrics = g.getFontMetrics(fuentePreguntas);
         int longActual = preguntaActual.getTextoPregunta().length();
         int anchoBocad = metrics.stringWidth(preguntaActual.getTextoPregunta().
-                substring(0, (longActual < Const.ANCHOPREGUNTA ? longActual: Const.ANCHOPREGUNTA))) + 20;
+                substring(0, (longActual < anchoPregunta ? longActual: anchoPregunta))) + 20;
         int altoBocad = numLineas*16 + (numLineas-1)*7 + 20;
         int desplaz = 50;
           
@@ -363,12 +390,13 @@ public class Panel extends JPanel implements ActionListener {
         FontMetrics metrica = null;
         Font fuente = null;
         int tipoFuente = -1;
+        int anchoPregunta = 40;
           
         //Escribe todas las cadenas que forman parte de la pregunta
         desp0 = despX = x;
         lineaActual = 0;
           
-        quedan = Const.ANCHOPREGUNTA;
+        quedan = anchoPregunta;
         for(int i = 0; i < numCadenas; i++) {
             cadenaActual = (String)trozosCadena.get(i);
             tipoFuente = (Integer)tiposCadena.get(i);
@@ -382,7 +410,7 @@ public class Panel extends JPanel implements ActionListener {
                 case 3: y -= 4; break;
             }
             
-            escribirCadena(superf, cadenaActual, y, Const.ANCHOPREGUNTA, metrica);
+            escribirCadena(superf, cadenaActual, y, anchoPregunta, metrica);
             
             switch(tipoFuente) {
                 case 2: y -= 4; break;
@@ -427,6 +455,7 @@ public class Panel extends JPanel implements ActionListener {
                         preguntaActual.getLineasResp(2);
         int[] arrDesplaz = {4,3,3,2,2,1,1,0,0,-1};
         int tipoFuente = -1;
+        int anchoRespuesta = 28;
         
         lineaActual = 0;
           
@@ -444,7 +473,7 @@ public class Panel extends JPanel implements ActionListener {
             trozosCadena = preguntaActual.getTrozosCadena(respActual + 1);
             tiposCadena = preguntaActual.getTiposCadena(respActual + 1);
             numCadenas = preguntaActual.getNumTrozosCadena(trozosCadena);
-            quedan = Const.ANCHORESPUESTA;
+            quedan = anchoRespuesta;
           
             //Escribe todas las cadenas que forman parte de la respuesta
             desp0 = despX = 726;
@@ -461,7 +490,7 @@ public class Panel extends JPanel implements ActionListener {
                     case 3: despVr -= 4; break;
                 }
             
-                escribirCadena(superf, cadenaActual, despVr, Const.ANCHORESPUESTA, metrica);
+                escribirCadena(superf, cadenaActual, despVr, anchoRespuesta, metrica);
                 
                 switch(tipoFuente) {
                     case 2: despVr -= 4; break;
@@ -474,8 +503,6 @@ public class Panel extends JPanel implements ActionListener {
     }
    
     public void setModo(GameMode modo) {
-        //tipoDibujo = modo;
-        
         switch(modo) {
             case PRESEN: //Presentación
                 bufferActual = bufferMenu;
@@ -484,21 +511,21 @@ public class Panel extends JPanel implements ActionListener {
             case MENU: //Menú principal
                 bufferActual = bufferMenu;
                     
-                insActualizacion(0,2*idiomaJuego,Const.ARR_COORDS_MENU[0]); //Botones
-                insActualizacion(1,2*idiomaJuego,Const.ARR_COORDS_MENU[1]);
-                insActualizacion(2,2*idiomaJuego,Const.ARR_COORDS_MENU[2]);
+                insActualizacion(0,2*idiomaJuego, ARR_COORDS_MENU[0]); //Botones
+                insActualizacion(1,2*idiomaJuego, ARR_COORDS_MENU[1]);
+                insActualizacion(2,2*idiomaJuego, ARR_COORDS_MENU[2]);
                 break;
                 
             case OPCION: //Menú de opciones
                 bufferActual = bufferOpciones;
                 
-                insActualizacion(3,0,Const.ARR_COORDS_MENU[3]); //Boton volver
-                insActualizacion(6,1,Const.ARR_COORDS_MENU[4]); //Checkboxes idioma
-                insActualizacion(6,0,Const.ARR_COORDS_MENU[5]);
-                insActualizacion(6,1,Const.ARR_COORDS_MENU[6]); //Checkboxes jugadores
-                insActualizacion(6,0,Const.ARR_COORDS_MENU[7]);
-                insActualizacion(6,0,Const.ARR_COORDS_MENU[8]);
-                insActualizacion(6,0,Const.ARR_COORDS_MENU[9]);
+                insActualizacion(3,0, ARR_COORDS_MENU[3]); //Boton volver
+                insActualizacion(6,1, ARR_COORDS_MENU[4]); //Checkboxes idioma
+                insActualizacion(6,0, ARR_COORDS_MENU[5]);
+                insActualizacion(6,1, ARR_COORDS_MENU[6]); //Checkboxes jugadores
+                insActualizacion(6,0, ARR_COORDS_MENU[7]);
+                insActualizacion(6,0, ARR_COORDS_MENU[8]);
+                insActualizacion(6,0, ARR_COORDS_MENU[9]);
                 insActualizacion(12,0, ARR_COORDS_OPCIONES[0]); //Letreros
                 insActualizacion(13,0, ARR_COORDS_OPCIONES[1]);
                 insActualizacion(15,0, ARR_COORDS_OPCIONES[3]);
@@ -510,9 +537,9 @@ public class Panel extends JPanel implements ActionListener {
                 
                 insActualizacion(24,0,new Point()); //Marco del tablero
                 insActualizacion(25,(refJuego.getNumJugadores() == 1 ? 0 : 1), new Point(6,6)); //Tablero
-                insActualizacion(11,0,Const.ARR_COORDS_JUEGO[4]);
-                insActualizacion(4,2*idiomaJuego,Const.ARR_COORDS_JUEGO[5]);
-                insActualizacion(5,2*idiomaJuego,Const.ARR_COORDS_JUEGO[6]);
+                insActualizacion(11,0, ARR_COORDS_JUEGO[4]);
+                insActualizacion(4,2*idiomaJuego, ARR_COORDS_JUEGO[5]);
+                insActualizacion(5,2*idiomaJuego, ARR_COORDS_JUEGO[6]);
                 break;
         }
     }
@@ -623,9 +650,9 @@ public class Panel extends JPanel implements ActionListener {
         insActualizacion(12,idiomaJuego, ARR_COORDS_OPCIONES[0]);
         insActualizacion(13,idiomaJuego, ARR_COORDS_OPCIONES[1]);
         insActualizacion(15,idiomaJuego, ARR_COORDS_OPCIONES[3]);
-        insActualizacion(6,(idiomaJuego == 0 ? 1 : 0),Const.ARR_COORDS_MENU[4]);
-        insActualizacion(6,(idiomaJuego == 0 ? 0 : 1),Const.ARR_COORDS_MENU[5]);
-        insActualizacion(3,2*idiomaJuego,Const.ARR_COORDS_MENU[3]);
+        insActualizacion(6,(idiomaJuego == 0 ? 1 : 0), ARR_COORDS_MENU[4]);
+        insActualizacion(6,(idiomaJuego == 0 ? 0 : 1), ARR_COORDS_MENU[5]);
+        insActualizacion(3,2*idiomaJuego, ARR_COORDS_MENU[3]);
     }
     
     public void setNumJugadores(int numJugadores) {this.numJugadores = numJugadores;}

@@ -27,7 +27,7 @@ public class Pregunta extends Drawable {
     private int estado = NORMAL;
     private char caracter;
     private int limiteAnterior = 0;
-    private int ancho = Const.ANCHOPREGUNTA;
+    private int ancho = 40;
     
     public Pregunta(int ancho) {
         this.ancho = ancho;
@@ -51,8 +51,9 @@ public class Pregunta extends Drawable {
     
     public void formatearRespuesta(int numRespuesta) {
         int nuevaLong = respuestas[numRespuesta].length();
-        lineasRespuesta[numRespuesta] = nuevaLong / Const.ANCHORESPUESTA +
-                                        (nuevaLong % Const.ANCHORESPUESTA != 0 ? 1 : 0);
+        int anchoRespuesta = 28;
+        lineasRespuesta[numRespuesta] = nuevaLong / anchoRespuesta +
+                                        (nuevaLong % anchoRespuesta != 0 ? 1 : 0);
         formateo(respuestas[numRespuesta], trozosRespuesta[numRespuesta], tiposRespuesta[numRespuesta]);
     }
     
