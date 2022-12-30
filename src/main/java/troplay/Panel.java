@@ -144,7 +144,10 @@ public class Panel extends JPanel implements ActionListener {
     private String cadenaEstado = "";
     private Timer timer = null;
     
-    private int idiomaJuego = Const.ESPAÑOL;
+    private final int ESPAÑOL = 0;
+    private final int INGLES = 1;
+    
+    private int idiomaJuego = ESPAÑOL;
     private int contadorTimer = 0;
     
     private LinkedList colaActualizar = new LinkedList();

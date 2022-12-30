@@ -16,7 +16,11 @@ public class Juego extends ClaseControladora {
 	private static final int NUMCASIDIFICIL = 23;
     
 	private static final int MAX_JUGADORES = 4;
-    private int idiomaJuego = Const.ESPAÑOL;
+	
+	private final int ESPAÑOL = 0;
+    private final int INGLES = 1;
+    
+    private int idiomaJuego = ESPAÑOL;
     private int numJugadores = 1;
     
     private int casillaActual = 0;
@@ -269,8 +273,8 @@ public class Juego extends ClaseControladora {
                     //Acierta la pregunta
                     case EVENTO_ACIERTO:
                         switch(idiomaJuego) {
-                            case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " acierta"); break;
-                            case Const.INGLES: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " is right"); break;
+                            case ESPAÑOL: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " acierta"); break;
+                            case INGLES: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " is right"); break;
                         }
                         
                         panel.setPregunta(null);
@@ -284,8 +288,8 @@ public class Juego extends ClaseControladora {
                     //Falla la pregunta
                     case EVENTO_FALLO:
                         switch(idiomaJuego) {
-                            case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " falla"); break;
-                            case Const.INGLES: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " fails"); break;
+                            case ESPAÑOL: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " falla"); break;
+                            case INGLES: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " fails"); break;
                         }
                         
                         panel.setPregunta(null);
@@ -312,8 +316,8 @@ public class Juego extends ClaseControladora {
                             jugadores[jugadorActual].setPuedoTirar(false);
                             
                             switch(idiomaJuego) {
-                                case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " frena"); break;
-                                case Const.INGLES: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " brakes"); break;
+                                case ESPAÑOL: panel.setCadenaEstado("Jugador " + (jugadorActual + 1) + " frena"); break;
+                                case INGLES: panel.setCadenaEstado("Player " + (jugadorActual + 1) + " brakes"); break;
                             }
                         }
                         
@@ -530,8 +534,8 @@ public class Juego extends ClaseControladora {
         for(int i=0; i<numJugadores && jugadorGanador == -1; i++) {
             if(jugadores[i].getCasilla() == (this.squaresNo - 1)) {
                 switch(idiomaJuego) {
-                    case Const.ESPAÑOL: panel.setCadenaEstado("Jugador " + (i+1) + " gana"); break;
-                    case Const.INGLES: panel.setCadenaEstado("Player " + (i+1) + " wins"); break;
+                    case ESPAÑOL: panel.setCadenaEstado("Jugador " + (i+1) + " gana"); break;
+                    case INGLES: panel.setCadenaEstado("Player " + (i+1) + " wins"); break;
                 }
                 jugadorGanador = i;
                 break;

@@ -42,7 +42,10 @@ public class ControlFlujo {
     private int estadoActual = ESTADO_PRESENTACION;
     private GameEvent eventoEntrada = GameEvent.NULO;
     
-    private int idiomaJuego = Const.ESPAÑOL;
+    private final int ESPAÑOL = 0;
+    private final int INGLES = 1;
+    
+    private int idiomaJuego = ESPAÑOL;
     private int numJugadores = 1;
     private int nuevoEstado;
     private Panel panel = null;
