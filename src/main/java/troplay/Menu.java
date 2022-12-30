@@ -49,20 +49,7 @@ public class Menu extends troplay.ClaseControladora {
 		new Point(480,485)  //9
 	};
     
-    private final Rectangle rectsMenu[] = {
-    		new Rectangle(new Point(389,234), new Dimension(165,46)), //Botones del menú principal
-            new Rectangle(new Point(389,303), new Dimension(165,46)),
-            new Rectangle(new Point(389,372), new Dimension(165,46)),
-            new Rectangle(new Point(574,220), new Dimension(165,46)),
-    		new Rectangle(new Point(346,226), new Dimension(19,19)), //Checkboxes del menú
-    	    new Rectangle(new Point(513,225), new Dimension(19,19)),
-    	    new Rectangle(new Point(317,384), new Dimension(19,19)),
-    	    new Rectangle(new Point(476,384), new Dimension(19,19)),
-    	    new Rectangle(new Point(317,484), new Dimension(19,19)),
-    	    new Rectangle(new Point(480,485), new Dimension(19,19))	
-    	};
-    
-    public Menu(Ventana vent, Raton raton, ControlFlujo control, int tipoMenu, Rectangle[] rectangles) {
+    public Menu(Ventana vent, Raton raton, ControlFlujo control, int tipoMenu) {
     	boolean valorVerdad = (tipoMenu == 0 ? true : false);
     	
         controladora = control;
@@ -77,52 +64,52 @@ public class Menu extends troplay.ClaseControladora {
           
         botones[0] = new Drawable();
 		botones[0].setCoords(new Point(389,234));
-        botones[0].setRectangulo(rectsMenu[0]);
+        botones[0].setRectangulo(new Rectangle(new Point(389,234), new Dimension(165,46)));
         botones[0].setMostrar(valorVerdad);
         
         botones[1] = new Drawable();
 		botones[1].setCoords(new Point(389,303));
-        botones[1].setRectangulo(rectsMenu[1]);
+        botones[1].setRectangulo(new Rectangle(new Point(389,303), new Dimension(165,46)));
         botones[1].setMostrar(valorVerdad);
         
         botones[2] = new Drawable();
 		botones[2].setCoords(new Point(389,372));
-        botones[2].setRectangulo(rectsMenu[2]);
+        botones[2].setRectangulo(new Rectangle(new Point(389,372), new Dimension(165,46)));
         botones[2].setMostrar(valorVerdad);
         
         botones[3] = new Drawable();
 		botones[3].setCoords(new Point(574,220));
-        botones[3].setRectangulo(rectsMenu[3]);
+        botones[3].setRectangulo(new Rectangle(new Point(574,220), new Dimension(165,46)));
         botones[3].setMostrar(!valorVerdad);
         
         checkboxes[0] = new CheckBox(conjCbxIdioma);
 		checkboxes[0].setCoords(new Point(346,226));
-        checkboxes[0].setRectangulo(rectsMenu[4]);
+        checkboxes[0].setRectangulo(new Rectangle(new Point(346,226), new Dimension(19,19)));
         checkboxes[0].setMostrar(!valorVerdad);
         
         checkboxes[1] = new CheckBox(conjCbxIdioma);
 		checkboxes[1].setCoords(new Point(513,225));
-        checkboxes[1].setRectangulo(rectsMenu[5]);
+        checkboxes[1].setRectangulo(new Rectangle(new Point(513,225), new Dimension(19,19)));
         checkboxes[1].setMostrar(!valorVerdad);
         
         checkboxes[2] = new CheckBox(conjCbxJugadores);
 		checkboxes[2].setCoords(new Point(317,384));
-        checkboxes[2].setRectangulo(rectsMenu[6]);
+        checkboxes[2].setRectangulo(new Rectangle(new Point(317,384), new Dimension(19,19)));
         checkboxes[2].setMostrar(!valorVerdad);
         
         checkboxes[3] = new CheckBox(conjCbxJugadores);
 		checkboxes[3].setCoords(new Point(476,384));
-        checkboxes[3].setRectangulo(rectsMenu[7]);
+        checkboxes[3].setRectangulo(new Rectangle(new Point(476,384), new Dimension(19,19)));
         checkboxes[3].setMostrar(!valorVerdad);
         
         checkboxes[4] = new CheckBox(conjCbxJugadores);
 		checkboxes[4].setCoords(new Point(317,484));
-        checkboxes[4].setRectangulo(rectsMenu[8]);
+        checkboxes[4].setRectangulo(new Rectangle(new Point(317,484), new Dimension(19,19)));
         checkboxes[4].setMostrar(!valorVerdad);
         
         checkboxes[5] = new CheckBox(conjCbxJugadores);
 		checkboxes[5].setCoords(new Point(480,485));
-        checkboxes[5].setRectangulo(rectsMenu[9]);
+        checkboxes[5].setRectangulo(new Rectangle(new Point(480,485), new Dimension(19,19)));
         checkboxes[5].setMostrar(!valorVerdad);
         
         if(tipoMenu == 1) {
