@@ -53,7 +53,9 @@ public class Menu extends troplay.ClaseControladora {
 	};
     
     public Menu(Ventana vent, Raton raton, ControlFlujo control, int tipoMenu, Rectangle[] rectangles) {
-        ArrayList conjCbxActual = null;
+    	boolean valorVerdad = (tipoMenu == 0 ? true : false);
+    	
+    	ArrayList conjCbxActual = null;
         int longBotones = botones.length;
         int longCbxIdioma = 2;
         int longCheckBox = checkboxes.length;
@@ -73,11 +75,26 @@ public class Menu extends troplay.ClaseControladora {
         
         //Inicializacion de los botones
         longBotones = botones.length;
-        for(i = 0; i < longBotones; i++) {
-            botones[i] = new Drawable();
-			botones[i].setCoords(coords[i]);
-            botones[i].setRectangulo(rectangles[i]);
-        }
+        
+        botones[0] = new Drawable();
+		botones[0].setCoords(coords[0]);
+        botones[0].setRectangulo(rectangles[0]);
+        botones[0].setMostrar(valorVerdad);
+        
+        botones[1] = new Drawable();
+		botones[1].setCoords(coords[1]);
+        botones[1].setRectangulo(rectangles[1]);
+        botones[1].setMostrar(valorVerdad);
+        
+        botones[2] = new Drawable();
+		botones[2].setCoords(coords[2]);
+        botones[2].setRectangulo(rectangles[2]);
+        botones[2].setMostrar(valorVerdad);
+        
+        botones[3] = new Drawable();
+		botones[3].setCoords(coords[3]);
+        botones[3].setRectangulo(rectangles[3]);
+        botones[3].setMostrar(!valorVerdad);
         
         //Inicializacion de los checkBox
         for(i = 0; i < longCheckBox; i++) {
@@ -90,12 +107,6 @@ public class Menu extends troplay.ClaseControladora {
         }
         
         //Activado o desactivado de los elementos en función del tipo de menú
-        boolean valorVerdad = (tipoMenu == 0 ? true : false);
-        
-        botones[0].setMostrar(valorVerdad);
-        botones[1].setMostrar(valorVerdad);
-        botones[2].setMostrar(valorVerdad);
-        botones[3].setMostrar(!valorVerdad);
         for(i = 0; i < longCheckBox; i++) checkboxes[i].setMostrar(!valorVerdad);
         
         if(tipoMenu == 1) {
