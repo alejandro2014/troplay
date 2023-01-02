@@ -27,6 +27,14 @@ public class ControlFlujo {
         new Rectangle(new Point(703,50), new Dimension(19,19)),
         new Rectangle(new Point(703,80), new Dimension(19,19))
 	};
+    
+    private static final Rectangle rectsJuego[] = {
+        new Rectangle(new Point(746,470), new Dimension(133,37)), //Botones del juego
+        new Rectangle(new Point(746,512), new Dimension(133,37)),
+        new Rectangle(new Point(703,20), new Dimension(19,19)), //Checkboxes del juego
+        new Rectangle(new Point(703,50), new Dimension(19,19)),
+        new Rectangle(new Point(703,80), new Dimension(19,19))
+	};
 	
 	//Estados del juego
     public final int ESTADO_MENU = 0;

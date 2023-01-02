@@ -1,6 +1,6 @@
 package troplay;
 
-class ControlPresentacion extends troplay.ClaseControladora {
+class ControlPresentacion extends ClaseControladora {
     private boolean acabar = false;
     private int contador = 0;
     private Panel panel = null;
@@ -16,9 +16,7 @@ class ControlPresentacion extends troplay.ClaseControladora {
         contadorFinal = contadorInicial + 60;
         while (!acabar) {
             acabar = finalBucle();
-            try {
-                Thread.sleep(70);
-            } catch (InterruptedException ex) {}
+            this.sleep();
         }
     }
     
@@ -28,4 +26,12 @@ class ControlPresentacion extends troplay.ClaseControladora {
     }
 
     public void controlEntrada() {}
+    
+    private void sleep() {
+    	try {
+            Thread.sleep(70);
+        } catch (InterruptedException ex) {
+        	
+        }
+    }
 }

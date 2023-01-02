@@ -32,31 +32,31 @@ public class Panel extends JPanel implements ActionListener {
 	
 	//Array con los nombres de los gráficos del juego
     public static final String[][] ARR_GRAFS = {
-        {"espBotonEmpezar1.png","espBotonEmpezar2.png","ingBotonEmpezar1.png","ingBotonEmpezar2.png"}, //Botones del menú [0-3]
-        {"espBotonOpciones1.png","espBotonOpciones2.png","ingBotonOpciones1.png","ingBotonOpciones2.png"},
-        {"espBotonSalir1.png","espBotonSalir2.png","ingBotonSalir1.png","ingBotonSalir2.png"},
-        {"espVolverMenu1.png","espVolverMenu2.png","ingVolverMenu1.png","ingVolverMenu2.png"},
+        {"espBotonEmpezar1","espBotonEmpezar2","ingBotonEmpezar1","ingBotonEmpezar2"}, //Botones del menú [0-3]
+        {"espBotonOpciones1","espBotonOpciones2","ingBotonOpciones1","ingBotonOpciones2"},
+        {"espBotonSalir1","espBotonSalir2","ingBotonSalir1","ingBotonSalir2"},
+        {"espVolverMenu1","espVolverMenu2","ingVolverMenu1","ingVolverMenu2"},
 
-        {"espBotonRespon1.png","espBotonRespon2.png","ingBotonRespon1.png","ingBotonRespon2.png"}, //Botones del juego [4-5]
-        {"espBotonVolver1.png","espBotonVolver2.png","ingBotonVolver1.png","ingBotonVolver2.png"},
-        {"checkBoxNo.png","checkBoxSi.png"}, //CheckBoxes [6]
+        {"espBotonRespon1","espBotonRespon2","ingBotonRespon1","ingBotonRespon2"}, //Botones del juego [4-5]
+        {"espBotonVolver1","espBotonVolver2","ingBotonVolver1","ingBotonVolver2"},
+        {"checkBoxNo","checkBoxSi"}, //CheckBoxes [6]
 
-        {"jugador1.png"},{"jugador2.png"},{"jugador3.png"},{"jugador4.png"}, //Elementos propios de la partida en sí [7-11]
-        {"dado1.png","dado2.png","dado3.png","dado4.png","dado5.png","dado6.png"},
+        {"jugador1"},{"jugador2"},{"jugador3"},{"jugador4"}, //Elementos propios de la partida en sí [7-11]
+        {"dado1","dado2","dado3","dado4","dado5","dado6"},
 
         //Letreros fijos del menú de opciones [12-15]
-        {"espTituloIdioma.png","ingTituloIdioma.png"}, {"espTituloJugadores.png","ingTituloJugadores.png"},
-        {"espTituloConexion.png","ingTituloConexion.png"}, {"espTituloOpciones.png","ingTituloOpciones.png"},
+        {"espTituloIdioma","ingTituloIdioma"}, {"espTituloJugadores","ingTituloJugadores"},
+        {"espTituloConexion","ingTituloConexion"}, {"espTituloOpciones","ingTituloOpciones"},
 
-        {"jug11.png","jug12.png","jug13.png","jug14.png","jug15.png"}, //Indicadores del jugador actual [16-19]
-        {"jug21.png","jug22.png","jug23.png","jug24.png","jug25.png"},
-        {"jug31.png","jug32.png","jug33.png","jug34.png","jug35.png"},
-        {"jug41.png","jug42.png","jug43.png","jug44.png","jug45.png"},
+        {"jug11","jug12","jug13","jug14","jug15"}, //Indicadores del jugador actual [16-19]
+        {"jug21","jug22","jug23","jug24","jug25"},
+        {"jug31","jug32","jug33","jug34","jug35"},
+        {"jug41","jug42","jug43","jug44","jug45"},
 
-        {"fondoSabias.png"},{"sabiasEsp.png","sabiasIng.png"}, //Otros elementos del juego [20-21]
+        {"fondoSabias"},{"sabiasEsp","sabiasIng"}, //Otros elementos del juego [20-21]
 
-        {"presentacion.png"},{"inicio3.png"},{"tableroc.png"}, //Fondos [22-25]
-        {"tablero1.png","tableroN.png"}
+        {"presentacion"},{"inicio3"},{"tableroc"}, //Fondos [22-25]
+        {"tablero1","tableroN"}
     };
     
     private final Point[] ARR_COORDS_MENU = {
@@ -295,10 +295,24 @@ public class Panel extends JPanel implements ActionListener {
       
     public void dibujarPregunta(Graphics2D g) {
         Casilla casillaActual = refJuego.getCasillaActual();
-        int casx = casillaActual.getX() + 4;
-        int casy = casillaActual.getY() + 24;
-        int xBocad = 0,yBocad = 0;
-        int arrX[] = new int[3], arrY[] = new int[3];
+        int offsetX = 4;
+        int offsetY = 24;
+        
+        //int casx = casillaActual.getX() + offsetX;
+        //int casy = casillaActual.getY() + offsetY;
+        
+        Point cas = new Point(
+        	casillaActual.getX() + offsetX,
+        	casillaActual.getY() + offsetY
+        );
+        
+        //int xBocad = 0;
+        //int yBocad = 0;
+        Point coordsBocad = new Point(0, 0);
+        
+        int arrX[] = new int[3];
+        int arrY[] = new int[3];
+        
         int numLineas = preguntaActual.getLineasPreg();
         int anchoPregunta = 40;
           
@@ -309,7 +323,9 @@ public class Panel extends JPanel implements ActionListener {
         int altoBocad = numLineas*16 + (numLineas-1)*7 + 20;
         int desplaz = 50;
           
-        arrX[2] = casx; arrY[2] = casy;
+        arrX[2] = cas.x;
+        arrY[2] = cas.y;
+        
         posicionBocad = casillaActual.getPosicionBocad();
           
         this.setFont(fuentePreguntas);
@@ -317,55 +333,103 @@ public class Panel extends JPanel implements ActionListener {
         //Las constantes indican la posición del bocadillo con respecto a la casilla
         switch(posicionBocad) {
             case ARRIBAIZQ:
-                xBocad = casx - desplaz - anchoBocad; yBocad = casy - desplaz - altoBocad;
-                arrX[0] = xBocad + anchoBocad; arrX[1] = xBocad + 2*anchoBocad/3;
-                arrY[0] = yBocad + 2*altoBocad/3; arrY[1] = yBocad + altoBocad;
+            	coordsBocad = new Point(
+            		cas.x - desplaz - anchoBocad,
+            		cas.y - desplaz - altoBocad
+            	);
+
+                arrX[0] = coordsBocad.x + anchoBocad;
+                arrX[1] = coordsBocad.x + 2*anchoBocad/3;
+                arrY[0] = coordsBocad.y + 2*altoBocad/3;
+                arrY[1] = coordsBocad.y + altoBocad;
                 break;
                   
             case ARRIBADER:
-                xBocad = casx + desplaz; yBocad = casy - desplaz - altoBocad;
-                arrX[0] = xBocad; arrX[1] = xBocad + anchoBocad/3;
-                arrY[0] = yBocad + 2*altoBocad/3; arrY[1] = yBocad + altoBocad;
+            	coordsBocad = new Point(
+            		cas.x + desplaz,
+                    cas.y - desplaz - altoBocad
+            	);
+                
+                arrX[0] = coordsBocad.x;
+                arrX[1] = coordsBocad.x + anchoBocad/3;
+                arrY[0] = coordsBocad.y + 2*altoBocad/3;
+                arrY[1] = coordsBocad.y + altoBocad;
                 break;
                   
             case ABAJODER:
-                xBocad = casx + desplaz; yBocad = casy + desplaz;
-                arrX[0] = xBocad + anchoBocad/3; arrX[1] = xBocad;
-                arrY[0] = yBocad; arrY[1] = yBocad + altoBocad/3;
+            	coordsBocad = new Point(
+            		cas.x + desplaz,
+                    cas.y + desplaz
+            	);
+                
+                arrX[0] = coordsBocad.x + anchoBocad/3;
+                arrX[1] = coordsBocad.x;
+                arrY[0] = coordsBocad.y;
+                arrY[1] = coordsBocad.y + altoBocad/3;
                 break;
               
             case ABAJOIZQ:
-                xBocad = casx - desplaz - anchoBocad; yBocad = casy + desplaz;
-                arrX[0] = xBocad + anchoBocad; arrX[1] = xBocad + 2*anchoBocad/3;
-                arrY[0] = yBocad + altoBocad/3; arrY[1] = yBocad;
+            	coordsBocad = new Point(
+        			cas.x - desplaz - anchoBocad,
+                    cas.y + desplaz
+            	);
+                
+                arrX[0] = coordsBocad.x + anchoBocad;
+                arrX[1] = coordsBocad.x + 2*anchoBocad/3;
+                arrY[0] = coordsBocad.y + altoBocad/3;
+                arrY[1] = coordsBocad.y;
                 break;
                   
             case ARRIBA:
-                xBocad = casx - desplaz; yBocad = casy - desplaz - altoBocad;
-                arrX[0] = xBocad + anchoBocad/3; arrX[1] = xBocad + 2*anchoBocad/3;
-                arrY[0] = yBocad + altoBocad; arrY[1] = yBocad + altoBocad;
+            	coordsBocad = new Point(
+        			cas.x - desplaz,
+                    cas.y - desplaz - altoBocad
+            	);
+                
+                arrX[0] = coordsBocad.x + anchoBocad/3;
+                arrX[1] = coordsBocad.x + 2*anchoBocad/3;
+                arrY[0] = coordsBocad.y + altoBocad;
+                arrY[1] = coordsBocad.y + altoBocad;
                 break;
                   
             case DERECHA:
-                xBocad = casx + desplaz; yBocad = casy - desplaz;
-                arrX[0] = xBocad; arrX[1] = xBocad;
-                arrY[0] = yBocad + altoBocad/3; arrY[1] = yBocad + 2*altoBocad/3;
+            	coordsBocad = new Point(
+        			cas.x + desplaz,
+                    cas.y - desplaz
+            	);
+                
+                arrX[0] = coordsBocad.x;
+                arrX[1] = coordsBocad.x;
+                arrY[0] = coordsBocad.y + altoBocad/3;
+                arrY[1] = coordsBocad.y + 2*altoBocad/3;
                 break;
                   
             case ABAJO:
-                xBocad = casx - desplaz; yBocad = casy + desplaz;
-                arrX[0] = xBocad + anchoBocad/3; arrX[1] = xBocad + 2*anchoBocad/3;
-                arrY[0] = yBocad; arrY[1] = yBocad;
+            	coordsBocad = new Point(
+        			cas.x - desplaz,
+                    cas.y + desplaz
+            	);
+                
+                arrX[0] = coordsBocad.x + anchoBocad/3;
+                arrX[1] = coordsBocad.x + 2*anchoBocad/3;
+                arrY[0] = coordsBocad.y;
+                arrY[1] = coordsBocad.y;
                 break;
                   
             case IZQUIERDA:
-                xBocad = casx - desplaz - anchoBocad; yBocad = casy - desplaz;
-                arrX[0] = xBocad + anchoBocad; arrX[1] = xBocad + anchoBocad;
-                arrY[0] = yBocad + altoBocad/3; arrY[1] = yBocad + 2*altoBocad/3;
+            	coordsBocad = new Point(
+        			cas.x - desplaz - anchoBocad,
+                    cas.y - desplaz
+            	);
+                
+                arrX[0] = coordsBocad.x + anchoBocad;
+                arrX[1] = coordsBocad.x + anchoBocad;
+                arrY[0] = coordsBocad.y + altoBocad/3;
+                arrY[1] = coordsBocad.y + 2*altoBocad/3;
                 break;
         }
           
-        RoundRectangle2D rectangulo = new RoundRectangle2D.Double(xBocad,yBocad,anchoBocad,altoBocad,10,10);
+        RoundRectangle2D rectangulo = new RoundRectangle2D.Double(coordsBocad.x, coordsBocad.y, anchoBocad, altoBocad, 10, 10);
         Polygon triangulo = new Polygon(arrX,arrY,3);
         Graphics2D superf = (Graphics2D)g;
           
@@ -374,14 +438,14 @@ public class Panel extends JPanel implements ActionListener {
         superf.fill(rectangulo);
         superf.setColor(NEGRO);
         superf.draw(rectangulo);
-          
+        
         superf.setColor(BLANCO);
         superf.fill(triangulo);
         superf.setColor(NEGRO);
         superf.drawLine(arrX[0],arrY[0],arrX[2],arrY[2]);
         superf.drawLine(arrX[1],arrY[1],arrX[2],arrY[2]);
           
-        escribirPregunta(superf, xBocad + 10, yBocad + 25);
+        escribirPregunta(superf, coordsBocad.x + 10, coordsBocad.y + 25);
         escribirRespuestas(superf);
     }
    
@@ -576,15 +640,14 @@ public class Panel extends JPanel implements ActionListener {
           
         arrayGraficos = new BufferedImage[longitud][0];
           
-        System.out.println("Working Directory = " +
-              System.getProperty("user.dir"));
         try {
             for(i = 0; i < longitud; i++) {
                 longitudSub = arrGrafs[i].length;
                 arrayGraficos[i] = new BufferedImage[longitudSub];
             
                 for(j = 0; j < longitudSub; j++) {
-                    arrayGraficos[i][j] = ImageIO.read(new File(graphicsDir + arrGrafs[i][j]));
+                	String filePath = graphicsDir + arrGrafs[i][j] + ".png";
+                    arrayGraficos[i][j] = ImageIO.read(new File(filePath));
                     direct = graphicsDir + arrGrafs[i][j];
 				}
             }
@@ -607,8 +670,10 @@ public class Panel extends JPanel implements ActionListener {
           
         for(int i=0; i<longitudArray; i++) {
             longitudElem = arrayGraficos[i].length;
-            for(int j = 0; j < longitudElem; j++)
+            
+            for(int j = 0; j < longitudElem; j++) {
                 arrayGraficos[i][j] = null;
+            }
             
             arrayGraficos[i] = null;
         }
@@ -629,18 +694,21 @@ public class Panel extends JPanel implements ActionListener {
         Graphics2D g = (Graphics2D) bufferActual.getGraphics();
         BufferedImage trozo = arrayGraficos[24][0].getSubimage(748, 55, 192, 57);
         
-        if(!cadena.equals(cadenaEstado)) {
-            
-            cadenaEstado = cadena;
-            g.drawImage(trozo, 748, 55, null);
-        
-            if(cadenaEstado.length() != 0) {
-                g.setColor(AMARILLO); 
-                g.setFont(fuenteEstado);
-                g.drawString(cadenaEstado, 754, 88);
-                g.setColor(NEGRO);
-            }
+        if(cadena.equals(cadenaEstado)) {
+        	return;
         }
+            
+        cadenaEstado = cadena;
+        g.drawImage(trozo, 748, 55, null);
+    
+        if(cadenaEstado.length() == 0) {
+        	return;
+        }
+        
+        g.setColor(AMARILLO); 
+        g.setFont(fuenteEstado);
+        g.drawString(cadenaEstado, 754, 88);
+        g.setColor(NEGRO);
     }
     
     public void setCuriosidad(Pregunta pregCuriosidad) {this.pregCuriosidad = pregCuriosidad;}
