@@ -17,6 +17,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -298,20 +299,13 @@ public class Panel extends JPanel implements ActionListener {
         int offsetX = 4;
         int offsetY = 24;
         
-        //int casx = casillaActual.getX() + offsetX;
-        //int casy = casillaActual.getY() + offsetY;
-        
         Point cas = new Point(
         	casillaActual.getX() + offsetX,
         	casillaActual.getY() + offsetY
         );
         
-        //int xBocad = 0;
-        //int yBocad = 0;
         Point coordsBocad = new Point(0, 0);
-        
-        int arrX[] = new int[3];
-        int arrY[] = new int[3];
+        Point triangleVertices[] = new Point[3];
         
         int numLineas = preguntaActual.getLineasPreg();
         int anchoPregunta = 40;
@@ -322,9 +316,8 @@ public class Panel extends JPanel implements ActionListener {
                 substring(0, (longActual < anchoPregunta ? longActual: anchoPregunta))) + 20;
         int altoBocad = numLineas*16 + (numLineas-1)*7 + 20;
         int desplaz = 50;
-          
-        arrX[2] = cas.x;
-        arrY[2] = cas.y;
+        
+        triangleVertices[2] = cas;
         
         posicionBocad = casillaActual.getPosicionBocad();
           
@@ -338,10 +331,17 @@ public class Panel extends JPanel implements ActionListener {
             		cas.y - desplaz - altoBocad
             	);
 
-                arrX[0] = coordsBocad.x + anchoBocad;
-                arrX[1] = coordsBocad.x + 2*anchoBocad/3;
-                arrY[0] = coordsBocad.y + 2*altoBocad/3;
-                arrY[1] = coordsBocad.y + altoBocad;
+            	triangleVertices[0] = new Point(
+            		coordsBocad.x + anchoBocad,
+            		coordsBocad.y + 2*altoBocad/3
+            	);
+                
+    
+            	triangleVertices[1] = new Point(
+        			coordsBocad.x + 2*anchoBocad/3,
+                    coordsBocad.y + altoBocad
+            	);
+                
                 break;
                   
             case ARRIBADER:
@@ -350,10 +350,15 @@ public class Panel extends JPanel implements ActionListener {
                     cas.y - desplaz - altoBocad
             	);
                 
-                arrX[0] = coordsBocad.x;
-                arrX[1] = coordsBocad.x + anchoBocad/3;
-                arrY[0] = coordsBocad.y + 2*altoBocad/3;
-                arrY[1] = coordsBocad.y + altoBocad;
+            	triangleVertices[0] = new Point(
+        			coordsBocad.x,
+                    coordsBocad.y + 2*altoBocad/3
+            	);
+                
+                triangleVertices[1] = new Point(
+            		coordsBocad.x + anchoBocad/3,
+                    coordsBocad.y + altoBocad
+            	);
                 break;
                   
             case ABAJODER:
@@ -362,10 +367,15 @@ public class Panel extends JPanel implements ActionListener {
                     cas.y + desplaz
             	);
                 
-                arrX[0] = coordsBocad.x + anchoBocad/3;
-                arrX[1] = coordsBocad.x;
-                arrY[0] = coordsBocad.y;
-                arrY[1] = coordsBocad.y + altoBocad/3;
+            	triangleVertices[0] = new Point(
+        			coordsBocad.x + anchoBocad/3,
+                    coordsBocad.y
+            	);
+                
+                triangleVertices[1] = new Point(
+            		coordsBocad.x,
+                    coordsBocad.y + altoBocad/3
+            	);
                 break;
               
             case ABAJOIZQ:
@@ -374,10 +384,15 @@ public class Panel extends JPanel implements ActionListener {
                     cas.y + desplaz
             	);
                 
-                arrX[0] = coordsBocad.x + anchoBocad;
-                arrX[1] = coordsBocad.x + 2*anchoBocad/3;
-                arrY[0] = coordsBocad.y + altoBocad/3;
-                arrY[1] = coordsBocad.y;
+            	triangleVertices[0] = new Point(
+        			coordsBocad.x + anchoBocad,
+                    coordsBocad.y + altoBocad/3
+            	);
+                
+                triangleVertices[1] = new Point(
+            		coordsBocad.x + 2*anchoBocad/3,
+                    coordsBocad.y
+            	);
                 break;
                   
             case ARRIBA:
@@ -386,10 +401,16 @@ public class Panel extends JPanel implements ActionListener {
                     cas.y - desplaz - altoBocad
             	);
                 
-                arrX[0] = coordsBocad.x + anchoBocad/3;
-                arrX[1] = coordsBocad.x + 2*anchoBocad/3;
-                arrY[0] = coordsBocad.y + altoBocad;
-                arrY[1] = coordsBocad.y + altoBocad;
+            	triangleVertices[0] = new Point(
+        			coordsBocad.x + anchoBocad/3,
+                    coordsBocad.y + altoBocad
+            	);
+                
+                triangleVertices[1] = new Point(
+            		coordsBocad.x + 2*anchoBocad/3,
+                    coordsBocad.y + altoBocad
+            	);
+                
                 break;
                   
             case DERECHA:
@@ -398,10 +419,15 @@ public class Panel extends JPanel implements ActionListener {
                     cas.y - desplaz
             	);
                 
-                arrX[0] = coordsBocad.x;
-                arrX[1] = coordsBocad.x;
-                arrY[0] = coordsBocad.y + altoBocad/3;
-                arrY[1] = coordsBocad.y + 2*altoBocad/3;
+            	triangleVertices[0] = new Point(
+        			coordsBocad.x,
+                    coordsBocad.y + altoBocad/3
+            	);
+                
+                triangleVertices[1] = new Point(
+            		coordsBocad.x,
+                    coordsBocad.y + 2*altoBocad/3
+            	);
                 break;
                   
             case ABAJO:
@@ -410,10 +436,15 @@ public class Panel extends JPanel implements ActionListener {
                     cas.y + desplaz
             	);
                 
-                arrX[0] = coordsBocad.x + anchoBocad/3;
-                arrX[1] = coordsBocad.x + 2*anchoBocad/3;
-                arrY[0] = coordsBocad.y;
-                arrY[1] = coordsBocad.y;
+            	triangleVertices[0] = new Point(
+        			coordsBocad.x + anchoBocad/3,
+                    coordsBocad.y
+            	);
+                
+                triangleVertices[1] = new Point(
+            		coordsBocad.x + 2*anchoBocad/3,
+                    coordsBocad.y
+            	);
                 break;
                   
             case IZQUIERDA:
@@ -422,14 +453,22 @@ public class Panel extends JPanel implements ActionListener {
                     cas.y - desplaz
             	);
                 
-                arrX[0] = coordsBocad.x + anchoBocad;
-                arrX[1] = coordsBocad.x + anchoBocad;
-                arrY[0] = coordsBocad.y + altoBocad/3;
-                arrY[1] = coordsBocad.y + 2*altoBocad/3;
+            	triangleVertices[0] = new Point(
+        			coordsBocad.x + anchoBocad,
+                    coordsBocad.y + altoBocad/3
+            	);
+                
+                triangleVertices[1] = new Point(
+            		coordsBocad.x + anchoBocad,
+                    coordsBocad.y + 2*altoBocad/3
+            	);
+                
                 break;
         }
           
         RoundRectangle2D rectangulo = new RoundRectangle2D.Double(coordsBocad.x, coordsBocad.y, anchoBocad, altoBocad, 10, 10);
+        int arrX[] = Arrays.stream(triangleVertices).mapToInt(t -> t.x).toArray();
+        int arrY[] = Arrays.stream(triangleVertices).mapToInt(t -> t.y).toArray();
         Polygon triangulo = new Polygon(arrX,arrY,3);
         Graphics2D superf = (Graphics2D)g;
           
