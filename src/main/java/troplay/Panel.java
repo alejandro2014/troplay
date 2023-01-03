@@ -19,6 +19,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -328,7 +330,7 @@ public class Panel extends JPanel implements ActionListener {
         switch(posicionBocad) {
 	        case ARRIBAIZQ:
 	        	triangleVertices[0] = new Point(width, h2Triangle);
-	        	triangleVertices[1] = new Point(w2Triangle, height);
+	            triangleVertices[1] = new Point(w1Triangle, height);
 	            break;
 	              
 	        case ARRIBADER:
