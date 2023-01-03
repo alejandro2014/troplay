@@ -300,8 +300,6 @@ public class Panel extends JPanel implements ActionListener {
         int offsetY = 24;
         
         var cas = new Point(casillaActual.getX() + offsetX, casillaActual.getY() + offsetY);
-        var coords = new Point(0, 0);
-        Point triangleVertices[] = new Point[3];
         
         int numLineas = preguntaActual.getLineasPreg();
         int anchoPregunta = 40;
@@ -314,64 +312,66 @@ public class Panel extends JPanel implements ActionListener {
         int desplaz = 50;
         
         int posicionBocad = casillaActual.getPosicionBocad();
+        Point coords = this.getBalloonCoords(posicionBocad, desplaz, width, height, cas);
+        Point triangleVertices[] = this.getTriangleVertices(posicionBocad, width, height, coords, cas);
         
-        int h1Triangle = height / 3;
+        var superf = (Graphics2D)g;
+        
+        this.writeQuestionBalloon(superf, coords, triangleVertices, width, height);
+        
+        this.setFont(fuentePreguntas);
+        this.escribirPregunta(superf, coords);
+        this.escribirRespuestas(superf);
+    }
+    
+    private Point[] getTriangleVertices(int posicionBocad, int width, int height, Point coords, Point cas) {
+    	Point triangleVertices[] = new Point[3];
+    	int h1Triangle = height / 3;
         int h2Triangle = 2 * height / 3;
         int w1Triangle = width / 3;
         int w2Triangle = 2 * width / 3;
         
         switch(posicionBocad) {
-            case ARRIBAIZQ:
-            	coords = new Point(-desplaz -width, -desplaz -height);
-            	triangleVertices[0] = new Point(width, h2Triangle);
-            	triangleVertices[1] = new Point(w2Triangle, height);
-                break;
-                  
-            case ARRIBADER:
-            	coords = new Point(desplaz, -desplaz -height);
-            	triangleVertices[0] = new Point(0, h2Triangle);
-                triangleVertices[1] = new Point(w1Triangle, height);
-                break;
-                  
-            case ABAJODER:
-            	coords = new Point(desplaz, desplaz);
-            	triangleVertices[0] = new Point(w1Triangle, 0);
-                triangleVertices[1] = new Point(0, h1Triangle);
-                break;
-              
-            case ABAJOIZQ:
-            	coords = new Point(-desplaz -width, desplaz);
-            	triangleVertices[0] = new Point(width, h1Triangle);
-                triangleVertices[1] = new Point(w2Triangle, 0);
-                break;
-                  
-            case ARRIBA:
-            	coords = new Point(-desplaz, -desplaz -height);
-            	triangleVertices[0] = new Point(w1Triangle, height);
-                triangleVertices[1] = new Point(w2Triangle, height);
-                break;
-                  
-            case DERECHA:
-            	coords = new Point(desplaz, -desplaz);
-            	triangleVertices[0] = new Point(0, h1Triangle);
-                triangleVertices[1] = new Point(0, h2Triangle);
-                break;
-                  
-            case ABAJO:
-            	coords = new Point(-desplaz, desplaz);
-            	triangleVertices[0] = new Point(w1Triangle, 0);
-                triangleVertices[1] = new Point(w2Triangle, 0);
-                break;
-                  
-            case IZQUIERDA:
-            	coords = new Point(-desplaz -width, -desplaz);
-            	triangleVertices[0] = new Point(width, h1Triangle);
-                triangleVertices[1] = new Point(width, h2Triangle);
-                break;
-        }
-        
-        coords.x += cas.x;
-        coords.y += cas.y;
+	        case ARRIBAIZQ:
+	        	triangleVertices[0] = new Point(width, h2Triangle);
+	        	triangleVertices[1] = new Point(w2Triangle, height);
+	            break;
+	              
+	        case ARRIBADER:
+	        	triangleVertices[0] = new Point(0, h2Triangle);
+	            triangleVertices[1] = new Point(w1Triangle, height);
+	            break;
+	              
+	        case ABAJODER:
+	        	triangleVertices[0] = new Point(w1Triangle, 0);
+	            triangleVertices[1] = new Point(0, h1Triangle);
+	            break;
+	          
+	        case ABAJOIZQ:
+	        	triangleVertices[0] = new Point(width, h1Triangle);
+	            triangleVertices[1] = new Point(w2Triangle, 0);
+	            break;
+	              
+	        case ARRIBA:
+	        	triangleVertices[0] = new Point(w1Triangle, height);
+	            triangleVertices[1] = new Point(w2Triangle, height);
+	            break;
+	              
+	        case DERECHA:
+	        	triangleVertices[0] = new Point(0, h1Triangle);
+	            triangleVertices[1] = new Point(0, h2Triangle);
+	            break;
+	              
+	        case ABAJO:
+	        	triangleVertices[0] = new Point(w1Triangle, 0);
+	            triangleVertices[1] = new Point(w2Triangle, 0);
+	            break;
+	              
+	        case IZQUIERDA:
+	        	triangleVertices[0] = new Point(width, h1Triangle);
+	            triangleVertices[1] = new Point(width, h2Triangle);
+	            break;
+	    }
         
         triangleVertices[0].x += coords.x;
         triangleVertices[0].y += coords.y;
@@ -379,16 +379,28 @@ public class Panel extends JPanel implements ActionListener {
         triangleVertices[1].y += coords.y;
         
         triangleVertices[2] = cas;
-
-          
-        this.setFont(fuentePreguntas);
         
-        var superf = (Graphics2D)g;
-        
-        this.writeQuestionBalloon(superf, coords, triangleVertices, width, height);
-        
-        this.escribirPregunta(superf, coords.x + 10, coords.y + 25);
-        this.escribirRespuestas(superf);
+        return triangleVertices;
+    }
+    
+    private Point getBalloonCoords(int posicionBocad, int desplaz, int w, int h, Point cas) {
+    	var coords = new Point();
+    	
+    	switch(posicionBocad) {
+	        case ARRIBAIZQ: coords = new Point(-desplaz -w, -desplaz -h); break;
+	        case ARRIBADER: coords = new Point(desplaz, -desplaz -h); break;
+	        case ABAJODER: coords = new Point(desplaz, desplaz); break;
+	        case ABAJOIZQ: coords = new Point(-desplaz -w, desplaz); break;
+	        case ARRIBA: coords = new Point(-desplaz, -desplaz -h); break;
+	        case DERECHA: coords = new Point(desplaz, -desplaz); break;
+	        case ABAJO: coords = new Point(-desplaz, desplaz); break;                  
+	        case IZQUIERDA: coords = new Point(-desplaz -w, -desplaz); break;
+	    }
+    
+	    coords.x += cas.x;
+	    coords.y += cas.y;
+	    
+	    return coords;
     }
     
     public void writeQuestionBalloon(Graphics2D superf, Point coords, Point[] triangleVertices, int width, int height) {
@@ -417,7 +429,10 @@ public class Panel extends JPanel implements ActionListener {
         superf.drawLine(arrX[1],arrY[1],arrX[2],arrY[2]);
     }
    
-    public void escribirPregunta(Graphics2D superf, int x, int y) {
+    public void escribirPregunta(Graphics2D superf, Point coords) {
+    	coords.x += 10;
+    	coords.y += 25;
+    	
         ArrayList trozosCadena = preguntaActual.getTrozosCadena(0);
         ArrayList tiposCadena = preguntaActual.getTiposCadena(0);
         int numCadenas = preguntaActual.getNumTrozosCadena(trozosCadena);
@@ -428,7 +443,7 @@ public class Panel extends JPanel implements ActionListener {
         int anchoPregunta = 40;
           
         //Escribe todas las cadenas que forman parte de la pregunta
-        desp0 = despX = x;
+        desp0 = despX = coords.x;
         lineaActual = 0;
           
         quedan = anchoPregunta;
@@ -441,15 +456,15 @@ public class Panel extends JPanel implements ActionListener {
             metrica = superf.getFontMetrics(fuente);
             
             switch(tipoFuente) {
-                case 2: y += 4; break;
-                case 3: y -= 4; break;
+                case 2: coords.y += 4; break;
+                case 3: coords.y -= 4; break;
             }
             
-            escribirCadena(superf, cadenaActual, y, anchoPregunta, metrica);
+            escribirCadena(superf, cadenaActual, coords.y, anchoPregunta, metrica);
             
             switch(tipoFuente) {
-                case 2: y -= 4; break;
-                case 3: y += 4; break;
+                case 2: coords.y -= 4; break;
+                case 3: coords.y += 4; break;
             }
         }
     }
