@@ -68,6 +68,10 @@ public class Casilla {
     public int getY() {
 		return coordsRef.y;
 	}
+    
+    public Point getCoords() {
+    	return coordsRef;
+    }
 	
     public int getPosicionBocad() {return posicionBocad;}
     

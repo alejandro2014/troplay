@@ -295,24 +295,18 @@ public class Panel extends JPanel implements ActionListener {
     }
       
     public void dibujarPregunta(Graphics2D g) {
-        Casilla casillaActual = refJuego.getCasillaActual();
-        int offsetX = 4;
-        int offsetY = 24;
-        
-        var cas = new Point(casillaActual.getX() + offsetX, casillaActual.getY() + offsetY);
-        
-        int numLineas = preguntaActual.getLineasPreg();
         int anchoPregunta = 40;
           
         FontMetrics metrics = g.getFontMetrics(fuentePreguntas);
         int longActual = preguntaActual.getTextoPregunta().length();
         int width = metrics.stringWidth(preguntaActual.getTextoPregunta().
                 substring(0, (longActual < anchoPregunta ? longActual: anchoPregunta))) + 20;
-        int height = numLineas*16 + (numLineas-1)*7 + 20;
-        int desplaz = 50;
+        int height = 23 * preguntaActual.getLineasPreg() + 13;
         
+        Casilla casillaActual = refJuego.getCasillaActual();
         int posicionBocad = casillaActual.getPosicionBocad();
-        Point coords = this.getBalloonCoords(posicionBocad, desplaz, width, height, cas);
+        var cas = new Point(casillaActual.getX() + 4, casillaActual.getY() + 24);
+        Point coords = this.getBalloonCoords(posicionBocad, width, height, cas);
         Point triangleVertices[] = this.getTriangleVertices(posicionBocad, width, height, coords, cas);
         
         var superf = (Graphics2D)g;
@@ -383,8 +377,9 @@ public class Panel extends JPanel implements ActionListener {
         return triangleVertices;
     }
     
-    private Point getBalloonCoords(int posicionBocad, int desplaz, int w, int h, Point cas) {
+    private Point getBalloonCoords(int posicionBocad, int w, int h, Point cas) {
     	var coords = new Point();
+    	int desplaz = 50;
     	
     	switch(posicionBocad) {
 	        case ARRIBAIZQ: coords = new Point(-desplaz -w, -desplaz -h); break;
