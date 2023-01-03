@@ -299,12 +299,8 @@ public class Panel extends JPanel implements ActionListener {
         int offsetX = 4;
         int offsetY = 24;
         
-        Point cas = new Point(
-        	casillaActual.getX() + offsetX,
-        	casillaActual.getY() + offsetY
-        );
-        
-        Point coordsBocad = new Point(0, 0);
+        var cas = new Point(casillaActual.getX() + offsetX, casillaActual.getY() + offsetY);
+        var coords = new Point(0, 0);
         Point triangleVertices[] = new Point[3];
         
         int numLineas = preguntaActual.getLineasPreg();
@@ -312,9 +308,9 @@ public class Panel extends JPanel implements ActionListener {
           
         FontMetrics metrics = g.getFontMetrics(fuentePreguntas);
         int longActual = preguntaActual.getTextoPregunta().length();
-        int anchoBocad = metrics.stringWidth(preguntaActual.getTextoPregunta().
+        int width = metrics.stringWidth(preguntaActual.getTextoPregunta().
                 substring(0, (longActual < anchoPregunta ? longActual: anchoPregunta))) + 20;
-        int altoBocad = numLineas*16 + (numLineas-1)*7 + 20;
+        int height = numLineas*16 + (numLineas-1)*7 + 20;
         int desplaz = 50;
         
         triangleVertices[2] = cas;
@@ -326,151 +322,65 @@ public class Panel extends JPanel implements ActionListener {
         //Las constantes indican la posición del bocadillo con respecto a la casilla
         switch(posicionBocad) {
             case ARRIBAIZQ:
-            	coordsBocad = new Point(
-            		cas.x - desplaz - anchoBocad,
-            		cas.y - desplaz - altoBocad
-            	);
-
-            	triangleVertices[0] = new Point(
-            		coordsBocad.x + anchoBocad,
-            		coordsBocad.y + 2*altoBocad/3
-            	);
-                
-    
-            	triangleVertices[1] = new Point(
-        			coordsBocad.x + 2*anchoBocad/3,
-                    coordsBocad.y + altoBocad
-            	);
-                
+            	coords = new Point(cas.x - desplaz - width, cas.y - desplaz - height);
+            	triangleVertices[0] = new Point(width, 2*height/3);
+            	triangleVertices[1] = new Point(2*width/3, height);
                 break;
                   
             case ARRIBADER:
-            	coordsBocad = new Point(
-            		cas.x + desplaz,
-                    cas.y - desplaz - altoBocad
-            	);
-                
-            	triangleVertices[0] = new Point(
-        			coordsBocad.x,
-                    coordsBocad.y + 2*altoBocad/3
-            	);
-                
-                triangleVertices[1] = new Point(
-            		coordsBocad.x + anchoBocad/3,
-                    coordsBocad.y + altoBocad
-            	);
+            	coords = new Point(cas.x + desplaz, cas.y - desplaz - height);
+            	triangleVertices[0] = new Point(0, 2*height/3);
+                triangleVertices[1] = new Point(width/3, height);
                 break;
                   
             case ABAJODER:
-            	coordsBocad = new Point(
-            		cas.x + desplaz,
-                    cas.y + desplaz
-            	);
-                
-            	triangleVertices[0] = new Point(
-        			coordsBocad.x + anchoBocad/3,
-                    coordsBocad.y
-            	);
-                
-                triangleVertices[1] = new Point(
-            		coordsBocad.x,
-                    coordsBocad.y + altoBocad/3
-            	);
+            	coords = new Point(cas.x + desplaz, cas.y + desplaz);
+            	triangleVertices[0] = new Point(width/3, 0);
+                triangleVertices[1] = new Point(0, height/3);
                 break;
               
             case ABAJOIZQ:
-            	coordsBocad = new Point(
-        			cas.x - desplaz - anchoBocad,
-                    cas.y + desplaz
-            	);
-                
-            	triangleVertices[0] = new Point(
-        			coordsBocad.x + anchoBocad,
-                    coordsBocad.y + altoBocad/3
-            	);
-                
-                triangleVertices[1] = new Point(
-            		coordsBocad.x + 2*anchoBocad/3,
-                    coordsBocad.y
-            	);
+            	coords = new Point(cas.x - desplaz - width, cas.y + desplaz);
+            	triangleVertices[0] = new Point(width, height/3);
+                triangleVertices[1] = new Point(2*width/3, 0);
                 break;
                   
             case ARRIBA:
-            	coordsBocad = new Point(
-        			cas.x - desplaz,
-                    cas.y - desplaz - altoBocad
-            	);
-                
-            	triangleVertices[0] = new Point(
-        			coordsBocad.x + anchoBocad/3,
-                    coordsBocad.y + altoBocad
-            	);
-                
-                triangleVertices[1] = new Point(
-            		coordsBocad.x + 2*anchoBocad/3,
-                    coordsBocad.y + altoBocad
-            	);
-                
+            	coords = new Point(cas.x - desplaz, cas.y - desplaz - height);
+            	triangleVertices[0] = new Point(width/3, height);
+                triangleVertices[1] = new Point(2*width/3, height);
                 break;
                   
             case DERECHA:
-            	coordsBocad = new Point(
-        			cas.x + desplaz,
-                    cas.y - desplaz
-            	);
-                
-            	triangleVertices[0] = new Point(
-        			coordsBocad.x,
-                    coordsBocad.y + altoBocad/3
-            	);
-                
-                triangleVertices[1] = new Point(
-            		coordsBocad.x,
-                    coordsBocad.y + 2*altoBocad/3
-            	);
+            	coords = new Point(cas.x + desplaz, cas.y - desplaz);
+            	triangleVertices[0] = new Point(0, height/3);
+                triangleVertices[1] = new Point(0, 2*height/3);
                 break;
                   
             case ABAJO:
-            	coordsBocad = new Point(
-        			cas.x - desplaz,
-                    cas.y + desplaz
-            	);
-                
-            	triangleVertices[0] = new Point(
-        			coordsBocad.x + anchoBocad/3,
-                    coordsBocad.y
-            	);
-                
-                triangleVertices[1] = new Point(
-            		coordsBocad.x + 2*anchoBocad/3,
-                    coordsBocad.y
-            	);
+            	coords = new Point(cas.x - desplaz, cas.y + desplaz);
+            	triangleVertices[0] = new Point(width/3, 0);
+                triangleVertices[1] = new Point(2*width/3, 0);
                 break;
                   
             case IZQUIERDA:
-            	coordsBocad = new Point(
-        			cas.x - desplaz - anchoBocad,
-                    cas.y - desplaz
-            	);
-                
-            	triangleVertices[0] = new Point(
-        			coordsBocad.x + anchoBocad,
-                    coordsBocad.y + altoBocad/3
-            	);
-                
-                triangleVertices[1] = new Point(
-            		coordsBocad.x + anchoBocad,
-                    coordsBocad.y + 2*altoBocad/3
-            	);
-                
+            	coords = new Point(cas.x - desplaz - width, cas.y - desplaz);
+            	triangleVertices[0] = new Point(width, height/3);
+                triangleVertices[1] = new Point(width, 2*height/3);
                 break;
         }
+        
+        triangleVertices[0].x += coords.x;
+        triangleVertices[0].y += coords.y;
+        triangleVertices[1].x += coords.x;
+        triangleVertices[1].y += coords.y;
+        
           
-        RoundRectangle2D rectangulo = new RoundRectangle2D.Double(coordsBocad.x, coordsBocad.y, anchoBocad, altoBocad, 10, 10);
+        var rectangulo = new RoundRectangle2D.Double(coords.x, coords.y, width, height, 10, 10);
         int arrX[] = Arrays.stream(triangleVertices).mapToInt(t -> t.x).toArray();
         int arrY[] = Arrays.stream(triangleVertices).mapToInt(t -> t.y).toArray();
-        Polygon triangulo = new Polygon(arrX,arrY,3);
-        Graphics2D superf = (Graphics2D)g;
+        var triangulo = new Polygon(arrX,arrY,3);
+        var superf = (Graphics2D)g;
           
         //Dibujado del bocadillo
         superf.setColor(BLANCO);
@@ -484,7 +394,7 @@ public class Panel extends JPanel implements ActionListener {
         superf.drawLine(arrX[0],arrY[0],arrX[2],arrY[2]);
         superf.drawLine(arrX[1],arrY[1],arrX[2],arrY[2]);
           
-        escribirPregunta(superf, coordsBocad.x + 10, coordsBocad.y + 25);
+        escribirPregunta(superf, coords.x + 10, coords.y + 25);
         escribirRespuestas(superf);
     }
    
