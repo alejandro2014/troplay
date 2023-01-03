@@ -313,18 +313,13 @@ public class Panel extends JPanel implements ActionListener {
         int height = numLineas*16 + (numLineas-1)*7 + 20;
         int desplaz = 50;
         
-        triangleVertices[2] = cas;
-        
         int posicionBocad = casillaActual.getPosicionBocad();
-          
-        this.setFont(fuentePreguntas);
         
         int h1Triangle = height / 3;
         int h2Triangle = 2 * height / 3;
         int w1Triangle = width / 3;
         int w2Triangle = 2 * width / 3;
-          
-        //Las constantes indican la posición del bocadillo con respecto a la casilla
+        
         switch(posicionBocad) {
             case ARRIBAIZQ:
             	coords = new Point(-desplaz -width, -desplaz -height);
@@ -383,27 +378,43 @@ public class Panel extends JPanel implements ActionListener {
         triangleVertices[1].x += coords.x;
         triangleVertices[1].y += coords.y;
         
+        triangleVertices[2] = cas;
+
           
-        var rectangulo = new RoundRectangle2D.Double(coords.x, coords.y, width, height, 10, 10);
-        int arrX[] = Arrays.stream(triangleVertices).mapToInt(t -> t.x).toArray();
-        int arrY[] = Arrays.stream(triangleVertices).mapToInt(t -> t.y).toArray();
-        var triangulo = new Polygon(arrX,arrY,3);
+        this.setFont(fuentePreguntas);
+        
         var superf = (Graphics2D)g;
-          
-        //Dibujado del bocadillo
-        superf.setColor(BLANCO);
+        
+        this.writeQuestionBalloon(superf, coords, triangleVertices, width, height);
+        
+        this.escribirPregunta(superf, coords.x + 10, coords.y + 25);
+        this.escribirRespuestas(superf);
+    }
+    
+    public void writeQuestionBalloon(Graphics2D superf, Point coords, Point[] triangleVertices, int width, int height) {
+        this.writeQuestionBalloonRectangle(superf, coords, width, height);
+        this.writeQuestionBalloonTriangle(superf, triangleVertices);
+    }
+    
+    private void writeQuestionBalloonRectangle(Graphics2D superf, Point coords, int width, int height) {
+    	var rectangulo = new RoundRectangle2D.Double(coords.x, coords.y, width, height, 10, 10);
+    	
+    	superf.setColor(BLANCO);
         superf.fill(rectangulo);
         superf.setColor(NEGRO);
         superf.draw(rectangulo);
+    }
+    
+    private void writeQuestionBalloonTriangle(Graphics2D superf, Point[] triangleVertices) {
+    	int arrX[] = Arrays.stream(triangleVertices).mapToInt(t -> t.x).toArray();
+        int arrY[] = Arrays.stream(triangleVertices).mapToInt(t -> t.y).toArray();
+        var triangulo = new Polygon(arrX,arrY,3);
         
         superf.setColor(BLANCO);
         superf.fill(triangulo);
         superf.setColor(NEGRO);
         superf.drawLine(arrX[0],arrY[0],arrX[2],arrY[2]);
         superf.drawLine(arrX[1],arrY[1],arrX[2],arrY[2]);
-          
-        escribirPregunta(superf, coords.x + 10, coords.y + 25);
-        escribirRespuestas(superf);
     }
    
     public void escribirPregunta(Graphics2D superf, int x, int y) {
