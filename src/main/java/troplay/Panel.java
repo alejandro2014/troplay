@@ -118,7 +118,7 @@ public class Panel extends JPanel implements ActionListener {
     private final Color NEGRO = new Color(0,0,0);
     private final Color AMARILLO = new Color(240,240,0);
 
-    private int posicionBocad = ARRIBA;
+    //private int posicionBocad = ARRIBA;
       
     private int numJugadores = 1;
     private int animEstado = -1, despAnim = 1;
@@ -315,60 +315,68 @@ public class Panel extends JPanel implements ActionListener {
         
         triangleVertices[2] = cas;
         
-        posicionBocad = casillaActual.getPosicionBocad();
+        int posicionBocad = casillaActual.getPosicionBocad();
           
         this.setFont(fuentePreguntas);
+        
+        int h1Triangle = height / 3;
+        int h2Triangle = 2 * height / 3;
+        int w1Triangle = width / 3;
+        int w2Triangle = 2 * width / 3;
           
         //Las constantes indican la posición del bocadillo con respecto a la casilla
         switch(posicionBocad) {
             case ARRIBAIZQ:
-            	coords = new Point(cas.x - desplaz - width, cas.y - desplaz - height);
-            	triangleVertices[0] = new Point(width, 2*height/3);
-            	triangleVertices[1] = new Point(2*width/3, height);
+            	coords = new Point(-desplaz -width, -desplaz -height);
+            	triangleVertices[0] = new Point(width, h2Triangle);
+            	triangleVertices[1] = new Point(w2Triangle, height);
                 break;
                   
             case ARRIBADER:
-            	coords = new Point(cas.x + desplaz, cas.y - desplaz - height);
-            	triangleVertices[0] = new Point(0, 2*height/3);
-                triangleVertices[1] = new Point(width/3, height);
+            	coords = new Point(desplaz, -desplaz -height);
+            	triangleVertices[0] = new Point(0, h2Triangle);
+                triangleVertices[1] = new Point(w1Triangle, height);
                 break;
                   
             case ABAJODER:
-            	coords = new Point(cas.x + desplaz, cas.y + desplaz);
-            	triangleVertices[0] = new Point(width/3, 0);
-                triangleVertices[1] = new Point(0, height/3);
+            	coords = new Point(desplaz, desplaz);
+            	triangleVertices[0] = new Point(w1Triangle, 0);
+                triangleVertices[1] = new Point(0, h1Triangle);
                 break;
               
             case ABAJOIZQ:
-            	coords = new Point(cas.x - desplaz - width, cas.y + desplaz);
-            	triangleVertices[0] = new Point(width, height/3);
-                triangleVertices[1] = new Point(2*width/3, 0);
+            	coords = new Point(-desplaz -width, desplaz);
+            	triangleVertices[0] = new Point(width, h1Triangle);
+                triangleVertices[1] = new Point(w2Triangle, 0);
                 break;
                   
             case ARRIBA:
-            	coords = new Point(cas.x - desplaz, cas.y - desplaz - height);
-            	triangleVertices[0] = new Point(width/3, height);
-                triangleVertices[1] = new Point(2*width/3, height);
+            	coords = new Point(-desplaz, -desplaz -height);
+            	triangleVertices[0] = new Point(w1Triangle, height);
+                triangleVertices[1] = new Point(w2Triangle, height);
                 break;
                   
             case DERECHA:
-            	coords = new Point(cas.x + desplaz, cas.y - desplaz);
-            	triangleVertices[0] = new Point(0, height/3);
-                triangleVertices[1] = new Point(0, 2*height/3);
+            	coords = new Point(desplaz, -desplaz);
+            	triangleVertices[0] = new Point(0, h1Triangle);
+                triangleVertices[1] = new Point(0, h2Triangle);
                 break;
                   
             case ABAJO:
-            	coords = new Point(cas.x - desplaz, cas.y + desplaz);
-            	triangleVertices[0] = new Point(width/3, 0);
-                triangleVertices[1] = new Point(2*width/3, 0);
+            	coords = new Point(-desplaz, desplaz);
+            	triangleVertices[0] = new Point(w1Triangle, 0);
+                triangleVertices[1] = new Point(w2Triangle, 0);
                 break;
                   
             case IZQUIERDA:
-            	coords = new Point(cas.x - desplaz - width, cas.y - desplaz);
-            	triangleVertices[0] = new Point(width, height/3);
-                triangleVertices[1] = new Point(width, 2*height/3);
+            	coords = new Point(-desplaz -width, -desplaz);
+            	triangleVertices[0] = new Point(width, h1Triangle);
+                triangleVertices[1] = new Point(width, h2Triangle);
                 break;
         }
+        
+        coords.x += cas.x;
+        coords.y += cas.y;
         
         triangleVertices[0].x += coords.x;
         triangleVertices[0].y += coords.y;
